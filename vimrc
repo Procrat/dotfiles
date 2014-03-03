@@ -6,8 +6,8 @@ call pathogen#infect()
 " }}}
 " Solarized colorscheme settings {{{
 syntax on
-set background=dark
 set t_Co=16
+set background=dark
 let g:solarized_visibility = "high"
 colorscheme solarized
 
@@ -53,7 +53,7 @@ autocmd BufNewFile,BufRead *.py3 set filetype=python
 
 " }}}
 " Remove trailing whitespace {{{
-" Remove trailing whitespace automatically on write when desired (non-binary)
+" Remove automatically on write when desired (non-binary)
 autocmd BufWritePre * call StripTrailingWhitespace()
 function! StripTrailingWhitespace()
     if &l:fileencoding ==? "utf-8"
@@ -96,10 +96,10 @@ au FileType ruby setlocal shiftwidth=2 softtabstop=2
 " Plugin settings {{{
 
 " SuperTab settings {{{
+set completeopt=menuone,longest,preview
 let g:SuperTabDefaultCompletionType = "context"
 " No tabcompletion for Prolog after certain symbols
 au FileType prolog let g:SuperTabNoCompleteAfter = ['^', '\s', ';', '->', '(']
-set completeopt=menuone,longest,preview
 " }}}
 " Rope settings {{{
 let ropevim_vim_completion = 1
@@ -157,18 +157,19 @@ nnoremap s ddko
 " Plugin mappings {{{
 " F7 to open NERDTree
 noremap <F7> :NERDTreeToggle<CR>
-" F8 to open PEP8 quickfix window
-let g:pep8_map='<F8>'
-" F12 to to go the definition of a function/class/...
-noremap <F12> :RopeGotoDefinition<CR>
-" ,r to rename a variable across a file
-noremap <leader>r :RopeRename<CR>
-" Auto-import for Python
-noremap é :RopeAutoImport<CR>
-" Rope AutoImport and OrganizeImport
-nnoremap <leader>o :RopeOrganizeImports<CR>0<CR><CR>
-nnoremap <leader>i :RopeAutoImport<CR>
-" Eclim bindings {{{
+" Python (PEP8, Rope) bindings {{{
+au FileType python call PythonStuff()
+function! PythonBindings()
+    " F8 to open PEP8 quickfix window
+    let g:pep8_map='<F8>'
+    " Rope shortcuts
+    nnoremap <leader>d :RopeGotoDefinition<CR>
+    nnoremap <leader>r :RopeRename<CR>
+    nnoremap <leader>i :RopeAutoImport<CR>
+    nnoremap <leader>o :RopeOrganizeImports<CR>0<CR><CR>
+endfunction
+" }}}
+" Java (Eclim) bindings {{{
 au FileType java call EclimBindings()
 function! EclimBindings()
     nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
@@ -176,53 +177,6 @@ function! EclimBindings()
     nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 endfunction
 " }}}
-" Java auto-import {{{
-noremap <F5> :call JavaInsertImport()<CR>
-function! JavaInsertImport()
-  exe "normal mz"
-  let cur_class = expand("<cword>")
-  try
-    if search('^\s*import\s.*\.' . cur_class . '\s*;') > 0
-      throw getline('.') . ": import already exist!"
-    endif
-    wincmd }
-    wincmd P
-    1
-    if search('^\s*public.*\s\%(class\|interface\)\s\+' . cur_class) > 0
-      1
-      if search('^\s*package\s') > 0
-        yank y
-      else
-        throw "Package definition not found!"
-      endif
-    else
-      throw cur_class . ": class not found!"
-    endif
-    wincmd p
-    normal! G
-    " insert after last import or in first line
-    if search('^\s*import\s', 'b') > 0
-      put y
-    else
-      1
-      put! y
-    endif
-    substitute/^\s*package/import/g
-    substitute/\s\+/ /g
-    exe "normal! 2ER." . cur_class . ";\<Esc>lD"
-  catch /.*/
-    echoerr v:exception
-  finally
-    " wipe preview window (from buffer list)
-    silent! wincmd P
-    if &previewwindow
-      bwipeout
-    endif
-    exe "normal! `z"
-  endtry
-endfunction
-" }}}
-
 
 " }}}
 " Window & tab bindings {{{
