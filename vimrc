@@ -158,7 +158,7 @@ nnoremap s ddko
 " F7 to open NERDTree
 noremap <F7> :NERDTreeToggle<CR>
 " Python (PEP8, Rope) bindings {{{
-au FileType python call PythonStuff()
+au FileType python call PythonBindings()
 function! PythonBindings()
     " F8 to open PEP8 quickfix window
     let g:pep8_map='<F8>'
