@@ -3,7 +3,7 @@
 	email = seghers_stijn@hotmail.com
 
 [core]
-	excludesfile = /home/procrat/.gitignore_global
+	excludesfile = ~/.gitignore_global
 
 [push]
 	default = simple
