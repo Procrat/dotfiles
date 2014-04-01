@@ -7,6 +7,7 @@ call pathogen#infect()
 " Solarized colorscheme settings {{{
 syntax on
 set t_Co=16
+"colorscheme Tomorrow-Night
 set background=dark
 let g:solarized_visibility = "high"
 colorscheme solarized
@@ -31,6 +32,8 @@ set smartcase
 set incsearch
 " Autocompletion
 set wildmenu
+" Ignore in autocompletion (also ignores in Command-T)
+set wildignore=*.o,*.obj,*.pyc,*.class,*.git
 " Mouse interactivity
 set mouse=a
 " Paste mode shortcut
@@ -98,17 +101,18 @@ au FileType ruby setlocal shiftwidth=2 softtabstop=2
 " SuperTab settings {{{
 set completeopt=menuone,longest,preview
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabLongestHighlight = 1
 " No tabcompletion for Prolog after certain symbols
 au FileType prolog let g:SuperTabNoCompleteAfter = ['^', '\s', ';', '->', '(']
 " }}}
-" Rope settings {{{
+" Ropevim settings {{{
+au FileType python setlocal omnifunc=RopeCompleteFunc
 let ropevim_vim_completion = 1
 let ropevim_extended_complete = 1
-let g:ropevim_enable_autoimport = 1
+"let g:ropevim_enable_autoimport = 1
+let g:ropevim_guess_project = "1"
 let g:ropevim_autoimport_modules = ["sys","os.*","traceback","django.*","lxml.etree","lxml.*"]
-imap <C-Space> <C-R>=RopeCodeAssistInsertMode()<CR>
-"" Set autoguessing rope project
-"let g:ropevim_guess_project = "1"
+"imap <C-Space> <C-R>=RopeCodeAssistInsertMode()<CR>
 "let g:ropevim_autoimport_modules = ["base64", "datetime", "gtk", "hashlib", "heapq", "itertools", "locale", "logging", "math", "os", "os.*", "pdb", "pexpect", "pygtk", "random", "re", "sys", "timeit"]
 " }}}
 " Powerline settings {{{
@@ -130,10 +134,17 @@ let delimitMate_expand_cr = 1
 " NERDTree settings {{{
 let NERDTreeIgnore = ['\.pyc$', '\.class$']
 " }}}
+" Command-T settings {{{
+let g:CommandTMatchWindowReverse = 1
+" }}}
 " LaTeX Suite settings {{{
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
 let g:Tex_DefaultTargetFormat = "pdf"
+" }}}
+" Eclim settings {{{
+" Don't show todo markers in margin
+let g:EclimSignLevel = 2
 " }}}
 " TODO: For Play framework {{{
 let g:syntastic_java_checkers=[]
@@ -173,7 +184,9 @@ endfunction
 au FileType java call EclimBindings()
 function! EclimBindings()
     nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
+    nnoremap <silent> <buffer> <leader>o :JavaImportOrganize<CR>
     nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
+    nnoremap <silent> <buffer> <leader><space> :JavaCorrect<cr>
     nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 endfunction
 " }}}
