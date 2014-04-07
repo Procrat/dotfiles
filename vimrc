@@ -79,20 +79,26 @@ set fillchars=fold:.
 
 " }}}
 " Indentation {{{
+"
+" Number of spaces that a Tab respresents
+set tabstop=4
+" Number of spaces for an (auto)indent
+set shiftwidth=4
+" Turn tabs into spaces
+set expandtab
+" When smarttab is on, a <Tab> in front of a line inserts blanks according to
+" 'shiftwidth'.  'tabstop' is used in other places. A <BS> will delete a
+" 'shiftwidth' worth of space at the start of the line.
+set smarttab
+" Copy indent from current line when starting a new line
+set autoindent
+" Indent after '{' and after keywords (if, for, else, while, do, switch)
+set smartindent
 
-set tabstop=4		" Number of spaces that a Tab respresents
-set shiftwidth=4	" Number of spaces for an (auto)indent
-set expandtab		" Turn tabs into spaces
-set smarttab		" When on, a <Tab> in front of a line inserts blanks
-                    " according to 'shiftwidth'. 'tabstop' is used in other
-					" places. A <BS> will delete a 'shiftwidth' worth of space
-					" at the start of the line.
-set autoindent smartindent
-
-" Indentation shizzle per filetype
+" Indentation per filetype
 filetype plugin indent on
 au FileType html,xhtml,htmldjango setlocal tabstop=2 shiftwidth=2 softtabstop=2
-au FileType python setlocal nocindent smartindent shiftwidth=4 softtabstop=4 tw=78
+au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 tw=78
 au FileType haskell setlocal shiftwidth=2 softtabstop=2
 au FileType prolog setlocal shiftwidth=4 softtabstop=4
 au FileType ruby setlocal shiftwidth=2 softtabstop=2
