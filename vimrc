@@ -46,6 +46,8 @@ set sidescrolloff=2
 set splitbelow
 " Check modelines (like the one at the bottom of this file)
 set modelines=1
+" Use ack! to grep and always print file name in Quickfix list
+set grepprg=ack\ --noheading\ -H\ $*
 
 " }}}
 " Recognize some file extensions {{{
@@ -94,6 +96,7 @@ au FileType python setlocal nocindent smartindent shiftwidth=4 softtabstop=4 tw=
 au FileType haskell setlocal shiftwidth=2 softtabstop=2
 au FileType prolog setlocal shiftwidth=4 softtabstop=4
 au FileType ruby setlocal shiftwidth=2 softtabstop=2
+au FileType tex setlocal shiftwidth=2 softtabstop=2
 
 " }}}
 " Plugin settings {{{
@@ -106,14 +109,17 @@ let g:SuperTabLongestHighlight = 1
 au FileType prolog let g:SuperTabNoCompleteAfter = ['^', '\s', ';', '->', '(']
 " }}}
 " Ropevim settings {{{
-au FileType python setlocal omnifunc=RopeCompleteFunc
-let ropevim_vim_completion = 1
-let ropevim_extended_complete = 1
-"let g:ropevim_enable_autoimport = 1
-let g:ropevim_guess_project = "1"
-let g:ropevim_autoimport_modules = ["sys","os.*","traceback","django.*","lxml.etree","lxml.*"]
-"imap <C-Space> <C-R>=RopeCodeAssistInsertMode()<CR>
-"let g:ropevim_autoimport_modules = ["base64", "datetime", "gtk", "hashlib", "heapq", "itertools", "locale", "logging", "math", "os", "os.*", "pdb", "pexpect", "pygtk", "random", "re", "sys", "timeit"]
+au FileType python call RopeSettings()
+function! RopeSettings()
+    setlocal omnifunc=RopeCompleteFunc
+    let ropevim_vim_completion = 1
+    let ropevim_extended_complete = 1
+    "let g:ropevim_enable_autoimport = 1
+    let g:ropevim_guess_project = "1"
+    let g:ropevim_autoimport_modules = ["sys","os.*","traceback","django.*","lxml.etree","lxml.*"]
+    "inoremap <leader><Space> <C-R>=RopeCodeAssistInsertMode()<CR>
+    "let g:ropevim_autoimport_modules = ["base64", "datetime", "gtk", "hashlib", "heapq", "itertools", "locale", "logging", "math", "os", "os.*", "pdb", "pexpect", "pygtk", "random", "re", "sys", "timeit"]
+endfunction
 " }}}
 " Powerline settings {{{
 "let g:Powerline_symbols = "fancy"
@@ -138,9 +144,12 @@ let NERDTreeIgnore = ['\.pyc$', '\.class$']
 let g:CommandTMatchWindowReverse = 1
 " }}}
 " LaTeX Suite settings {{{
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor = "latex"
-let g:Tex_DefaultTargetFormat = "pdf"
+au FileType tex call TexBindings()
+function! TexBindings()
+    let g:tex_flavor = "latex"
+    let g:Tex_DefaultTargetFormat = "pdf"
+    let g:Imap_UsePlaceHolders = 0
+endfunction
 " }}}
 " Eclim settings {{{
 " Don't show todo markers in margin
@@ -166,8 +175,9 @@ nnoremap s ddko
 
 " }}}
 " Plugin mappings {{{
-" F7 to open NERDTree
+" F7 to open NERDTree {{{
 noremap <F7> :NERDTreeToggle<CR>
+" }}}
 " Python (PEP8, Rope) bindings {{{
 au FileType python call PythonBindings()
 function! PythonBindings()
