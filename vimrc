@@ -79,7 +79,7 @@ set fillchars=fold:.
 
 " }}}
 " Indentation {{{
-"
+
 " Number of spaces that a Tab respresents
 set tabstop=4
 " Number of spaces for an (auto)indent
@@ -154,7 +154,9 @@ au FileType tex call TexBindings()
 function! TexBindings()
     let g:tex_flavor = "latex"
     let g:Tex_DefaultTargetFormat = "pdf"
+    let g:Tex_MultipleCompileFormats = "pdf,dvi"
     let g:Imap_UsePlaceHolders = 0
+    TCTarget pdf
 endfunction
 " }}}
 " Eclim settings {{{
