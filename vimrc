@@ -36,6 +36,12 @@ set wildmenu
 set wildignore=*.o,*.obj,*.pyc,*.class,*.git
 " Mouse interactivity
 set mouse=a
+" Copy/paste with shared clipboard
+if has ('unnamedplus')
+    set clipboard=unnamedplus
+else
+    set clipboard=unnamed
+endif
 " Paste mode shortcut
 set pastetoggle=<leader>p
 " Start scrolling earlier
@@ -47,7 +53,7 @@ set splitbelow
 " Check modelines (like the one at the bottom of this file)
 set modelines=1
 " Use ack! to grep and always print file name in Quickfix list
-set grepprg=ack\ --noheading\ -H\ $*
+set grepprg=ack\ -H\ --nocolor\ --nogroup
 
 " }}}
 " Recognize some file extensions {{{
