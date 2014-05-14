@@ -16,7 +16,8 @@ alias psg='ps -e | grep -i'
 alias ipy='ipython --TerminalInteractiveShell.confirm_exit=False && exit'
 alias hig='history | grep -i'
 alias todo='grep -r TODO .'
-alias yupdate='yaourt -Syua'
+alias yupdate='yaourt -Syyua'
+alias yupdatef='yaourt -Syyua --noconfirm'
 
 # Quick cd
 alias bu='cd ~/Documenten/bucht'
@@ -29,6 +30,8 @@ alias sshhelios='ssh svsegher@helios.ugent.be'
 alias sshcc='ssh -p 2222 cursuscruisen-informatica@zeus.ugent.be'
 alias sshzeus='ssh -p 2222 stijns@kelder.zeus.ugent.be'
 alias sshstuw='ssh -p 2222 stuw@zeus.ugent.be'
+alias sshpinnoo='ssh -p 2222 procrat@pinnoo.eu'
+alias sshking='ssh -p 2222 root@zeus.ugent.be'
 
 # GAE aliases
 alias tlmup='appcfg.py -e "stijn.seghers@gmail.com" update ~/Dropbox/TLM/the-little-monks'
