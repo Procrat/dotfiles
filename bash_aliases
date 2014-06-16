@@ -12,7 +12,7 @@ alias l='ls -CF'
 
 # Frequently used commands
 alias vi='/usr/bin/vim'
-alias psg='ps -e | grep -i'
+alias psg='ps -ef | grep -i'
 alias ipy='ipython --TerminalInteractiveShell.confirm_exit=False && exit'
 alias hig='history | grep -i'
 alias todo='grep -r TODO .'
