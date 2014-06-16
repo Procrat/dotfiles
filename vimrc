@@ -169,8 +169,8 @@ endfunction
 " Don't show todo markers in margin
 let g:EclimSignLevel = 2
 " }}}
-" TODO: For Play framework {{{
-let g:syntastic_java_checkers=[]
+" Syntastic settings {{{
+let g:syntastic_python_pylint_args = "-d C0103,C0111"
 " }}}
 
 " }}}
