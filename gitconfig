@@ -1,40 +1,43 @@
 [user]
-	name = Stijn Seghers
-	email = seghers_stijn@hotmail.com
+    name = Stijn Seghers
+    email = seghers_stijn@hotmail.com
 
 [core]
-	excludesfile = ~/.gitignore_global
+    excludesfile = ~/.gitignore_global
 
 [push]
-	default = simple
+    default = simple
 
 [alias]
     a = add -A
-	st = status
-	ci = commit
-	br = branch
-	co = checkout --
-	df = diff -b -w -B
-	dfc = diff --cached -b -w -B
-	lg = log -p
-	lol = log --graph --decorate --pretty=oneline --abbrev-commit
-	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	ls = ls-files
+    st = status
+    ci = commit
+    br = branch
+    co = checkout --
+    df = diff -b -w -B
+    dfc = diff --cached -b -w -B
+    lg = log -p
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    ls = ls-files
     unstage = reset HEAD --
     us = reset HEAD --
-	stash-unapply = !git stash show -p | git apply -R
+    stash-unapply = !git stash show -p | git apply -R
     pop = stash pop
     undo = reset --soft HEAD^
 
 [color]
-	ui = auto
-	branch = auto
-	diff = auto
-	status = auto
+    ui = auto
+    branch = auto
+    diff = auto
+    status = auto
 
 [help]
     autocorrect = 1
 
+[github]
+    user = Procrat
+
 ; Set voor Mobicage
 ;[http]
-	;sslverify = false
+    ;sslverify = false

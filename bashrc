@@ -36,7 +36,10 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 # Make Bundler install gems per user
 export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
 
+# If we explicitly call .bashrc with some command, run it in tmux
+if [[ $# > 0 ]]; then
+    tmux new-session "$@"
 # Start tmux if we're in a top level shell
-if [[ $SHLVL == "1" ]]; then
+elif [[ $SHLVL == "1" ]]; then
     tmux && exit
 fi
