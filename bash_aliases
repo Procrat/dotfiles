@@ -12,12 +12,15 @@ alias l='ls -CF'
 
 # Frequently used commands
 alias vi='/usr/bin/vim'
-alias psg='ps -ef | grep -i'
 alias ipy='ipython --TerminalInteractiveShell.confirm_exit=False && exit'
 alias hig='history | grep -i'
 alias todo='grep -r TODO .'
 alias yupdate='yaourt -Syyua'
-alias yupdatef='yaourt -Syyua --noconfirm'
+alias yupdatef='yaourt -Syyua --noconfirm && ~/Documenten/dotfiles/setup.sh'
+function psg() {
+    ps auxww | grep -i --color=always $* | grep -v grep \
+        | sed 's/\s\+/\t/g' | cut -f 2,11
+}
 
 # Quick cd
 alias bu='cd ~/Documenten/bucht'
