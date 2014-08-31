@@ -1,28 +1,63 @@
+" Vundle plugins {{{
 set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" Install plugins {{{
-call pathogen#infect()
+Plugin 'gmarik/vundle'
+
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'bling/vim-airline'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'honza/vim-snippets'
+Plugin 'kien/ctrlp.vim'
+Plugin 'klen/python-mode'
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'mattn/gist-vim'
+Plugin 'mattn/webapi-vim'
+Plugin 'nelstrom/vim-markdown-folding'
+Plugin 'Raimondi/delimitMate'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'SirVer/ultisnips'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()
+filetype plugin indent on
 
 " }}}
 " Solarized colorscheme settings {{{
 syntax on
-set t_Co=16
-"colorscheme Tomorrow-Night
+"set t_Co=16
 set background=dark
 let g:solarized_visibility = "high"
 colorscheme solarized
+"colorscheme Tomorrow-Night
 
 " }}}
 " General settings {{{
-let mapleader=","
+let mapleader=','
+let maplocalleader=','
 " Automatic reloading on external file changes
 set autoread
 " Automatic writing when using certain commands, e.g. :n, :N
 set autowrite
+" Hides buffers instead of closing
+set hidden
+" No swap files
 set noswapfile
-
 " Line numbering
 set number
+" Show vertical column at 79 (maximum line length for Python)
 set colorcolumn=79
 " Wrap lines automatically
 set textwidth=79
@@ -33,14 +68,14 @@ set incsearch
 " Autocompletion
 set wildmenu
 " Ignore in autocompletion (also ignores in Command-T)
-set wildignore=*.o,*.obj,*.pyc,*.class,*.git
+set wildignore=*.o,*.obj,*.pyc,*.class,*.git,*.orig
 " Mouse interactivity
 set mouse=a
 " Copy/paste with shared clipboard
 if has ('unnamedplus')
-    set clipboard=unnamedplus
+   set clipboard=unnamedplus
 else
-    set clipboard=unnamed
+   set clipboard=unnamed
 endif
 " Paste mode shortcut
 set pastetoggle=<leader>p
@@ -54,6 +89,8 @@ set splitbelow
 set modelines=1
 " Use ack! to grep and always print file name in Quickfix list
 set grepprg=ack\ -H\ --nocolor\ --nogroup
+" Always show statusline/powerline/airline
+set laststatus=2
 
 " }}}
 " Recognize some file extensions {{{
@@ -61,35 +98,49 @@ set grepprg=ack\ -H\ --nocolor\ --nogroup
 autocmd BufNewFile,BufRead *.pl set filetype=prolog
 " Filename ending in .py3 is a Python3 file
 autocmd BufNewFile,BufRead *.py3 set filetype=python
+" Filename ending in .html could be template file
+autocmd BufNewFile,BufRead *.html set filetype=htmldjango
 
 " }}}
 " Remove trailing whitespace {{{
 " Remove automatically on write when desired (non-binary)
 autocmd BufWritePre * call StripTrailingWhitespace()
 function! StripTrailingWhitespace()
-    if &l:fileencoding ==? "utf-8"
-        let l:winview = winsaveview()
-        silent! %s/\s\+$//
-        call winrestview(l:winview)
-    endif
+   if &l:fileencoding ==? "utf-8"
+       let l:winview = winsaveview()
+       silent! %s/\s\+$//
+       call winrestview(l:winview)
+   endif
 endfunction
 
 " }}}
 " Folding {{{
 set foldmethod=indent
-set foldlevelstart=1
-set foldnestmax=2
-autocmd FileType html,xhtml,htmldjango setlocal foldnestmax=30
-autocmd FileType python setlocal foldlevel=90
-set fillchars=fold:.
+set foldlevelstart=0
+set foldnestmax=1
+function! MyFoldText() " {{{
+    let line = getline(v:foldstart)
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+    " expand tabs into spaces
+    let onetab = strpart(' ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . ' ' . repeat(" ",fillcharcount) . ' ' . foldedlinecount . ' '
+endfunction " }}}
+set foldtext=MyFoldText()
+autocmd FileType html,xhtml,htmldjango setlocal foldnestmax=20
 
 " }}}
 " Indentation {{{
-
 " Number of spaces that a Tab respresents
-set tabstop=4
+set tabstop=8
 " Number of spaces for an (auto)indent
 set shiftwidth=4
+" Number of spaces that a Tab feels like while editing
+set softtabstop=4
 " Turn tabs into spaces
 set expandtab
 " When smarttab is on, a <Tab> in front of a line inserts blanks according to
@@ -102,7 +153,6 @@ set autoindent
 set smartindent
 
 " Indentation per filetype
-filetype plugin indent on
 au FileType html,xhtml,htmldjango setlocal tabstop=2 shiftwidth=2 softtabstop=2
 au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 tw=78
 au FileType haskell setlocal shiftwidth=2 softtabstop=2
@@ -112,67 +162,40 @@ au FileType tex setlocal shiftwidth=2 softtabstop=2
 
 " }}}
 " Plugin settings {{{
-
-" SuperTab settings {{{
-set completeopt=menuone,longest,preview
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabLongestHighlight = 1
-" No tabcompletion for Prolog after certain symbols
-au FileType prolog let g:SuperTabNoCompleteAfter = ['^', '\s', ';', '->', '(']
+" bling/vim-airline {{{
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline_powerline_fonts = 1
 " }}}
-" Ropevim settings {{{
-au FileType python call RopeSettings()
-function! RopeSettings()
-    setlocal omnifunc=RopeCompleteFunc
-    let ropevim_vim_completion = 1
-    let ropevim_extended_complete = 1
-    "let g:ropevim_enable_autoimport = 1
-    let g:ropevim_guess_project = "1"
-    let g:ropevim_autoimport_modules = ["sys","os.*","traceback","django.*","lxml.etree","lxml.*"]
-    "inoremap <leader><Space> <C-R>=RopeCodeAssistInsertMode()<CR>
-    "let g:ropevim_autoimport_modules = ["base64", "datetime", "gtk", "hashlib", "heapq", "itertools", "locale", "logging", "math", "os", "os.*", "pdb", "pexpect", "pygtk", "random", "re", "sys", "timeit"]
-endfunction
+" klen/python-mode {{{
+let g:pymode_lint_ignore = 'C0103,C0111'
 " }}}
-" Powerline settings {{{
-"let g:Powerline_symbols = "fancy"
-"set laststatus=2
+" Lokaltog/vim-easymotion {{{
+let g:EasyMotion_do_mapping = 0  " See `Plugin Mappings`
+let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
 " }}}
-" Minibufexplorer settings {{{
-"" Switch buffers with Ctrl-Tab en Ctrl-Shift-Tab
-"let g:miniBufExplMapCTabSwitchWindows = 1
-"" Switch windows with Ctrl-arrows
-"let g:miniBufExplMapWindowNavArrows = 1
-"" Single click (instead of double click) to switch buffers
-"let g:miniBufExplUseSingleClick = 1
+" mattn/gist-vim {{{
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
 " }}}
-" DelimitMate settings {{{
-" Sets cursor and closing paren/bracket to the right place on <CR>
+" Raimondi/delimitMate {{{
 let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
 " }}}
-" NERDTree settings {{{
-let NERDTreeIgnore = ['\.pyc$', '\.class$']
+" scrooloose/nerdtree {{{
+let NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
+let NERDTreeMinimalUI = 1
+let NERDTreeChDirMode = 2
 " }}}
-" Command-T settings {{{
-let g:CommandTMatchWindowReverse = 1
-" }}}
-" LaTeX Suite settings {{{
-au FileType tex call TexBindings()
-function! TexBindings()
-    let g:tex_flavor = "latex"
-    let g:Tex_DefaultTargetFormat = "pdf"
-    let g:Tex_MultipleCompileFormats = "pdf,dvi"
-    let g:Imap_UsePlaceHolders = 0
-    TCTarget pdf
-endfunction
-" }}}
-" Eclim settings {{{
-" Don't show todo markers in margin
-let g:EclimSignLevel = 2
-" }}}
-" Syntastic settings {{{
+" scrooloose/syntastic {{{
 let g:syntastic_python_pylint_args = "-d C0103,C0111"
+let g:syntastic_check_on_open = 1
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_auto_jump = 2
 " }}}
-
+" SirVer/ultisnips {{{
+let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
+" }}}
 " }}}
 " General mappings {{{
 " jj in insert mode to go to normal mode
@@ -184,57 +207,176 @@ nnoremap <silent> <Space> za
 vnoremap <silent> <Space> za
 " ,= to autoformat
 nnoremap <leader>= mzggVG='z
-" Use s to change current line
-nnoremap s ddko
-
-" }}}
-" Plugin mappings {{{
-" F7 to open NERDTree {{{
-noremap <F7> :NERDTreeToggle<CR>
-" }}}
-" Python (PEP8, Rope) bindings {{{
-au FileType python call PythonBindings()
-function! PythonBindings()
-    " F8 to open PEP8 quickfix window
-    let g:pep8_map='<F8>'
-    " Rope shortcuts
-    nnoremap <leader>d :RopeGotoDefinition<CR>
-    nnoremap <leader>r :RopeRename<CR>
-    nnoremap <leader>i :RopeAutoImport<CR>
-    nnoremap <leader>o :RopeOrganizeImports<CR>0<CR><CR>
+" Sort lines
+vnoremap <leader>s :!sort<CR>
+" Sudo write
+cnoremap w!! w !sudo tee % >/dev/null
+" Toggle (in)visible characters
+nnoremap <leader>i :set list!<CR>
+" ,w to write
+nnoremap <leader>w :w<CR>
+" Use (very) magic regexes
+nnoremap / /\v
+vnoremap / /\v
+cnoremap s/ s/\v
+nnoremap :g/ :g/\v
+nnoremap :g// :g//
+" Markdown mappings
+au FileType markdown call MardownMappings()
+function! MardownMappings()
+    nnoremap <buffer> <leader>1 yypVr=:redraw<CR>
+    nnoremap <buffer> <leader>2 yypVr=:redraw<CR>
+    nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
 endfunction
-" }}}
-" Java (Eclim) bindings {{{
-au FileType java call EclimBindings()
-function! EclimBindings()
-    nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
-    nnoremap <silent> <buffer> <leader>o :JavaImportOrganize<CR>
-    nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
-    nnoremap <silent> <buffer> <leader><space> :JavaCorrect<cr>
-    nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
-endfunction
-" }}}
-
-" }}}
-" Window & tab bindings {{{
-
-" Un-vimmy binding D:
 " Save by Ctrl-S (has to be allowed by terminal (stty -ixon))
 nnoremap <C-S> :w<CR>
-
-" Window movement! Whee!
-noremap <leader>h :wincmd h<CR>
-noremap <leader>j :wincmd j<CR>
-noremap <leader>k :wincmd k<CR>
-noremap <leader>l :wincmd l<CR>
 " Windows resizing
 noremap + <C-W>+
 noremap - <C-W>-
+" Tab management
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprev<CR>
+nnoremap <leader>n :enew<cr>
+nnoremap <leader>d :bd<cr>
+nnoremap <leader>D :bd!<cr>
 
-" Tab switching
-nnoremap <S-Tab> :tabp<CR>
-nnoremap <Tab> :tabn<CR>
-
+" }}}
+" Plugin mappings {{{
+" AndrewRadev/splitjoin.vim {{{
+"   gS  Split a one-liner into multiple lines
+"   gJ  (with the cursor on the first line of a block) to join a block into a
+"       single-line statement.
+" }}}
+" kien/ctrlp.vim {{{
+let g:ctrlp_map = '<leader>t'  " Behave like command-t
+let g:ctrlp_cmd = 'CtrlPMixed'
+" }}}
+" klen/python-mode {{{
+"   The following evironments are defined:
+"     C   Class
+"     M   Method or function
+"   which makes the following commands possible:
+"     [[  Jump to previous class or function (normal, visual, operator modes)
+"     ]]  Jump to next class or function  (normal, visual, operator modes)
+"     [M  Jump to previous class or method (normal, visual, operator modes)
+"     ]M  Jump to next class or method (normal, visual, operator modes)
+"     aC  Select a class. Ex: vaC, daC, yaC, caC (normal, operator modes)
+"     iC  Select inner class. Ex: viC, diC, yiC, ciC (normal, operator modes)
+"     aM  Select a function or method. Ex: vaM, daM, yaM, caM (normal, operator modes)
+"     iM  Select inner function or method. Ex: viM, diM, yiM, ciM (normal, operator modes)
+"
+"   K          Show pydoc
+"   <leader>g  Runs the python code
+let g:pymode_run_bind = '<leader>g'
+"   <leader>b  Sets a breakpoint
+"
+"   Rope:
+let g:pymode_rope_global_prefix = "<leader>r"
+"     <C-Space>  Autocompletion
+"     <C-c>d     Show internal doc
+"     <C-c>g     Go to definition
+"     <C-c>rr    Rename object onder cursor
+"     <C-c>r1r   Rename current module
+"     <C-c>ro    Organize imports (sort + remove unused)
+"     <C-c>ra    Auto import object onder cursor
+"     <C-c>r1p   Convert module to package
+"     <C-c>rm    Extract method
+"     <C-c>rl    Extract variable
+"     <C-c>ru    Automagically finds places where a function can be used
+"     <C-c>rv    Move method/class
+"     <C-c>rs    Change method/function signature
+" }}}
+" LaTeX-Box-Team/LaTeX-Box {{{
+"   <leader>ll  Compile with latexmk.
+"   <leader>lL  Force compilation with latexmk.
+"   <leader>lc  Clean temporary output from LaTeX.
+"   <leader>lC  Clean all output from LaTeX.
+"   <leader>lk  Stop latexmk if it is running.
+"   <leader>lg  Show the running status of latexmk for the current buffer.
+"   <leader>lG  Show the running status of latexmk for all buffers with process
+"               group ID's.
+"   <leader>le  Load the log file for the current document and jump to the
+"               first error.
+"   <leader>lv  View output file.
+"   <leader>lf  Recalculate the folds.
+"   <leader>lt  Open a table of contents.
+au FileType tex call LaTeXMappings()
+function! LaTeXMappings()
+"   [[          Start an environment
+    imap <buffer> [[ \begin{
+"   ]]          Close the environment
+    imap <buffer> ]] <Plug>LatexCloseCurEnv
+endfunction
+" }}}
+" Lokaltog/vim-easymotion {{{
+"   <leader><leader>  Deprecated default prefix
+"   s                 Bi-directional find. Jump to anywhere with s{char}{label}
+nmap s <Plug>(easymotion-s)
+"   <leader>j         Easymotion up. Jump up with <leader>j{label}
+map <Leader>j <Plug>(easymotion-j)
+"   <leader>k         Easymotion down. Jump down with <leader>k{label}
+map <Leader>k <Plug>(easymotion-k)
+" }}}
+" Raimondi/delimitMate {{{
+"   <BS>     Also removes closing paren/quote/bracket
+"   <S-BS>   Only removes closing paren/quote/bracket
+"   <S-Tab>  Skips over one the closing parens/quotes/brackets
+"   <C-G>g   Skips over all closing parens/quotes/brackets
+" }}}
+" scrooloose/nerdcommenter {{{
+"   <leader>cc  Comment out the current line or text selected in visual mode.
+"   <leader>cn  Same as <leader>cc but forces nesting.
+"   <leader>c<Space>
+"               Toggles the comment state of the selected line(s). If the
+"               topmost selected line is commented, all selected lines are
+"               uncommented and vice versa.
+"   <leader>cm  Comments the given lines using only one set of multipart
+"               delimiters.
+"   <leader>ci  Toggles the comment state of the selected line(s) individually.
+"   <leader>cs  Comments out the selected lines ``sexily''
+"   <leader>cy  Same as <leader>cc except that the commented line(s) are yanked
+"               first.
+"   <leader>c$  Comments the current line from the cursor to the end of line.
+"   <leader>cA  Adds comment delimiters to the end of line and goes into insert
+"               mode between them.
+"   <leader>ca  Switches to the alternative set of delimiters.
+"   <leader>cl and <leader>cb
+"               Same as |NERDComComment| except that the delimiters are aligned
+"               down the left side (<leader>cl) or both sides (<leader>cb).
+"   <leader>cu  Uncomments the selected line(s).
+" }}}
+" scrooloose/nerdtree {{{
+"   <leader>n  Open NERD Tree
+nnoremap <leader>n :NERDTreeToggle<CR>
+" }}}
+" SirVer/ultisnips {{{
+"   ç        Expand ultisnips
+let g:UltiSnipsExpandTrigger='ç'
+"   <Tab>    Move to next editable part in the snippet
+let g:UltiSnipsJumpForwardTrigger='<Tab>'
+"   <S-Tab>  Move the previous editable part in the snippet
+let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
+"   <leader>u  Show available snippets
+let g:UltiSnipsListSnippets='<leader>u'
+" }}}
+" tpope/vim-unimpaired {{{
+"   A lot of mapping starting with [ and ]. A full list can be found here:
+"   https://github.com/tpope/vim-unimpaired/blob/master/doc/unimpaired.txt
+" }}}
+" Valloric/YouCompleteMe {{{
+"   Tab and S-Tab  Scroll between autocomplete options
+"   C-Space        Force autocompletion without prefix given
+" }}}
+"" Java/Eclim mappings {{{
+"au FileType java call EclimBindings()
+"function! EclimBindings()
+"   nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
+"   nnoremap <silent> <buffer> <leader>o :JavaImportOrganize<CR>
+"   nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
+"   nnoremap <silent> <buffer> <leader><space> :JavaCorrect<cr>
+"   nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+"endfunction
+"" }}}
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0

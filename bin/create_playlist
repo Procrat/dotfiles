@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# USAGE: Go into a certain music directory and execute this.
+# Creates a playlist in the parent directory of all music (recursively) in
+# the current folder
+
+pwd=$(pwd)
+find -type f -name '*.mp3' \
+	| sed "s:^\.:${pwd}:" \
+	> "${pwd}.m3u"

@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+# Plays a song or sound after a given period or at a given time.
+
+DEFAULT_SONG='~/Muziek/Arctic Monkeys Discography/I Bet You Look Good on the Dancefloor.mp3'
+
+usage() {
+    echo "Usage: $(basename $0) [options] [[hours] minutes] seconds" >&2
+    echo "       $(basename $0) [options] -d hour[:minute[:second]]" >&2
+    echo "where options include:" >&2
+    echo "    -f file    Sound file to play" >&2
+}
+
+while getopts "d:f:" option; do
+    case $option in
+        d)
+            datum=$(date -d "$OPTARG" +'%s')
+            now=$(date +'%s')
+            seconds=$(($datum - $now))
+            ;;
+        f)
+            song="$OPTARG"
+            ;;
+        ?)
+            usage
+            exit 1
+            ;;
+    esac
+done
+shift $(($OPTIND-1))
+
+if [[ -z "$seconds" ]]; then
+    if [ $# -eq 0 -o $# -gt 3 ]; then
+        usage
+        exit 1
+    fi
+
+    mul=(60 60 1)
+    i=$((${#mul} - $# + 1))
+    seconds=0
+    while [ $# -ne 0 ]; do
+        seconds=$((($seconds + $1) * ${mul[$i]}))
+        shift
+        let i+=1
+    done
+fi
+
+if [[ -z "$song" ]]; then
+    song="$DEFAULT_SONG"
+fi
+
+(sleep $seconds && vlc -q "$song") &

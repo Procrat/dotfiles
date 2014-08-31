@@ -10,6 +10,12 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Easier directory jumping
+alias ..='cd ..'
+alias ...='cd ...'
+alias ....='cd ....'
+alias .....='cd .....'
+
 # Frequently used commands
 alias vi='/usr/bin/vim'
 alias ipy='ipython --TerminalInteractiveShell.confirm_exit=False && exit'
@@ -24,18 +30,9 @@ function psg() {
 
 # Quick cd
 alias bu='cd ~/Documenten/bucht'
-alias cdm='cd ~/Dropbox/TLM/the-little-monks'
+alias cdm='cd ~/Dropbox/Liefje/TLM/the-little-monks'
 alias euler='cd ~/Dropbox/projects/project_euler/'
 alias code_eval='cd ~/Dropbox/projects/code_eval/'
-
-# SSH aliases
-alias sshhelios='ssh svsegher@helios.ugent.be'
-alias sshcc='ssh -p 2222 cursuscruisen-informatica@zeus.ugent.be'
-alias sshzeus='ssh -p 2222 stijns@kelder.zeus.ugent.be'
-alias sshstuw='ssh -p 2222 stuw@zeus.ugent.be'
-alias sshpinnoo='ssh -p 2222 procrat@pinnoo.eu'
-alias sshking='ssh -p 2222 root@zeus.ugent.be'
-alias sshprince='ssh -p 2222 root@king.ugent.be'
 
 # GAE aliases
 alias tlmup='appcfg.py -e "stijn.seghers@gmail.com" update ~/Dropbox/Liefje/TLM/the-little-monks'

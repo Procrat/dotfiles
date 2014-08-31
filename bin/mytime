@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Make time behave like a decent command.
+
+time $@

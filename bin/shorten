@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Shortens the link in the clipboard
+
+set -o errexit
+trap 'echo "Previous command did not complete successfully. Exiting." >&2' ERR
+
+usage() {
+    echo "Usage: $(basename $0)" >&2
+}
+
+
+BASE_URL="https://api-ssl.bitly.com"
+SHORTEN_URL="${BASE_URL}/v3/shorten"
+ACCESS_TOKEN="818be24576a5ecfb386d6491390497a888f9bf09"
+
+curl --data-urlencode "access_token=${ACCESS_TOKEN}" \
+     --data-urlencode "longUrl=$(xclip -o -sel clipboard)" \
+     -sL "${SHORTEN_URL}" \
+    | python -c "import json, sys; \
+                 input = sys.stdin.readline(); \
+                 resp = json.loads(input); \
+                 print(resp['data']['url'])" \
+    | xclip -sel clipboard
