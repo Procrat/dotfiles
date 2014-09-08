@@ -67,7 +67,7 @@ set smartcase
 set incsearch
 " Autocompletion
 set wildmenu
-" Ignore in autocompletion (also ignores in Command-T)
+" Ignore in autocompletion (also ignores in CtrlP/Command-T/Unite.vim)
 set wildignore=*.o,*.obj,*.pyc,*.class,*.git,*.orig
 " Mouse interactivity
 set mouse=a
@@ -131,7 +131,7 @@ function! MyFoldText() " {{{
     return line . ' ' . repeat(" ",fillcharcount) . ' ' . foldedlinecount . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
-autocmd FileType html,xhtml,htmldjango setlocal foldnestmax=20
+autocmd FileType html,xhtml,htmldjango,eruby setlocal foldnestmax=20
 
 " }}}
 " Indentation {{{
@@ -153,7 +153,7 @@ set autoindent
 set smartindent
 
 " Indentation per filetype
-au FileType html,xhtml,htmldjango setlocal tabstop=2 shiftwidth=2 softtabstop=2
+au FileType html,xhtml,htmldjango,eruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
 au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 tw=78
 au FileType haskell setlocal shiftwidth=2 softtabstop=2
 au FileType prolog setlocal shiftwidth=4 softtabstop=4
@@ -215,6 +215,8 @@ cnoremap w!! w !sudo tee % >/dev/null
 nnoremap <leader>i :set list!<CR>
 " ,w to write
 nnoremap <leader>w :w<CR>
+" Use C-O and C-P to shift between edited parts
+nnoremap <C-P> <C-I>
 " Use (very) magic regexes
 nnoremap / /\v
 vnoremap / /\v
@@ -236,7 +238,7 @@ noremap - <C-W>-
 " Tab management
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprev<CR>
-nnoremap <leader>n :enew<cr>
+nnoremap <leader>e :enew<cr>
 nnoremap <leader>d :bd<cr>
 nnoremap <leader>D :bd!<cr>
 
