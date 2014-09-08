@@ -33,7 +33,3 @@ alias bu='cd ~/Documenten/bucht'
 alias cdm='cd ~/Dropbox/Liefje/TLM/the-little-monks'
 alias euler='cd ~/Dropbox/projects/project_euler/'
 alias code_eval='cd ~/Dropbox/projects/code_eval/'
-
-# GAE aliases
-alias tlmup='appcfg.py -e "stijn.seghers@gmail.com" update ~/Dropbox/Liefje/TLM/the-little-monks'
-alias tlmdev='dev_appserver.py --log_level debug ~/Dropbox/Liefje/TLM/the-little-monks/'
