@@ -1,0 +1,3 @@
+(if (or (is (application_name) "plugin-container")
+        (is (application_name) "exe"))
+    (focus))

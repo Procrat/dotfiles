@@ -1,0 +1,6 @@
+(if (is (window_class) "URxvt")
+    (begin
+        (undecorate)
+        (focus)
+    )
+)

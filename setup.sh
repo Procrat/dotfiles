@@ -33,8 +33,9 @@ dotfiles=(
     vimrc
     Xresources
     ssh/config
+    devilspie
 )
-for dotfile in $dotfiles; do
+for dotfile in ${dotfiles[@]}; do
     ln -sfn $DEST/$dotfile $HOME/.$dotfile
 done
 
