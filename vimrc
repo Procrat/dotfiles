@@ -11,6 +11,7 @@ Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'honza/vim-snippets'
+Plugin 'jvirtanen/vim-octave'
 Plugin 'kien/ctrlp.vim'
 Plugin 'klen/python-mode'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
@@ -91,6 +92,8 @@ set modelines=1
 set grepprg=ack\ -H\ --nocolor\ --nogroup
 " Always show statusline/powerline/airline
 set laststatus=2
+" Help for Matlab/Octave (with shortcut K)
+autocmd FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
 
 " }}}
 " Recognize some file extensions {{{
