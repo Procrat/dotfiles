@@ -6,9 +6,8 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # ls shortcuts
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -AlF'
+alias l='ls -l'
 
 # Easier directory jumping
 alias ..='cd ..'
