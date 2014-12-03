@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+echo "scale=3;$@" | bc -l

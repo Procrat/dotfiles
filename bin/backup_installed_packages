@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+yaourt -Qen > ~/Dropbox/.arch_official_packages
+yaourt -Qem > ~/Dropbox/.arch_aur_packages
