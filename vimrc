@@ -66,8 +66,10 @@ set textwidth=79
 set smartcase
 " Find as you type
 set incsearch
-" Autocompletion
+" Autocompletion for command-line
 set wildmenu
+" Always use a menu for autocompletion, not a preview pane
+set completeopt=menu
 " Ignore in autocompletion (also ignores in CtrlP/Command-T/Unite.vim)
 set wildignore=*.o,*.obj,*.pyc,*.class,*.git,*.orig
 " Mouse interactivity
