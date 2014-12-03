@@ -17,7 +17,7 @@ alias .....='cd .....'
 
 # Frequently used commands
 alias vi='/usr/bin/vim'
-alias ipy='ipython --TerminalInteractiveShell.confirm_exit=False && exit'
+alias ipy='ipython && exit'
 alias hig='history | grep -i'
 alias todo='grep -r TODO .'
 alias yupdate='yaourt -Syyua'

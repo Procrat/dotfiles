@@ -34,6 +34,7 @@ dotfiles=(
     Xresources
     ssh/config
     devilspie
+    ipython/profile_default/ipython_config.py
 )
 for dotfile in ${dotfiles[@]}; do
     ln -sfn $DEST/$dotfile $HOME/.$dotfile
