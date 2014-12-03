@@ -173,7 +173,10 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline_powerline_fonts = 1
 " }}}
 " klen/python-mode {{{
-let g:pymode_lint_ignore = 'C0103,C0111'
+let g:pymode_doc = 0
+let g:pymodevirtualenv = 0
+let g:pymode_lint_ignore = 'C0103,C0111,E265'
+let g:pymode_rope_completion = 0
 " }}}
 " Lokaltog/vim-easymotion {{{
 let g:EasyMotion_do_mapping = 0  " See `Plugin Mappings`
