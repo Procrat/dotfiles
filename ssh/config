@@ -1,7 +1,7 @@
 Host zeus
     Hostname kelder.zeus.ugent.be
     Port 2222
-    User stijns
+    User root
 Host king
     Hostname zeus.ugent.be
     Port 2222
