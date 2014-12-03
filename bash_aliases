@@ -21,7 +21,8 @@ alias ipy='ipython && exit'
 alias hig='history | grep -i'
 alias todo='grep -r TODO .'
 alias yupdate='yaourt -Syyua'
-alias yupdatef='yaourt -Syyua --noconfirm && ~/Documenten/dotfiles/setup.sh'
+alias yupdatef='yaourt -Syyua --noconfirm && ~/Documenten/dotfiles/setup.sh && yaourt -C'
+alias g='git'
 function psg() {
     ps auxww | grep -i --color=always $* | grep -v grep \
         | sed 's/\s\+/\t/g' | cut -f 2,11
