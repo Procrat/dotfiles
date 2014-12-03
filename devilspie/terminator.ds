@@ -1,4 +1,0 @@
-(if (or (is (application_name) "urxvt")
-        (is (application_name) "terminator")
-    (geometry "846x500")
-)
