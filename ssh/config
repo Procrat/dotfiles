@@ -25,3 +25,10 @@ Host cc
 Host helios
     Hostname helios.ugent.be
     User svsegher
+
+# Tunnels
+Host cammie
+    Hostname kelder.zeus.ugent.be
+    User root
+    Port 2222
+    LocalForward localhost:8008 cammie:80
