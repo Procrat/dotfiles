@@ -6,31 +6,43 @@ call vundle#begin()
 
 Plugin 'gmarik/vundle'
 
+" -- Small plugins (total load .33s)
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'honza/vim-snippets'
 Plugin 'jvirtanen/vim-octave'
 Plugin 'kien/ctrlp.vim'
-Plugin 'klen/python-mode'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'mattn/gist-vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'nelstrom/vim-markdown-folding'
-Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'Valloric/YouCompleteMe'
+
+" -- Slightly bigger plugins
+" Load: .11s
+Plugin 'bling/vim-airline'
+" Load: .05s
+Plugin 'klen/python-mode'
+" Load: .05s
+Plugin 'Raimondi/delimitMate'
+" Load: .09s
+Plugin 'scrooloose/nerdtree'
+" Load: .15s
+Plugin 'tpope/vim-rails'
+" Load: .11s
+Plugin 'SirVer/ultisnips'
+
+" -- Massive load time (something is seriously wrong here)
+" Load: 4.81s
+"Plugin 'scrooloose/syntastic'
 
 call vundle#end()
 filetype plugin indent on
