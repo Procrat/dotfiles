@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPO=http://github.com/Procrat/dotfiles
-DEST=$HOME/Documenten/dotfiles
+DEST=$HOME/repos/dotfiles
 
 VUNDLE_REPO=https://github.com/gmarik/Vundle.vim.git
 VUNDLE_PATH=$HOME/.vim/bundle/Vundle.vim
