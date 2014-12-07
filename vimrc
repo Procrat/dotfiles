@@ -193,8 +193,8 @@ let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
 " }}}
 " Lokaltog/vim-easymotion {{{
-let g:EasyMotion_do_mapping = 0  " See `Plugin Mappings`
 let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
+let g:EasyMotion_startofline = 0  " Keep cursor column during JK motion
 " }}}
 " mattn/gist-vim {{{
 let g:gist_detect_filetype = 1
@@ -333,13 +333,17 @@ function! LaTeXMappings()
 endfunction
 " }}}
 " Lokaltog/vim-easymotion {{{
-"   <leader><leader>  Deprecated default prefix
+"   <leader><leader>  Default prefix
 "   s                 Bi-directional find. Jump to anywhere with s{char}{label}
 nmap s <Plug>(easymotion-s)
 "   <leader>j         Easymotion up. Jump up with <leader>j{label}
-map <Leader>j <Plug>(easymotion-j)
+map <leader>j <Plug>(easymotion-j)
 "   <leader>k         Easymotion down. Jump down with <leader>k{label}
-map <Leader>k <Plug>(easymotion-k)
+map <leader>k <Plug>(easymotion-k)
+"   <leader>l         Easymotion forward. Jump forward with <leader>l{label}
+map <leader>l <Plug>(easymotion-lineforward)
+"   <leader>h         Easymotion backward. Jump backward with <leader>h{label}
+map <leader>h <Plug>(easymotion-linebackward)
 " }}}
 " Raimondi/delimitMate {{{
 "   <BS>     Also removes closing paren/quote/bracket
