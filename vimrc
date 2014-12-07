@@ -171,7 +171,7 @@ set smartindent
 
 " Indentation per filetype
 au FileType html,xhtml,htmldjango,eruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
-au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 tw=78
+au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 tw=79
 au FileType haskell setlocal shiftwidth=2 softtabstop=2
 au FileType prolog setlocal shiftwidth=4 softtabstop=4
 au FileType ruby setlocal shiftwidth=2 softtabstop=2
@@ -188,7 +188,7 @@ let g:airline_powerline_fonts = 1
 let g:pymode_doc = 0
 let g:pymodevirtualenv = 0
 let g:pymode_lint_checker = 'pyflakes'
-let g:pymode_lint_ignore = 'C0103,C0111,E265'
+let g:pymode_lint_ignore = 'C0103,C0111,E114,E116,E265'
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
 " }}}
