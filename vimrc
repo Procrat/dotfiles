@@ -218,6 +218,9 @@ let g:syntastic_auto_jump = 2
 " SirVer/ultisnips {{{
 let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
 " }}}
+" Valloric/YouCompleteMe {{{
+let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
+" }}}
 " }}}
 " General mappings {{{
 " jj in insert mode to go to normal mode

@@ -27,14 +27,15 @@ echo 'Linking dotfiles...'
 dotfiles=(
     bash_aliases
     bashrc
+    devilspie/
     gitconfig
     gitignore_global
+    ipython/profile_default/ipython_config.py
+    ssh/config
     tmux.conf
     vimrc
+    vim/ycm_extra_conf.py
     Xresources
-    ssh/config
-    devilspie
-    ipython/profile_default/ipython_config.py
 )
 for dotfile in ${dotfiles[@]}; do
     ln -sfn $DEST/$dotfile $HOME/.$dotfile
