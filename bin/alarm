@@ -2,7 +2,7 @@
 #
 # Plays a song or sound after a given period or at a given time.
 
-DEFAULT_SONG='~/Muziek/Arctic Monkeys Discography/I Bet You Look Good on the Dancefloor.mp3'
+DEFAULT_SONG="$HOME/Muziek/Arctic Monkeys Discography/I Bet You Look Good on the Dancefloor.mp3"
 
 usage() {
     echo "Usage: $(basename $0) [options] [[hours] minutes] seconds" >&2
