@@ -106,6 +106,8 @@ set modelines=1
 set grepprg=ack\ -H\ --nocolor\ --nogroup
 " Always show statusline/powerline/airline
 set laststatus=2
+" Disable showing the current mode because powerline/airline already shows it
+set noshowmode
 " Help for Matlab/Octave (with shortcut K)
 autocmd FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
 
