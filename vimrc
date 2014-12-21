@@ -207,6 +207,10 @@ let g:gist_open_browser_after_post = 1
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 " }}}
+" scrooloose/nerdcommenter {{{
+let NERDCommentWholeLinesInVMode = 1
+let NERDSpaceDelims = 1
+" }}}
 " scrooloose/nerdtree {{{
 let NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
 let NERDTreeMinimalUI = 1
