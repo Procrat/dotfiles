@@ -40,7 +40,8 @@ Plugin 'tpope/vim-rails'
 " Load: .11s
 Plugin 'SirVer/ultisnips'
 
-" -- Massive load time (something is seriously wrong here)
+" -- Massive load time (something is seriously wrong here, it might be because
+"                       of pylint?)
 " Load: 4.81s
 "Plugin 'scrooloose/syntastic'
 
