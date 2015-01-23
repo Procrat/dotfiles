@@ -27,14 +27,21 @@ echo 'Linking dotfiles...'
 dotfiles=(
     bash_aliases
     bashrc
-    devilspie/
+    colors
+    config/herbstluftwm
+    config/icons
+    config/systemd
+    devilspie
+    fehbg
     gitconfig
     gitignore_global
     ipython/profile_default/ipython_config.py
     ssh/config
+    statnotrc
     tmux.conf
     vimrc
     vim/ycm_extra_conf.py
+    xinitrc
     Xresources
 )
 for dotfile in ${dotfiles[@]}; do

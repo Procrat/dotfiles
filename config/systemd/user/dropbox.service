@@ -1,0 +1,12 @@
+[Unit]
+Description=Dropbox daemon
+After=xorg.target local-fs.target network.target
+
+[Service]
+ExecStart=/usr/bin/dropboxd
+ExecReload=/bin/kill -HUP $MAINPID
+Environment=DISPLAY=:0
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

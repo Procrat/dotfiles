@@ -1,0 +1,11 @@
+[Unit]
+Description=Lightweight notification daemon
+Documentation=https://github.com/halhen/statnot
+
+[Service]
+ExecStart=/usr/bin/statnot %h/.statnotrc
+Restart=on-failure
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=default.target
