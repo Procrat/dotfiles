@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -o errexit
+trap 'echo "Previous command did not complete successfully. Exiting." >&2' ERR
+
+ssh_host="flesje"
+url="http://flashyoshi.me:8080"
+user="$USER"
+
+file="$(mktemp XXXXXX.png)"
+scrot $* "$file"
+chmod 755 $file
+scp -p "$file" "$ssh_host:~/images/"
+rm "$file"
+url="$url/~$user/images/$file"
+notify-send "Screenshot uploaded to $url"
+echo "$url" | xclip -sel c

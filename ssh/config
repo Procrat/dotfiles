@@ -25,6 +25,10 @@ Host cc
 Host helios
     Hostname helios.ugent.be
     User svsegher
+Host flesje
+    Hostname 178.116.153.116
+    Port 2222
+    User procrat
 
 # Tunnels
 Host cammie
