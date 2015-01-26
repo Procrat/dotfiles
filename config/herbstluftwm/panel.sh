@@ -27,7 +27,7 @@ uniq_linebuffered() {
 }
 
 without_dzen_tags() {
-    echo -n "$@" | sed 's/\^[^(]*([^)]*)//g'
+    echo -n "$@" | sed 's/\^[^(^]*([^)]*)//g'
 }
 
 
@@ -41,6 +41,7 @@ hc pad $monitor $panel_height
     # e.g.
     #   date    ^fg(#efefef)18:33^fg(#909090), 2013-10-^fg(#efefef)29
 
+    # Date generator
     while true ; do
         echo -en 'date\t'
         date +"%H:%M^fg($SECONDARY_CONTENT_COLOR):%S   %a %d %b %Y^fg()"
@@ -48,16 +49,22 @@ hc pad $monitor $panel_height
     done > >(uniq_linebuffered) &
     dateloop=$!
 
+    # Notification generator
     while true ; do
         echo -en 'notification\t'
         echo -n "^fg($EMPHASIZED_CONTENT_COLOR)"
-        notification=$(xprop -root WM_NAME | sed 's/^\S* = \("\(.*\)"\)\?$/\2/')
-        echo -n ${notification//^/^^}
+        notification=$(
+            xprop -root WM_NAME \
+            | sed 's/^\S* = \("\(.*\)"\)\?$/\2/' \
+            | sed 's/\^/^^/g' \
+            | sed 's/http:[^]) ]*/^ca(1, xdg-open "&")&^ca()/g')
+        echo -n $notification
         echo '^fg()'
         sleep 2 || break
     done > >(uniq_linebuffered) &
     notificationloop=$!
 
+    # Battery status generator
     while true ; do
         echo -en 'battery\t'
         $script_dir/battery_status.sh
