@@ -18,12 +18,12 @@ fi
 x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
-panel_height=16
+panel_height=20
 font="Trebuchet MS:size=10"
 
 
 uniq_linebuffered() {
-  awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
+    awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
 }
 
 without_dzen_tags() {
