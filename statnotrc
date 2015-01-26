@@ -5,7 +5,7 @@
 # MAX_NOTIFY_TIMEOUT = 5000 # milliseconds
 
 # Maximum number of characters in a notification.
-# NOTIFICATION_MAX_LENGTH = 100 # number of characters
+NOTIFICATION_MAX_LENGTH = 300
 
 # Time between regular status updates
 # STATUS_UPDATE_INTERVAL = 2.0 # seconds
