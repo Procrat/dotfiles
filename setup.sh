@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 REPO=http://github.com/Procrat/dotfiles
 DEST=$HOME/repos/dotfiles
 
