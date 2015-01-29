@@ -22,7 +22,7 @@ hc keybind $Mod-Shift-r reload
 # Launchers
 hc keybind $Mod-Return       spawn urxvtc -e bash
 hc keybind $Mod-Shift-Return spawn xterm
-hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu='dmenu -i -q'
+hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu='dmenu -i -q -f -h 20'
 
 # Focus
 hc keybind $Mod-Left        focus left
