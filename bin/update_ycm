@@ -4,8 +4,7 @@
 # Assuming this is run on Arch Linux (which makes sure pacman can be used and
 # there's no need for the development headers of Python.)
 
-set -e
-
+set -eu
 
 echo 'Ensuring cmake is installed...'
 type which >/dev/null 2>&1

@@ -4,6 +4,8 @@
 # Creates a playlist in the parent directory of all music (recursively) in
 # the current folder
 
+set -eu
+
 pwd=$(pwd)
 find -type f -name '*.mp3' \
 	| sed "s:^\.:${pwd}:" \

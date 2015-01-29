@@ -7,6 +7,8 @@
 #    colors (f = foreground, b = background), and use the 'off'
 #    feature for anything you turn on.
 
+set -eu
+
 initializeANSI()
 {
  esc="$(echo -en '\e')"
