@@ -88,6 +88,6 @@ hc mousebind $Mod-Button3 resize
 
 
 # Media key bindings (this probably shouldn't be defined here)
-hc keybind XF86AudioRaiseVolume spawn $script_dir/dvol -i 1
-hc keybind XF86AudioLowerVolume spawn $script_dir/dvol -d 1
-hc keybind XF86AudioMute        spawn $script_dir/dvol -t
+hc keybind XF86AudioRaiseVolume spawn $script_dir/dzen/dvol -i 1
+hc keybind XF86AudioLowerVolume spawn $script_dir/dzen/dvol -d 1
+hc keybind XF86AudioMute        spawn $script_dir/dzen/dvol -t
