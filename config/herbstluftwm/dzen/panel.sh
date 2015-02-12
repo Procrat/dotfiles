@@ -18,7 +18,7 @@ fi
 x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
-panel_height=20
+panel_height=$(cat "$script_dir/panel_height")
 font="Trebuchet MS:size=10"
 
 

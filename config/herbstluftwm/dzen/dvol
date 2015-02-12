@@ -4,6 +4,9 @@ SECS=1
 ICON_FOLDER=~/.config/icons/xbm
 PIPE="/tmp/dvolpipe"
 
+dzen_dir=$(dirname $BASH_SOURCE)
+height=$(cat "$dzen_dir/panel_height")
+
 usage() {
     echo "usage: dvol [option] [argument]"
     echo
@@ -66,7 +69,7 @@ if [ ! -e "$PIPE" ]; then
     screen_y=${geometry[1]}
     screen_width=${geometry[2]}
     dzen_x=$(((screen_width - 124) / 2))
-    (dzen2 -x $dzen_x -y $screen_y -w 124 -h 20 < "$PIPE"; rm -f "$PIPE") &
+    (dzen2 -x $dzen_x -y $screen_y -w 124 -h $height < "$PIPE"; rm -f "$PIPE") &
 fi
 
 # Feed the pipe!
