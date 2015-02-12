@@ -30,6 +30,20 @@ without_dzen_tags() {
     echo -n "$@" | sed 's/\^[^(^]*([^)]*)//g'
 }
 
+extract_icon_width() {
+    echo "$@" | \
+        # Extract a list of "^i(....xbm)" tags
+        sed 's/\^i([^)]*)/\n&\n/g' | \
+        grep '^\^i(' | \
+        # Grep for the defined width in these XBM-files
+        sed 's/\^i(\([^)]*\))/grep width \1/' | \
+        bash | \
+        # Sum these widths
+        sed 's/.*\s\+\([0-9]\+\)\s*/\1/' | \
+        sed ':l;N;tl;s/\n/+/g' | \
+        bc
+}
+
 
 hc pad $monitor $panel_height
 
@@ -94,7 +108,8 @@ hc pad $monitor $panel_height
         separator=" ^fg($BACKGROUND_HIGHLIGHT_COLOR)|^fg()"
 
         # Arch icon
-        echo -n " ^fg($S_BASE2)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
+        echo -n "  ^fg($S_BASE2)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
+        echo -n "^p(;-1)"
         echo -n "$separator"
 
         # Tags
@@ -135,12 +150,15 @@ hc pad $monitor $panel_height
         echo -n " ^fg($SECONDARY_CONTENT_COLOR)${windowtitle//^/^^}^fg()"
 
         # Right side
-        right="$battery$separator $date  "
+        right="$date  "
+        right="$battery^pa(;0)$separator $right"
         if [[ -n $(without_dzen_tags "$notification") ]]; then
             right="$notification $separator $right"
         fi
         right_text_only=$(without_dzen_tags "$right")
-        width=$($script_dir/xftwidth "$font" "$right_text_only")
+        text_width=$($script_dir/xftwidth "$font" "$right_text_only")
+        icon_width=$(extract_icon_width "$right")
+        width=$((text_width + icon_width))
         echo -n "^pa($(($panel_width - $width)))$right"
         echo
 
