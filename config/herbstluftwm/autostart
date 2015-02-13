@@ -60,6 +60,10 @@ done
 $HOME/.fehbg
 
 
+### SCREENLOCKER ###
+xautolock -locker i3lock-fancy -corners 0+0- -detectsleep &
+
+
 ### LAUNCH SOME PROGRAMS ###
 thunderbird &
 firefox &
