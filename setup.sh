@@ -31,6 +31,7 @@ dotfiles=(
     bashrc
     colors
     config/herbstluftwm
+    config/htop
     config/icons
     config/systemd
     devilspie

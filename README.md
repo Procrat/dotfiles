@@ -20,6 +20,7 @@ Dependency tree
 - Vim and tmux interact through the M-[hjkl] bindings (see vimrc and tmux.conf)
 - IPython
 - Git
+- Htop
 - Systemd
     - Service files for Deluge, Dropbox, redshift and statnot
 - Xresources
