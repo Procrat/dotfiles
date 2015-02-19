@@ -11,9 +11,9 @@ alias l='ls -Fv'
 
 # Easier directory jumping
 alias ..='cd ..'
-alias ...='cd ...'
-alias ....='cd ....'
-alias .....='cd .....'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # Frequently used commands
 alias vi='/usr/bin/vim'
@@ -30,6 +30,6 @@ function psg() {
 
 # Quick cd
 alias bu='cd ~/Documenten/bucht'
-alias cdm='cd ~/Dropbox/Liefje/TLM/the-little-monks'
+alias cdm='cd ~/repos/the-little-monks'
 alias euler='cd ~/Dropbox/projects/project_euler/'
 alias code_eval='cd ~/Dropbox/projects/code_eval/'
