@@ -1,0 +1,12 @@
+[Unit]
+Description=IMAP syncer
+After=local-fs.target network.target
+Documentation=https://wiki.archlinux.org/index.php/OfflineIMAP
+
+[Service]
+ExecStart=/usr/bin/offlineimap
+KillSignal=SIGUSR2
+Restart=always
+
+[Install]
+WantedBy=default.target

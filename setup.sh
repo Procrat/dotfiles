@@ -38,6 +38,7 @@ dotfiles=(
     gitconfig
     gitignore_global
     ipython/profile_default/ipython_config.py
+    offlineimaprc
     ssh/config
     statnotrc
     tmux.conf
