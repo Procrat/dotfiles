@@ -13,6 +13,9 @@ usage() {
     echo "    -f file    Sound file to play" >&2
 }
 
+seconds=
+song=
+
 while getopts "d:f:" option; do
     case $option in
         d)
