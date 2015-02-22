@@ -36,6 +36,10 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 # Make Bundler install gems per user
 export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
 
+# Open keyring
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
+
 # Functions that can't be in ~/bin for certain reasons
 cl() {
     dir="${1-$HOME}"
