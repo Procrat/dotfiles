@@ -33,7 +33,7 @@ URxvt.internalBorder: 2
 ! URxvt*font: xft:Ubuntu Mono:size=14
 ! URxvt*letterSpace: -1
 
-URxvt.font: xft:Monaco For Powerline:size=11
+URxvt.font: xft:Monaco For Powerline:size=10
 URxvt.letterSpace: -1
 
 ! URxvt*font: xft:Inconsolata\\-g:size=11
