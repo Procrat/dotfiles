@@ -8,8 +8,6 @@ hc() { herbstclient "$@" ; }
 source $HOME/.colors
 
 
-xsetroot -solid $BACKGROUND_COLOR
-
 # Frame looks
 # hc set always_show_frame 0
 hc set frame_gap 0
