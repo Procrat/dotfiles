@@ -54,16 +54,3 @@ panel="$script_dir/dzen/panel.sh"
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     "$panel" $monitor &
 done
-
-
-### BACKGROUND ###
-$HOME/.fehbg
-
-
-### SCREENLOCKER ###
-xautolock -locker i3lock-fancy -corners 0+0- -detectsleep &
-
-
-### LAUNCH SOME PROGRAMS ###
-thunderbird &
-firefox &
