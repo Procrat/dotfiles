@@ -2,13 +2,13 @@
 
 SECS=1
 ICON_FOLDER=~/.config/icons/xbm
-PIPE="/tmp/dvolpipe"
+PIPE="/tmp/dvolumepipe"
 
 dzen_dir=$(dirname $BASH_SOURCE)
 height=$(cat "$dzen_dir/panel_height")
 
 usage() {
-    echo "usage: dvol [option] [argument]"
+    echo "usage: dvolume.sh [option] [argument]"
     echo
     echo "Options:"
     echo "     -i, --increase - increase volume by \`argument'"
@@ -28,12 +28,12 @@ case "$1" in
     '-i'|'--increase')
         [ -z "$2" ] && err "No argument specified for increase."
         [ -n "$(tr -d [0-9] <<<$2)" ] && err "The argument needs to be an integer."
-        AMIXARG="${2}%+"
+        AMIXARG="${2}%+ unmute"
         ;;
     '-d'|'--decrease')
         [ -z "$2" ] && err "No argument specified for decrease."
         [ -n "$(tr -d [0-9] <<<$2)" ] && err "The argument needs to be an integer."
-        AMIXARG="${2}%-"
+        AMIXARG="${2}%- unmute"
         ;;
     '-t'|'--toggle')
         AMIXARG="toggle"
@@ -42,12 +42,12 @@ case "$1" in
         usage
         ;;
     *)
-        err "Unrecognized option \`$1', see dvol --help"
+        err "Unrecognized option \`$1', see dvolume.sh --help"
         ;;
 esac
 
 # Actual volume changing (readability low)
-AMIXOUT="$(amixer set Master "$AMIXARG" | tail -n 1)"
+AMIXOUT="$(amixer set Master $AMIXARG | tail -n 1)"
 
 # Parse output to see volume
 MUTE="$(cut -d '[' -f 3 <<<"$AMIXOUT")"
