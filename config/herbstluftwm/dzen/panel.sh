@@ -66,14 +66,7 @@ hc pad $monitor $panel_height
     # Notification generator
     while true ; do
         echo -en 'notification\t'
-        echo -n "^fg($EMPHASIZED_CONTENT_COLOR)"
-        notification=$(
-            xprop -root WM_NAME \
-            | sed 's/^\S* = \("\(.*\)"\)\?$/\2/' \
-            | sed 's/\^/^^/g' \
-            | sed 's/http:[^]) ]*/^ca(1, xdg-open "&")&^ca()/g')
-        echo -n $notification
-        echo '^fg()'
+        $script_dir/notifications.sh
         sleep 2 || break
     done > >(uniq_linebuffered) &
     notificationloop=$!
