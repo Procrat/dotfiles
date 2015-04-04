@@ -25,7 +25,7 @@ alias yupdatef='yaourt -Syyua --noconfirm && ~/repos/dotfiles/setup.sh && yaourt
 alias g='git'
 function psg() {
     ps auxww | grep -i --color=always $* | grep -v grep \
-        | sed 's/\s\+/\t/g' | cut -f 2,11
+        | sed 's/\s\+/\t/g' | cut -f 2,11- | sed 's/\t/ /g2'
 }
 
 # Quick cd
