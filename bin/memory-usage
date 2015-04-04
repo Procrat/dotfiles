@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Measures memory usage of a given command
+
+set -eu
+
+usage() {
+    echo "Usage: $(basename $0) command [command-arguments]" >&2
+    exit 1
+}
+
+if [[ $# -lt 1 ]]; then
+    usage
+fi
+
+command_="$1"
+shift
+args="$*"
+
+tmpfile="$(mktemp)"
+valgrind --tool=massif --pages-as-heap=yes --massif-out-file="$tmpfile" \
+    "$command_" $args 2>/dev/null
+
+cat "$tmpfile" |\
+    grep mem_heap_B |\
+    sed 's/mem_heap_B=\(.*\)/\1/' |\
+    sort -g |\
+    tail -n 1
+
+rm "$tmpfile"
