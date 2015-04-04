@@ -44,7 +44,14 @@ hc unlock
 ### MULTI MONITOR SETUP ###
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
-# hc detect_monitors
+xrandr --output LVDS1 --auto
+if grep -q "HDMI1 connected" <(xrandr); then
+ xrandr --output HDMI1 --auto --${ORIENTATION:-right}-of LVDS1
+fi
+if grep -q "VGA1 connected" <(xrandr); then
+ xrandr --output VGA1 --auto --${ORIENTATION:-right}-of LVDS1
+fi
+hc detect_monitors
 
 
 ### PANEL ###
