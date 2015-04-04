@@ -6,7 +6,7 @@
 set -e
 
 if [[ $# -gt 0 ]]; then
-    du -h --max-depth 1 "$@" | sort -h
+    du -h -a --max-depth 1 "$@" | sort -h
 else
-    du -h --max-depth 1 . | sort -h
+    du -h -a --max-depth 1 . | sort -h
 fi
