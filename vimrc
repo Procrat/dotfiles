@@ -190,7 +190,6 @@ let g:airline_powerline_fonts = 1
 " klen/python-mode {{{
 let g:pymode_doc = 0
 let g:pymodevirtualenv = 0
-let g:pymode_lint = 0
 let g:pymode_lint_checker = 'pyflakes'
 let g:pymode_lint_ignore = 'C0103,C0111,E114,E116,E265,E702'
 let g:pymode_rope = 0
@@ -238,6 +237,8 @@ noremap <BS> X
 " Space to (un)fold
 nnoremap <silent> <Space> za
 vnoremap <silent> <Space> za
+" Ex-ex
+nnoremap Q <nop>
 " ,= to autoformat
 nnoremap <leader>= mzggVG='z
 " Sort lines
