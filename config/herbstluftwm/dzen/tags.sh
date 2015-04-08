@@ -34,6 +34,6 @@ for tag in "${tags[@]}" ; do
     esac
     # Clickable tags
     on_click="herbstclient focus_monitor $monitor && herbstclient use ${tag:1}"
-    echo -n "^ca(1,\"$on_click\") ${tag:1} ^ca()"
+    echo -n "^ca(1,$on_click) ${tag:1} ^ca()"
     echo -n "^fg()^bg()"
 done
