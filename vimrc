@@ -6,19 +6,22 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
-" -- Small plugins (total load .33s)
+" -- Small plugins (total load .09s)
+Plugin 'alfredodeza/khuno.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'honza/vim-snippets'
 Plugin 'jvirtanen/vim-octave'
 Plugin 'kien/ctrlp.vim'
+Plugin 'klen/python-mode'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'mattn/gist-vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'nelstrom/vim-markdown-folding'
+Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
@@ -27,16 +30,12 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'Valloric/YouCompleteMe'
 
 " -- Slightly bigger plugins
-" Load: .11s
+" Load: .012s
 Plugin 'bling/vim-airline'
-" Load: .05s
-Plugin 'klen/python-mode'
-" Load: .05s
-Plugin 'Raimondi/delimitMate'
 " Load: .09s
 Plugin 'scrooloose/nerdtree'
 " Load: .15s
-Plugin 'tpope/vim-rails'
+" Plugin 'tpope/vim-rails'
 " Load: .11s
 Plugin 'SirVer/ultisnips'
 
@@ -188,12 +187,16 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline_powerline_fonts = 1
 " }}}
 " klen/python-mode {{{
-let g:pymode_doc = 0
-let g:pymodevirtualenv = 0
-let g:pymode_lint_checker = 'pyflakes'
-let g:pymode_lint_ignore = 'C0103,C0111,E114,E116,E265,E702'
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
+let g:pymode_trim_whitespaces = 0  " This already happens anyway
+let g:pymode_doc = 0  " Doesn't work when I need it
+let g:pymode_virtualenv = 0  " Don't need it
+let g:pymode_run = 0  " Don't use it (because it's not interactive)
+let g:pymode_breakpoint_cmd = 'import pudb; pudb.set_trace()  # XXX breapoint'
+let g:pymode_lint = 0  " Use flake8 for syntax checking
+" let g:pymode_lint_checker = 'pyflakes'
+" let g:pymode_lint_ignore = 'C0103,C0111,E114,E116,E265,E702'
+let g:pymode_rope = 0  " Rope just sucks
+let g:pymode_syntax = 0  " Already works out-of-the-box
 " }}}
 " Lokaltog/vim-easymotion {{{
 let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
@@ -301,13 +304,15 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 "     aM  Select a function or method. Ex: vaM, daM, yaM, caM (normal, operator modes)
 "     iM  Select inner function or method. Ex: viM, diM, yiM, ciM (normal, operator modes)
 "
+"   All the following is currently not enabled:
+"
 "   K          Show pydoc
 "   <leader>g  Runs the python code
-let g:pymode_run_bind = '<leader>g'
+" let g:pymode_run_bind = '<leader>g'
 "   <leader>b  Sets a breakpoint
 "
 "   Rope:
-let g:pymode_rope_global_prefix = "<leader>r"
+" let g:pymode_rope_global_prefix = "<leader>r"
 "     <C-Space>  Autocompletion
 "     <C-c>d     Show internal doc
 "     <C-c>g     Go to definition
