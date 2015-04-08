@@ -84,6 +84,8 @@ set wildmenu
 set completeopt=menu
 " Ignore in autocompletion (also ignores in CtrlP/Command-T/Unite.vim)
 set wildignore=*.o,*.obj,*.pyc,*.class,*.git,*.orig
+" Maximum height of the autocompletion popup menu (pum)
+set pumheight=8
 " Mouse interactivity
 set mouse=a
 " Copy/paste with shared clipboard
