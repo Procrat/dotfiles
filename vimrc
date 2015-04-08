@@ -4,7 +4,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " -- Small plugins (total load .33s)
 Plugin 'altercation/vim-colors-solarized'
