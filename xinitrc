@@ -13,6 +13,13 @@ fi
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+# Load Xresources
+xrdb $HOME/.Xresources &
+
+# For some fucked up reason I have the wrong keyboard layout
+# and, yes, my localectl is set correctly
+setxkbmap be &
+
 # Background
 bash $HOME/.fehbg &
 
