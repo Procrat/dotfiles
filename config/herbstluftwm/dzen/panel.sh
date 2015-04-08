@@ -4,12 +4,13 @@
 
 script_dir=$(dirname "$BASH_SOURCE")
 
+monitor=${1:-0}
+shift
 hc() { herbstclient "$@" ; }
 
 source $HOME/.colors
 
 
-monitor=${1:-0}
 geometry=( $(herbstclient monitor_rect "$monitor") )
 if [ -z "$geometry" ] ;then
     echo "Invalid monitor $monitor" >&2 && exit 1
@@ -86,7 +87,6 @@ hc pad $monitor $panel_height
 
 } 2> /dev/null | {
 
-    IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
     visible=true
     date=""
     battery=""
@@ -106,39 +106,7 @@ hc pad $monitor $panel_height
         echo -n "$separator"
 
         # Tags
-        for i in "${tags[@]}" ; do
-            case ${i:0:1} in
-                '.')  # Empty
-                    echo -n "^fg($SECONDARY_CONTENT_COLOR)"
-                    ;;
-                '#')  # On this monitor, focused
-                    echo -n "^fg($INVERSE_CONTENT_COLOR)"
-                    echo -n "^bg($INVERSE_BACKGROUND_COLOR)"
-                    ;;
-                '!')  # Contains urgent window
-                    echo -n "^fg($WARNING_COLOR)"
-                    ;;
-                *)
-                    ;;
-                # ':')  # Not empty
-                    # echo -n "^bg()^fg()"
-                    # ;;
-                # '+')  # On this monitor, not focused
-                    # ;;
-                # '%')  # Other monitor, focused
-                    # echo -n "^bg()^fg()"
-                    # ;;
-                # '-')  # Other monitor, not focused
-                    # echo -n "^bg()^fg()"
-                    # ;;
-            esac
-            # clickable tags
-            echo -n "^ca(1,\"${herbstclient_command[@]:-herbstclient}\" "
-            echo -n "focus_monitor \"$monitor\" && "
-            echo -n "\"${herbstclient_command[@]:-herbstclient}\" "
-            echo -n "use \"${i:1}\") ${i:1} ^ca()"
-            echo -n "^fg()^bg()"
-        done
+        $script_dir/tags.sh $monitor
         echo -n "$separator"
         echo -n " ^fg($SECONDARY_CONTENT_COLOR)${windowtitle//^/^^}^fg()"
 
@@ -167,9 +135,6 @@ hc pad $monitor $panel_height
         IFS=$'\t' read -ra cmd || break
         # find out event origin
         case "${cmd[0]}" in
-            tag*)
-                IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
-                ;;
             date)
                 date="${cmd[@]:1}"
                 ;;
@@ -203,7 +168,11 @@ hc pad $monitor $panel_height
                 exit
                 ;;
             focus_changed|window_title_changed)
-                windowtitle="${cmd[@]:2}"
+                event_monitor=$(hc list_monitors | grep FOCUS |\
+                    sed 's/\([0-9]\+\).*/\1/')
+                if [[ $monitor == $event_monitor ]]; then
+                    windowtitle="${cmd[@]:2}"
+                fi
                 ;;
         esac
     done
