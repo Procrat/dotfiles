@@ -184,9 +184,18 @@ au FileType tex setlocal shiftwidth=2 softtabstop=2
 " }}}
 " Plugin settings {{{
 " bling/vim-airline {{{
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline_powerline_fonts = 1
+let g:airline_exclude_preview = 1
+" Optimization: don't search for all possible extensions
+let g:airline_extensions = [
+            \'branch',
+            \'ctrlp',
+            \'netrw',
+            \'quickfix',
+            \'syntastic',
+            \'tabline',
+            \'virtualenv']
+let g:airline#extensions#tabline#buffer_min_count = 2
 " }}}
 " klen/python-mode {{{
 let g:pymode_trim_whitespaces = 0  " This already happens anyway
