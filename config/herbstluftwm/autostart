@@ -42,16 +42,29 @@ hc unlock
 
 
 ### MULTI MONITOR SETUP ###
-# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
-# or simply:
+
+find_orientation() {
+    zenity \
+        --title 'Orientation' \
+        --text 'Where is the external monitor?' \
+        --list \
+        --column orientation \
+        left right
+}
+
 xrandr --output LVDS1 --auto
-if grep -q "HDMI1 connected" <(xrandr); then
- xrandr --output HDMI1 --auto --${ORIENTATION:-right}-of LVDS1
-fi
 if grep -q "VGA1 connected" <(xrandr); then
- xrandr --output VGA1 --auto --${ORIENTATION:-right}-of LVDS1
+    orientation=$(find_orientation)
+    xrandr --output VGA1 --auto --${orientation:-right}-of LVDS1
+elif  grep -q "HDMI1 connected" <(xrandr); then
+    orientation=$(find_orientation)
+    xrandr --output HDMI1 --auto --${orientation:-right}-of LVDS1
 fi
+
 hc detect_monitors
+
+# Or manual:
+# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 
 
 ### PANEL ###
