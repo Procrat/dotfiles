@@ -46,6 +46,7 @@ hc set window_border_inner_width 0
 # hc set focus_crosses_monitor_boundaries
 # hc set tree_style '╾│ ├└╼─┐'
 hc set default_frame_layout 3
+hc set_layout grid  # The above doesn't change the root frame
 # hc set default_direction_external_only
 # hc set gapless_grid 1
 hc set smart_frame_surroundings 1
