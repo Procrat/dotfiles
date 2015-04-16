@@ -23,6 +23,7 @@ alias todo='grep -r TODO .'
 alias yupdate='yaourt -Syua'
 alias yupdatef='yaourt -Syua --noconfirm && ~/repos/dotfiles/setup.sh && yaourt -C'
 alias g='git'
+alias hc='herbstclient'
 function psg() {
     ps auxww | grep -i --color=always $* | grep -v grep \
         | sed 's/\s\+/\t/g' | cut -f 2,11- | sed 's/\t/ /g2'
