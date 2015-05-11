@@ -209,6 +209,9 @@ let g:pymode_lint = 0  " Use flake8 for syntax checking
 let g:pymode_rope = 0  " Rope just sucks
 let g:pymode_syntax = 0  " Already works out-of-the-box
 " }}}
+" LaTeX-Box-Team/LaTeX-Box {{{
+let g:LatexBox_Folding = 1
+" }}}
 " Lokaltog/vim-easymotion {{{
 let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
 let g:EasyMotion_startofline = 0  " Keep cursor column during JK motion
