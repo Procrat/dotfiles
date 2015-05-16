@@ -1,14 +1,17 @@
 # Fix solarized for tmux
 # TERM=xterm-16color
 
-# don't put duplicate lines in the history. See bash(1) for more options
+# Don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoredups:ignorespace
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)HISTSIZE=1000
+# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)HISTSIZE=1000
 HISTFILESIZE=2000
 
-# check the window size after each command and, if necessary,
+# I want to know when I executed my commands
+HISTTIMEFORMAT="%F %T "
+
+# Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
