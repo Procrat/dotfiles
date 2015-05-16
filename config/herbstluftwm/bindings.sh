@@ -24,6 +24,7 @@ hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Return       spawn urxvtc -e bash
 hc keybind $Mod-Shift-Return spawn xterm
 hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu="dmenu -i -q -f -h $dmenu_height -x 28"
+hc keybind $Mod-e            spawn thunar
 
 # Focus
 hc keybind $Mod-Left        focus left
