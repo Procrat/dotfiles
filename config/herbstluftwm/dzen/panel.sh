@@ -21,6 +21,7 @@ y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=$(cat "$script_dir/panel_height")
 font="Trebuchet MS:size=10"
+XPM_ICONS_WIDTH=18  # Fuck it, I'm hardcoding this shit
 
 
 uniq_linebuffered() {
@@ -80,16 +81,26 @@ hc pad $monitor $panel_height
     done > >(uniq_linebuffered) &
     batteryloop=$!
 
+    # Dropbox status generator
+    while true ; do
+        echo -en 'dropbox\t'
+        $script_dir/dropbox_status.sh
+        sleep 8 || break
+    done > >(uniq_linebuffered) &
+    dropboxloop=$!
+
     hc --idle
     kill $dateloop
     kill $notificationloop
     kill $batteryloop
+    kill $dropboxloop
 
 } 2> /dev/null | {
 
     visible=true
     date=""
     battery=""
+    dropbox_status=""
     notification=""
     windowtitle=""
 
@@ -113,13 +124,14 @@ hc pad $monitor $panel_height
         # Right side
         right="$date  "
         right="$battery^pa(;0)$separator $right"
+        right="$dropbox_status $separator $right"
         if [[ -n $(without_dzen_tags "$notification") ]]; then
             right="$notification $separator $right"
         fi
         right_text_only=$(without_dzen_tags "$right")
         text_width=$($script_dir/xftwidth "$font" "$right_text_only")
-        icon_width=$(extract_icon_width "$right")
-        width=$((text_width + icon_width))
+        xbm_icons_width=$(extract_icon_width "$right")
+        width=$((text_width + xbm_icons_width + XPM_ICONS_WIDTH))
         echo -n "^pa($(($panel_width - $width)))$right"
         echo
 
@@ -140,6 +152,9 @@ hc pad $monitor $panel_height
                 ;;
             battery)
                 battery="${cmd[@]:1}"
+                ;;
+            dropbox)
+                dropbox_status="${cmd[@]:1}"
                 ;;
             notification)
                 notification="${cmd[@]:1}"
