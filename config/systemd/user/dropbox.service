@@ -5,8 +5,8 @@ After=xorg.target local-fs.target network.target
 [Service]
 ExecStart=/usr/bin/dropbox
 ExecReload=/bin/kill -HUP $MAINPID
-Environment=DISPLAY=:0
 Restart=on-failure
+RestartSec=10min
 
 [Install]
 WantedBy=default.target

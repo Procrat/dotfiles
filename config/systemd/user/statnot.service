@@ -1,10 +1,12 @@
 [Unit]
 Description=Lightweight notification daemon
 Documentation=https://github.com/halhen/statnot
+After=graphical.target dbus.service dbus.socket
 
 [Service]
 ExecStart=/usr/bin/statnot %h/.statnotrc
 Restart=on-failure
+RestartSec=5min
 Environment=DISPLAY=:0
 
 [Install]

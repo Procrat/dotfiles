@@ -7,6 +7,7 @@ Documentation=https://wiki.archlinux.org/index.php/OfflineIMAP
 ExecStart=/usr/bin/offlineimap
 KillSignal=SIGUSR2
 Restart=always
+RestartSec=10min
 
 [Install]
 WantedBy=default.target
