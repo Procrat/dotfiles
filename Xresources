@@ -43,10 +43,14 @@ URxvt.letterSpace: -1
 ! URxvt*boldFont: xft:Source Code Pro:style=Bold:size=12
 ! URxvt*letterSpace: -2
 
-! Perl extensions: URLs
-URxvt.perl-ext-common: matcher
+! Perl extensions
+URxvt.perl-ext-common: matcher,font-size
+!   Clickable URLs
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
+!   On the fly font size changing
+URxvt.keysym.C-KP_Add: perl:font-size:increase
+URxvt.keysym.C-KP_Subtract: perl:font-size:decrease
 
 ! Flash terminal instead of making an annoying sound
 URxvt.visualBell: true
