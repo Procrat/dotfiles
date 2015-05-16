@@ -20,13 +20,26 @@ alias vi='/usr/bin/vim'
 alias ipy='ipython && exit'
 alias hig='history | grep -i'
 alias todo='grep -r TODO .'
-alias yupdate='yaourt -Syua'
-alias yupdatef='yaourt -Syua --noconfirm && ~/repos/dotfiles/setup.sh && yaourt -C'
 alias g='git'
 alias hc='herbstclient'
+alias open='xdg-open'
+alias fuck='$(thefuck $(fc -ln -1))'
+alias eduroam='sudo nmcli --ask c up eduroam'
+alias yupdate='yaourt -Syua'
+function yupdatef() {
+    set -e
+    yaourt -Syua --noconfirm
+    paccache -r
+    $HOME/repos/dotfiles/setup.sh
+    yaourt -C
+}
 function psg() {
     ps auxww | grep -i --color=always $* | grep -v grep \
         | sed 's/\s\+/\t/g' | cut -f 2,11- | sed 's/\t/ /g2'
+}
+function cl() {
+    dir="${1-$HOME}"
+    cd "${dir}" && ls -l
 }
 
 # Quick cd

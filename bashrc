@@ -44,12 +44,6 @@ export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
 eval $(gnome-keyring-daemon --start)
 export SSH_AUTH_SOCK
 
-# Functions that can't be in ~/bin for certain reasons
-cl() {
-    dir="${1-$HOME}"
-    cd "${dir}" && ls -l
-}
-
 
 # !! Keep this the last call of .bashrc!
 # If we explicitly call .bashrc with some command, run it in tmux
