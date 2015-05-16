@@ -52,6 +52,8 @@ find_orientation() {
         left right
 }
 
+# Removes disconnected monitors
+xrandr --auto
 xrandr --output LVDS1 --auto
 if grep -q "VGA1 connected" <(xrandr); then
     orientation=$(find_orientation)
@@ -62,7 +64,6 @@ elif  grep -q "HDMI1 connected" <(xrandr); then
 fi
 
 hc detect_monitors
-
 # Or manual:
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 
