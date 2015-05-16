@@ -17,6 +17,7 @@ alias .....='cd ../../../..'
 
 # Frequently used commands
 alias vi='/usr/bin/vim'
+alias rm='rm -I'
 alias ipy='ipython && exit'
 alias hig='history | grep -i'
 alias todo='grep -r TODO .'
