@@ -44,12 +44,14 @@ hc unlock
 ### MULTI MONITOR SETUP ###
 
 find_orientation() {
-    zenity \
-        --title 'Orientation' \
-        --text 'Where is the external monitor?' \
-        --list \
-        --column orientation \
-        left right
+    geometry=( $(herbstclient monitor_rect) )
+    screen_width=${geometry[2]}
+    screen_height=${geometry[3]}
+    echo -e 'left\nright' | \
+        dmenu -i -l 2 -w 300 \
+        -p 'Where is the external monitor?' \
+        -x $((screen_width / 2 - 150)) \
+        -y $((screen_height / 2 - 24))
 }
 
 # Removes disconnected monitors
