@@ -8,6 +8,9 @@
 [push]
     default = simple
 
+[merge]
+    tool = vimdiff
+
 [alias]
     a = add -A
     st = status
