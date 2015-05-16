@@ -8,8 +8,9 @@ Plugin 'gmarik/Vundle.vim'
 
 " -- Small plugins (total load .09s)
 Plugin 'alfredodeza/khuno.vim'
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'honza/vim-snippets'
 Plugin 'jvirtanen/vim-octave'
@@ -48,13 +49,16 @@ call vundle#end()
 filetype plugin indent on
 
 " }}}
-" Solarized colorscheme settings {{{
+" Colorscheme settings {{{
 syntax on
-"set t_Co=16
+set t_Co=16
 set background=dark
-let g:solarized_visibility = "high"
-colorscheme solarized
-"colorscheme Tomorrow-Night
+
+" colorscheme solarized
+" let g:solarized_visibility = "high"
+
+let base16colorspace=256  " Access colors present in 256 colorspace
+colorscheme base16-default
 
 " }}}
 " General settings {{{

@@ -76,51 +76,102 @@ dmenu*font: Trebuchet MS:size=9
 ! Colorscheme: Solarized (http://ethanschoonover.com/solarized)
 !-----------------------------------------------------------------------------
 
-#define S_yellow #b58900
-#define S_orange #cb4b16
-#define S_red #dc322f
-#define S_magenta #d33682
-#define S_violet #6c71c4
-#define S_blue #268bd2
-#define S_cyan #2aa198
-#define S_green #859900
-#define S_base03 #002b36
-#define S_base02 #073642
-#define S_base01 #586e75
-#define S_base00 #657b83
-#define S_base0 #839496
-#define S_base1 #93a1a1
-#define S_base2 #eee8d5
-#define S_base3 #fdf6e3
+! #define S_yellow #b58900
+! #define S_orange #cb4b16
+! #define S_red #dc322f
+! #define S_magenta #d33682
+! #define S_violet #6c71c4
+! #define S_blue #268bd2
+! #define S_cyan #2aa198
+! #define S_green #859900
+! #define S_base03 #002b36
+! #define S_base02 #073642
+! #define S_base01 #586e75
+! #define S_base00 #657b83
+! #define S_base0 #839496
+! #define S_base1 #93a1a1
+! #define S_base2 #eee8d5
+! #define S_base3 #fdf6e3
 
-*background: S_base03
-*foreground: S_base0
-! *fading: 40
-*fadeColor: S_base03
-*cursorColor: S_base1
-*pointerColorBackground: S_base01
-*pointerColorForeground: S_base1
-! Black dark/light
-*color0: S_base02
-*color8: S_base03
-! Red dark/light
-*color1: S_red
-*color9: S_orange
-! Green dark/light
-*color2: S_green
-*color10: S_base01
-! Yellow dark/light
-*color3: S_yellow
-*color11: S_base00
-! Blue dark/light
-*color4: S_blue
-*color12: S_base0
-! Magenta dark/light
-*color5: S_magenta
-*color13: S_violet
-! Cyan dark/light
-*color6: S_cyan
-*color14: S_base1
-! White dark/light
-*color7: S_base2
-*color15: S_base3
+! *background: S_base03
+! *foreground: S_base0
+! ! *fading: 40
+! *fadeColor: S_base03
+! *cursorColor: S_base1
+! *pointerColorBackground: S_base01
+! *pointerColorForeground: S_base1
+! ! Black dark/light
+! *color0: S_base02
+! *color8: S_base03
+! ! Red dark/light
+! *color1: S_red
+! *color9: S_orange
+! ! Green dark/light
+! *color2: S_green
+! *color10: S_base01
+! ! Yellow dark/light
+! *color3: S_yellow
+! *color11: S_base00
+! ! Blue dark/light
+! *color4: S_blue
+! *color12: S_base0
+! ! Magenta dark/light
+! *color5: S_magenta
+! *color13: S_violet
+! ! Cyan dark/light
+! *color6: S_cyan
+! *color14: S_base1
+! ! White dark/light
+! *color7: S_base2
+! *color15: S_base3
+
+
+
+!-----------------------------------------------------------------------------
+! Colorscheme: Base16 (https://github.com/chriskempson/base16)
+!-----------------------------------------------------------------------------
+#define base00 #181818
+#define base01 #282828
+#define base02 #383838
+#define base03 #585858
+#define base04 #b8b8b8
+#define base05 #d8d8d8
+#define base06 #e8e8e8
+#define base07 #f8f8f8
+#define base08 #ab4642
+#define base09 #dc9656
+#define base0A #f7ca88
+#define base0B #a1b56c
+#define base0C #86c1b9
+#define base0D #7cafc2
+#define base0E #ba8baf
+#define base0F #a16946
+
+*.foreground:   base04
+*.background:   base00
+*.cursorColor:  base04
+
+*.color0:       base00
+*.color1:       base08
+*.color2:       base0B
+*.color3:       base0A
+*.color4:       base0D
+*.color5:       base0E
+*.color6:       base0C
+*.color7:       base05
+
+*.color8:       base03
+*.color9:       base08
+*.color10:      base0B
+*.color11:      base0A
+*.color12:      base0D
+*.color13:      base0E
+*.color14:      base0C
+*.color15:      base07
+
+*.color16:      base09
+*.color17:      base0F
+*.color18:      base01
+*.color19:      base02
+*.color20:      base04
+*.color21:      base06

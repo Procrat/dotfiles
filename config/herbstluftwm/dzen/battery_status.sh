@@ -13,7 +13,7 @@ icon_dir=$HOME/.config/icons/xbm
 capacity_color() {
     capacity=$1
     if [[ $capacity -gt 66 ]]; then
-        echo $GREEN
+        echo $OK_COLOR
     elif [[ $capacity -gt 33 ]]; then
         echo $WARNING_COLOR
     else

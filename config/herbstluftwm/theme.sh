@@ -25,7 +25,7 @@ hc set frame_border_inner_width 0
 hc set frame_normal_opacity 100
 
 # Window looks
-hc set window_gap 8
+hc set window_gap 10
 hc set window_border_width 2
 hc set window_border_active_color $SECONDARY_CONTENT_COLOR
 hc set window_border_normal_color $BACKGROUND_COLOR

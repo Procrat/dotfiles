@@ -1,5 +1,5 @@
 # Fix solarized for tmux
-TERM=xterm-16color
+# TERM=xterm-16color
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
@@ -14,7 +14,11 @@ shopt -s checkwinsize
 
 PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
-eval "$(dircolors -b ~/.solarized/dircolors.ansi-dark)"
+# eval "$(dircolors -b ~/.solarized/dircolors.ansi-dark)"
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 . ~/.bash_aliases
 
