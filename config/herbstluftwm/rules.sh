@@ -50,8 +50,7 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on h
         elif (echo "$event" | grep '^rule\s*dialog'); then
             hc lock
             dialog_id=$(echo "$event" | sed 's/rule\s*dialog\s*\(.*\)/\1/')
-            echo $dialog_id >> logs
-            hc manage on
+            # hc manage on
             hc add float_tag
             hc floating float_tag on
             hc add_monitor 1920x1080 float_tag float_monitor
