@@ -6,7 +6,7 @@
 *.exe
 *.o
 *.so
- 
+
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source
@@ -19,7 +19,7 @@
 *.rar
 *.tar
 *.zip
- 
+
 # Logs and databases #
 ######################
 *.log
@@ -29,3 +29,15 @@
 # Eclipse/Eclim configuration files #
 #####################################
 workbench.xmi
+
+# LaTeX/TeX working files #
+###########################
+*.fls
+*.fdb_latexmk
+
+# IntelliJ IDEA configuration files #
+#####################################
+.idea/
+# IntelliJ IDEA output files #
+##############################
+out/
