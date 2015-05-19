@@ -27,6 +27,7 @@ alias open='xdg-open'
 alias fuck='$(thefuck $(fc -ln -1))'
 alias eduroam='sudo nmcli --ask c up eduroam'
 alias yupdate='yaourt -Syua'
+alias highlight='pygmentize'
 function yupdatef() {
     set -e
     yaourt -Syua --noconfirm
