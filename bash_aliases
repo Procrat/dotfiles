@@ -43,6 +43,17 @@ function cl() {
     dir="${1-$HOME}"
     cd "${dir}" && ls -l
 }
+man() {
+    env \
+        LESS_TERMCAP_mb=$'\E[5m' \
+        LESS_TERMCAP_md=$'\E[32m' \
+        LESS_TERMCAP_me=$'\E[0m' \
+        LESS_TERMCAP_so=$'\E[3m\E[48;5;235m' \
+        LESS_TERMCAP_se=$'\E[0m' \
+        LESS_TERMCAP_us=$'\E[3m' \
+        LESS_TERMCAP_ue=$'\E[0m' \
+        /usr/bin/man "$@"
+}
 
 # Quick cd
 alias bu='cd ~/Documenten/bucht'
