@@ -3,6 +3,7 @@
 # HLWM bar using dzen2
 
 script_dir=$(dirname "$BASH_SOURCE")
+logs="$HOME/.config/herbstluftwm/logs"
 
 monitor=${1:-0}
 shift
@@ -94,7 +95,7 @@ hc pad $monitor $panel_height
     kill $dropboxloop
     killall sind
 
-} 2> /dev/null | {
+} 2>> "$logs" | {
 
     visible=true
     date=""
@@ -191,9 +192,11 @@ hc pad $monitor $panel_height
         esac
     done
 
+} 2>> "$logs" | \
+
     ### dzen2 ###
     # After the data is gathered and processed, the output of the previous
     # block gets piped to dzen2.
 
-} 2> /dev/null | dzen2 -w $panel_width -x $x -y $y -h $panel_height -ta l \
+    dzen2 -w $panel_width -x $x -y $y -h $panel_height -ta l \
     -e 'button3=;button4=exec:herbstclient use_index -1;button5=exec:herbstclient use_index +1'
