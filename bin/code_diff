@@ -4,7 +4,7 @@
 
 set -eu
 
-HIGHLIGHT='highlight -O ansi'
+HIGHLIGHT='pygmentize'
 
 if [[ $# -ne 2 ]]; then
     echo "Usage: $(basename $0) file1 file2" >&2
