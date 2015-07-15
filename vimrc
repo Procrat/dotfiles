@@ -15,7 +15,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'honza/vim-snippets'
 Plugin 'jvirtanen/vim-octave'
 Plugin 'kien/ctrlp.vim'
-Plugin 'klen/python-mode'
+" Plugin 'klen/python-mode'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'maksimr/vim-jsbeautify'
@@ -299,6 +299,10 @@ nnoremap <leader>D :bd!<cr>
 
 " }}}
 " Plugin mappings {{{
+" alfredodeza/khuno.vim {{{
+"   <leader>x   Show errors in a quickfix-like pane
+nnoremap <silent><leader>x <Esc>:Khuno show<CR>
+" }}}
 " AndrewRadev/splitjoin.vim {{{
 "   gS  Split a one-liner into multiple lines
 "   gJ  (with the cursor on the first line of a block) to join a block into a
