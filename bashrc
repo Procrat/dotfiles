@@ -27,8 +27,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
-# Disable Ctrl+S for scrolling so we can use it for the save shortcut in vim
-stty -ixon
+# Disable Ctrl+S for scrolling so we can use it for the save shortcut in vim,
+# but only for interactive shells of course
+[[ $- == *i* ]] && stty -ixon
 
 # Add ruby gem path to PATH
 RUBY_HOME=$(ruby -rubygems -e "puts Gem.user_dir")/bin
