@@ -147,9 +147,9 @@ dmenu*font: Trebuchet MS:size=9
 #define base0E #ba8baf
 #define base0F #a16946
 
-*.foreground:   base04
+*.foreground:   base05
 *.background:   base00
-*.cursorColor:  base04
+*.cursorColor:  base05
 
 *.color0:       base00
 *.color1:       base08
