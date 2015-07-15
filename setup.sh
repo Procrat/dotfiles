@@ -30,6 +30,7 @@ dotfiles=(
     bash_aliases
     bashrc
     colors
+    config/base16-shell
     config/herbstluftwm
     config/htop
     config/icons
