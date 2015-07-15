@@ -17,11 +17,11 @@ hc keyunbind --all
 Mod=Mod4   # Use the super key as the main modifier
 
 # HLWM
-hc keybind $Mod-Shift-q spawn urxvtc -e bash -c 'sudo systemctl poweroff'
+hc keybind $Mod-Shift-q spawn urxvtc -e sh -c 'sudo systemctl poweroff'
 hc keybind $Mod-Shift-r reload
 
 # Launchers
-hc keybind $Mod-Return       spawn urxvtc -e bash
+hc keybind $Mod-Return       spawn urxvtc
 hc keybind $Mod-Shift-Return spawn xterm
 hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu="dmenu -i -q -f -h $dmenu_height -x 28"
 hc keybind $Mod-e            spawn thunar
@@ -93,5 +93,6 @@ hc mousebind $Mod-Button3 resize
 hc keybind XF86AudioRaiseVolume  spawn $script_dir/dzen/dvolume.sh -i 2
 hc keybind XF86AudioLowerVolume  spawn $script_dir/dzen/dvolume.sh -d 2
 hc keybind XF86AudioMute         spawn $script_dir/dzen/dvolume.sh -t
+hc keybind XF86AudioPlay         spawn mpc toggle
 hc keybind XF86MonBrightnessUp   spawn $script_dir/dzen/dbrightness.sh +15
 hc keybind XF86MonBrightnessDown spawn $script_dir/dzen/dbrightness.sh -10
