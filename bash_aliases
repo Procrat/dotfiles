@@ -6,7 +6,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # ls shortcuts
-alias ll='ls -AlFv'
+alias ll='ls -AlhFv'
 alias l='ls -Fv'
 
 # Easier directory jumping
@@ -18,7 +18,7 @@ alias .....='cd ../../../..'
 # Frequently used commands
 alias vi='/usr/bin/vim'
 alias rm='rm -I'
-alias ipy='ipython && exit'
+alias ipy='exec ipython'
 alias hig='history | grep -i'
 alias todo='grep -r TODO .'
 alias g='git'
