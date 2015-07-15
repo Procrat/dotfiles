@@ -30,7 +30,7 @@ Host helios
     Hostname helios.ugent.be
     User svsegher
 Host flesje
-    Hostname 178.116.153.116
+    Hostname flashyoshi.me
     Port 2222
     User procrat
 
@@ -39,4 +39,10 @@ Host cammie
     Hostname kelder.zeus.ugent.be
     User root
     Port 2222
-    LocalForward localhost:8008 cammie:80
+    LocalForward 8008 cammie:80
+
+Host zeven
+    Hostname kelder.zeus.ugent.be
+    User stijns
+    Port 2222
+    LocalForward 25565 ZEVEN:25565
