@@ -27,6 +27,8 @@
     stash-unapply = !git stash show -p | git apply -R
     pop = stash pop
     undo = reset --soft HEAD^
+    ignore = update-index --assume-unchanged
+    unignore = update-index --no-assume-unchanged
 
 [color]
     ui = auto
