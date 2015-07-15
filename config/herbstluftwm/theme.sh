@@ -25,8 +25,8 @@ hc set frame_border_inner_width 0
 hc set frame_normal_opacity 100
 
 # Window looks
-hc set window_gap 10
-hc set window_border_width 2
+hc set window_gap 15
+hc set window_border_width 1
 hc set window_border_active_color $SECONDARY_CONTENT_COLOR
 hc set window_border_normal_color $BACKGROUND_COLOR
 hc set window_border_urgent_color $WARNING_COLOR
@@ -52,7 +52,7 @@ hc set_layout grid  # The above doesn't change the root frame
 hc set smart_frame_surroundings 1
 hc set smart_window_surroundings 0
 # hc set focus_follows_mouse
-# hc set focus_stealing_prevention
+hc set focus_stealing_prevention 0
 hc set swap_monitors_to_get_tag 1
 # hc set auto_detect_monitors 1
 # hc set wmname
