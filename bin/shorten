@@ -2,7 +2,7 @@
 #
 # Shortens the link in the clipboard
 
-set -eu
+set -euo pipefail
 
 usage() {
     echo "Usage: $(basename $0)" >&2

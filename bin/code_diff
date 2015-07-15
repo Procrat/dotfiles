@@ -2,7 +2,7 @@
 #
 # Diff with syntax highlighting
 
-set -eu
+set -euo pipefail
 
 HIGHLIGHT='pygmentize'
 

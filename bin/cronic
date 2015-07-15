@@ -4,7 +4,7 @@
 # Copyright 2007 Chuck Houpt. No rights reserved, whatsoever.
 # Public Domain CC0: http://creativecommons.org/publicdomain/zero/1.0/
 
-set -eu
+set -euo pipefail
 
 OUT=/tmp/cronic.out.$$
 ERR=/tmp/cronic.err.$$

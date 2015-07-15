@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 SECS=1
 ICON_FOLDER=~/.config/icons/xbm
 PIPE="/tmp/dbrightnesspipe"

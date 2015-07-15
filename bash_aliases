@@ -29,21 +29,24 @@ alias eduroam='sudo nmcli --ask c up eduroam'
 alias yupdate='yaourt -Syua'
 alias highlight='pygmentize'
 function yupdatef() {
-    set -e
+    set -euo pipefail
     yaourt -Syua --noconfirm
     paccache -r
     $HOME/repos/dotfiles/setup.sh
     yaourt -C
 }
 function psg() {
+    set -euo pipefail
     ps auxww | grep -i --color=always $* | grep -v grep \
         | sed 's/\s\+/\t/g' | cut -f 2,11- | sed 's/\t/ /g2'
 }
 function cl() {
+    set -euo pipefail
     dir="${1-$HOME}"
     cd "${dir}" && ls -l
 }
 man() {
+    set -euo pipefail
     env \
         LESS_TERMCAP_mb=$'\E[5m' \
         LESS_TERMCAP_md=$'\E[32m' \

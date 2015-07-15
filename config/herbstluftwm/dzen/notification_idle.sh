@@ -2,8 +2,7 @@
 #
 # Colorized notifications for dzen
 
-set -eu
-
+set -euo pipefail
 
 source $HOME/.colors
 

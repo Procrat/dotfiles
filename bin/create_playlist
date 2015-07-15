@@ -4,7 +4,7 @@
 # Creates a playlist in the parent directory of all music (recursively) in
 # the current folder
 
-set -eu
+set -euo pipefail
 
 pwd=$(pwd)
 find -type f -name '*.mp3' \

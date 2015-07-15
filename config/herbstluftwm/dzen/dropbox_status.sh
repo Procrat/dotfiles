@@ -2,7 +2,7 @@
 #
 # Dropbox status icon for dzen
 
-set -eu
+set -euo pipefail
 
 source $HOME/.colors
 SCRIPT_DIR=$(dirname "$BASH_SOURCE")

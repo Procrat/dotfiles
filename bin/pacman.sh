@@ -7,7 +7,7 @@
 #    colors (f = foreground, b = background), and use the 'off'
 #    feature for anything you turn on.
 
-set -eu
+set -euo pipefail
 
 initializeANSI()
 {

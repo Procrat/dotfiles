@@ -2,7 +2,7 @@
 #
 # Colorized battery status for dzen
 
-set -e
+set -euo pipefail
 
 source $HOME/.colors
 

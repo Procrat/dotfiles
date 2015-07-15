@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 REPO=http://github.com/Procrat/dotfiles
 DEST=$HOME/repos/dotfiles

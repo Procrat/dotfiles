@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eu
+set -euo pipefail
 
 ssh_host="flesje"
 url="http://flashyoshi.me:8080"

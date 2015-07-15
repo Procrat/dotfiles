@@ -2,7 +2,7 @@
 #
 # Measures memory usage of a given command
 
-set -eu
+set -euo pipefai
 
 usage() {
     echo "Usage: $(basename $0) command [command-arguments]" >&2
