@@ -12,5 +12,5 @@ chmod 755 $file
 scp -p "$file" "$ssh_host:~/images/"
 rm "$file"
 url="$url/~$user/images/$file"
-notify-send "Screenshot uploaded to $url"
+notify-send -a flesscrot "Screenshot uploaded to $url"
 echo "$url" | xclip -sel c

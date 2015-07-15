@@ -65,14 +65,6 @@ hc pad $monitor $panel_height
     done > >(uniq_linebuffered) &
     dateloop=$!
 
-    # Notification generator
-    while true ; do
-        echo -en 'notification\t'
-        $script_dir/notifications.sh
-        sleep 2 || break
-    done > >(uniq_linebuffered) &
-    notificationloop=$!
-
     # Battery status generator
     while true ; do
         echo -en 'battery\t'
@@ -89,11 +81,18 @@ hc pad $monitor $panel_height
     done > >(uniq_linebuffered) &
     dropboxloop=$!
 
+    # Notification daemon
+    $script_dir/notification_idle.sh | \
+        sed -u 's/.*/notification\t&/' > >(uniq_linebuffered)
+
+    # HLWM changes generator
     hc --idle
+
+    # Kill all generators when the window manager gets killed
     kill $dateloop
-    kill $notificationloop
     kill $batteryloop
     kill $dropboxloop
+    killall sind
 
 } 2> /dev/null | {
 
