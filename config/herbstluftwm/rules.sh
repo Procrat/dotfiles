@@ -9,7 +9,7 @@ hc() { herbstclient "$@" ; }
 hc unrule -F
 
 # Focus new clients
-hc rule focus=on
+hc rule focus=on pseudotile=on
 
 # Pseudo-tile dialogs and place them on top of the existing window (in a very
 # hackish way)
@@ -70,8 +70,8 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on h
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
 # Move Thunderbird to 'mail' tag
-hc rule once class~'[Tt]hunderbird' tag=mail
+hc rule class~'[Tt]hunderbird' tag=mail pseudotile=off
 # Move Firefox to 'web' tag
-hc rule once class~'[Ff]irefox' tag=web
+hc rule class~'[Ff]irefox' tag=web pseudotile=off
 # Start on 'terms' tag
 hc use terms
