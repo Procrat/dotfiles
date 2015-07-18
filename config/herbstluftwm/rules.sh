@@ -70,8 +70,10 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on h
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
 # Move Thunderbird to 'mail' tag
-hc rule class~'[Tt]hunderbird' tag=mail pseudotile=off
+hc rule class~'[Tt]hunderbird' tag=mail
 # Move Firefox to 'web' tag
-hc rule class~'[Ff]irefox' tag=web pseudotile=off
+hc rule class~'[Ff]irefox' tag=web
+# Turn off default pseudotiling for some programs
+hc rule class~'[Ff]irefox|[Tt]hunderbird|[Tt]hunar' pseudotile=off
 # Start on 'terms' tag
 hc use terms
