@@ -13,18 +13,14 @@ fi
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-# Load Xresources
-xrdb $HOME/.Xresources
-
-# For some fucked up reason I have the wrong keyboard layout
-# and, yes, my localectl is set correctly
-setxkbmap be &
+# Enable Num Lock
+numlockx &
 
 # Background
 bash $HOME/.fehbg &
 
 # Screenlocker
-xautolock -locker i3lock-fancy -corners 0+0- -detectsleep &
+xautolock -locker i3lock-fancy -corners 0+0- -detectsleep -locknow &
 
 # Launch some programs
 thunderbird &

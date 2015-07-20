@@ -46,6 +46,7 @@ dotfiles=(
     vimrc
     vim/ycm_extra_conf.py
     xinitrc
+    xprofile
     Xresources
 )
 for dotfile in ${dotfiles[@]}; do

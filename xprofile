@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Executed by gdm
+
+. $HOME/.xinitrc
