@@ -3,7 +3,7 @@ Host zeus
     Port 2222
     User root
 Host king
-    Hostname zeus.ugent.be
+    Hostname king.ugent.be
     Port 2222
     User root
 Host gami
@@ -11,7 +11,7 @@ Host gami
     Port 2222
     User gamification
 Host prince
-    Hostname king.ugent.be
+    Hostname zeus.ugent.be
     Port 2222
     User root
 Host stuw
