@@ -69,11 +69,13 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on h
 # Don't manage dzen2 and the like
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
-# Move Thunderbird to 'mail' tag
-hc rule class~'[Tt]hunderbird' tag=mail
-# Move Firefox to 'web' tag
-hc rule class~'[Ff]irefox' tag=web
+# Move mail clients to 'mail' tag
+hc rule instance='Mail' tag=mail
+# Move browsers to 'web' tag
+hc rule instance~'Navigator|Opera' tag=web
 # Turn off default pseudotiling for some programs
-hc rule class~'[Ff]irefox|[Tt]hunderbird|[Tt]hunar' pseudotile=off
+hc rule class~'Firefox|Opera|Chromium|Thun(ar|derbird)|Vlc|mpv|feh' \
+    pseudotile=off
+
 # Start on 'terms' tag
 hc use terms

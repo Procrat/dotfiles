@@ -31,4 +31,4 @@ export SSH_AUTH_SOCK
 
 # Launch some programs
 thunderbird &
-firefox &
+opera &
