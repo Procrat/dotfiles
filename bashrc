@@ -38,15 +38,8 @@ export PATH="${PATH}:~/bin:${RUBY_HOME}:"
 # Shell options
 shopt -s autocd cdspell dirspell
 
-# Better font rendering in Java
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
-
 # Make Bundler install gems per user
 export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
-
-# Open keyring
-eval $(gnome-keyring-daemon --start)
-export SSH_AUTH_SOCK
 
 
 # !! Keep this the last call of .bashrc!
