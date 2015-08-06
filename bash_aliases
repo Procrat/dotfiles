@@ -59,3 +59,14 @@ alias bu='cd ~/Documenten/bucht'
 alias cdm='cd ~/repos/the-little-monks'
 alias euler='cd ~/Dropbox/projects/project_euler/'
 alias code_eval='cd ~/Dropbox/projects/code_eval/'
+
+# Teehee
+alias -- -='yaourt'
+alias §='yaourt -Sy'
+alias hack_production_server='cat /dev/urandom'
+emergency_shutdown() {
+    (sleep 10 && systemctl poweroff) &
+    hack_production_server
+}
+alias fix_wifi='echo "Fixing Wifi..." && sleep 10 && echo "Wifi fixed!"'
+alias murder='kill -9'
