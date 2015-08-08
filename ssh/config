@@ -46,3 +46,4 @@ Host zeven
     User stijns
     Port 2222
     LocalForward 25565 ZEVEN:25565
+    LocalForward 64738 ZEVEN:64738
