@@ -14,6 +14,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'honza/vim-snippets'
 Plugin 'jvirtanen/vim-octave'
+Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'kien/ctrlp.vim'
 " Plugin 'klen/python-mode'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
@@ -124,8 +125,6 @@ autocmd FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --in
 autocmd BufNewFile,BufRead *.pl set filetype=prolog
 " Filename ending in .py3 is a Python3 file
 autocmd BufNewFile,BufRead *.py3 set filetype=python
-" Filename ending in .html could be template file
-autocmd BufNewFile,BufRead *.html set filetype=htmldjango
 
 " }}}
 " Remove trailing whitespace {{{
