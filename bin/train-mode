@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Turns off energy consuming stuff for longer battery usage.
+
+set -euo pipefail
+
+
+sudo systemctl stop ntpd
+sudo systemctl stop sickrage
+
+systemctl --user stop dropbox
+systemctl --user stop deluged
+
+killall -q skype firefox opera chromium thunderbird dropbox
