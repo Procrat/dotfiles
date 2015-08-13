@@ -74,8 +74,7 @@ hc rule instance='Mail' tag=mail
 # Move browsers to 'web' tag
 hc rule instance~'Navigator|Opera' tag=web
 # Turn off default pseudotiling for some programs
-hc rule
-class~'Firefox|Opera|Chromium|Thun(ar|derbird)|Vlc|mpv|feh|Deluge|Minecraft.*' \
+hc rule class~'Firefox|Opera|Chromium|Thun(ar|derbird)|Vlc|mpv|feh|Deluge|Minecraft.*' \
     pseudotile=off
 
 # Start on 'terms' tag
