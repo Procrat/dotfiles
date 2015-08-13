@@ -12,6 +12,7 @@ Plugin 'alfredodeza/khuno.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'fisadev/vim-isort'
 Plugin 'honza/vim-snippets'
 Plugin 'jvirtanen/vim-octave'
 Plugin 'Glench/Vim-Jinja2-Syntax'
@@ -307,6 +308,9 @@ nnoremap <silent><leader>x <Esc>:Khuno show<CR>
 "   gS  Split a one-liner into multiple lines
 "   gJ  (with the cursor on the first line of a block) to join a block into a
 "       single-line statement.
+" }}}
+" fisadev/vim-isort {{{
+let g:vim_isort_map = '<C-i>'
 " }}}
 " kien/ctrlp.vim {{{
 let g:ctrlp_map = '<leader>t'  " Behave like command-t
