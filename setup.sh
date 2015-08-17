@@ -63,6 +63,11 @@ for dotfile in ${dotfiles[@]}; do
     ln -sfn "$DEST/$dotfile" "$HOME/.$dotfile"
 done
 
+# Really, Freedesktop? There is no hope left if you don't even follow your own
+# standards.
+ln -sfn "$HOME/.config/mimeapps.list" \
+    "$HOME/.local/share/applications/mimeapps.list"
+
 echo 'Updating Bundles...'
 vim +PluginInstall! +qall
 
