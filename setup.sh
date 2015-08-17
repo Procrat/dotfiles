@@ -2,28 +2,37 @@
 
 set -euo pipefail
 
-REPO=http://github.com/Procrat/dotfiles
-DEST=$HOME/repos/dotfiles
 
-VUNDLE_REPO=https://github.com/gmarik/Vundle.vim.git
-VUNDLE_PATH=$HOME/.vim/bundle/Vundle.vim
+REPO='https://github.com/Procrat/dotfiles'
+DEST="$HOME/repos/dotfiles"
+
+TPM_REPO='https://github.com/tmux-plugins/tpm'
+TPM_DEST="$HOME/.tmux/plugins/tpm"
+
+VUNDLE_REPO='https://github.com/gmarik/Vundle.vim'
+VUNDLE_DEST="$HOME/.vim/bundle/Vundle.vim"
+
+
+ensure_repo_exists_and_has_latest_version() {
+    repo="$1"
+    dest="$2"
+    if [[ -d "$dest" ]]; then
+        mkdir -p $(dirname "$dest")
+        (cd "$dest" && git pull origin master)
+    else
+        git clone "$repo" "$dest"
+    fi
+}
 
 
 echo 'Ensuring repo exist locally...'
-if [[ -d $DEST ]]; then
-    mkdir -p $(dirname $DEST)
-    (cd $DEST && git pull origin master)
-else
-    git clone $REPO $DEST
-fi
+ensure_repo_exists_and_has_latest_version "$REPO" "$DEST"
+
+echo 'Ensuring Tmux Plugin Manager is installed...'
+ensure_repo_exists_and_has_latest_version "$TPM_REPO" "$TPM_DEST"
 
 echo 'Ensuring Vundle is installed...'
-if [[ -d $VUNDLE_PATH ]]; then
-    mkdir -p $(dirname $VUNDLE_PATH)
-    (cd $VUNDLE_PATH && git pull origin master)
-else
-    git clone $VUNDLE_REPO $VUNDLE_PATH
-fi
+ensure_repo_exists_and_has_latest_version "$VUNDLE_REPO" "$VUNDLE_DEST"
 
 echo 'Linking dotfiles...'
 dotfiles=(
@@ -34,6 +43,7 @@ dotfiles=(
     config/herbstluftwm
     config/htop
     config/icons
+    config/mimeapps.list
     config/systemd
     devilspie
     gitconfig
@@ -50,7 +60,7 @@ dotfiles=(
     Xresources
 )
 for dotfile in ${dotfiles[@]}; do
-    ln -sfn $DEST/$dotfile $HOME/.$dotfile
+    ln -sfn "$DEST/$dotfile" "$HOME/.$dotfile"
 done
 
 echo 'Updating Bundles...'
