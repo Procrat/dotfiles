@@ -41,3 +41,6 @@ workbench.xmi
 # IntelliJ IDEA output files #
 ##############################
 out/
+
+# Virtual env #
+.venv/
