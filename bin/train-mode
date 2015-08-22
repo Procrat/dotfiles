@@ -79,6 +79,7 @@ else
     ensure_running opera
     ensure_running thunderbird
     ensure_running dropbox
+    ensure_running skype
 fi
 echo
 
