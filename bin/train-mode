@@ -5,10 +5,18 @@
 set -euo pipefail
 
 
+echo 'Stopping NTP'
 sudo systemctl stop ntpd
+echo 'Stopping Sickrage'
 sudo systemctl stop sickrage
 
+echo 'Stopping Dropbox'
 systemctl --user stop dropbox
+echo 'Stopping Deluge'
 systemctl --user stop deluged
 
+echo 'Killing browsers, mail clients and IMs'
 killall -q skype firefox opera chromium thunderbird dropbox
+
+echo 'Turning screen brightness down'
+$HOME/.config/herbstluftwm/dzen/dbrightness.sh 25
