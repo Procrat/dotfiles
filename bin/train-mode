@@ -1,22 +1,87 @@
 #!/bin/bash
 #
-# Turns off energy consuming stuff for longer battery usage.
+# Switches train-mode on or off, respectively killing or restarting energy
+# consuming stuff to enable longer battery usage.
 
 set -euo pipefail
 
 
-echo 'Stopping NTP'
-sudo systemctl stop ntpd
-echo 'Stopping Sickrage'
-sudo systemctl stop sickrage
+usage() {
+    echo "Usage: $(basename $0) [on|off]" >&2
+    echo "Usage: $(basename $0) [-h|-help]" >&2
+}
 
-echo 'Stopping Dropbox'
-systemctl --user stop dropbox
-echo 'Stopping Deluge'
-systemctl --user stop deluged
+ensure_running() {
+    process="$1"
+    if [[ -z "$(pidof "$process")" ]]; then
+        "$process" 2>/dev/null &
+    fi
+}
 
-echo 'Killing browsers, mail clients and IMs'
-killall -q skype firefox opera chromium thunderbird dropbox
 
-echo 'Turning screen brightness down'
-$HOME/.config/herbstluftwm/dzen/dbrightness.sh 25
+# Parse options
+while getopts "h" opt; do
+  case $opt in
+    h|help)
+        usage
+        exit 0
+        ;;
+    ?)
+        usage
+        exit 1
+        ;;
+  esac
+done
+shift $(($OPTIND-1))
+
+
+# Parse state
+state='on'
+if [[ $# -gt 0 ]]; then
+    state="$1"
+    if [[ x"$state" != x'on' && x"$state" != x'off' ]]; then
+        usage
+        exit 1
+    fi
+fi
+
+
+# Set some variables according to state to keep duplication to a minimum
+if [[ x"$state" = x"on" ]]; then
+    action_name='Stopping'
+    systemd_action='stop'
+    brightness='25'
+else
+    action_name='Starting'
+    systemd_action='start'
+    brightness='90'
+fi
+
+
+echo 'System systemd'
+echo "  $action_name NTP"
+sudo systemctl "$systemd_action" ntpd
+echo "  $action_name Sickrage"
+sudo systemctl "$systemd_action" sickrage
+echo
+echo 'User systemd'
+echo "  $action_name Dropbox"
+systemctl --user "$systemd_action" dropbox
+echo "  $action_name Deluge"
+systemctl --user "$systemd_action" deluged
+echo
+
+
+echo "$action_name browsers, mail clients and IMs"
+if [[ x"$state" = x"on" ]]; then
+    killall -q skype firefox opera chromium thunderbird dropbox || true
+else
+    ensure_running opera
+    ensure_running thunderbird
+    ensure_running dropbox
+fi
+echo
+
+
+echo "Setting screen brightness to $brightness"
+$HOME/.config/herbstluftwm/dzen/dbrightness.sh -set "$brightness" &
