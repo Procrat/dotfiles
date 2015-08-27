@@ -2,3 +2,5 @@
 
 yaourt -Qen > ~/Dropbox/.arch_official_packages
 yaourt -Qem > ~/Dropbox/.arch_aur_packages
+pip3 freeze > ~/Dropbox/.arch_pip3_packages
+pip2 freeze > ~/Dropbox/.arch_pip2_packages
