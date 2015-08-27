@@ -1,5 +1,4 @@
-# Compiled source #
-###################
+# Compiled source
 *.com
 *.class
 *.dll
@@ -7,8 +6,7 @@
 *.o
 *.so
 
-# Packages #
-############
+# Packages
 # it's better to unpack these files and commit the raw source
 # git has its own built in compression methods
 *.7z
@@ -20,27 +18,25 @@
 *.tar
 *.zip
 
-# Logs and databases #
-######################
+# Logs and databases
 *.log
 *.sql
 *.sqlite
 
-# Eclipse/Eclim configuration files #
-#####################################
+# Eclipse/Eclim configuration files
 workbench.xmi
 
-# LaTeX/TeX working files #
-###########################
+# LaTeX/TeX working files
 *.fls
 *.fdb_latexmk
 
-# IntelliJ IDEA configuration files #
-#####################################
+# IntelliJ IDEA configuration files
 .idea/
-# IntelliJ IDEA output files #
-##############################
+# IntelliJ IDEA output files
 out/
 
-# Virtual env #
+# Virtual env
 .venv/
+
+# Local ack executables
+ack
