@@ -23,8 +23,6 @@ Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'mattn/gist-vim'
-Plugin 'mattn/webapi-vim'
-Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'Raimondi/delimitMate'
 Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdcommenter'
@@ -247,6 +245,9 @@ let g:syntastic_auto_jump = 2
 " }}}
 " SirVer/ultisnips {{{
 let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
+" }}}
+" tpope/vim-markdown {{{
+let g:markdown_folding = 1
 " }}}
 " Valloric/YouCompleteMe {{{
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
