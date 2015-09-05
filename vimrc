@@ -89,7 +89,7 @@ set wildmenu
 " Always use a menu for autocompletion, not a preview pane
 set completeopt=menu
 " Ignore in autocompletion (also ignores in CtrlP/Command-T/Unite.vim)
-set wildignore=*.o,*.obj,*.pyc,*.class,*.git,*.orig
+set wildignore=*.o,*.obj,*.pyc,*.class,*.orig,*/.git/*
 " Maximum height of the autocompletion popup menu (pum)
 set pumheight=8
 " Mouse interactivity
@@ -110,8 +110,8 @@ set sidescrolloff=2
 set splitbelow
 " Check modelines (like the one at the bottom of this file)
 set modelines=1
-" Use ack! to grep and always print file name in Quickfix list
-set grepprg=ack\ -H\ --nocolor\ --nogroup
+" Use the silver searcher to grep and always print file name in Quickfix list
+set grepprg=ag\ --vimgrep
 " Always show statusline/powerline/airline
 set laststatus=2
 " Disable showing the current mode because powerline/airline already shows it
@@ -235,6 +235,12 @@ let g:airline_extensions = [
             \'virtualenv']
 let g:airline#extensions#tabline#buffer_min_count = 2
 " }}}
+" kien/ctrlp.vim {{{
+" Use the silver searcher in CtrlP for listing files
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" The silver searcher is fast enough so that CtrlP doesn't need to cache
+let g:ctrlp_use_caching = 0
+" }}}
 " klen/python-mode {{{
 let g:pymode_trim_whitespaces = 0  " This already happens anyway
 let g:pymode_doc = 0  " Doesn't work when I need it
@@ -333,6 +339,8 @@ nnoremap <S-Tab> :bprev<CR>
 nnoremap <leader>e :enew<cr>
 nnoremap <leader>d :bd<cr>
 nnoremap <leader>D :bd!<cr>
+" Use S to grep
+nnoremap S :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " }}}
 " Plugin mappings {{{
