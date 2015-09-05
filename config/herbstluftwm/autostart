@@ -13,7 +13,14 @@ hc emit_hook reload
 
 source "$script_dir/bindings.sh"
 
-# Tags
+
+### THEME ###
+
+source "$script_dir/theme.sh"
+
+
+### TAGS (& bindings) ###
+
 tag_names=( mail web terms 4 5 6 7 )
 tag_keys=( ampersand eacute quotedbl apostrophe parenleft section egrave )
 hc rename default "${tag_names[0]}" 2>/dev/null || true
@@ -25,11 +32,6 @@ for i in ${!tag_names[@]} ; do
         hc keybind "$Mod-Shift-$key" move_index "$i"
     fi
 done
-
-
-### THEME ###
-
-source "$script_dir/theme.sh"
 
 
 ### RULES ###
