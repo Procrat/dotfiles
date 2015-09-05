@@ -17,6 +17,11 @@ Dependency tree
     - Dmenu (keybinding)
     - Urxvt (keybinding)
     - Thunderbird & Firefox (rules for new windows)
+- Vim
+    - Vundle
+    - Ag
+    - YouCompleteMe libraries
+    - Python package: isort
 - Vim and tmux interact through the M-[hjkl] bindings (see vimrc and tmux.conf)
 - IPython
 - Git
@@ -37,4 +42,6 @@ highlight, scrot, curl, xclip and VLC.
 Colorscheme
 -----------
 
-The colorscheme is explicitly defined in .colors and in .Xresources (and in vimrc through a plugin). Urxvt and tmux will use the colors of .Xresources, Herbstluftwm and dzen will read in .colors to get the appropriate colors.
+The colorscheme is explicitly defined in .colors and in .Xresources (and in
+vimrc through a plugin). Urxvt and tmux will use the colors of .Xresources,
+Herbstluftwm and dzen will read in .colors to get the appropriate colors.
