@@ -107,8 +107,9 @@ set pastetoggle=<leader>p
 set scrolloff=6
 set sidescroll=2
 set sidescrolloff=2
-" Make the new window below the current one
+" Make the new window below or right of the current one
 set splitbelow
+set splitright
 " Check modelines (like the one at the bottom of this file)
 set modelines=1
 " Use the silver searcher to grep and always print file name in Quickfix list
