@@ -11,6 +11,9 @@
 [merge]
     tool = vimdiff
 
+[diff]
+    tool = vimdiff
+
 [alias]
     a = add -A
     st = status -sb
@@ -19,6 +22,8 @@
     co = checkout --
     df = diff -b -w -B
     dfc = diff --cached -b -w -B
+    vdf = difftool
+    vdfc = difftool --cached
     lg = log -p
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
