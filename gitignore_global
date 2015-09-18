@@ -37,3 +37,6 @@ out/
 
 # Virtual env
 .venv/
+
+# Rails stuff
+config/secrets.yml_bak
