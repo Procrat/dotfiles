@@ -342,6 +342,7 @@ nnoremap <leader>d :bd<cr>
 nnoremap <leader>D :bd!<cr>
 " Use S to grep
 nnoremap S :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+vnoremap S "hy:grep! "\b<C-R>h\b"<CR>:cw<CR>
 
 " }}}
 " Plugin mappings {{{
