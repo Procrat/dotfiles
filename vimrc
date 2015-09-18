@@ -343,6 +343,11 @@ nnoremap <leader>D :bd!<cr>
 " Use S to grep
 nnoremap S :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 vnoremap S "hy:grep! "\b<C-R>h\b"<CR>:cw<CR>
+" Send a blame mail from a git repo
+function! Blame()
+    execute "!send_blame_mail " . expand('%:p') . " " . line('.')
+endfunction
+noremap <leader>B :call Blame()<CR>
 
 " }}}
 " Plugin mappings {{{
