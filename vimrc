@@ -232,7 +232,6 @@ let g:airline_extensions = [
             \'ctrlp',
             \'netrw',
             \'quickfix',
-            \'syntastic',
             \'tabline',
             \'virtualenv']
 let g:airline#extensions#tabline#buffer_min_count = 2
