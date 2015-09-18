@@ -31,10 +31,15 @@ URxvt.saveLines: 0
 URxvt.internalBorder: 2
 
 ! Fonts
-! URxvt*font: xft:Ubuntu Mono:size=14
+! URxvt*font: xft:Ubuntu Mono:size=13
 ! URxvt*letterSpace: -1
 
-URxvt.font: xft:Monaco For Powerline:size=10
+! URxvt.font: xft:DejaVu Sans Mono:size=11
+! URxvt.letterSpace: -2
+
+! URxvt*font: xft:Code New Roman:size=10
+
+URxvt*font: xft:Monaco For Powerline:size=11
 URxvt.letterSpace: -1
 
 ! URxvt*font: xft:Inconsolata\\-g:size=11
