@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Queries UGent LDAP
+
+set -euo pipefail
+
+
+LDAPTLS_REQCERT=ALLOW \
+    ldapsearch -H 'ldaps://ldaps.ugent.be:636' -b 'dc=UGent,dc=be' -x "$@"
