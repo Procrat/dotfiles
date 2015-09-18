@@ -7,6 +7,6 @@
 set -euo pipefail
 
 pwd=$(pwd)
-find -type f -name '*.mp3' \
-	| sed "s:^\.:${pwd}:" \
-	> "${pwd}.m3u"
+find -type f \( -name '*.mp3' -o -name '*.ogg' \) \
+    | sed "s:^\.:${pwd}:" \
+    > "${pwd}.m3u"
