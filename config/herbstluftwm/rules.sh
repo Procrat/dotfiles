@@ -69,6 +69,8 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on h
 # Don't manage dzen2 and the like
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
+# Move Skype to IM tag
+hc rule instance='skype' tag=im
 # Move mail clients to 'mail' tag
 hc rule instance='Mail' tag=mail
 # Move browsers to 'web' tag
