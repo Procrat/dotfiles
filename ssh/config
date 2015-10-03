@@ -2,22 +2,27 @@ Host zeus
     Hostname kelder.zeus.ugent.be
     Port 2222
     User root
+    ForwardAgent yes
 Host prince
     Hostname zeus.ugent.be
     Port 2222
     User root
+    ForwardAgent yes
 Host gami
     Hostname zeus.ugent.be
     Port 2222
     User gamification
+    ForwardAgent yes
 Host stuw
     Hostname zeus.ugent.be
     Port 2222
     User stuw
+    ForwardAgent yes
 Host cc
     Hostname zeus.ugent.be
     Port 2222
     User cursuscruisen-informatica
+    ForwardAgent yes
 Host helios
     Hostname helios.ugent.be
     User svsegher
