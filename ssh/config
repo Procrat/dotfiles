@@ -2,10 +2,6 @@ Host zeus
     Hostname kelder.zeus.ugent.be
     Port 2222
     User root
-Host king
-    Hostname king.ugent.be
-    Port 2222
-    User root
 Host gami
     Hostname zeus.ugent.be
     Port 2222
