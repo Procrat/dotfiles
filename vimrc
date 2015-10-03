@@ -119,14 +119,16 @@ set laststatus=2
 " Disable showing the current mode because powerline/airline already shows it
 set noshowmode
 " Help for Matlab/Octave (with shortcut K)
-autocmd FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
-
-" }}}
-" Recognize some file extensions {{{
-" Filename ending in .pl is a Prolog file and not a Perl one
-autocmd BufNewFile,BufRead *.pl set filetype=prolog
-" Filename ending in .py3 is a Python3 file
-autocmd BufNewFile,BufRead *.py3 set filetype=python
+au FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
+" Recognize some file extensions
+"   Filename ending in .pl is a Prolog file and not a Perl one
+au BufNewFile,BufRead *.pl setlocal filetype=prolog
+"   Filename ending in .py3 is a Python3 file
+au BufNewFile,BufRead *.py3 setfiletype python
+"   Filename ending in rc is probably a config file if nothing else
+au BufNewFile,BufRead *rc setfiletype dosini
+" Turn on spelling for some filetypes
+au FileType tex,mail setlocal spell
 
 " }}}
 " Remove trailing whitespace {{{
