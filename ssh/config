@@ -2,22 +2,18 @@ Host zeus
     Hostname kelder.zeus.ugent.be
     Port 2222
     User root
-Host gami
-    Hostname zeus.ugent.be
-    Port 2222
-    User gamification
 Host prince
     Hostname zeus.ugent.be
     Port 2222
     User root
+Host gami
+    Hostname zeus.ugent.be
+    Port 2222
+    User gamification
 Host stuw
     Hostname zeus.ugent.be
     Port 2222
     User stuw
-Host pinnoo
-    Hostname pinnoo.eu
-    Port 2222
-    User procrat
 Host cc
     Hostname zeus.ugent.be
     Port 2222
