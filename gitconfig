@@ -11,6 +11,9 @@
 [merge]
     tool = vimdiff
 
+    # Include summaries of merged commits in newly created merge commit messages
+    log = true
+
 [diff]
     tool = vimdiff
 
@@ -35,6 +38,8 @@
     undo = reset --soft HEAD^
     ignore = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
+    contributors = shortlog --summary --numbered
+    merge = merge --no-ff
 
 [color]
     ui = auto
