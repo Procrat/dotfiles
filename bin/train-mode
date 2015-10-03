@@ -75,6 +75,7 @@ echo
 echo "$action_name browsers, mail clients and IMs"
 if [[ x"$state" = x"on" ]]; then
     killall -q skype firefox opera chromium thunderbird dropbox || true
+    killall -q opera  # Really makes sure it gets killed
 else
     ensure_running opera
     ensure_running thunderbird
