@@ -63,6 +63,9 @@ for dotfile in ${dotfiles[@]}; do
     ln -sfn "$DEST/$dotfile" "$HOME/.$dotfile"
 done
 
+echo 'Setting crontab...'
+cp crontab "/var/spool/cron/$USER"
+
 # Really, Freedesktop? There is no hope left if you don't even follow your own
 # standards.
 ln -sfn "$HOME/.config/mimeapps.list" \
