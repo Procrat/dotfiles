@@ -77,10 +77,9 @@ if [[ x"$state" = x"on" ]]; then
     killall -q skype firefox opera chromium thunderbird dropbox || true
     killall -q opera  # Really makes sure it gets killed
 else
-    ensure_running opera
-    ensure_running thunderbird
-    ensure_running dropbox
-    ensure_running skype
+    for program in opera thunderbird dropbox skype; do
+        ensure_running "$program" &
+    done
 fi
 echo
 
