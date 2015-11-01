@@ -21,7 +21,7 @@ source "$script_dir/theme.sh"
 
 ### TAGS (& bindings) ###
 
-tag_names=( im mail web terms 4 5 6 )
+tag_names=( im mail web terms 5 6 7 )
 tag_keys=( ampersand eacute quotedbl apostrophe parenleft section egrave )
 hc rename default "${tag_names[0]}" 2>/dev/null || true
 for i in ${!tag_names[@]} ; do
