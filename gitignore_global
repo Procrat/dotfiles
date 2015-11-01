@@ -40,3 +40,6 @@ out/
 
 # Rails stuff
 config/secrets.yml_bak
+
+# Redis stuff
+*.rdb
