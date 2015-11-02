@@ -78,9 +78,9 @@ set noswapfile
 " Line numbering
 set number
 " Show vertical column at 79 (maximum line length for Python)
-set colorcolumn=79
+set colorcolumn=80
 " Wrap lines automatically
-set textwidth=79
+set textwidth=80
 " Ignore case when searching except if search has uppercase letters
 set smartcase
 " Find as you type
@@ -216,8 +216,9 @@ let pyindent_nested_paren="&sw*2"
 let pyindent_open_paren="&sw*2"
 
 " Indentation per filetype
-au FileType html,xhtml,htmldjango,eruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
-au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 tw=79
+au FileType html,xhtml,htmldjango,eruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
+au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
+au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 textwidth=79 colorcolumn=79
 au FileType haskell setlocal shiftwidth=2 softtabstop=2
 au FileType prolog setlocal shiftwidth=4 softtabstop=4
 au FileType ruby setlocal shiftwidth=2 softtabstop=2
