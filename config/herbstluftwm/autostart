@@ -21,7 +21,7 @@ source "$script_dir/theme.sh"
 
 ### TAGS (& bindings) ###
 
-tag_names=( im mail web terms 5 6 7 )
+tag_names=( im web 3 4 5 6 7 )
 tag_keys=( ampersand eacute quotedbl apostrophe parenleft section egrave )
 hc rename default "${tag_names[0]}" 2>/dev/null || true
 for i in ${!tag_names[@]} ; do
@@ -76,6 +76,6 @@ hc detect_monitors
 panel="$script_dir/dzen/panel.sh"
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 # Start panel on each monitor
-for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
+for monitor in $(herbstclient list_monitors | cut -d: -f1); do
     "$panel" $monitor &
 done

@@ -70,9 +70,7 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on h
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
 # Move Skype to IM tag
-hc rule instance='skype' tag=im
-# Move mail clients to 'mail' tag
-hc rule instance='Mail' tag=mail
+hc rule class~'Skype|Slack' tag=im
 # Move browsers to 'web' tag
 hc rule instance~'Navigator|Opera' tag=web
 # Turn off default pseudotiling for some programs
@@ -80,4 +78,4 @@ hc rule class~'Firefox|Opera|Chromium|Thun(ar|derbird)|Vlc|mpv|feh|Deluge|Minecr
     pseudotile=off
 
 # Start on 'terms' tag
-hc use terms
+hc use 3
