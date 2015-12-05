@@ -43,3 +43,6 @@ config/secrets.yml_bak
 
 # Redis stuff
 *.rdb
+
+# Python cache
+__pycache__
