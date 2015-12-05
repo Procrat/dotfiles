@@ -8,6 +8,10 @@ Host prince
     Port 2222
     User root
     ForwardAgent yes
+Host urenloop
+    User urenloop
+    Port 2222
+    Hostname fkserv.ugent.be
 Host gami
     Hostname zeus.ugent.be
     Port 2222
