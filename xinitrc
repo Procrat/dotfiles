@@ -22,6 +22,9 @@ numlockx &
 # Background
 bash $HOME/.fehbg &
 
+# Xresources otherwise gets loaded async, which might fuck up some stuff
+xrdb "$HOME/.Xresources"
+
 # Screenlocker
 xautolock -locker i3lock-fancy -corners 0+0- -detectsleep &
 
