@@ -69,7 +69,7 @@ for dotfile in ${dotfiles[@]}; do
 done
 
 echo 'Setting crontab...'
-cp crontab "/var/spool/cron/$USER"
+cp "$DEST/crontab" "/var/spool/cron/$USER"
 
 # Really, Freedesktop? There is no hope left if you don't even follow your own
 # standards.
