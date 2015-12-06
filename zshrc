@@ -34,12 +34,13 @@ PROMPT=$(echo -e "\n$(login_info)$(dir_info)\n$(prompt)")
 RPROMPT="%(?..%F{red}%?%f)"
 
 # Global aliases
-alias -g L="| $PAGER"
+alias -g L="| ${PAGER:-less}"
 alias -g H='| head'
 alias -g T='| tail'
 alias -g TF='| tail -f'
 alias -g S='| sort'
 alias -g F='| sort | uniq -c'
+alias -g G='| ag -i'
 
 # Mappings
 bindkey '^R' history-incremental-search-backward
