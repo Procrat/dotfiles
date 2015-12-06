@@ -41,6 +41,9 @@ alias -g TF='| tail -f'
 alias -g S='| sort'
 alias -g F='| sort | uniq -c'
 
+# Mappings
+bindkey '^R' history-incremental-search-backward
+
 
 # !! Keep this the last call of .zshrc!
 # If we explicitly call .zshrc with some command, run it in tmux
