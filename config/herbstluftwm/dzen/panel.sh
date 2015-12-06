@@ -61,7 +61,7 @@ hc pad $monitor $panel_height
     # Date generator
     while true ; do
         echo -en 'date\t'
-        date +"%H:%M^fg($SECONDARY_CONTENT_COLOR):%S   %a %d %b %Y^fg()"
+        date +"^ca(1, xdg-open 'http://calendar.google.com')%H:%M^fg($SECONDARY_CONTENT_COLOR):%S   %a %d %b %Y^fg()^ca()"
         sleep 1 || break
     done > >(uniq_linebuffered) &
     dateloop=$!
