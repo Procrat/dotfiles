@@ -1,0 +1,29 @@
+# This file should be bash and zsh compatible
+
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+# Aliases
+source $HOME/.aliases
+
+# In less, parse colors, show longer prompt
+export LESS='-R -M -W'
+
+# Editor settings
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+# Disable Ctrl+S for scrolling so we can use it for the save shortcut in vim,
+# but only for interactive shells of course
+[[ $- == *i* ]] && stty -ixon
+
+# Add ruby gem path to PATH and make Bundler install gems per user
+export GEM_HOME="$HOME/.gem/ruby/2.2.0"
+export PATH="$PATH:$GEM_HOME/bin:$HOME/bin:."
+
+# Activate user virtualenv
+source "$HOME/.venv/bin/activate"
+
+
+# vim:filetype=sh

@@ -1,0 +1,24 @@
+# # Order is important!
+zstyle ':prezto:load' pmodule \
+  'environment' \
+  'terminal' \
+  'editor' \
+  'history' \
+  'directory' \
+  'command-not-found' \
+  'completion' \
+  'syntax-highlighting' \
+  'prompt'
+
+# TODO Checkout the bloated ones:
+# utility, completion, python, rails, prompt
+# Remember to check out the order in /usr/lib/prezto/runcoms/...
+
+# Set extra vim bindings and prompt interaction
+zstyle ':prezto:module:editor' key-bindings 'vi'
+bindkey jj vi-cmd-mode
+
+zstyle ':prezto:*:*' color 'yes'
+
+
+# vim:filetype=zsh

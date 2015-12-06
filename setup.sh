@@ -12,6 +12,8 @@ TPM_DEST="$HOME/.tmux/plugins/tpm"
 VUNDLE_REPO='https://github.com/gmarik/Vundle.vim'
 VUNDLE_DEST="$HOME/.vim/bundle/Vundle.vim"
 
+DEFAULT_SHELL='/bin/zsh'
+
 
 ensure_repo_exists_and_has_latest_version() {
     repo="$1"
@@ -36,7 +38,7 @@ ensure_repo_exists_and_has_latest_version "$VUNDLE_REPO" "$VUNDLE_DEST"
 
 echo 'Linking dotfiles...'
 dotfiles=(
-    bash_aliases
+    aliases
     bashrc
     colors
     config/base16-shell
@@ -50,6 +52,7 @@ dotfiles=(
     gitignore_global
     ipython/profile_default/ipython_config.py
     offlineimaprc
+    shellrc
     ssh/config
     statnotrc
     tmux.conf
@@ -58,6 +61,8 @@ dotfiles=(
     xinitrc
     xprofile
     Xresources
+    zpreztorc
+    zshrc
 )
 for dotfile in ${dotfiles[@]}; do
     ln -sfn "$DEST/$dotfile" "$HOME/.$dotfile"
@@ -70,6 +75,12 @@ cp crontab "/var/spool/cron/$USER"
 # standards.
 ln -sfn "$HOME/.config/mimeapps.list" \
     "$HOME/.local/share/applications/mimeapps.list"
+
+echo "Ensuring $DEFAULT_SHELL is the default shell..."
+shell=$(getent passwd $USER | cut -d: -f7)
+if [[ x"$shell" != x"$DEFAULT_SHELL" ]]; then
+    chsh -s "$DEFAULT_SHELL"
+fi
 
 echo 'Updating Bundles...'
 vim +PluginInstall! +qall
