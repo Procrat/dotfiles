@@ -4,12 +4,12 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" Takes about .10s by itself
 Plugin 'VundleVim/Vundle.vim'
 
-" -- Small plugins (total load .09s)
+" -- Small plugins (less than .01s)
 Plugin 'alfredodeza/khuno.vim'
 " Plugin 'altercation/vim-colors-solarized'
-Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -18,7 +18,6 @@ Plugin 'godlygeek/tabular'
 Plugin 'honza/vim-snippets'
 Plugin 'jvirtanen/vim-octave'
 Plugin 'Glench/Vim-Jinja2-Syntax'
-Plugin 'kien/ctrlp.vim'
 " Plugin 'klen/python-mode'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'Lokaltog/vim-easymotion'
@@ -28,26 +27,30 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'rhysd/committia.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'Valloric/YouCompleteMe'
 
 " -- Slightly bigger plugins
-" Load: .012s
-Plugin 'bling/vim-airline'
-" Load: .09s
+" Load: .02s
+Plugin 'kien/ctrlp.vim'
+" Load: .10s
 Plugin 'scrooloose/nerdtree'
-" Load: .15s
-" Plugin 'tpope/vim-rails'
-" Load: .11s
-Plugin 'SirVer/ultisnips'
+" Load: .14s
+Plugin 'tpope/vim-rails'
+" Load: .25s (for Rails)
+Plugin 'AndrewRadev/splitjoin.vim'
+" Load: .30s
+Plugin 'bling/vim-airline'
+" Load: .93s (for Rails)
+Plugin 'Valloric/YouCompleteMe'
 
-" -- Massive load time (something is seriously wrong here, it might be because
-"                       of pylint?)
-" Load: 4.81s
-"Plugin 'scrooloose/syntastic'
+" -- Massive load time
+" Load: .04s when not used; more than 5s for e.g. Python files
+" If `let g:syntastic_enable_signs=0` is used, it only takes .07s.
+" Plugin 'scrooloose/syntastic'
 
 call vundle#end()
 filetype plugin indent on
