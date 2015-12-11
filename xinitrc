@@ -35,4 +35,3 @@ export SSH_AUTH_SOCK
 # Launch some programs
 opera &
 skype &
-slack &
