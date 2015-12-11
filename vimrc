@@ -161,7 +161,7 @@ function! MyFoldText() " {{{
     return line . ' ' . repeat(" ",fillcharcount) . ' ' . foldedlinecount . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
-autocmd FileType html,xhtml,htmldjango,eruby setlocal foldnestmax=20
+autocmd FileType html,xhtml,htmldjango,eruby,xslt setlocal foldnestmax=20
 
 " }}}
 " Indentation {{{
@@ -217,7 +217,7 @@ let pyindent_nested_paren="&sw*2"
 let pyindent_open_paren="&sw*2"
 
 " Indentation per filetype
-au FileType html,xhtml,htmldjango,eruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
+au FileType html,xhtml,htmldjango,eruby,xslt setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
 au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
 au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 textwidth=79 colorcolumn=79
 au FileType haskell setlocal shiftwidth=2 softtabstop=2
