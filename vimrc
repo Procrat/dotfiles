@@ -35,7 +35,7 @@ Plugin 'tpope/vim-unimpaired'
 
 " -- Slightly bigger plugins
 " Load: .02s
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 " Load: .10s
 Plugin 'scrooloose/nerdtree'
 " Load: .14s
