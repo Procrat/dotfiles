@@ -17,10 +17,10 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 
 
 # Enable Num Lock
-numlockx &
+(which numlockx 2>/dev/null >&2 && numlockx) &
 
 # Background
-bash $HOME/.fehbg &
+([[ -s "$HOME/.fehbg" ]] && bash "$HOME/.fehbg") &
 
 # Xresources otherwise gets loaded async, which might fuck up some stuff
 xrdb "$HOME/.Xresources"
@@ -31,6 +31,9 @@ xautolock -locker i3lock-fancy -corners 0+0- -detectsleep &
 # Enable keyring
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
+
+# Start urxvt daemon (This is preferred above systemd)
+urxvtd &
 
 # Launch some programs
 opera &

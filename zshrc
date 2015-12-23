@@ -11,11 +11,15 @@ setopt interactive_comments
 setopt multios
 
 # Git flow completion
-source /usr/share/git-flow/git-flow-completion.zsh
+if [[ -f /usr/share/git-flow/git-flow-completion.zsh ]]; then
+    source /usr/share/git-flow/git-flow-completion.zsh
+fi
 
 # rbenv: adjust PATH and add completion for rbenv command
 # Looks scary though :/
-eval "$(rbenv init -)"
+if which rbenv 2>/dev/null >&2; then
+    eval "$(rbenv init -)"
+fi
 
 # Prompt
 login_info() {
@@ -47,10 +51,12 @@ bindkey '^R' history-incremental-search-backward
 
 
 # !! Keep this the last call of .zshrc!
-# If we explicitly call .zshrc with some command, run it in tmux
-if [[ $# > 0 ]]; then
-    tmux new-session "$@"
-# Start tmux if we're in a top level shell
-elif [[ $SHLVL == "1" ]]; then
-    tmux && exit
+if which tmux 2>/dev/null >&2; then
+    # If we explicitly call .zshrc with some command, run it in tmux
+    if [[ $# > 0 ]]; then
+        tmux new-session "$@"
+    # Start tmux if we're in an interactive, non-tmux environment
+    elif [[ $- == *i* && -z "$TMUX" ]]; then
+        tmux && exit
+    fi
 fi

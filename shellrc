@@ -23,7 +23,7 @@ export GEM_HOME="$HOME/.gem/ruby/2.2.0"
 export PATH="$PATH:$GEM_HOME/bin:$HOME/bin:."
 
 # Activate user virtualenv
-source "$HOME/.venv/bin/activate"
+[[ -d "$HOME/.venv" ]] && source "$HOME/.venv/bin/activate"
 
 
 # vim:filetype=sh

@@ -36,6 +36,9 @@ ensure_repo_exists_and_has_latest_version "$TPM_REPO" "$TPM_DEST"
 echo 'Ensuring Vundle is installed...'
 ensure_repo_exists_and_has_latest_version "$VUNDLE_REPO" "$VUNDLE_DEST"
 
+echo 'Ensuring $HOME/.config exists...'
+mkdir -p "$HOME/.config"
+
 echo 'Linking dotfiles...'
 dotfiles=(
     aliases
@@ -65,21 +68,32 @@ dotfiles=(
     zshrc
 )
 for dotfile in ${dotfiles[@]}; do
+    mkdir -p "$(dirname $HOME/.$dotfile)"
     ln -sfn "$DEST/$dotfile" "$HOME/.$dotfile"
 done
 
 echo 'Setting crontab...'
-cp "$DEST/crontab" "/var/spool/cron/$USER"
+if which crontab 2>/dev/null >&2; then
+    crontab "$DEST/crontab"
+else
+    echo 'No cron handler found.' >&2
+fi
 
 # Really, Freedesktop? There is no hope left if you don't even follow your own
 # standards.
-ln -sfn "$HOME/.config/mimeapps.list" \
-    "$HOME/.local/share/applications/mimeapps.list"
+if [[ -e "$HOME/.local/share/applications/mimeapps.list" ]]; then
+    ln -sfn "$HOME/.config/mimeapps.list" \
+        "$HOME/.local/share/applications/mimeapps.list"
+fi
 
 echo "Ensuring $DEFAULT_SHELL is the default shell..."
 shell=$(getent passwd $USER | cut -d: -f7)
 if [[ x"$shell" != x"$DEFAULT_SHELL" ]]; then
-    chsh -s "$DEFAULT_SHELL"
+    if [[ -e "$DEFAULT_SHELL" ]]; then
+        chsh -s "$DEFAULT_SHELL"
+    else
+        echo "Shell $DEFAULT_SHELL does not exist." >&2
+    fi
 fi
 
 echo 'Updating Bundles...'
