@@ -21,7 +21,7 @@ x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=$(cat "$script_dir/panel_height")
-font="Trebuchet MS:size=10"
+font="Trebuchet MS:size=12"  # Fuck it, I'm hardcoding this shit
 XPM_ICONS_WIDTH=18  # Fuck it, I'm hardcoding this shit
 
 
@@ -113,7 +113,6 @@ hc pad $monitor $panel_height
 
         # Arch icon
         echo -n "  ^fg($S_BASE2)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
-        echo -n "^p(;-1)"
         echo -n "$separator"
 
         # Tags
@@ -123,7 +122,7 @@ hc pad $monitor $panel_height
 
         # Right side
         right="$date  "
-        right="$battery^pa(;0)$separator $right"
+        right="$battery$separator $right"
         right="$dropbox_status $separator $right"
         if [[ -n $(without_dzen_tags "$notification") ]]; then
             right="$notification $separator $right"

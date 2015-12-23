@@ -39,8 +39,8 @@ URxvt.internalBorder: 2
 
 ! URxvt*font: xft:Code New Roman:size=10
 
-URxvt*font: xft:Monaco For Powerline:size=11
-URxvt.letterSpace: -1
+URxvt*font: xft:Monaco For Powerline:size=13
+URxvt.letterSpace: -2
 
 ! URxvt*font: xft:Inconsolata\\-g:size=11
 ! URxvt*letterSpace: -1
@@ -68,14 +68,14 @@ URxvt.visualBell: true
 ! Dzen settings
 !-----------------------------------------------------------------------------
 
-dzen2*font: -*-Trebuchet MS-*-*-*-*-*-100-*-*-*-*-*-*
+dzen2*font: -*-Trebuchet MS-*-*-*-*-*-120-*-*-*-*-*-*
 
 
 !-----------------------------------------------------------------------------
 ! Dmenu settings
 !-----------------------------------------------------------------------------
 
-dmenu*font: Trebuchet MS:size=9
+dmenu*font: Trebuchet MS:size=12
 
 
 !-----------------------------------------------------------------------------
