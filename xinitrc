@@ -38,7 +38,7 @@ export SSH_AUTH_SOCK
 urxvtd &
 
 # Launch some programs
-opera &
+firefox-aurora &
 skype &
 
 exec herbstluftwm --locked
