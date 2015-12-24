@@ -68,10 +68,8 @@ clone() {
 }
 
 # Quick cd
-alias bu='cd ~/Documenten/bucht'
+alias bu='cd ~/docs/bucht'
 alias cdm='cd ~/repos/the-little-monks'
-alias euler='cd ~/Dropbox/projects/project_euler/'
-alias code_eval='cd ~/Dropbox/projects/code_eval/'
 alias ceva='cd ~/repos/eva'
 
 # Teehee
