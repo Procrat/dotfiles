@@ -79,6 +79,9 @@ echo 'Link NeoVim config files to Vim config files...'
 ln -sfn "$HOME/.vim" "$HOME/.config/nvim"
 ln -sfn "$HOME/.vimrc" "$HOME/.config/nvim/init.vim"
 
+echo 'Link bin folder...'
+ln -sfn "$DEST/bin" "$HOME/bin"
+
 echo 'Setting crontab...'
 if which crontab 2>/dev/null >&2; then
     crontab "$DEST/crontab"
