@@ -40,3 +40,5 @@ urxvtd &
 # Launch some programs
 opera &
 skype &
+
+exec herbstluftwm --locked

@@ -42,6 +42,7 @@ mkdir -p "$HOME/.config"
 echo 'Linking dotfiles...'
 dotfiles=(
     aliases
+    bash_profile
     bashrc
     colors
     config/base16-shell
@@ -66,6 +67,7 @@ dotfiles=(
     xprofile
     Xresources
     zpreztorc
+    zprofile
     zshrc
 )
 for dotfile in ${dotfiles[@]}; do
