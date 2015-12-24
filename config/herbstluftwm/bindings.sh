@@ -13,11 +13,10 @@ hc() { herbstclient "$@" ; }
 hc keyunbind --all
 
 # Main modifier
-# Mod=Mod1    # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
 # HLWM
-hc keybind $Mod-Shift-q spawn urxvtc -e sh -c 'sudo systemctl poweroff'
+hc keybind $Mod-Shift-q spawn poweroff
 hc keybind $Mod-Shift-r reload
 
 # Launchers
