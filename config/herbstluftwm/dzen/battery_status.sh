@@ -7,7 +7,7 @@ set -euo pipefail
 source $HOME/.colors
 
 ac_info=/sys/class/power_supply/AC
-battery_info=/sys/class/power_supply/BAT
+battery_info=/sys/class/power_supply/BAT0
 icon_dir=$HOME/.config/icons/xbm
 
 capacity_color() {
