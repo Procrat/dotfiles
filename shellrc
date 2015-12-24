@@ -12,8 +12,11 @@ source $HOME/.aliases
 export LESS='-R -M -W'
 
 # Editor settings
-export EDITOR=/usr/bin/vim
-export VISUAL=/usr/bin/vim
+my_vim="$(which nvim 2>/dev/null || which vim 2>/dev/null)"
+if [[ -n "$my_vim" ]]; then
+    export EDITOR="$my_vim"
+    export VISUAL="$my_vim"
+fi
 # Disable Ctrl+S for scrolling so we can use it for the save shortcut in vim,
 # but only for interactive shells of course
 [[ $- == *i* ]] && stty -ixon

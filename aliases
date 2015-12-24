@@ -17,7 +17,8 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 # Frequently used commands
-alias vi='/usr/bin/vim'
+alias vi='vim'
+alias vim='nvim'
 alias rm='rm -I'
 alias ipy='exec ipython'
 alias hig='history 0 | grep -i'
