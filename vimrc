@@ -327,12 +327,6 @@ nnoremap <leader>i :set list!<CR>
 nnoremap <leader>w :w<CR>
 " Use C-O and C-P to shift between edited parts
 nnoremap <C-P> <C-I>
-" Use (very) magic regexes
-nnoremap / /\v
-vnoremap / /\v
-cnoremap s/ s/\v
-nnoremap :g/ :g/\v
-nnoremap :g// :g//
 " Markdown mappings
 au FileType markdown call MardownMappings()
 function! MardownMappings()
