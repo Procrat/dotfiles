@@ -337,8 +337,6 @@ function! MardownMappings()
     nnoremap <buffer> <leader>2 yypVr-:redraw<CR>
     nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
 endfunction
-" Save by Ctrl-S (has to be allowed by terminal (stty -ixon))
-nnoremap <C-S> :w<CR>
 " Windows resizing
 noremap + <C-W>+
 noremap - <C-W>-
