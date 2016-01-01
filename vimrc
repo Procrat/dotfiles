@@ -327,6 +327,9 @@ nnoremap <leader>i :set list!<CR>
 nnoremap <leader>w :w<CR>
 " Use C-O and C-P to shift between edited parts
 nnoremap <C-P> <C-I>
+" Make < and > behave like they should
+vnoremap < <gv
+vnoremap > >gv
 " Markdown mappings
 au FileType markdown call MardownMappings()
 function! MardownMappings()
