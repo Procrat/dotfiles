@@ -12,28 +12,31 @@ Dependency tree
     - Dzen (bar)
         - Alsa-utils (volume manager)
         - Icons (defined in .config/icons/)
-        - Statnot
     - Feh (background)
     - Dmenu (keybinding)
     - Urxvt (keybinding)
-    - Thunderbird & Firefox (rules for new windows)
-- Vim
-    - Vundle
+- (Neo)Vim
+    - Vundle (will be installed by setup.sh)
     - Ag
     - YouCompleteMe libraries
-    - Python package: isort
-- Vim and tmux interact through the M-[hjkl] bindings (see vimrc and tmux.conf)
+    - Python packages
+        - isort for vim-isort
+        - flake8 for khuno.vim
+        - jad for JavaDecompiler.vim
+- Tmux
+- (Neo)Vim and tmux interact through the M-[hjkl] bindings (see vimrc and tmux.conf)
 - IPython
 - Git
 - Htop
 - Systemd
-    - Service files for Deluge, Dropbox, redshift and statnot
+    - Service files for Deluge, Dropbox and redshift
 - Xresources
     - Urxvt
     - Dzen
     - Dmenu
 - Bash
-- Devilspie
+- Zsh
+    - Prezto
 
 The bin/ folder depends on (possibly Arch-specific) programs like pacman,
 highlight, scrot, curl, xclip and VLC.
