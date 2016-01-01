@@ -32,6 +32,7 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'vim-scripts/JavaDecompiler.vim'
 
 " -- Slightly bigger plugins
 " Load: .02s
