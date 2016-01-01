@@ -13,14 +13,14 @@ Plugin 'alfredodeza/khuno.vim'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'easymotion/vim-easymotion'
 Plugin 'fisadev/vim-isort'
+Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'godlygeek/tabular'
 Plugin 'honza/vim-snippets'
 Plugin 'jvirtanen/vim-octave'
-Plugin 'Glench/Vim-Jinja2-Syntax'
 " Plugin 'klen/python-mode'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'Lokaltog/vim-easymotion'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'mattn/gist-vim'
 Plugin 'Raimondi/delimitMate'
@@ -247,6 +247,10 @@ let g:airline_extensions = [
             \'virtualenv']
 let g:airline#extensions#tabline#buffer_min_count = 2
 " }}}
+" easymotion/vim-easymotion {{{
+let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
+let g:EasyMotion_startofline = 0  " Keep cursor column during JK motion
+" }}}
 " kien/ctrlp.vim {{{
 " Use the silver searcher in CtrlP for listing files
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -267,10 +271,6 @@ let g:ctrlp_use_caching = 0
 " }}}
 " LaTeX-Box-Team/LaTeX-Box {{{
 let g:LatexBox_Folding = 1
-" }}}
-" Lokaltog/vim-easymotion {{{
-let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
-let g:EasyMotion_startofline = 0  " Keep cursor column during JK motion
 " }}}
 " mattn/gist-vim {{{
 let g:gist_detect_filetype = 1
@@ -375,6 +375,22 @@ nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 " }}}
+" easy-motion/vim-easymotion {{{
+"                     Disable default mappings
+let g:EasyMotion_do_mapping = 0
+"   s                 Bi-directional find. Jump to anywhere with s{char}{label}
+"noremap s <Plug>(easymotion-s)
+"   s                 Bi-directional find. Jump to anywhere with s{char}{char}{label}
+map s <Plug>(easymotion-s2)
+"   <leader>j         Easymotion up. Jump up with <leader>j{label}
+map <leader>j <Plug>(easymotion-j)
+"   <leader>k         Easymotion down. Jump down with <leader>k{label}
+map <leader>k <Plug>(easymotion-k)
+"   <leader>l         Easymotion forward. Jump forward with <leader>l{label}
+map <leader>l <Plug>(easymotion-lineforward)
+"   <leader>h         Easymotion backward. Jump backward with <leader>h{label}
+map <leader>h <Plug>(easymotion-linebackward)
+" }}}
 " fisadev/vim-isort {{{
 let g:vim_isort_map = '<C-i>'
 " }}}
@@ -440,20 +456,6 @@ function! LaTeXMappings()
 "   ]]          Close the environment
     imap <buffer> ]] <Plug>LatexCloseCurEnv
 endfunction
-" }}}
-" Lokaltog/vim-easymotion {{{
-"                     Disable default mappings
-let g:EasyMotion_do_mapping = 0
-"   s                 Bi-directional find. Jump to anywhere with s{char}{label}
-nmap s <Plug>(easymotion-s)
-"   <leader>j         Easymotion up. Jump up with <leader>j{label}
-map <leader>j <Plug>(easymotion-j)
-"   <leader>k         Easymotion down. Jump down with <leader>k{label}
-map <leader>k <Plug>(easymotion-k)
-"   <leader>l         Easymotion forward. Jump forward with <leader>l{label}
-map <leader>l <Plug>(easymotion-lineforward)
-"   <leader>h         Easymotion backward. Jump backward with <leader>h{label}
-map <leader>h <Plug>(easymotion-linebackward)
 " }}}
 " Raimondi/delimitMate {{{
 "   <BS>     Also removes closing paren/quote/bracket
