@@ -366,6 +366,15 @@ nnoremap <silent><leader>x <Esc>:Khuno show<CR>
 "   gJ  (with the cursor on the first line of a block) to join a block into a
 "       single-line statement.
 " }}}
+" christoomey/vim-tmux-navigator {{{
+"   M-[hjkl]  Move around between vim and tmux panes
+"             (This requires additional settings in .tmux.conf)
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
+nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
+" }}}
 " fisadev/vim-isort {{{
 let g:vim_isort_map = '<C-i>'
 " }}}
