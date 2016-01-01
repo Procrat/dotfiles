@@ -12,7 +12,7 @@ if [[ $? == 0 ]]; then
     echo '  Yep.'
 else
     echo '  Nope. Install cmake pl0x.'
-    sudo pacman -Syy cmake
+    sudo pacman -Sy cmake
 fi
 
 echo 'Installing libs...'
