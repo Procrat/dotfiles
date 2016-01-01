@@ -58,26 +58,20 @@ else
 fi
 
 
-echo 'System systemd'
-echo "  $action_name NTP"
-sudo systemctl "$systemd_action" ntpd
-echo "  $action_name Sickrage"
-sudo systemctl "$systemd_action" sickrage
-echo
 echo 'User systemd'
 echo "  $action_name Dropbox"
-systemctl --user "$systemd_action" dropbox
+systemctl --user "$systemd_action" dropbox || true
 echo "  $action_name Deluge"
-systemctl --user "$systemd_action" deluged
+systemctl --user "$systemd_action" deluged || true
 echo
 
 
 echo "$action_name browsers, mail clients and IMs"
 if [[ x"$state" = x"on" ]]; then
     killall -q skype firefox opera chromium thunderbird dropbox || true
-    killall -q opera  # Really makes sure it gets killed
+    killall -q opera || true  # Really makes sure it gets killed
 else
-    for program in opera thunderbird dropbox skype; do
+    for program in firefox-aurora skype; do
         ensure_running "$program" &
     done
 fi
