@@ -50,6 +50,8 @@ dotfiles=(
     config/htop
     config/icons
     config/mimeapps.list
+    config/nvim/init.vim
+    config/nvim/ycm_extra_conf.py
     config/systemd
     config/user-dirs.dirs
     gitconfig
@@ -58,8 +60,6 @@ dotfiles=(
     shellrc
     ssh/config
     tmux.conf
-    vimrc
-    vim/ycm_extra_conf.py
     xinitrc
     xprofile
     Xresources
@@ -72,9 +72,9 @@ for dotfile in ${dotfiles[@]}; do
     ln -sfn "$DEST/$dotfile" "$HOME/.$dotfile"
 done
 
-echo 'Link NeoVim config files to Vim config files...'
-ln -sfn "$HOME/.vim" "$HOME/.config/nvim"
-ln -sfn "$HOME/.vimrc" "$HOME/.config/nvim/init.vim"
+echo 'Link Vim config files to NeoVim config files (just to be safe)...'
+ln -sfn "$HOME/.config/nvim" "$HOME/.vim"
+ln -sfn "$HOME/.config/nvim/init.vim" "$HOME/.vimrc"
 
 echo 'Link bin folder...'
 ln -sfn "$DEST/bin" "$HOME/bin"
@@ -103,12 +103,11 @@ if [[ x"$shell" != x"$DEFAULT_SHELL" ]]; then
     fi
 fi
 
-echo 'Updating (Neo)Vim plugins...'
-my_vim="$(which nvim 2>/dev/null || which vim 2>/dev/null)"
-if [[ -n "$my_vim" ]]; then
-    "$my_vim" +PluginInstall! +qall
+echo 'Updating NeoVim plugins...'
+if [[ -n "$(which nvim 2>/dev/null)" ]]; then
+    nvim +PluginInstall! +qall
 else
-    echo 'No Vim installation was found.' >&2
+    echo 'No NeoVim installation was found.' >&2
 fi
 
 reset

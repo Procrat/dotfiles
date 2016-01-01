@@ -1,69 +1,64 @@
 " Vundle plugins {{{
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" Takes about .10s by itself
-Plugin 'VundleVim/Vundle.vim'
-
-" -- Small plugins (less than .01s)
-Plugin 'alfredodeza/khuno.vim'
-" Plugin 'altercation/vim-colors-solarized'
-Plugin 'chase/vim-ansible-yaml'
-Plugin 'chriskempson/base16-vim'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'fisadev/vim-isort'
-Plugin 'Glench/Vim-Jinja2-Syntax'
-Plugin 'godlygeek/tabular'
-Plugin 'honza/vim-snippets'
-Plugin 'jvirtanen/vim-octave'
-" Plugin 'klen/python-mode'
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'mattn/gist-vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'rhysd/committia.vim'
-Plugin 'rust-lang/rust.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'SirVer/ultisnips'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'vim-scripts/JavaDecompiler.vim'
-
-" -- Slightly bigger plugins
-" Load: .02s
-Plugin 'ctrlpvim/ctrlp.vim'
-" Load: .10s
-Plugin 'scrooloose/nerdtree'
-" Load: .14s
-Plugin 'tpope/vim-rails'
-" Load: .25s (for Rails)
-Plugin 'AndrewRadev/splitjoin.vim'
-" Load: .30s
-Plugin 'bling/vim-airline'
-" Load: .93s (for Rails)
-Plugin 'Valloric/YouCompleteMe'
-
-" -- Massive load time
-" Load: .04s when not used; more than 5s for e.g. Python files
-" If `let g:syntastic_enable_signs=0` is used, it only takes .07s.
-" Plugin 'scrooloose/syntastic'
-
-call vundle#end()
+"filetype off
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"
+"" Takes about .10s by itself
+"Plugin 'VundleVim/Vundle.vim'
+"
+"" -- Small plugins (less than .01s)
+"Plugin 'alfredodeza/khuno.vim'
+"" Plugin 'altercation/vim-colors-solarized'
+"Plugin 'chase/vim-ansible-yaml'
+"Plugin 'chriskempson/base16-vim'
+"Plugin 'christoomey/vim-tmux-navigator'
+"Plugin 'easymotion/vim-easymotion'
+"Plugin 'fisadev/vim-isort'
+"Plugin 'Glench/Vim-Jinja2-Syntax'
+"Plugin 'godlygeek/tabular'
+"Plugin 'honza/vim-snippets'
+"Plugin 'jvirtanen/vim-octave'
+"" Plugin 'klen/python-mode'
+"Plugin 'LaTeX-Box-Team/LaTeX-Box'
+"Plugin 'maksimr/vim-jsbeautify'
+"Plugin 'mattn/gist-vim'
+"Plugin 'Raimondi/delimitMate'
+"Plugin 'rhysd/committia.vim'
+"Plugin 'rust-lang/rust.vim'
+"Plugin 'scrooloose/nerdcommenter'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'tpope/vim-endwise'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-markdown'
+"Plugin 'tpope/vim-unimpaired'
+"Plugin 'vim-scripts/JavaDecompiler.vim'
+"
+"" -- Slightly bigger plugins
+"" Load: .02s
+"Plugin 'ctrlpvim/ctrlp.vim'
+"" Load: .10s
+"Plugin 'scrooloose/nerdtree'
+"" Load: .14s
+"Plugin 'tpope/vim-rails'
+"" Load: .25s (for Rails)
+"Plugin 'AndrewRadev/splitjoin.vim'
+"" Load: .30s
+"Plugin 'bling/vim-airline'
+"" Load: .93s (for Rails)
+"Plugin 'Valloric/YouCompleteMe'
+"
+"" -- Massive load time
+"" Load: .04s when not used; more than 5s for e.g. Python files
+"" If `let g:syntastic_enable_signs=0` is used, it only takes .07s.
+"" Plugin 'scrooloose/syntastic'
+"
+"call vundle#end()
 filetype plugin indent on
 
 " }}}
 " Colorscheme settings {{{
 syntax on
-set t_Co=16
 set background=dark
-
-" colorscheme solarized
-" let g:solarized_visibility = "high"
 
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-default
@@ -72,8 +67,8 @@ colorscheme base16-default
 " General settings {{{
 let mapleader=','
 let maplocalleader=','
-" Automatic reloading on external file changes
-set autoread
+" Automatic reloading on external file changes (default in NeoVim)
+"set autoread
 " Automatic writing when using certain commands, e.g. :n, :N
 set autowrite
 " Hides buffers instead of closing
@@ -88,24 +83,20 @@ set colorcolumn=80
 set textwidth=80
 " Ignore case when searching except if search has uppercase letters
 set smartcase
-" Find as you type
-set incsearch
-" Autocompletion for command-line
-set wildmenu
+" Find as you type (default in NeoVim)
+"set incsearch
+" Autocompletion for command-line (default in NeoVim)
+"set wildmenu
 " Always use a menu for autocompletion, not a preview pane
 set completeopt=menu
 " Ignore in autocompletion (also ignores in CtrlP/Command-T/Unite.vim)
 set wildignore=*.o,*.obj,*.pyc,*.class,*.orig,*/.git/*
 " Maximum height of the autocompletion popup menu (pum)
 set pumheight=8
-" Mouse interactivity
-set mouse=a
-" Copy/paste with shared clipboard
-if has ('unnamedplus')
-   set clipboard=unnamedplus
-else
-   set clipboard=unnamed
-endif
+" Mouse interactivity (default in NeoVim)
+"set mouse=a
+" Copy/paste with X11 CLIPBOARD
+set clipboard=unnamedplus
 " Paste mode shortcut
 set pastetoggle=<leader>p
 " Start scrolling earlier
@@ -119,8 +110,8 @@ set splitright
 set modelines=1
 " Use the silver searcher to grep and always print file name in Quickfix list
 set grepprg=ag\ --vimgrep
-" Always show statusline/powerline/airline
-set laststatus=2
+" Always show statusline/powerline/airline (default in NeoVim)
+"set laststatus=2
 " Disable showing the current mode because powerline/airline already shows it
 set noshowmode
 " Help for Matlab/Octave (with shortcut K)
@@ -184,9 +175,10 @@ set shiftround
 " When smarttab is on, a <Tab> in front of a line inserts blanks according to
 " 'shiftwidth'.  'tabstop' is used in other places. A <BS> will delete a
 " 'shiftwidth' worth of space at the start of the line.
-set smarttab
-" Copy indent from current line when starting a new line
-set autoindent
+" (default in NeoVim)
+"set smarttab
+" Copy indent from current line when starting a new line (default in NeoVim)
+"set autoindent
 " Indent after '{' and after keywords (if, for, else, while, do, switch)
 set smartindent
 
@@ -239,12 +231,12 @@ let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
 " Optimization: don't search for all possible extensions
 let g:airline_extensions = [
-            \'branch',
-            \'ctrlp',
-            \'netrw',
-            \'quickfix',
-            \'tabline',
-            \'virtualenv']
+    \'branch',
+    \'ctrlp',
+    \'netrw',
+    \'quickfix',
+    \'tabline']
+    " \'virtualenv']
 let g:airline#extensions#tabline#buffer_min_count = 2
 " }}}
 " easymotion/vim-easymotion {{{

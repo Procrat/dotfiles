@@ -15,16 +15,17 @@ Dependency tree
     - Feh (background)
     - Dmenu (keybinding)
     - Urxvt (keybinding)
-- (Neo)Vim
+- NeoVim
     - Vundle (will be installed by setup.sh)
     - Ag
     - YouCompleteMe libraries
+    - xclip or xsel for synchronisation with X11 clipboard
     - Python packages
         - isort for vim-isort
         - flake8 for khuno.vim
         - jad for JavaDecompiler.vim
 - Tmux
-- (Neo)Vim and tmux interact through the M-[hjkl] bindings (see vimrc and tmux.conf)
+- NeoVim and tmux interact through the M-[hjkl] bindings (see vimrc and tmux.conf)
 - IPython
 - Git
 - Htop
