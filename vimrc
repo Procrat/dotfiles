@@ -433,7 +433,8 @@ function! LaTeXMappings()
 endfunction
 " }}}
 " Lokaltog/vim-easymotion {{{
-"   <leader><leader>  Default prefix
+"                     Disable default mappings
+let g:EasyMotion_do_mapping = 0
 "   s                 Bi-directional find. Jump to anywhere with s{char}{label}
 nmap s <Plug>(easymotion-s)
 "   <leader>j         Easymotion up. Jump up with <leader>j{label}
