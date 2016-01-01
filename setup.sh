@@ -52,7 +52,6 @@ dotfiles=(
     config/mimeapps.list
     config/systemd
     config/user-dirs.dirs
-    devilspie
     gitconfig
     gitignore_global
     ipython/profile_default/ipython_config.py
