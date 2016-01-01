@@ -495,6 +495,11 @@ let g:UltiSnipsListSnippets='<leader>u'
 " Valloric/YouCompleteMe {{{
 "   Tab and S-Tab  Scroll between autocomplete options
 "   C-Space        Force autocompletion without prefix given
+"   gd             Go to definition (or declaration)
+"                  (YCM does a better job at this than Vim.)
+nnoremap gd :YcmCompleter GoTo<CR>
+"   K              Go to documentation
+nnoremap K :YcmCompleter GetDoc<CR>
 " }}}
 "" Java/Eclim mappings {{{
 "au FileType java call EclimBindings()
