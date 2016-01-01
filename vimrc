@@ -179,6 +179,8 @@ set shiftwidth=4
 set softtabstop=4
 " Turn tabs into spaces
 set expandtab
+" Round off indentation to multiple of shiftwidth
+set shiftround
 " When smarttab is on, a <Tab> in front of a line inserts blanks according to
 " 'shiftwidth'.  'tabstop' is used in other places. A <BS> will delete a
 " 'shiftwidth' worth of space at the start of the line.
