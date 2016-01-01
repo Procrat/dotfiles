@@ -192,10 +192,9 @@ set smartindent
 
 
 
-let s:maxoff = 50 " maximum number of lines to look backwards.
-
 au FileType python setlocal indentexpr=GetGooglePythonIndent(v:lnum)
-function GetGooglePythonIndent(lnum)
+let s:maxoff = 50  " Maximum number of lines to look backwards.
+function! GetGooglePythonIndent(lnum)
   " Indent inside parens.
   " Align with the open paren unless it is at the end of the line.
   " E.g.
@@ -255,16 +254,16 @@ let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 let g:ctrlp_use_caching = 0
 " }}}
 " klen/python-mode {{{
-let g:pymode_trim_whitespaces = 0  " This already happens anyway
-let g:pymode_doc = 0  " Doesn't work when I need it
-let g:pymode_virtualenv = 0  " Don't need it
-let g:pymode_run = 0  " Don't use it (because it's not interactive)
-let g:pymode_breakpoint_cmd = 'import pudb; pudb.set_trace()  # XXX breapoint'
-let g:pymode_lint = 0  " Use flake8 for syntax checking
+" let g:pymode_trim_whitespaces = 0  " This already happens anyway
+" let g:pymode_doc = 0  " Doesn't work when I need it
+" let g:pymode_virtualenv = 0  " Don't need it
+" let g:pymode_run = 0  " Don't use it (because it's not interactive)
+" let g:pymode_breakpoint_cmd = 'import pudb; pudb.set_trace()  # TODO breakpoint'
+" let g:pymode_lint = 0  " Use flake8 for syntax checking
 " let g:pymode_lint_checker = 'pyflakes'
 " let g:pymode_lint_ignore = 'C0103,C0111,E114,E116,E265,E702'
-let g:pymode_rope = 0  " Rope just sucks
-let g:pymode_syntax = 0  " Already works out-of-the-box
+" let g:pymode_rope = 0  " Rope just sucks
+" let g:pymode_syntax = 0  " Already works out-of-the-box
 " }}}
 " LaTeX-Box-Team/LaTeX-Box {{{
 let g:LatexBox_Folding = 1
@@ -291,10 +290,10 @@ let NERDTreeMinimalUI = 1
 let NERDTreeChDirMode = 2
 " }}}
 " scrooloose/syntastic {{{
-let g:syntastic_python_pylint_args = "-d C0103,C0111"
-let g:syntastic_check_on_open = 1
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_auto_jump = 2
+" let g:syntastic_python_pylint_args = "-d C0103,C0111"
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_aggregate_errors = 1
+" let g:syntastic_auto_jump = 2
 " }}}
 " SirVer/ultisnips {{{
 let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
