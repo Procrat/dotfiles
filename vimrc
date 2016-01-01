@@ -134,6 +134,8 @@ au BufNewFile,BufRead *.py3 setfiletype python
 au BufNewFile,BufRead *rc setfiletype dosini
 " Turn on spelling for some filetypes
 au FileType tex,mail setlocal spell
+" Reload .vimrc on save
+au BufWritePost .vimrc source %
 
 " }}}
 " Remove trailing whitespace {{{
