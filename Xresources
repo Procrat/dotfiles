@@ -55,8 +55,8 @@ URxvt.perl-ext-common: matcher,font-size
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 !   On the fly font size changing
-URxvt.keysym.C-KP_Add: perl:font-size:increase
-URxvt.keysym.C-KP_Subtract: perl:font-size:decrease
+URxvt.keysym.C-Up: perl:font-size:increase
+URxvt.keysym.C-Down: perl:font-size:decrease
 
 ! Flash terminal instead of making an annoying sound
 URxvt.visualBell: true
