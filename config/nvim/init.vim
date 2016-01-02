@@ -115,7 +115,8 @@ set splitright
 " Check modelines (like the one at the bottom of this file)
 set modelines=1
 " Use the silver searcher to grep and always print file name in Quickfix list
-set grepprg=ag\ --vimgrep
+set grepprg=ag\ --vimgrep\ -w\ -Q\ \"$*\"
+set grepformat=%f:%l:%c:%m
 " Always show statusline/powerline/airline (default in NeoVim)
 "set laststatus=2
 " Disable showing the current mode because powerline/airline already shows it
@@ -324,9 +325,9 @@ nnoremap <S-Tab> :bprev<CR>
 nnoremap <leader>e :enew<cr>
 nnoremap <leader>d :bd<cr>
 nnoremap <leader>D :bd!<cr>
-" Use S to grep
-nnoremap S :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-vnoremap S "hy:grep! "\b<C-R>h\b"<CR>:cw<CR>
+" Use S to grep (dependent on format of grepprg)
+nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
+vnoremap S "hy:grep! <C-R>h<CR>:cw<CR>
 " Send a blame mail from a git repo
 function! Blame()
     execute "!send_blame_mail " . expand('%:p') . " " . line('.')
