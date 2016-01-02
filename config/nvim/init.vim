@@ -120,31 +120,6 @@ set grepprg=ag\ --vimgrep
 "set laststatus=2
 " Disable showing the current mode because powerline/airline already shows it
 set noshowmode
-" Help for Matlab/Octave (with shortcut K)
-au FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
-" Recognize some file extensions
-"   Filename ending in .pl is a Prolog file and not a Perl one
-au BufNewFile,BufRead *.pl setlocal filetype=prolog
-"   Filename ending in .py3 is a Python3 file
-au BufNewFile,BufRead *.py3 setfiletype python
-"   Filename ending in rc is probably a config file if nothing else
-au BufNewFile,BufRead *rc setfiletype dosini
-" Turn on spelling for some filetypes
-au FileType tex,mail setlocal spell
-" Reload .vimrc on save
-au BufWritePost .vimrc source %
-
-" }}}
-" Remove trailing whitespace {{{
-" Remove automatically on write when desired (non-binary)
-autocmd BufWritePre * call StripTrailingWhitespace()
-function! StripTrailingWhitespace()
-   if &l:fileencoding ==? "utf-8"
-       let l:winview = winsaveview()
-       silent! %s/\s\+$//
-       call winrestview(l:winview)
-   endif
-endfunction
 
 " }}}
 " Folding {{{
@@ -164,7 +139,10 @@ function! MyFoldText() " {{{
     return line . ' ' . repeat(" ",fillcharcount) . ' ' . foldedlinecount . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
-autocmd FileType xml,html,xhtml,htmldjango,eruby,xslt setlocal foldnestmax=20
+augroup folding
+    autocmd!
+    au FileType xml,html,xhtml,htmldjango,eruby,xslt setlocal foldnestmax=20
+augroup END
 
 " }}}
 " Indentation {{{
@@ -189,8 +167,6 @@ set shiftround
 set smartindent
 
 
-
-au FileType python setlocal indentexpr=GetGooglePythonIndent(v:lnum)
 let s:maxoff = 50  " Maximum number of lines to look backwards.
 function! GetGooglePythonIndent(lnum)
   " Indent inside parens.
@@ -222,13 +198,17 @@ let pyindent_nested_paren="&sw*2"
 let pyindent_open_paren="&sw*2"
 
 " Indentation per filetype
-au FileType xml,html,xhtml,htmldjango,eruby,xslt setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
-au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
-au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 textwidth=79 colorcolumn=79
-au FileType haskell setlocal shiftwidth=2 softtabstop=2
-au FileType prolog setlocal shiftwidth=4 softtabstop=4
-au FileType ruby setlocal shiftwidth=2 softtabstop=2
-au FileType tex setlocal shiftwidth=2 softtabstop=2
+augroup indentation
+    autocmd!
+
+    au FileType xml,html,xhtml,htmldjango,eruby,xslt setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
+    au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
+    au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 textwidth=79 colorcolumn=79 indentexpr=GetGooglePythonIndent(v:lnum)
+    au FileType haskell setlocal shiftwidth=2 softtabstop=2
+    au FileType prolog setlocal shiftwidth=4 softtabstop=4
+    au FileType ruby setlocal shiftwidth=2 softtabstop=2
+    au FileType tex setlocal shiftwidth=2 softtabstop=2
+augroup END
 
 " }}}
 " Plugin settings {{{
@@ -520,6 +500,47 @@ nnoremap K :YcmCompleter GetDoc<CR>
 "   nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 "endfunction
 "" }}}
+
+" }}}
+" Misc {{{
+augroup vimrc_misc
+  autocmd!
+
+  " Help for Matlab/Octave (with shortcut K)
+  au FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
+
+  " Recognize some file extensions
+  "   Filename ending in .pl is a Prolog file and not a Perl one
+  au BufNewFile,BufRead *.pl setlocal filetype=prolog
+  "   Filename ending in .py3 is a Python3 file
+  au BufNewFile,BufRead *.py3 setfiletype python
+  "   Filename ending in rc is probably a config file if nothing else
+  au BufNewFile,BufRead *rc setfiletype dosini
+
+  " Turn on spelling for some filetypes
+  au FileType tex,mail setlocal spell
+
+  " Reload .vimrc on save
+  au BufWritePost .vimrc source %
+
+  " Automatic renaming of tmux window
+  if exists('$TMUX')
+      au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+      au VimLeave * call system('tmux set-window automatic-rename on')
+  endif
+
+  " Remove trailing whitespace automatically on write when desired (non-binary)
+  au BufWritePre * call StripTrailingWhitespace()
+  function! StripTrailingWhitespace()
+      if &l:fileencoding ==? "utf-8"
+          let l:winview = winsaveview()
+          silent! %s/\s\+$//
+          call winrestview(l:winview)
+      endif
+  endfunction
+
+augroup END
+
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
