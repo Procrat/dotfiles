@@ -1,58 +1,64 @@
-" Vundle plugins {{{
-"filetype off
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
-"
-"" Takes about .10s by itself
-"Plugin 'VundleVim/Vundle.vim'
-"
-"" -- Small plugins (less than .01s)
-"Plugin 'alfredodeza/khuno.vim'
-"" Plugin 'altercation/vim-colors-solarized'
-"Plugin 'chase/vim-ansible-yaml'
-"Plugin 'chriskempson/base16-vim'
-"Plugin 'christoomey/vim-tmux-navigator'
-"Plugin 'easymotion/vim-easymotion'
-"Plugin 'fisadev/vim-isort'
-"Plugin 'Glench/Vim-Jinja2-Syntax'
-"Plugin 'godlygeek/tabular'
-"Plugin 'honza/vim-snippets'
-"Plugin 'jvirtanen/vim-octave'
-"" Plugin 'klen/python-mode'
-"Plugin 'LaTeX-Box-Team/LaTeX-Box'
-"Plugin 'maksimr/vim-jsbeautify'
-"Plugin 'mattn/gist-vim'
-"Plugin 'Raimondi/delimitMate'
-"Plugin 'rhysd/committia.vim'
-"Plugin 'rust-lang/rust.vim'
-"Plugin 'scrooloose/nerdcommenter'
-"Plugin 'SirVer/ultisnips'
-"Plugin 'tpope/vim-endwise'
-"Plugin 'tpope/vim-fugitive'
-"Plugin 'tpope/vim-markdown'
-"Plugin 'tpope/vim-unimpaired'
-"Plugin 'vim-scripts/JavaDecompiler.vim'
-"
-"" -- Slightly bigger plugins
-"" Load: .02s
-"Plugin 'ctrlpvim/ctrlp.vim'
-"" Load: .10s
-"Plugin 'scrooloose/nerdtree'
-"" Load: .14s
-"Plugin 'tpope/vim-rails'
-"" Load: .25s (for Rails)
-"Plugin 'AndrewRadev/splitjoin.vim'
-"" Load: .30s
-"Plugin 'bling/vim-airline'
-"" Load: .93s (for Rails)
-"Plugin 'Valloric/YouCompleteMe'
-"
-"" -- Massive load time
-"" Load: .04s when not used; more than 5s for e.g. Python files
-"" If `let g:syntastic_enable_signs=0` is used, it only takes .07s.
-"" Plugin 'scrooloose/syntastic'
-"
-"call vundle#end()
+" Plugins {{{
+call plug#begin()
+
+" -- Small plugins (less than .01s)
+Plug 'alfredodeza/khuno.vim'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'chase/vim-ansible-yaml'
+Plug 'chriskempson/base16-vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
+Plug 'fisadev/vim-isort'
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'godlygeek/tabular'
+Plug 'honza/vim-snippets'
+Plug 'jvirtanen/vim-octave'
+" Plug 'klen/python-mode'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'mattn/gist-vim', { 'on': 'Gist' }
+Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
+Plug 'Raimondi/delimitMate'
+Plug 'rhysd/committia.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/JavaDecompiler.vim'
+
+" -- Slightly bigger plugins
+" Load: .02s
+Plug 'ctrlpvim/ctrlp.vim'
+" Load: .10s
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" Load: .14s
+Plug 'tpope/vim-rails'
+" Load: .25s (for Rails)
+Plug 'AndrewRadev/splitjoin.vim'
+" Load: .30s
+Plug 'bling/vim-airline'
+" Load: .93s (for Rails)
+" Defer to insert mode
+Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py', 'on': [] }
+
+" -- Massive load time
+" Load: .04s when not used; more than 5s for e.g. Python files
+" If `let g:syntastic_enable_signs=0` is used, it only takes .07s.
+" Plug 'scrooloose/syntastic'
+
+call plug#end()
+
+" Defer loading of ultisnips and YouCompleteMe to insert mode
+augroup load_us_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                     \| call youcompleteme#Enable()
+                     \| autocmd! load_us_ycm
+augroup END
+
 filetype plugin indent on
 
 " }}}

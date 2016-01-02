@@ -9,8 +9,8 @@ DEST="$HOME/repos/dotfiles"
 TPM_REPO='https://github.com/tmux-plugins/tpm'
 TPM_DEST="$HOME/.tmux/plugins/tpm"
 
-VUNDLE_REPO='https://github.com/gmarik/Vundle.vim'
-VUNDLE_DEST="$HOME/.vim/bundle/Vundle.vim"
+VIM_PLUG_SCRIPT='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+VIM_PLUG_DEST="$HOME/.config/nvim/autoload/plug.vim"
 
 DEFAULT_SHELL='/bin/zsh'
 
@@ -27,17 +27,17 @@ ensure_repo_exists_and_has_latest_version() {
 }
 
 
+echo 'Ensuring $HOME/.config exists...'
+mkdir -p "$HOME/.config"
+
 echo 'Ensuring repo exist locally...'
 ensure_repo_exists_and_has_latest_version "$REPO" "$DEST"
 
 echo 'Ensuring Tmux Plugin Manager is installed...'
 ensure_repo_exists_and_has_latest_version "$TPM_REPO" "$TPM_DEST"
 
-echo 'Ensuring Vundle is installed...'
-ensure_repo_exists_and_has_latest_version "$VUNDLE_REPO" "$VUNDLE_DEST"
-
-echo 'Ensuring $HOME/.config exists...'
-mkdir -p "$HOME/.config"
+echo 'Ensuring vim-plug is installed...'
+curl -fLo "$VIM_PLUG_DEST" --create-dirs "$VIM_PLUG_SCRIPT"
 
 echo 'Linking dotfiles...'
 dotfiles=(
@@ -105,9 +105,7 @@ fi
 
 echo 'Updating NeoVim plugins...'
 if [[ -n "$(which nvim 2>/dev/null)" ]]; then
-    nvim +PluginInstall! +qall
+    nvim +PlugUpdate +qall
 else
     echo 'No NeoVim installation was found.' >&2
 fi
-
-reset
