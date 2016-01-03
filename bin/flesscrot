@@ -8,7 +8,6 @@ user="$USER"
 
 file="$(mktemp XXXXXX.png)"
 scrot $* "$file"
-chmod 755 $file
 scp -p "$file" "$ssh_host:~/images/"
 rm "$file"
 url="$url/~$user/images/$file"
