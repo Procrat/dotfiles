@@ -12,6 +12,7 @@ Plug 'fisadev/vim-isort'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
+Plug 'junegunn/vim-journal'
 Plug 'jvirtanen/vim-octave'
 " Plug 'klen/python-mode'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -531,6 +532,8 @@ augroup vimrc_misc
   au BufNewFile,BufRead *.py3 setfiletype python
   "   Filename ending in rc is probably a config file if nothing else
   au BufNewFile,BufRead *rc setfiletype dosini
+  "   Highlight Markdown files and todo files with vim-journal
+  au BufNewFile,BufRead *.md,*todo*,*TODO* setfiletype journal
 
   " Turn on spelling for some filetypes
   au FileType tex,mail setlocal spell
