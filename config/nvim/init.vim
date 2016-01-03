@@ -12,6 +12,7 @@ Plug 'fisadev/vim-isort'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
+Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
 Plug 'jvirtanen/vim-octave'
@@ -381,16 +382,20 @@ let g:EasyMotion_do_mapping = 0
 "   s                 Bi-directional find. Jump to anywhere with s{char}{char}{label}
 map s <Plug>(easymotion-s2)
 "   <leader>j         Easymotion up. Jump up with <leader>j{label}
-map <leader>j <Plug>(easymotion-j)
+"map <leader>j <Plug>(easymotion-j)
 "   <leader>k         Easymotion down. Jump down with <leader>k{label}
-map <leader>k <Plug>(easymotion-k)
+"map <leader>k <Plug>(easymotion-k)
 "   <leader>l         Easymotion forward. Jump forward with <leader>l{label}
-map <leader>l <Plug>(easymotion-lineforward)
+"map <leader>l <Plug>(easymotion-lineforward)
 "   <leader>h         Easymotion backward. Jump backward with <leader>h{label}
-map <leader>h <Plug>(easymotion-linebackward)
+"map <leader>h <Plug>(easymotion-linebackward)
 " }}}
 " fisadev/vim-isort {{{
 let g:vim_isort_map = '<C-i>'
+" }}}
+" junegunn/limelight.vim {{{
+"   <leader>l          Toggle Limelight
+nnoremap <leader>l :Limelight!!
 " }}}
 " kien/ctrlp.vim {{{
 let g:ctrlp_map = '<leader>t'  " Behave like command-t
