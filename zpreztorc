@@ -1,4 +1,4 @@
-# # Order is important!
+# Order is important!
 zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
@@ -20,5 +20,7 @@ bindkey -M viins jj vi-cmd-mode
 
 zstyle ':prezto:*:*' color 'yes'
 
+# Don't do cursor highlighting
+zstyle ':prezto:module:syntax-highlighting' highlighters 'main'
 
 # vim:filetype=zsh
