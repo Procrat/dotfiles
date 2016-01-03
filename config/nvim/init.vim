@@ -28,7 +28,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/JavaDecompiler.vim'
@@ -293,9 +292,6 @@ let NERDTreeChDirMode = 2
 " SirVer/ultisnips {{{
 let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
 " }}}
-" tpope/vim-markdown {{{
-let g:markdown_folding = 1
-" }}}
 " Valloric/YouCompleteMe {{{
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
 " }}}
@@ -547,6 +543,9 @@ augroup vimrc_misc
   " Turn on spelling for some filetypes
   au FileType tex,mail setlocal spell
 
+  " Set markdown folding for journal files
+  au FileType journal setlocal foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
+
   " Reload .vimrc on save
   au BufWritePost .vimrc source %
 
@@ -558,15 +557,46 @@ augroup vimrc_misc
 
   " Remove trailing whitespace automatically on write when desired (non-binary)
   au BufWritePre * call StripTrailingWhitespace()
-  function! StripTrailingWhitespace()
-      if &l:fileencoding ==? "utf-8"
-          let l:winview = winsaveview()
-          silent! %s/\s\+$//
-          call winrestview(l:winview)
-      endif
-  endfunction
 
 augroup END
+
+
+func! StripTrailingWhitespace()
+    if &l:fileencoding ==? "utf-8"
+        let l:winview = winsaveview()
+        silent! %s/\s\+$//
+        call winrestview(l:winview)
+    endif
+endfunction
+
+" Thanks to Steve Losh (https://gist.github.com/sjl/1038710)
+func! FoldexprMarkdown(lnum)
+    let l1 = getline(a:lnum)
+
+    if l1 =~ '^\s*$'
+        " ignore empty lines
+        return '='
+    endif
+
+    let l2 = getline(a:lnum+1)
+
+    if  l2 =~ '^==\+\s*'
+        " next line is underlined (level 1)
+        return '>1'
+    elseif l2 =~ '^--\+\s*'
+        " next line is underlined (level 2)
+        return '>2'
+    elseif l1 =~ '^#'
+        " current line starts with hashes
+        return '>'.matchend(l1, '^#\+')
+    elseif a:lnum == 1
+        " fold any 'preamble'
+        return '>1'
+    else
+        " keep previous foldlevel
+        return '='
+    endif
+endfunc
 
 " }}}
 
