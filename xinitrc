@@ -37,6 +37,9 @@ export SSH_AUTH_SOCK
 # Start urxvt daemon (This is preferred above systemd)
 urxvtd &
 
+# Start unclutter daemon
+unclutter &
+
 # Fix headphone white noise
 amixer -c 0 set 'Headphone Mic Boost' 1% &
 
