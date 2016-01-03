@@ -6,5 +6,6 @@ c.TerminalIPythonApp.quick = True
 c.InteractiveShellApp.exec_lines = [
     'from collections import *',
     'from itertools import *',
-    'from matplotlib import pyplot as plt'
+    'from math import *',
+    'import numpy as np'
 ]
