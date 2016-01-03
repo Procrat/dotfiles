@@ -88,7 +88,7 @@ set colorcolumn=80
 " Wrap lines automatically
 set textwidth=80
 " Ignore case when searching except if search has uppercase letters
-set smartcase
+set ignorecase smartcase
 " Find as you type (default in NeoVim)
 "set incsearch
 " Autocompletion for command-line (default in NeoVim)
@@ -121,6 +121,18 @@ set grepformat=%f:%l:%c:%m
 "set laststatus=2
 " Disable showing the current mode because powerline/airline already shows it
 set noshowmode
+" Wait less than a second for mapped seauence to complete
+set timeoutlen=400
+" Keep the cursor on the same column
+set nostartofline
+" Skip intro
+set shortmess+=I
+" Allow non-existing blocks in Visual block mode
+set virtualedit=block
+" French spacing all the way
+set nojoinspaces
+" Ignore whitespace in diff mode
+set diffopt+=iwhite
 
 " }}}
 " Folding {{{
@@ -289,6 +301,8 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
 inoremap jj <Esc>
 " Use backspace to delete character
 noremap <BS> X
+" Make Y behave like other capitals
+nnoremap Y y$
 " Space to (un)fold
 nnoremap <silent> <Space> za
 vnoremap <silent> <Space> za
