@@ -27,6 +27,7 @@ Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/JavaDecompiler.vim'
 
