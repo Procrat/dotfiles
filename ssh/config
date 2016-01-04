@@ -46,5 +46,9 @@ Host zeven
     Hostname kelder.zeus.ugent.be
     User stijns
     Port 2222
+    # Minecraft
     LocalForward 25565 ZEVEN:25565
+    # Mumble
     LocalForward 64738 ZEVEN:64738
+    # PulseAudio
+    LocalForward 7777 ZEVEN:4713
