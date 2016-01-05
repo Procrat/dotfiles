@@ -303,6 +303,8 @@ inoremap jj <Esc>
 noremap <BS> X
 " Make Y behave like other capitals
 nnoremap Y y$
+" Center search matches to center of screen
+nnoremap n nzz
 " Space to (un)fold
 nnoremap <silent> <Space> za
 vnoremap <silent> <Space> za
