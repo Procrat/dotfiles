@@ -74,7 +74,7 @@ hc rule class~'Skype|Slack' tag=im
 # Move browsers to 'web' tag
 hc rule instance~'Navigator|Opera' tag=web
 # Turn off default pseudotiling for some programs
-hc rule class~'Firefox|Opera|Chromium|luakit|qutebrowser|Thun(ar|derbird)|Vlc|mpv|feh|Deluge|Minecraft.*|Slack' \
+hc rule class~'Firefox|Opera|chromium|luakit|qutebrowser|Thun(ar|derbird)|Vlc|mpv|feh|Deluge|Minecraft.*|Slack' \
     pseudotile=off
 
 # Start on 'terms' tag
