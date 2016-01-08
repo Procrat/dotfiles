@@ -45,6 +45,7 @@ alias -g TF='| tail -f'
 alias -g S='| sort'
 alias -g F='| sort | uniq -c'
 alias -g G='| ag -i'
+alias -g C='| columns -t'
 
 # Mappings
 bindkey '^R' history-incremental-search-backward
