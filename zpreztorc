@@ -16,7 +16,6 @@ zstyle ':prezto:load' pmodule \
 
 # Set extra vim bindings and prompt interaction
 zstyle ':prezto:module:editor' key-bindings 'vi'
-bindkey -M viins jj vi-cmd-mode
 
 zstyle ':prezto:*:*' color 'yes'
 
