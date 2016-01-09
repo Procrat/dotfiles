@@ -57,6 +57,7 @@ dotfiles=(
     gitconfig
     gitignore_global
     ipython/profile_default/ipython_config.py
+    local/share/applications
     shellrc
     ssh/config
     tmux.conf
@@ -103,7 +104,7 @@ if [[ x"$shell" != x"$DEFAULT_SHELL" ]]; then
     fi
 fi
 
-echo 'Updating NeoVim plugins...'
+echo 'Updating vim-plug and NeoVim plugins...'
 if [[ -n "$(which nvim 2>/dev/null)" ]]; then
     nvim +PlugUpgrade +qall
     nvim +PlugUpdate +qall

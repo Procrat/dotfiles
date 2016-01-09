@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Ranger
+GenericName=File Manager
+Comment=CLI-based file manager
+Exec=ranger
+Icon=utilities-terminal
+Terminal=true
+Categories=Utility
