@@ -3,13 +3,13 @@
 set -euo pipefail
 
 ssh_host="flesje"
-url="http://flashyoshi.me:8080"
+url="http://t2-wan.be:7070"
 user="$USER"
 
 file="$(mktemp XXXXXX.png)"
 scrot $* "$file"
 scp -p "$file" "$ssh_host:~/images/"
 rm "$file"
-url="$url/~$user/images/$file"
+url="$url/~$user/$file"
 notify-send -a flesscrot "Screenshot uploaded to $url"
 echo "$url" | xclip -sel c

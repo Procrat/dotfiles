@@ -31,8 +31,8 @@ Host helios
     Hostname helios.ugent.be
     User svsegher
 Host flesje
-    Hostname flashyoshi.me
-    Port 2222
+    Hostname t2-wan.be
+    Port 3618
     User procrat
 
 # Tunnels
