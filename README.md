@@ -40,7 +40,7 @@ Dependency tree
     - Prezto
 
 The bin/ folder depends on (possibly Arch-specific) programs like pacman,
-highlight, scrot, curl, xclip and VLC.
+highlight, escrotum, curl, xclip and VLC.
 
 
 Colorscheme

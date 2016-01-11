@@ -7,7 +7,7 @@ url="http://t2-wan.be:7070"
 user="$USER"
 
 file="$(mktemp XXXXXX.png)"
-scrot $* "$file"
+escrotum $* "$file"
 scp -p "$file" "$ssh_host:~/images/"
 rm "$file"
 url="$url/~$user/$file"
