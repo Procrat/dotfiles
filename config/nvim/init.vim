@@ -88,8 +88,6 @@ set noswapfile
 set number
 " Show vertical column at 79 (maximum line length for Python)
 set colorcolumn=80
-" Wrap lines automatically
-set textwidth=80
 " Ignore case when searching except if search has uppercase letters
 set ignorecase smartcase
 " Find as you type (default in NeoVim)
@@ -539,14 +537,15 @@ augroup vimrc_misc
   au BufNewFile,BufRead *.py3 setfiletype python
   "   Filename ending in rc is probably a config file if nothing else
   au BufNewFile,BufRead *rc setfiletype dosini
-  "   Highlight Markdown files and todo files with vim-journal
-  au BufNewFile,BufRead *.md,*todo*,*TODO* setfiletype journal
+  "   Highlight todo files and other textfiles with vim-journal
+  "   (and override detection of Markdown and text filetypes)
+  au BufNewFile,BufRead *.txt,*todo*,*TODO* setlocal filetype=journal
 
   " Turn on spelling for some filetypes
   au FileType tex,mail setlocal spell
 
-  " Set markdown folding for journal files
-  au FileType journal setlocal foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
+  " Set wrapping and markdown folding for Markdown and journal files
+  au FileType journal,markdown setlocal textwidth=80 foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
 
   " Reload .vimrc on save
   au BufWritePost .vimrc source %
