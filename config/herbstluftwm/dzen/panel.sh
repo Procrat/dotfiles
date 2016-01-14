@@ -3,7 +3,8 @@
 # HLWM bar using dzen2
 
 script_dir=$(dirname "$BASH_SOURCE")
-logs="$HOME/.config/herbstluftwm/logs"
+logs="$HOME/.local/share/herbstluftwm/logs"
+mkdir -p "$(dirname $logs)"
 
 monitor=${1:-0}
 shift
@@ -82,10 +83,6 @@ hc pad $monitor $panel_height
     done > >(uniq_linebuffered) &
     dropboxloop=$!
 
-    # Notification daemon
-    $script_dir/notification_idle.sh | \
-        sed -u 's/.*/notification\t&/' > >(uniq_linebuffered)
-
     # HLWM changes generator
     hc --idle
 
@@ -93,7 +90,6 @@ hc pad $monitor $panel_height
     kill $dateloop
     kill $batteryloop
     kill $dropboxloop
-    killall sind
 
 } 2>> "$logs" | {
 
@@ -101,7 +97,6 @@ hc pad $monitor $panel_height
     date=""
     battery=""
     dropbox_status=""
-    notification=""
     windowtitle=""
 
     while true; do
@@ -124,9 +119,6 @@ hc pad $monitor $panel_height
         right="$date  "
         right="$battery$separator $right"
         right="$dropbox_status $separator $right"
-        if [[ -n $(without_dzen_tags "$notification") ]]; then
-            right="$notification $separator $right"
-        fi
         right_text_only=$(without_dzen_tags "$right")
         text_width=$($script_dir/xftwidth "$font" "$right_text_only")
         xbm_icons_width=$(extract_icon_width "$right")
@@ -154,9 +146,6 @@ hc pad $monitor $panel_height
                 ;;
             dropbox)
                 dropbox_status="${cmd[@]:1}"
-                ;;
-            notification)
-                notification="${cmd[@]:1}"
                 ;;
             quit_panel)
                 exit
