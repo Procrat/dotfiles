@@ -21,7 +21,7 @@ fi
 [[ $- == *i* ]] && stty -ixon
 
 # Add ruby gem path to PATH and make Bundler install gems per user
-export GEM_HOME="$HOME/.gem/ruby/2.2.0"
+export GEM_HOME="$HOME/.gem/ruby/2.3.0"
 export PATH="$PATH:$GEM_HOME/bin:$HOME/bin:."
 
 # Activate user virtualenv
