@@ -49,7 +49,7 @@ case "$1" in
 esac
 
 # Actual volume changing (readability low)
-AMIXOUT="$(amixer -c 0 set Master $AMIXARG | tail -n 1)"
+AMIXOUT="$(amixer set Master $AMIXARG | tail -n 1)"
 
 # Parse output to see volume
 MUTE="$(cut -d '[' -f 3 <<<"$AMIXOUT")"
