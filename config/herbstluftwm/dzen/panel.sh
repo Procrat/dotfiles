@@ -93,6 +93,10 @@ hc pad $monitor $panel_height
 
 } 2>> "$logs" | {
 
+    ### Parser and layouter ###
+
+    SEPARATOR=" ^fg($BACKGROUND_HIGHLIGHT_COLOR)|^fg()"
+
     visible=true
     date=""
     battery=""
@@ -104,21 +108,19 @@ hc pad $monitor $panel_height
         # This part prints dzen data based on the _previous_ data handling run,
         # and then waits for the next event to happen.
 
-        separator=" ^fg($BACKGROUND_HIGHLIGHT_COLOR)|^fg()"
-
         # Arch icon
         echo -n "  ^fg($S_BASE2)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
-        echo -n "$separator"
+        echo -n "$SEPARATOR"
 
         # Tags
         $script_dir/tags.sh $monitor
-        echo -n "$separator"
+        echo -n "$SEPARATOR"
         echo -n " ^fg($SECONDARY_CONTENT_COLOR)${windowtitle//^/^^}^fg()"
 
         # Right side
         right="$date  "
-        right="$battery$separator $right"
-        right="$dropbox_status $separator $right"
+        right="$battery$SEPARATOR $right"
+        right="$dropbox_status $SEPARATOR $right"
         right_text_only=$(without_dzen_tags "$right")
         text_width=$($script_dir/xftwidth "$font" "$right_text_only")
         xbm_icons_width=$(extract_icon_width "$right")
