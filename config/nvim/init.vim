@@ -123,7 +123,7 @@ set grepformat=%f:%l:%c:%m
 " Disable showing the current mode because powerline/airline already shows it
 set noshowmode
 " Wait less than a second for mapped seauence to complete
-set timeoutlen=400
+set timeoutlen=500
 " Keep the cursor on the same column
 set nostartofline
 " Skip intro
