@@ -30,10 +30,15 @@ Host cc
 Host helios
     Hostname helios.ugent.be
     User svsegher
+Host hpc
+    Hostname login.hpc.ugent.be
+    User vsc41817
+    ProxyCommand ssh zeus 'exec nc -w 18000s %h %p'
 Host flesje
     Hostname t2-wan.be
     Port 3618
     User procrat
+
 
 # Tunnels
 Host cammie
