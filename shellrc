@@ -20,9 +20,12 @@ fi
 # but only for interactive shells of course
 [[ $- == *i* ]] && stty -ixon
 
+# Pointer to Java JDK
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 # Add ruby gem path to PATH and make Bundler install gems per user
 export GEM_HOME="$HOME/.gem/ruby/2.3.0"
-export PATH="$PATH:$GEM_HOME/bin:$HOME/bin:."
+
+export PATH="$PATH:$JAVA_HOME/bin:$GEM_HOME/bin:$HOME/bin:."
 
 # Activate user virtualenv
 [[ -d "$HOME/.venv" ]] && source "$HOME/.venv/bin/activate"

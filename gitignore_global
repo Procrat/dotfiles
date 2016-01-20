@@ -25,6 +25,8 @@
 
 # Eclipse/Eclim configuration files
 workbench.xmi
+.project
+.classpath
 
 # LaTeX/TeX working files
 *.fls

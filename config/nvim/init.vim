@@ -52,6 +52,9 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py', 'on': [] }
 " If `let g:syntastic_enable_signs=0` is used, it only takes .07s.
 " Plug 'scrooloose/syntastic'
 
+" Unmanaged plugins
+Plug '~/.config/nvim/unplugged/eclim', { 'for': 'java', 'frozen': 1 }
+
 call plug#end()
 
 " Defer loading of ultisnips and YouCompleteMe to insert mode
@@ -292,6 +295,7 @@ let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
 " }}}
 " Valloric/YouCompleteMe {{{
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
+let g:EclimCompletionMethod = 'omnifunc'
 " }}}
 " }}}
 " General mappings {{{
