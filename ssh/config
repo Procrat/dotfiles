@@ -30,6 +30,7 @@ Host cc
 Host helios
     Hostname helios.ugent.be
     User svsegher
+    ProxyCommand ssh zeus 'exec nc -w 18000s %h %p'
 Host hpc
     Hostname login.hpc.ugent.be
     User vsc41817
