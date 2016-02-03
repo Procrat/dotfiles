@@ -2,12 +2,14 @@
 ! Xft settings
 !-----------------------------------------------------------------------------
 
-Xft.dpi: 96
-Xft.antialias: true
-Xft.rgba: rgb
-Xft.hinting: true
-Xft.autohint: false
-Xft.hintstyle: hintslight
+! Commented since Infinality seems to fix all this
+
+! Xft.dpi: 96
+! Xft.antialias: true
+! Xft.rgba: rgb
+! Xft.hinting: true
+! Xft.autohint: false
+! Xft.hintstyle: hintslight
 
 
 !-----------------------------------------------------------------------------
@@ -30,24 +32,9 @@ URxvt.saveLines: 0
 ! Padding
 URxvt.internalBorder: 2
 
-! Fonts
-! URxvt*font: xft:Ubuntu Mono:size=13
-! URxvt*letterSpace: -1
-
-! URxvt.font: xft:DejaVu Sans Mono:size=11
-! URxvt.letterSpace: -2
-
-! URxvt*font: xft:Code New Roman:size=10
-
+! Font
 URxvt*font: xft:Monaco For Powerline:size=13
 URxvt.letterSpace: -2
-
-! URxvt*font: xft:Inconsolata\\-g:size=11
-! URxvt*letterSpace: -1
-
-! URxvt*font: xft:Source Code Pro:style=Regular:size=12
-! URxvt*boldFont: xft:Source Code Pro:style=Bold:size=12
-! URxvt*letterSpace: -2
 
 ! Perl extensions
 URxvt.perl-ext-common: matcher,font-size
@@ -60,77 +47,6 @@ URxvt.keysym.C-Down: perl:font-size:decrease
 
 ! Flash terminal instead of making an annoying sound
 URxvt.visualBell: true
-! Send a notification that you`re failing (requires perl-ext bell-command)
-! URxvt.bell-command: notify-send "Stop failing plz kthx"
-
-
-!-----------------------------------------------------------------------------
-! Dzen settings
-!-----------------------------------------------------------------------------
-
-dzen2*font: -*-Trebuchet MS-*-*-*-*-*-120-*-*-*-*-*-*
-
-
-!-----------------------------------------------------------------------------
-! Dmenu settings
-!-----------------------------------------------------------------------------
-
-dmenu*font: Trebuchet MS:size=12
-
-
-!-----------------------------------------------------------------------------
-! Colorscheme: Solarized (http://ethanschoonover.com/solarized)
-!-----------------------------------------------------------------------------
-
-! #define S_yellow #b58900
-! #define S_orange #cb4b16
-! #define S_red #dc322f
-! #define S_magenta #d33682
-! #define S_violet #6c71c4
-! #define S_blue #268bd2
-! #define S_cyan #2aa198
-! #define S_green #859900
-! #define S_base03 #002b36
-! #define S_base02 #073642
-! #define S_base01 #586e75
-! #define S_base00 #657b83
-! #define S_base0 #839496
-! #define S_base1 #93a1a1
-! #define S_base2 #eee8d5
-! #define S_base3 #fdf6e3
-
-! *background: S_base03
-! *foreground: S_base0
-! ! *fading: 40
-! *fadeColor: S_base03
-! *cursorColor: S_base1
-! *pointerColorBackground: S_base01
-! *pointerColorForeground: S_base1
-! ! Black dark/light
-! *color0: S_base02
-! *color8: S_base03
-! ! Red dark/light
-! *color1: S_red
-! *color9: S_orange
-! ! Green dark/light
-! *color2: S_green
-! *color10: S_base01
-! ! Yellow dark/light
-! *color3: S_yellow
-! *color11: S_base00
-! ! Blue dark/light
-! *color4: S_blue
-! *color12: S_base0
-! ! Magenta dark/light
-! *color5: S_magenta
-! *color13: S_violet
-! ! Cyan dark/light
-! *color6: S_cyan
-! *color14: S_base1
-! ! White dark/light
-! *color7: S_base2
-! *color15: S_base3
-
 
 
 !-----------------------------------------------------------------------------
@@ -181,3 +97,19 @@ dmenu*font: Trebuchet MS:size=12
 *.color19:      base02
 *.color20:      base04
 *.color21:      base06
+
+
+!-----------------------------------------------------------------------------
+! Dzen settings
+!-----------------------------------------------------------------------------
+
+dzen2*font: -*-Trebuchet MS-*-*-*-*-*-120-*-*-*-*-*-*
+
+
+!-----------------------------------------------------------------------------
+! Dmenu settings
+!-----------------------------------------------------------------------------
+
+dmenu.font: Trebuchet MS:size=12
+dmenu.selforeground: base0A
+dmenu.selbackground: base00
