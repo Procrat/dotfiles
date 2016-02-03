@@ -35,6 +35,7 @@ alias highlight='pygmentize'
 alias mywatch='watch -d -e -t -n 1'
 alias servewd='python -m http.server'
 yupdatef() {
+    set -euo pipefail
     yaourt -Syua --noconfirm
     paccache -r
     $HOME/repos/dotfiles/setup.sh
