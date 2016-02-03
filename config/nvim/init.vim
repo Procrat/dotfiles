@@ -330,7 +330,7 @@ nnoremap <silent> <CR> :noh<CR>
 vnoremap < <gv
 vnoremap > >gv
 " Markdown mappings
-au FileType markdown call MardownMappings()
+au FileType markdown,journal call MardownMappings()
 function! MardownMappings()
     nnoremap <buffer> <leader>1 yypVr=:redraw<CR>
     nnoremap <buffer> <leader>2 yypVr-:redraw<CR>
