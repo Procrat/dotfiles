@@ -4,7 +4,6 @@
 
 
 script_dir=$(dirname $BASH_SOURCE)
-dmenu_height=$(cat "$script_dir/dzen/panel_height")
 
 hc() { herbstclient "$@" ; }
 
@@ -22,7 +21,7 @@ hc keybind $Mod-Shift-r reload
 # Launchers
 hc keybind $Mod-Return       spawn urxvtc
 hc keybind $Mod-Shift-Return spawn xterm
-hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu="dmenu -i -q -f -h $dmenu_height -x 30"
+hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu="mydmenu -q -f"
 hc keybind $Mod-e            spawn urxvtc -e ranger
 
 # Focus
