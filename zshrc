@@ -30,10 +30,15 @@ login_info() {
 dir_info() {
     echo '%B%F{blue}%~%f%b'
 }
+virtualenv_info() {
+    if [[ -n "$VIRTUAL_ENV" && "$VIRTUAL_ENV" != "$HOME/.venv" ]]; then
+        echo ' %B%F{green}v%f%b'
+    fi
+}
 prompt() {
     echo '%B%(!,#,%(?;%F{yellow}^.^;%F{red}o.0)%f)%b '
 }
-PROMPT=$(echo -e "\n$(login_info)$(dir_info)\n$(prompt)")
+PROMPT=$(echo -e "\n$(login_info)$(dir_info)$(virtualenv_info)\n$(prompt)")
 # Optionally show error code in right hand side prompt
 RPROMPT="%(?..%F{red}%?%f)"
 

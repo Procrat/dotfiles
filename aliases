@@ -68,6 +68,56 @@ clone() {
     repo=$(echo $@ | sed 's#.*/##')
     cd "$repo"
 }
+# Ugly hacks incoming, not for sensitive eyes
+function cd() {
+    # !! Assumes virtualenvs aren't activated manually
+    # But then again, who'd want to do that? Look at that activation script :/
+
+    local default_venv="$HOME/.venv"
+
+    function search_virtualenv() {
+        while [[ "$PWD" != "/" ]]; do
+            local possible_venv="$PWD/.venv"
+            if [[ -d "$possible_venv" ]]; then
+                echo "$possible_venv"
+                return 0
+            fi
+            builtin cd ..
+        done
+    }
+
+    function activate_virtualenv() {
+        VIRTUAL_ENV="$venv" PATH="$venv/bin:$PATH" "$SHELL"
+        local exit_code=$?
+
+        # Once the subshell has exited, possibly cd to the right directory
+        # This is hacky; also assumes last command in subshell was cd or exit
+        # Relative cd's also don't work of course :/
+        # This code is horrible and I should feel horrible
+        if [[ "$exit_code" = 137 ]]; then
+            cd $(cat "$HOME/.local/share/venv_last_wd")
+        else
+            exit
+        fi
+    }
+
+    if builtin cd "$@"; then
+        local venv=$(search_virtualenv)
+        # If there is a virtualenv active and the closest enclosing one isn't
+        # the same, exit the subshell with a special exit code
+        if [[ -n "$VIRTUAL_ENV" && "$PWD" != "$(dirname $VIRTUAL_ENV)"*
+                && "$VIRTUAL_ENV" != "$default_venv" ]]; then
+            echo "$PWD" >!"$HOME/.local/share/venv_last_wd"
+            exit 137
+        # Elif the new one is a new one, activate it
+        elif [[ -n "$venv" && "$VIRTUAL_ENV" != "$venv"
+                && "$venv" != "$default_venv" ]]; then
+            activate_virtualenv
+        fi
+    else
+        return $?
+    fi
+}
 
 # Quick cd
 alias bu='cd ~/docs/bucht'

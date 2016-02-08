@@ -27,8 +27,6 @@ export GEM_HOME="$HOME/.gem/ruby/2.3.0"
 
 export PATH="$PATH:$JAVA_HOME/bin:$GEM_HOME/bin:$HOME/bin:."
 
-# Activate user virtualenv
-[[ -d "$HOME/.venv" ]] && source "$HOME/.venv/bin/activate"
 
 
 # vim:filetype=sh

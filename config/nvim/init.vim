@@ -238,8 +238,9 @@ let g:airline_extensions = [
     \'ctrlp',
     \'netrw',
     \'quickfix',
-    \'tabline']
-    " \'virtualenv']
+    \'tabline',
+    \'virtualenv']
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 " }}}
 " easymotion/vim-easymotion {{{
