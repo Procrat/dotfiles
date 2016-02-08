@@ -18,6 +18,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'jvirtanen/vim-octave'
 " Plug 'klen/python-mode'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'leafgarland/typescript-vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
@@ -45,7 +46,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'bling/vim-airline'
 " Load: .93s (for Rails)
 " Defer to insert mode
-Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py', 'on': [] }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --tern-completer', 'on': [] }
 
 " -- Massive load time
 " Load: .04s when not used; more than 5s for e.g. Python files
@@ -554,6 +555,17 @@ augroup vimrc_misc
 
   " Reload .vimrc on save
   au BufWritePost .vimrc source %
+
+  " Compile TypeScript on save
+  function! s:make_and_copen()
+      silent make
+      if !empty(getqflist())
+          copen
+      else
+          cclose
+      endif
+  endfunction
+  au BufWritePost *.ts call s:make_and_copen()
 
   " Automatic renaming of tmux window
   if exists('$TMUX')
