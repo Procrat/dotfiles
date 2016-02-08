@@ -327,7 +327,7 @@ nnoremap <leader>w :w<CR>
 " Use C-O and C-P to shift between edited parts
 nnoremap <C-P> <C-I>
 " <Enter> to clear the current search highlighting
-nnoremap <silent> <CR> :noh<CR>
+nnoremap <silent> <CR> <CR>:noh<CR>
 " Make < and > behave like they should
 vnoremap < <gv
 vnoremap > >gv
