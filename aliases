@@ -27,6 +27,7 @@ alias g='git'
 # Who calls ghostscript from the command line anyway?
 alias gs='git status -sb #'
 alias hc='herbstclient'
+alias be='bundle exec'
 alias open='xdg-open'
 alias eduroam='sudo systemctl stop NetworkManager && sudo systemctl start connman'
 alias uneduroam='sudo systemctl stop connman && sudo systemctl start NetworkManager'
