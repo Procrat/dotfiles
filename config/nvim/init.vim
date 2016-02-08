@@ -43,7 +43,7 @@ Plug 'tpope/vim-rails'
 " Load: .25s (for Rails)
 Plug 'AndrewRadev/splitjoin.vim'
 " Load: .30s
-Plug 'bling/vim-airline'
+Plug 'bling/vim-airline', { 'tag': 'v0.7' }
 " Load: .93s (for Rails)
 " Defer to insert mode
 Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --tern-completer', 'on': [] }
