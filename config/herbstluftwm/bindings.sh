@@ -65,7 +65,7 @@ hc keybind $Mod-Control-Down    resize down +$resizestep
 hc keybind $Mod-Control-Up      resize up +$resizestep
 hc keybind $Mod-Control-Right   resize right +$resizestep
 ## More layout management shizzle
-hc keybind $Mod-r     close_or_remove
+hc keybind $Mod-r     close_and_remove
 hc keybind $Mod-space cycle_layout 1
 hc keybind $Mod-s     floating toggle
 hc keybind $Mod-z     fullscreen toggle
