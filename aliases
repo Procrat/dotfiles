@@ -76,6 +76,8 @@ function cd() {
 
     local default_venv="$HOME/.venv"
 
+    # No turning back now.
+
     function search_virtualenv() {
         while [[ "$PWD" != "/" ]]; do
             local possible_venv="$PWD/.venv"
@@ -87,14 +89,15 @@ function cd() {
         done
     }
 
+    # This code is horrible and I should feel horrible.
+
     function activate_virtualenv() {
         VIRTUAL_ENV="$venv" PATH="$venv/bin:$PATH" "$SHELL"
         local exit_code=$?
 
-        # Once the subshell has exited, possibly cd to the right directory
-        # This is hacky; also assumes last command in subshell was cd or exit
-        # Relative cd's also don't work of course :/
-        # This code is horrible and I should feel horrible
+        # Once the subshell has exited, we know that user either exited it
+        # explicitely or cd'ed to another directory, which we know through the
+        # exit code. Exit or cd accordingly.
         if [[ "$exit_code" = 137 ]]; then
             cd $(cat "$HOME/.local/share/venv_last_wd")
         else
@@ -108,7 +111,7 @@ function cd() {
         # the same, exit the subshell with a special exit code
         if [[ -n "$VIRTUAL_ENV" && "$PWD" != "$(dirname $VIRTUAL_ENV)"*
                 && "$VIRTUAL_ENV" != "$default_venv" ]]; then
-            echo "$PWD" >!"$HOME/.local/share/venv_last_wd"
+            realpath "$PWD" >!"$HOME/.local/share/venv_last_wd"
             exit 137
         # Elif the new one is a new one, activate it
         elif [[ -n "$venv" && "$VIRTUAL_ENV" != "$venv"
