@@ -3,7 +3,6 @@ call plug#begin()
 
 " -- Small plugins (less than .01s)
 Plug 'alfredodeza/khuno.vim'
-" Plug 'altercation/vim-colors-solarized'
 Plug 'chase/vim-ansible-yaml'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -62,10 +61,10 @@ call plug#end()
 
 " Defer loading of ultisnips and YouCompleteMe to insert mode
 augroup load_us_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                     \| call youcompleteme#Enable()
-                     \| autocmd! load_us_ycm
+    autocmd!
+    autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                       \| call youcompleteme#Enable()
+                       \| autocmd! load_us_ycm
 augroup END
 
 filetype plugin indent on
@@ -140,6 +139,8 @@ set virtualedit=block
 set nojoinspaces
 " Ignore whitespace in diff mode
 set diffopt+=iwhite
+" Nvim setting: pipe in insert mode
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " }}}
 " Folding {{{
@@ -189,29 +190,29 @@ set smartindent
 
 let s:maxoff = 50  " Maximum number of lines to look backwards.
 function! GetGooglePythonIndent(lnum)
-  " Indent inside parens.
-  " Align with the open paren unless it is at the end of the line.
-  " E.g.
-  "   open_paren_not_at_EOL(100,
-  "                         (200,
-  "                          300),
-  "                         400)
-  "   open_paren_at_EOL(
-  "       100, 200, 300, 400)
-  call cursor(a:lnum, 1)
-  let [par_line, par_col] = searchpairpos('(\|{\|\[', '', ')\|}\|\]', 'bW',
-        \ "line('.') < " . (a:lnum - s:maxoff) . " ? dummy :"
-        \ . " synIDattr(synID(line('.'), col('.'), 1), 'name')"
-        \ . " =~ '\\(Comment\\|String\\)$'")
-  if par_line > 0
-    call cursor(par_line, 1)
-    if par_col != col("$") - 1
-      return par_col
+    " Indent inside parens.
+    " Align with the open paren unless it is at the end of the line.
+    " E.g.
+    "   open_paren_not_at_EOL(100,
+    "                         (200,
+    "                          300),
+    "                         400)
+    "   open_paren_at_EOL(
+    "       100, 200, 300, 400)
+    call cursor(a:lnum, 1)
+    let [par_line, par_col] = searchpairpos('(\|{\|\[', '', ')\|}\|\]', 'bW',
+                \ "line('.') < " . (a:lnum - s:maxoff) . " ? dummy :"
+                \ . " synIDattr(synID(line('.'), col('.'), 1), 'name')"
+                \ . " =~ '\\(Comment\\|String\\)$'")
+    if par_line > 0
+        call cursor(par_line, 1)
+        if par_col != col("$") - 1
+            return par_col
+        endif
     endif
-  endif
 
-  " Delegate the rest to the original function.
-  return GetPythonIndent(a:lnum)
+    " Delegate the rest to the original function.
+    return GetPythonIndent(a:lnum)
 endfunction
 
 let pyindent_nested_paren="&sw*2"
@@ -334,8 +335,8 @@ nnoremap <silent> <CR> <CR>:noh<CR>
 vnoremap < <gv
 vnoremap > >gv
 " Markdown mappings
-au FileType markdown,journal call MardownMappings()
-function! MardownMappings()
+au FileType markdown,journal call s:MardownMappings()
+function! s:MardownMappings()
     nnoremap <buffer> <leader>1 yypVr=:redraw<CR>
     nnoremap <buffer> <leader>2 yypVr-:redraw<CR>
     nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
@@ -456,8 +457,8 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 "   <leader>lv  View output file.
 "   <leader>lf  Recalculate the folds.
 "   <leader>lt  Open a table of contents.
-au FileType tex call LaTeXMappings()
-function! LaTeXMappings()
+au FileType tex call s:LaTeXMappings()
+function! s:LaTeXMappings()
 "   [[          Start an environment
     imap <buffer> [[ \begin{
 "   ]]          Close the environment
@@ -533,55 +534,56 @@ nnoremap K :YcmCompleter GetDoc<CR>
 " }}}
 " Misc {{{
 augroup vimrc_misc
-  autocmd!
+    autocmd!
 
-  " Help for Matlab/Octave (with shortcut K)
-  au FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
+    " Help for Matlab/Octave (with shortcut K)
+    au FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
 
-  " Recognize some file extensions
-  "   Filename ending in .pl is a Prolog file and not a Perl one
-  au BufNewFile,BufRead *.pl setlocal filetype=prolog
-  "   Filename ending in .py3 is a Python3 file
-  au BufNewFile,BufRead *.py3 setfiletype python
-  "   Filename ending in rc is probably a config file if nothing else
-  au BufNewFile,BufRead *rc setfiletype dosini
-  "   Highlight todo files and other textfiles with vim-journal
-  "   (and override detection of Markdown and text filetypes)
-  au BufNewFile,BufRead *.txt,*todo*,*TODO* setlocal filetype=journal
+    " Recognize some file extensions
+    "   Filename ending in .pl is a Prolog file and not a Perl one
+    au BufNewFile,BufRead *.pl setlocal filetype=prolog
+    "   Filename ending in .py3 is a Python3 file
+    au BufNewFile,BufRead *.py3 setfiletype python
+    "   Filename ending in rc is probably a config file if nothing else
+    au BufNewFile,BufRead *rc setfiletype dosini
+    "   Highlight todo files and other textfiles with vim-journal
+    "   (and override detection of Markdown and text filetypes)
+    au BufNewFile,BufRead *.txt,*todo*,*TODO* setlocal filetype=journal
 
-  " Turn on spelling for some filetypes
-  au FileType tex,mail setlocal spell
+    " Turn on spelling for some filetypes
+    au FileType tex,mail setlocal spell
 
-  " Set wrapping and markdown folding for Markdown and journal files
-  au FileType journal,markdown setlocal textwidth=80 foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
+    " Set wrapping and markdown folding for Markdown and journal files
+    au FileType journal,markdown setlocal textwidth=80 foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
 
-  " Reload .vimrc on save
-  au BufWritePost .vimrc source %
+    " Reload .vimrc on save
+    au BufWritePost .vimrc source %
 
-  " Compile TypeScript on save
-  function! s:make_and_copen()
-      silent make
-      if !empty(getqflist())
-          copen
-      else
-          cclose
-      endif
-  endfunction
-  au BufWritePost *.ts call s:make_and_copen()
+    " Compile TypeScript and show errors on save
+    au BufWritePost *.ts call s:MakeAndCopen()
 
-  " Automatic renaming of tmux window
-  if exists('$TMUX')
-      au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
-      au VimLeave * call system('tmux set-window automatic-rename on')
-  endif
+    " Automatic renaming of tmux window
+    if exists('$TMUX')
+        au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+        au VimLeave * call system('tmux set-window automatic-rename on')
+    endif
 
-  " Remove trailing whitespace automatically on write when desired (non-binary)
-  au BufWritePre * call StripTrailingWhitespace()
+    " Remove trailing whitespace automatically on write when desired (non-binary)
+    au BufWritePre * call s:StripTrailingWhitespace()
 
 augroup END
 
 
-func! StripTrailingWhitespace()
+func! s:MakeAndCopen()
+    silent make
+    if !empty(getqflist())
+        copen
+    else
+        cclose
+    endif
+endfunc
+
+func! s:StripTrailingWhitespace()
     if &l:fileencoding ==? "utf-8"
         let l:winview = winsaveview()
         silent! %s/\s\+$//
