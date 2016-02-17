@@ -19,9 +19,10 @@ hc keybind $Mod-Shift-q spawn poweroff
 hc keybind $Mod-Shift-r reload
 
 # Launchers
-hc keybind $Mod-Return       spawn urxvtc
-hc keybind $Mod-Shift-Return spawn xterm
-hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu="mydmenu -q -f"
+hc keybind $Mod-Return       spawn urxvtc -e tmux
+hc keybind $Mod-c            spawn urxvtc -e zsh -c ". $HOME/bin/choose_session_outside_of_tmux"
+hc keybind $Mod-Shift-Return spawn xterm  # Fallback
+hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu="$HOME/bin/mydmenu -q -f"
 hc keybind $Mod-e            spawn urxvtc -e ranger
 
 # Focus
@@ -36,7 +37,6 @@ hc keybind $Mod-l           focus right
 hc keybind $Mod-BackSpace   cycle_monitor
 hc keybind $Mod-Tab         cycle_all +1
 hc keybind $Mod-Shift-Tab   cycle_all -1
-hc keybind $Mod-c           cycle
 hc keybind $Mod-i           jumpto urgent
 
 # Layout

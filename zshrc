@@ -56,15 +56,3 @@ alias -g sept='PULSE_SERVER=ZEVEN'
 # Mappings
 bindkey '^R' history-incremental-search-backward
 bindkey -M viins jj vi-cmd-mode
-
-
-# !! Keep this the last call of .zshrc!
-if which tmux 2>/dev/null >&2; then
-    # If we explicitly call .zshrc with some command, run it in tmux
-    if [[ $# > 0 ]]; then
-        tmux new-session "$@"
-    # Start tmux if we're in an interactive, non-tmux environment
-    elif [[ $- == *i* && -z "$TMUX" ]]; then
-        tmux && exit
-    fi
-fi

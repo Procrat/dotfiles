@@ -30,15 +30,3 @@ shopt -s nocaseglob
 
 # Set prompt
 PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-
-
-# !! Keep this the last call of .bashrc!
-if which tmux 2>/dev/null >&2; then
-    # If we explicitly call .bashrc with some command, run it in tmux
-    if [[ $# > 0 ]]; then
-        tmux new-session "$@"
-    # Start tmux if we're in an interactive, non-tmux environment
-    elif [[ $- == *i* && -z "$TMUX" ]]; then
-        tmux && exit
-    fi
-fi
