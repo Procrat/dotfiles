@@ -6,8 +6,7 @@ set -euo pipefail
 
 source $HOME/.colors
 
-# WIFI_DEVICE='wlp58s0'
-WIFI_DEVICE='wlan0'
+WIFI_DEVICE='wlp58s0'
 ICON_DIR="$HOME/.config/icons/xbm"
 
 # This should be between -10 en -100. -10 is best.
