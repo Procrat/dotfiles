@@ -83,6 +83,15 @@ hc pad $monitor $panel_height
     done > >(uniq_linebuffered) &
     dropboxloop=$!
 
+    # Network status generator
+    while true ; do
+        echo -en 'network\t'
+        $script_dir/wifi_status.sh
+        sleep 8 || break
+    done > >(uniq_linebuffered) &
+    networkloop=$!
+
+
     # HLWM changes generator
     hc --idle
 
@@ -90,6 +99,7 @@ hc pad $monitor $panel_height
     kill $dateloop
     kill $batteryloop
     kill $dropboxloop
+    kill $networkloop
 
 } 2>> "$logs" | {
 
@@ -99,8 +109,9 @@ hc pad $monitor $panel_height
 
     visible=true
     date=""
-    battery=""
+    battery_status=""
     dropbox_status=""
+    network_status=""
     windowtitle=""
 
     while true; do
@@ -119,14 +130,20 @@ hc pad $monitor $panel_height
 
         # Right side
         right="$date  "
-        right="$battery$SEPARATOR $right"
-        right="$dropbox_status $SEPARATOR $right"
+        right="$battery_status$SEPARATOR $right"
+        if [[ -n "$network_status" ]]; then
+            right="$network_status$SEPARATOR $right"
+        fi
+        right="$dropbox_status$SEPARATOR $right"
+
+        # Calculate padding between left and right side
         right_text_only=$(without_dzen_tags "$right")
         text_width=$($script_dir/xftwidth "$font" "$right_text_only")
         xbm_icons_width=$(extract_icon_width "$right")
         width=$((text_width + xbm_icons_width + XPM_ICONS_WIDTH))
-        echo -n "^pa($(($panel_width - $width)))$right"
-        echo
+
+        # Print padding and right side
+        echo "^pa($(($panel_width - $width)))$right"
 
         ### Data handling ###
         # This part handles the events generated in the event loop, and sets
@@ -144,10 +161,13 @@ hc pad $monitor $panel_height
                 date="${cmd[@]:1}"
                 ;;
             battery)
-                battery="${cmd[@]:1}"
+                battery_status="${cmd[@]:1}"
                 ;;
             dropbox)
                 dropbox_status="${cmd[@]:1}"
+                ;;
+            network)
+                network_status="${cmd[@]:1}"
                 ;;
             quit_panel)
                 exit
