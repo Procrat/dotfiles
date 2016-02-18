@@ -27,6 +27,11 @@ Host cc
     Port 2222
     User cursuscruisen-informatica
     ForwardAgent yes
+Host battlebots
+    Hostname zeus.ugent.be
+    Port 2222
+    User battlebots
+    ForwardAgent yes
 Host helios
     Hostname helios.ugent.be
     User svsegher
