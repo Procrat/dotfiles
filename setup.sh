@@ -53,6 +53,7 @@ dotfiles=(
     config/mimeapps.list
     config/nvim/init.vim
     config/nvim/ycm_extra_conf.py
+    config/ranger/rc.conf
     config/systemd
     config/user-dirs.dirs
     gitconfig
@@ -71,7 +72,7 @@ dotfiles=(
 )
 for dotfile in ${dotfiles[@]}; do
     mkdir -p "$(dirname $HOME/.$dotfile)"
-    ln -sfn "$DEST/$dotfile" "$HOME/.$dotfile"
+    ln -sfnT "$DEST/$dotfile" "$HOME/.$dotfile"
 done
 
 echo 'Link Vim config files to NeoVim config files (just to be safe)...'
