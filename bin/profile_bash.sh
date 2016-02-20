@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 #
-# Writes profiling info to $$.timings in working directory.
-# The concrete filename of $$.timings is written to stderr.
-# Assumes file descriptor 3 is not messed with in the profiled script.
+# Writes profiling info (resp. accumulated info) to $$.timings (resp.
+# $$.acc_timings) in working directory. The concrete filenames of both files
+# are written to stderr.
+#
+# This script assumes file descriptor 3 is not messed with in the profiled
+# script, nor with the xtrace option of bash.
 
 exec 3>&2 2> >(tee /tmp/bash-profile-$$.log | \
                sed -u 's/^.*$/now/' | \
@@ -22,5 +25,25 @@ paste <(
     done < /tmp/bash-profile-$$.tim
 ) /tmp/bash-profile-$$.log > $$.timings
 
+paste \
+    <(cut -f1 $$.timings) \
+    <(cat /tmp/bash-profile-$$.log | \
+        sed 's/^+\+ //' | \
+        sed 's/^\(local\s\|declare\|\S\+=\).*/[[assignment]]/') | \
+    tail -n +2 | \
+    awk '{
+        cumtime[$2] += $1
+        count[$2] += 1
+    }
+    END {
+        printf("cumtime\tcalls\tavg.time\tcommand\n")
+        for (key in cumtime) {
+            printf("%f\t%d\t%f\t%s\n", cumtime[key], count[key],
+                   cumtime[key] / count[key], key)
+        }
+    }' | \
+    sort -k1gr >$$.acc_timings
+
 rm /tmp/bash-profile-$$.{tim,log}
-echo $$.timings >&2
+
+echo $$.timings $$.acc_timings >&2
