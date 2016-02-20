@@ -3,6 +3,7 @@ call plug#begin()
 
 " -- Small plugins (less than .01s)
 Plug 'alfredodeza/khuno.vim'
+Plug 'benekastah/neomake'
 Plug 'chase/vim-ansible-yaml'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -32,6 +33,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-scripts/JavaDecompiler.vim'
 
 " -- Slightly bigger plugins
@@ -119,7 +122,7 @@ set sidescrolloff=2
 set splitbelow
 set splitright
 " Check modelines (like the one at the bottom of this file)
-set modelines=1
+set modelines=2
 " Use the silver searcher to grep and always print file name in Quickfix list
 set grepprg=ag\ --vimgrep\ -w\ -Q\ \"$*\"
 set grepformat=%f:%l:%c:%m
@@ -233,6 +236,9 @@ augroup END
 
 " }}}
 " Plugin settings {{{
+" benekastah/neomake {{{
+let g:neomake_open_list = 2
+" }}}
 " bling/vim-airline {{{
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
@@ -301,6 +307,9 @@ let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
 " Valloric/YouCompleteMe {{{
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
 let g:EclimCompletionMethod = 'omnifunc'
+" }}}
+" Plug 'vim-pandoc/vim-pandoc' {{{
+let g:pandoc#filetypes#pandoc_markdown = 0
 " }}}
 " }}}
 " General mappings {{{
@@ -558,6 +567,12 @@ augroup vimrc_misc
 
     " Reload .vimrc on save
     au BufWritePost .vimrc source %
+
+    " Run all makers (linters etc) on save
+    au BufWritePost * Neomake
+
+    " Compile pandoc on save
+    au BufWritePost *.md if &ft ==# 'pandoc' | Neomake! | endif
 
     " Compile TypeScript and show errors on save
     au BufWritePost *.ts call s:MakeAndCopen()
