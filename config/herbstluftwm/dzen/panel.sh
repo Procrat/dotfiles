@@ -61,32 +61,32 @@ hc pad $monitor $panel_height
 
     # Date generator
     while true ; do
-        echo -en 'date\t'
-        date +"^ca(1, xdg-open 'http://calendar.google.com')%H:%M^fg($SECONDARY_CONTENT_COLOR):%S   %a %d %b %Y^fg()^ca()"
+        date +"^ca(1, xdg-open 'http://calendar.google.com')%H:%M^fg($SECONDARY_CONTENT_COLOR):%S   %a %d %b %Y^fg()^ca()" | \
+            paste <(echo date) -
         sleep 1 || break
     done > >(uniq_linebuffered) &
     dateloop=$!
 
     # Battery status generator
     while true ; do
-        echo -en 'battery\t'
-        $script_dir/battery_status.sh
+        $script_dir/battery_status.sh | \
+            paste <(echo battery) -
         sleep 8 || break
     done > >(uniq_linebuffered) &
     batteryloop=$!
 
     # Dropbox status generator
     while true ; do
-        echo -en 'dropbox\t'
-        $script_dir/dropbox_status.sh
+        $script_dir/dropbox_status.sh | \
+            paste <(echo dropbox) -
         sleep 8 || break
     done > >(uniq_linebuffered) &
     dropboxloop=$!
 
     # Network status generator
     while true ; do
-        echo -en 'network\t'
-        $script_dir/wifi_status.sh
+        $script_dir/wifi_status.sh | \
+            paste <(echo network) -
         sleep 8 || break
     done > >(uniq_linebuffered) &
     networkloop=$!
