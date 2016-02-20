@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# Writes profiling info to $$.timings in working directory.
+# The concrete filename of $$.timings is written to stderr.
 # Assumes file descriptor 3 is not messed with in the profiled script.
 
 exec 3>&2 2> >(tee /tmp/bash-profile-$$.log | \
@@ -21,4 +23,4 @@ paste <(
 ) /tmp/bash-profile-$$.log > $$.timings
 
 rm /tmp/bash-profile-$$.{tim,log}
-echo $$.timings
+echo $$.timings >&2
