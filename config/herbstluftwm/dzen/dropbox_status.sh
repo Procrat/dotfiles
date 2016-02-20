@@ -26,5 +26,8 @@ find_db_icon() {
 }
 
 icon=$(find_db_icon)
-echo "^i($SCRIPT_DIR/db_images/dropboxstatus-${icon}.xpm)"
-# TODO: add tooltip with `dropbox status`
+if [[ "$icon" != 'x' ]]; then
+    echo -n '^ca(dropbox-cli status | xargs -0 notify-send -a Dropbox)'
+    echo -n "^i($SCRIPT_DIR/db_images/dropboxstatus-${icon}.xpm)"
+    echo '^ca()'
+fi
