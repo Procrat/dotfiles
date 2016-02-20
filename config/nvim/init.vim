@@ -66,9 +66,10 @@ call plug#end()
 augroup load_us_ycm
     autocmd!
     autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                       \| call youcompleteme#Enable()
                        \| autocmd! load_us_ycm
+    autocmd User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
 augroup END
+
 
 filetype plugin indent on
 
