@@ -32,7 +32,7 @@ icon() {
 
     if [[ -n "$signal_strength_order" ]]; then
         echo -n "^fg($SECONDARY_CONTENT_COLOR)"
-        echo -n "^ca(iw dev "$WIFI_DEVICE" link | xargs notify-send -a dzen)"
+        echo -n "^ca(1, $HOME/bin/wifi_info.sh | xargs -0 notify-send -a Wifi)"
         echo -n "^i($ICON_DIR/wireless${signal_strength_order}.xbm)"
         echo -n '^ca()'
         echo '^fg()'

@@ -134,7 +134,9 @@ hc pad $monitor $panel_height
         if [[ -n "$network_status" ]]; then
             right="$network_status$SEPARATOR $right"
         fi
-        right="$dropbox_status$SEPARATOR $right"
+        if [[ -n "$dropbox_status" ]]; then
+            right="$dropbox_status$SEPARATOR $right"
+        fi
 
         # Calculate padding between left and right side
         right_text_only=$(without_dzen_tags "$right")
