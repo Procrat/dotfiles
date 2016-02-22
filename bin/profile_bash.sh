@@ -29,7 +29,7 @@ paste \
     <(cut -f1 $$.timings) \
     <(cat /tmp/bash-profile-$$.log | \
         sed 's/^+\+ //' | \
-        sed 's/^\(local\s\|declare\|\S\+=\).*/[[assignment]]/') | \
+        sed 's/^\(local\s\|declare\s\|\S\+=\).*/[[assignment]]/') | \
     tail -n +2 | \
     awk '{
         cumtime[$2] += $1
