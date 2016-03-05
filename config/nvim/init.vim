@@ -258,6 +258,11 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
 let g:EasyMotion_startofline = 0  " Keep cursor column during JK motion
 " }}}
+" junegunn/limelight.vim {{{
+" Highlight complete top level elements
+let g:limelight_bop = '^\s*\n\zs\S'
+let g:limelight_eop = '\ze\n\s*\n\S'
+" }}}
 " kien/ctrlp.vim {{{
 " Use the silver searcher in CtrlP for listing files
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -410,7 +415,7 @@ let g:vim_isort_map = '<C-i>'
 " }}}
 " junegunn/limelight.vim {{{
 "   <leader>l          Toggle Limelight
-nnoremap <leader>l :Limelight!!
+nnoremap <leader>l :Limelight!!<CR>
 " }}}
 " kien/ctrlp.vim {{{
 let g:ctrlp_map = '<leader>t'  " Behave like command-t
