@@ -27,6 +27,11 @@ export GEM_HOME="$HOME/.gem/ruby/2.3.0"
 
 export PATH="$PATH:$JAVA_HOME/bin:$GEM_HOME/bin:$HOME/bin:."
 
+# Set user virtualenv if unset and add to path if it exists
+if [[ -z "$VIRTUAL_ENV" && -d "$HOME/.venv" ]]; then
+    export VIRTUAL_ENV="$HOME/.venv"
+    export PATH="$VIRTUAL_ENV/bin:$PATH"
+fi
 
 
 # vim:filetype=sh
