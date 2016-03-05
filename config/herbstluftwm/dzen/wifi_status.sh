@@ -1,4 +1,4 @@
-#!/bin/bash -xv
+#!/bin/bash
 #
 # Colorized wifi status for dzen
 

@@ -15,6 +15,6 @@ mac_address() {
     echo "${DEVICES[$chosen_device]}"
 }
 
-sudo systemctl start bluetooth
-echo -e "power on\nconnect $(mac_address)\n" | \
-    bluetoothctl
+rfkill unblock bluetooth
+systemctl is-active bluetooth >/dev/null || sudo systemctl start bluetooth
+echo -e "power on\nconnect $(mac_address)\n" | bluetoothctl

@@ -577,7 +577,7 @@ augroup vimrc_misc
     " Run all makers (linters etc) on save
     au BufWritePost * Neomake
 
-    " Compile pandoc on save
+    " Compile pandoc-markdown async on save
     au BufWritePost *.md if &ft ==# 'pandoc' | Neomake! | endif
 
     " Compile TypeScript and show errors on save

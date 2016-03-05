@@ -36,11 +36,11 @@ alias highlight='pygmentize'
 alias mywatch='watch -d -e -t -n 1'
 alias servewd='python -m http.server'
 yupdatef() {
-    set -euo pipefail
     yaourt -Syua --noconfirm
     paccache -r
     $HOME/repos/dotfiles/setup.sh
     yaourt -C
+    pip-review -li
 }
 psg() {
     ps auxww | grep -i --color=always $* | grep -v grep \
@@ -92,7 +92,7 @@ function cd() {
     # This code is horrible and I should feel horrible.
 
     function activate_virtualenv() {
-        VIRTUAL_ENV="$venv" PATH="$venv/bin:$PATH" "$SHELL"
+        VIRTUAL_ENV="$venv" PATH="$venv/bin:$PATH" "$SHELL" -i
         local exit_code=$?
 
         # Once the subshell has exited, we know that user either exited it
@@ -101,7 +101,7 @@ function cd() {
         if [[ "$exit_code" = 137 ]]; then
             cd $(cat "$HOME/.local/share/venv_last_wd")
         else
-            exit
+            exit "$exit_code"
         fi
     }
 
