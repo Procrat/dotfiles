@@ -40,9 +40,6 @@ urxvtd &
 # Start unclutter daemon
 unclutter &
 
-# Fix headphone white noise
-amixer -c 0 set 'Headphone Mic Boost' 1% &
-
 # Launch some programs
 firefox-aurora &
 skype &
