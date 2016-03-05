@@ -48,3 +48,7 @@ config/secrets.yml_bak
 
 # Python cache
 __pycache__
+
+# Haskell shit
+*.hi
+.cabal-sandbox
