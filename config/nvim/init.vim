@@ -571,6 +571,9 @@ augroup vimrc_misc
     " Set wrapping and markdown folding for Markdown and journal files
     au FileType journal,markdown setlocal textwidth=80 foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
 
+    " Autoscale Quickfix window
+    au FileType qf call s:AdjustWindowHeight(3, 10)
+
     " Reload .vimrc on save
     au BufWritePost .vimrc source %
 
@@ -594,6 +597,9 @@ augroup vimrc_misc
 
 augroup END
 
+func! s:AdjustWindowHeight(minheight, maxheight)
+    exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
 
 func! s:MakeAndCopen()
     silent make
