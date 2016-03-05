@@ -122,6 +122,14 @@ function cd() {
         return $?
     fi
 }
+edit() {
+    # Prepending the arguments with backslashes, makes it search for exactly
+    # those filenames, not `*filename*`.
+    locate -b "${@/#/\\}" | xargs -d'\n' nvim
+}
+c() {
+    locate -b "${@/#/\\}" | head -1 | while read -r dir; do cl "$dir"; done
+}
 
 # Quick cd
 alias bu='cd ~/docs/bucht'
