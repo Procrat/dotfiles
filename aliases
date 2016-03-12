@@ -40,6 +40,7 @@ yupdatef() {
     paccache -r
     $HOME/repos/dotfiles/setup.sh
     yaourt -C
+    pip install --upgrade pip
     pip-review -li
 }
 psg() {
