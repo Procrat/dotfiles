@@ -6,8 +6,7 @@ set -euo pipefail
 
 source $HOME/.colors
 
-ac_info=/sys/class/power_supply/AC
-battery_info=/sys/class/power_supply/BAT0
+battery=/sys/class/power_supply/BAT0
 icon_dir=$HOME/.config/icons/xbm
 
 capacity_color() {
@@ -33,17 +32,14 @@ capacity_icon() {
     echo $icon_dir/battery${rounded}.xbm
 }
 
-if [[ $(cat $ac_info/online) -eq 1 ]]; then
+if [[ "$(cat $battery/status)" = 'Charging' ]]; then
     echo -n "^fg($SECONDARY_CONTENT_COLOR)^p(;+5)^i($icon_dir/ac_02.xbm)^p()"
-    capacity=$(cat $battery_info/capacity)
+    capacity=$(cat $battery/capacity)
     if [[ $capacity -lt 100 ]]; then
         echo -n " $capacity%"
     fi
-elif [[ $(cat $battery_info/present) -eq 0 ]]; then
-    echo 'Wtf, you don'\''t work on AC and you don'\''t have a battery?! o.0' >&2
-    exit 1
 else
-    capacity=$(cat $battery_info/capacity)
+    capacity=$(cat $battery/capacity)
     color=$(capacity_color $capacity)
     icon=$(capacity_icon $capacity)
     echo -n "^fg($color)^p(;+5)^i($icon)^p() $capacity%"
