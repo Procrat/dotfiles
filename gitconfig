@@ -19,7 +19,9 @@
 
 [alias]
     a = add -A
+    au = add -u
     ap = add -p
+    s = status -sb
     st = status -sb
     ci = commit
     br = branch
@@ -35,6 +37,7 @@
     us = reset HEAD --
     stash-unapply = !git stash show -p | git apply -R
     pop = stash pop
+    sshow = stash show -p
     undo = reset --soft HEAD^
     ignore = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
