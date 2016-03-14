@@ -514,7 +514,7 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 " }}}
 " SirVer/ultisnips {{{
 "   ç        Expand ultisnips
-let g:UltiSnipsExpandTrigger='»'
+let g:UltiSnipsExpandTrigger='¶'
 "   <Tab>    Move to next editable part in the snippet
 let g:UltiSnipsJumpForwardTrigger='<Tab>'
 "   <S-Tab>  Move the previous editable part in the snippet
