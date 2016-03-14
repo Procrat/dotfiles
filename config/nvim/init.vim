@@ -50,7 +50,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'bling/vim-airline', { 'tag': 'v0.7' }
 " Load: .93s (for Rails)
 " Defer to insert mode
-Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --tern-completer', 'on': [] }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --racer-completer --tern-completer', 'on': [] }
 
 " -- Massive load time
 " Load: .04s when not used; more than 5s for e.g. Python files
