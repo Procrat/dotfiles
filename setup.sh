@@ -56,6 +56,7 @@ dotfiles=(
     config/ranger/rc.conf
     config/systemd
     config/user-dirs.dirs
+    config/yaourt
     gitconfig
     gitignore_global
     ipython/profile_default/ipython_config.py

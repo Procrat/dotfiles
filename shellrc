@@ -10,6 +10,7 @@ source $HOME/.aliases
 
 # In less, parse colors, show longer prompt
 export LESS='-R -M -W'
+export PAGER='less'
 
 # Editor settings
 if [[ -n "$(which nvim 2>/dev/null)" ]]; then
