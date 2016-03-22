@@ -15,6 +15,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias cd..='cd ..'
 
 # Frequently used commands
 alias vi='nvim'
