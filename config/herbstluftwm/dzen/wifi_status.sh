@@ -6,34 +6,33 @@ set -euo pipefail
 
 source $HOME/.colors
 
-WIFI_DEVICE='wlp58s0'
 ICON_DIR="$HOME/.config/icons/xbm"
 
-# This should be between -10 en -100. -10 is best.
-find_signal_strength() {
-    iw dev "$WIFI_DEVICE" link | \
-        grep '^	signal:' | \
-        sed 's_.*signal: \(-[0-9]*\) dBm_\1_'
+# This is a number in [0,70]. Below 20, the connection seems to drop though.
+find_link_quality() {
+    awk '/^w/ { if (sub(/\./, "", $3)) { print $3 } }' /proc/net/wireless
 }
 
-find_signal_strength_order() {
-    local signal_strength="$(find_signal_strength)"
+# Converts a link quality ([0,70]) to a link quality order ([1,5])
+find_link_quality_order() {
+    local link_quality="$(find_link_quality)"
 
-    if [[ -z "$signal_strength" || "$signal_strength" -eq 0 ]]; then
+    if [[ -z "$link_quality" ]]; then
         # Don't show an image
         return
     fi
 
-    echo $(((signal_strength + 100) / 12))
+    local order=$(((link_quality - 11) / 10))
+    echo $((order > 0 ? order : 1))
 }
 
 icon() {
-    local signal_strength_order="$(find_signal_strength_order)"
+    local link_quality_order="$(find_link_quality_order)"
 
-    if [[ -n "$signal_strength_order" ]]; then
+    if [[ -n "$link_quality_order" ]]; then
         echo -n "^fg($SECONDARY_CONTENT_COLOR)"
         echo -n "^ca(1, $HOME/bin/wifi_info.sh | xargs -0 notify-send -a Wifi)"
-        echo -n "^i($ICON_DIR/wireless${signal_strength_order}.xbm)"
+        echo -n "^i($ICON_DIR/wireless${link_quality_order}.xbm)"
         echo -n '^ca()'
         echo '^fg()'
     fi
