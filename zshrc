@@ -10,11 +10,6 @@ setopt interactive_comments
 # Implicit tees & cats with multiple redirections
 setopt multios
 
-# Git flow completion
-if [[ -f /usr/share/git-flow/git-flow-completion.zsh ]]; then
-    source /usr/share/git-flow/git-flow-completion.zsh
-fi
-
 # rbenv: adjust PATH and add completion for rbenv command
 # Looks scary though :/
 if which rbenv 2>/dev/null >&2; then
@@ -28,19 +23,50 @@ login_info() {
     fi
 }
 dir_info() {
-    echo '%B%F{blue}%~%f%b'
+    # Show pwd info in blue if writable, else in cyan
+    if [[ -w "$PWD" ]]; then
+        echo '%B%F{blue}%~%f%b'
+    else
+        echo '%B%F{cyan}%~%f%b'
+    fi
+}
+[[ -f /usr/share/git/git-prompt.sh ]] && source /usr/share/git/git-prompt.sh
+GIT_PS1_SHOWCOLORHINTS=1
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM=(verbose)
+GIT_PS1_STATESEPARATOR=''
+git_info() {
+    # Call the prompt function form /usr/share/git/git-prompt.sh
+    __git_ps1 " (%s)"
 }
 virtualenv_info() {
+    # Show wether we're in a virtualenv by adding a "v" to the dir
     if [[ -n "$VIRTUAL_ENV" && "$VIRTUAL_ENV" != "$HOME/.venv" ]]; then
         echo ' %B%F{green}v%f%b'
     fi
 }
+battery_info() {
+    # Show when we're below 5% charge
+    local battery=/sys/class/power_supply/BAT0
+    local capacity="$(cat $battery/capacity)"
+    if [[ "$(cat $battery/status)" = 'Discharging' && "$capacity" -le 5 ]]; then
+        echo " %B%F{red}$capacity%%%f%b"
+    fi
+}
+job_info() {
+    # Show amount of background jobs if any
+    echo '%(1j.(%j job%(2j.s.)) .)'
+}
 prompt() {
+    # Show smiley face when all went well or suprised face on non-zero exit code
     echo '%B%(!,#,%(?;%F{yellow}^.^;%F{red}o.0)%f)%b '
 }
-PROMPT=$(echo -e "\n$(login_info)$(dir_info)$(virtualenv_info)\n$(prompt)")
+PROMPT='$prompt_newline$(login_info)$(dir_info)$(git_info)$(virtualenv_info)'\
+'$prompt_newline$(job_info)$(prompt)'
 # Optionally show error code in right hand side prompt
-RPROMPT="%(?..%F{red}%?%f)"
+RPROMPT='%(?..%F{red}%?%f)$(battery_info)'
 
 # Global aliases
 alias -g L="| ${PAGER:-less}"
