@@ -312,6 +312,7 @@ let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
 " }}}
 " Valloric/YouCompleteMe {{{
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
+let g:ycm_rust_src_path = '/usr/src/rust/src'
 let g:EclimCompletionMethod = 'omnifunc'
 " }}}
 " Plug 'vim-pandoc/vim-pandoc' {{{
