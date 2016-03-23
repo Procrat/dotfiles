@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Customized i3lock with https://github.com/Lixxia/i3lock
+
+set -euo pipefail
+
+source $HOME/.colors
+
+i3lock="$HOME/repos/i3lock/i3lock"
+wallpaper="$HOME/.local/share/wallpaper.png"
+
+"$i3lock" \
+    --image "$wallpaper" \
+    --24 \
+    --ignore-empty-password \
+    --idle-color "$B_BASE06" \
+    --verify-color "$EMPHASIZED_CONTENT_COLOR" \
+    --wrong-color "$ERROR_COLOR"

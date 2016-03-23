@@ -28,7 +28,7 @@ export GDK_SCALE=1.15
 xrdb "$HOME/.Xresources"
 
 # Screenlocker
-xautolock -locker i3lock-fancy -corners 0+0- -detectsleep &
+xautolock -locker "$HOME/bin/i3lock" -corners 0+0- -detectsleep &
 
 # Enable keyring
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)

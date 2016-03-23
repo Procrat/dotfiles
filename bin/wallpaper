@@ -1,0 +1,13 @@
+#!/bin/bash -xv
+#
+# Sets the wallpaper with feh and creates a png for the screen locker
+
+set -euo pipefail
+
+wallpaper="$1"
+geometry="$(xrandr | grep '*' | awk '{ print $1 }')"
+
+feh --bg-scale "$wallpaper"
+if [[ "$wallpaper" != *.png ]]; then
+    convert "$wallpaper" -resize "$geometry" "$HOME/.local/share/wallpaper.png"
+fi
