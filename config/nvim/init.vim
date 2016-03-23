@@ -1,3 +1,5 @@
+scriptencoding 'utf-8'
+
 " Plugins {{{
 call plug#begin()
 
@@ -78,13 +80,13 @@ filetype plugin indent on
 syntax on
 set background=dark
 
-let base16colorspace=256  " Access colors present in 256 colorspace
+let g:base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-default
 
 " }}}
 " General settings {{{
-let mapleader=','
-let maplocalleader=','
+let g:mapleader=','
+let g:maplocalleader=','
 " Automatic reloading on external file changes (default in NeoVim)
 "set autoread
 " Automatic writing when using certain commands, e.g. :n, :N
@@ -152,16 +154,16 @@ set foldmethod=indent
 set foldlevelstart=0
 set foldnestmax=1
 function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
+    let l:line = getline(v:foldstart)
+    let l:nucolwidth = &foldcolumn + &number * &numberwidth
+    let l:windowwidth = winwidth(0) - l:nucolwidth - 3
+    let l:foldedlinecount = v:foldend - v:foldstart
     " expand tabs into spaces
-    let onetab = strpart(' ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . ' ' . repeat(" ",fillcharcount) . ' ' . foldedlinecount . ' '
+    let l:onetab = strpart(' ', 0, &tabstop)
+    let l:line = substitute(l:line, '\t', l:onetab, 'g')
+    let l:line = strpart(l:line, 0, l:windowwidth - 2 -len(l:foldedlinecount))
+    let l:fillcharcount = l:windowwidth - len(l:line) - len(l:foldedlinecount)
+    return l:line . ' ' . repeat(' ', l:fillcharcount) . ' ' . l:foldedlinecount . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
 augroup folding
@@ -192,6 +194,9 @@ set shiftround
 set smartindent
 
 
+let g:pyindent_open_paren = '&sw'
+let g:pyindent_continue = '&sw'
+
 let s:maxoff = 50  " Maximum number of lines to look backwards.
 function! GetGooglePythonIndent(lnum)
     " Indent inside parens.
@@ -204,14 +209,14 @@ function! GetGooglePythonIndent(lnum)
     "   open_paren_at_EOL(
     "       100, 200, 300, 400)
     call cursor(a:lnum, 1)
-    let [par_line, par_col] = searchpairpos('(\|{\|\[', '', ')\|}\|\]', 'bW',
-                \ "line('.') < " . (a:lnum - s:maxoff) . " ? dummy :"
+    let [l:par_line, l:par_col] = searchpairpos('(\|{\|\[', '', ')\|}\|\]', 'bW',
+                \ "line('.') < " . (a:lnum - s:maxoff) . ' ? dummy :'
                 \ . " synIDattr(synID(line('.'), col('.'), 1), 'name')"
                 \ . " =~ '\\(Comment\\|String\\)$'")
-    if par_line > 0
-        call cursor(par_line, 1)
-        if par_col != col("$") - 1
-            return par_col
+    if l:par_line > 0
+        call cursor(l:par_line, 1)
+        if l:par_col != col('$') - 1
+            return l:par_col
         endif
     endif
 
@@ -219,8 +224,6 @@ function! GetGooglePythonIndent(lnum)
     return GetPythonIndent(a:lnum)
 endfunction
 
-let pyindent_nested_paren="&sw*2"
-let pyindent_open_paren="&sw*2"
 
 " Indentation per filetype
 augroup indentation
@@ -289,17 +292,17 @@ let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 " }}}
 " Raimondi/delimitMate {{{
-let delimitMate_expand_cr = 1
-let delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
 " }}}
 " scrooloose/nerdcommenter {{{
-let NERDCommentWholeLinesInVMode = 1
-let NERDSpaceDelims = 1
+let g:NERDCommentWholeLinesInVMode = 1
+let g:NERDSpaceDelims = 1
 " }}}
 " scrooloose/nerdtree {{{
-let NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
-let NERDTreeMinimalUI = 1
-let NERDTreeChDirMode = 2
+let g:NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeChDirMode = 2
 " }}}
 " scrooloose/syntastic {{{
 " let g:syntastic_python_pylint_args = "-d C0103,C0111"
@@ -351,12 +354,15 @@ nnoremap <silent> <CR> <CR>:noh<CR>
 vnoremap < <gv
 vnoremap > >gv
 " Markdown mappings
-au FileType markdown,journal call s:MardownMappings()
-function! s:MardownMappings()
-    nnoremap <buffer> <leader>1 yypVr=:redraw<CR>
-    nnoremap <buffer> <leader>2 yypVr-:redraw<CR>
-    nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
-endfunction
+augroup markdown_mappings
+    autocmd!
+    au FileType markdown,journal call s:MardownMappings()
+    function! s:MardownMappings()
+        nnoremap <buffer> <leader>1 yypVr=:redraw<CR>
+        nnoremap <buffer> <leader>2 yypVr-:redraw<CR>
+        nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
+    endfunction
+augroup END
 " Windows resizing
 noremap + <C-W>+
 noremap - <C-W>-
@@ -371,7 +377,7 @@ nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
 vnoremap S "hy:grep! <C-R>h<CR>:cw<CR>
 " Send a blame mail from a git repo
 function! Blame()
-    execute "!send_blame_mail " . expand('%:p') . " " . line('.')
+    execute '!send_blame_mail ' . expand('%:p') . ' ' . line('.')
 endfunction
 noremap <leader>B :call Blame()<CR>
 
@@ -473,13 +479,16 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 "   <leader>lv  View output file.
 "   <leader>lf  Recalculate the folds.
 "   <leader>lt  Open a table of contents.
-au FileType tex call s:LaTeXMappings()
-function! s:LaTeXMappings()
+augroup latex_mappings
+    autocmd!
+    au FileType tex call s:LaTeXMappings()
+    function! s:LaTeXMappings()
 "   [[          Start an environment
-    imap <buffer> [[ \begin{
+        imap <buffer> [[ \begin{
 "   ]]          Close the environment
-    imap <buffer> ]] <Plug>LatexCloseCurEnv
-endfunction
+        imap <buffer> ]] <Plug>LatexCloseCurEnv
+    endfunction
+augroup END
 " }}}
 " Raimondi/delimitMate {{{
 "   <BS>     Also removes closing paren/quote/bracket
@@ -599,7 +608,7 @@ augroup vimrc_misc
 augroup END
 
 func! s:AdjustWindowHeight(minheight, maxheight)
-    exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+    exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
 
 func! s:MakeAndCopen()
@@ -612,7 +621,7 @@ func! s:MakeAndCopen()
 endfunc
 
 func! s:StripTrailingWhitespace()
-    if &l:fileencoding ==? "utf-8"
+    if &l:fileencoding ==? 'utf-8'
         let l:winview = winsaveview()
         silent! %s/\s\+$//
         call winrestview(l:winview)
@@ -621,24 +630,24 @@ endfunction
 
 " Thanks to Steve Losh (https://gist.github.com/sjl/1038710)
 func! FoldexprMarkdown(lnum)
-    let l1 = getline(a:lnum)
+    let l:l1 = getline(a:lnum)
 
-    if l1 =~ '^\s*$'
+    if l:l1 =~# '^\s*$'
         " ignore empty lines
         return '='
     endif
 
-    let l2 = getline(a:lnum+1)
+    let l:l2 = getline(a:lnum+1)
 
-    if  l2 =~ '^==\+\s*'
+    if l:l2 =~# '^==\+\s*'
         " next line is underlined (level 1)
         return '>1'
-    elseif l2 =~ '^--\+\s*'
+    elseif l:l2 =~# '^--\+\s*'
         " next line is underlined (level 2)
         return '>2'
-    elseif l1 =~ '^#'
+    elseif l:l1 =~# '^#'
         " current line starts with hashes
-        return '>'.matchend(l1, '^#\+')
+        return '>'.matchend(l:l1, '^#\+')
     elseif a:lnum == 1
         " fold any 'preamble'
         return '>1'
