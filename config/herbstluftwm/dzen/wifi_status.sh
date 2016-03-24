@@ -10,7 +10,7 @@ ICON_DIR="$HOME/.config/icons/xbm"
 
 # This is a number in [0,70]. Below 20, the connection seems to drop though.
 find_link_quality() {
-    awk '/^w/ { if (sub(/\./, "", $3)) { print $3 } }' /proc/net/wireless
+    awk '/^\s*w/ { if (sub(/\./, "", $3)) { print $3 } }' /proc/net/wireless
 }
 
 # Converts a link quality ([0,70]) to a link quality order ([1,5])
