@@ -1,4 +1,4 @@
-#!/bin/bash -xv
+#!/bin/bash
 #
 # Sets the wallpaper with feh and creates a png for the screen locker
 
