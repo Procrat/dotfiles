@@ -51,6 +51,9 @@ config/secrets.yml_bak
 # Python cache
 __pycache__
 
+# Python coverage package output
+.coverage
+
 # Haskell shit
 *.hi
 .cabal-sandbox
