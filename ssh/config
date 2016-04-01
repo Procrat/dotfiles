@@ -40,6 +40,10 @@ Host flesje
     Hostname t2-wan.be
     Port 3618
     User procrat
+Host aur
+    Hostname aur.archlinux.org
+    IdentityFile ~/.ssh/aur4_rsa
+    User aur
 
 
 # Tunnels
