@@ -17,4 +17,7 @@ mac_address() {
 
 rfkill unblock bluetooth
 systemctl is-active bluetooth >/dev/null || sudo systemctl start bluetooth
-echo -e "power on\nconnect $(mac_address)\n" | bluetoothctl
+{
+    echo 'power on'
+    echo -e "connect $(mac_address)"
+} | bluetoothctl -a
