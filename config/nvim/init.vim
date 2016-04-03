@@ -231,6 +231,7 @@ augroup indentation
 
     au FileType xml,html,xhtml,htmldjango,eruby,xslt setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
     au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
+    au FileType css,scss setlocal shiftwidth=2 softtabstop=2
     au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 textwidth=79 colorcolumn=79 indentexpr=GetGooglePythonIndent(v:lnum)
     au FileType haskell setlocal shiftwidth=2 softtabstop=2
     au FileType prolog setlocal shiftwidth=4 softtabstop=4
