@@ -63,6 +63,7 @@ dotfiles=(
     local/share/applications
     shellrc
     ssh/config
+    tern-config
     tmux.conf
     xinitrc
     xprofile
