@@ -62,8 +62,8 @@ baseConfig = desktopConfig {
     borderWidth        = 3,
     modMask            = mod4Mask,
     workspaces         = ["im", "todo", "music"] ++ map show ([4..9] :: [Int]),
-    normalBorderColor  = "#3B3228",
-    focusedBorderColor = "#7E705A"
+    normalBorderColor  = "#FDF6E3",
+    focusedBorderColor = "#839496"
 }
 
 
@@ -235,11 +235,11 @@ updatePanel panelHandle = DL.dynamicLogWithPP
 
 xmobarPP :: DL.PP
 xmobarPP = def
-    { DL.ppCurrent         = styleWS "#8AB3B5"
-    , DL.ppHidden          = styleWS "#B8AFAD"
-    , DL.ppHiddenNoWindows = styleWS "#7E705A"
-    , DL.ppUrgent          = styleWS "#F4BC87"
-    , DL.ppSep             = DL.pad $ DL.xmobarColor "#534636" "" "<fn=1>│</fn>"
+    { DL.ppCurrent         = styleWS "#268BD2"
+    , DL.ppHidden          = styleWS "#586E75"
+    , DL.ppHiddenNoWindows = styleWS "#93A1A1"
+    , DL.ppUrgent          = styleWS "#B58900"
+    , DL.ppSep             = DL.pad $ DL.xmobarColor "#EEE8D5" "" "<fn=1>│</fn>"
 
     , DL.ppWsSep           = ""
     , DL.ppTitle           = DL.shorten 100

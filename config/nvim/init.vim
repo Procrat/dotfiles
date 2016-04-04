@@ -96,6 +96,7 @@ augroup END
 " }}}
 " Colorscheme settings {{{
 
+set background=light
 lua << EOF
     local nvim = require('nvim')
     local base16 = require('base16')
