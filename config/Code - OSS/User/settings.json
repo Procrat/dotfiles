@@ -12,12 +12,12 @@
     // Workbench
     "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
-        "[Base16 Dark Mocha]": {
-            "statusBar.background": "#534636",
-            "statusBar.foreground": "#D0C8C6"
+        "[Base16 Solarized Light]": {
+            "statusBar.background": "#EEE8D5",
+            "statusBar.foreground": "#586E75"
         }
     },
-    "workbench.colorTheme": "Base16 Dark Mocha",
+    "workbench.colorTheme": "Base16 Solarized Light",
     "workbench.statusBar.visible": true,
     // Window
     "window.menuBarVisibility": "toggle",

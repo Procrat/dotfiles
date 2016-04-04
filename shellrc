@@ -14,5 +14,8 @@ eval "$(fnm env --use-on-cd)"
 # Add current dir to PATH
 PATH="$PATH:"
 
+# Set base16 theme (used only by Neovim at the moment)
+export BASE16_THEME='solarized-light'
+
 
 # vim:filetype=sh

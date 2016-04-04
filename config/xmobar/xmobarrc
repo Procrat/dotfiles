@@ -1,16 +1,16 @@
 Config {
-  template = "   <fc=#8AB3B5><icon=arch_10x10.xbm/></fc>\
-              \<fc=#534636> <fn=1>│</fn> </fc>\
+  template = "   <fc=#268BD2><icon=arch_10x10.xbm/></fc>\
+              \<fc=#EEE8D5> <fn=1>│</fn> </fc>\
               \%UnsafeXMonadLog%\
               \}{ \
               \%alsa:default:Master%\
-              \<fc=#534636> <fn=1>│</fn> </fc>\
+              \<fc=#EEE8D5> <fn=1>│</fn> </fc>\
               \%disku%\
-              \<fc=#534636> <fn=1>│</fn> </fc>\
+              \<fc=#EEE8D5> <fn=1>│</fn> </fc>\
               \<action=`wifi-info | sed -z 's/\n$//' | xargs -0 notify-send -a wifi` button=1>%wlp58s0wi%</action>\
-              \<fc=#534636> <fn=1>│</fn> </fc>\
+              \<fc=#EEE8D5> <fn=1>│</fn> </fc>\
               \%battery%\
-              \<fc=#534636> <fn=1>│</fn> </fc>\
+              \<fc=#EEE8D5> <fn=1>│</fn> </fc>\
               \<action=`xdg-open http://calendar.google.com` button=1>%date%</action>  "
   , commands = [
     Run UnsafeXMonadLog
@@ -21,12 +21,12 @@ Config {
                , "-o", "<icon=volume-muted.xbm/>"
                , "-O", "<volumeipat>"
                , "--volume-icon-pattern", "<icon=volume8-%%.xbm/>"
-               , "-c", "#B8AFAD"
-               , "-C", "#B8AFAD"
+               , "-c", "#657B83"
+               , "-C", "#657B83"
                ]
     , Run DiskU [("/", "<free>")]
                 ["-L", "2"
-                , "-l", "#CB6077"
+                , "-l", "#DC322F"
                 ] 36000
     , Run Wireless "wlp58s0"
                    ["-t", "<qualityipat>"
@@ -35,23 +35,23 @@ Config {
                    ] 80
     , Run Battery ["-t", "<leftipat> <left>"
                   , "-S", "true"
-                  , "-h", "#BEB55B"
-                  , "-n", "#F4BC87"
-                  , "-l", "#CB6077"
+                  , "-h", "#859900"
+                  , "-n", "#B58900"
+                  , "-l", "#DC322F"
                   , "--"
-                  , "--on-icon-pattern", "<fc=#BEB55B><icon=battery%%.xbm/></fc>"
+                  , "--on-icon-pattern", "<fc=#859900><icon=battery%%.xbm/></fc>"
                   , "--idle-icon-pattern", "<icon=ac_02.xbm/>"
                   , "--off-icon-pattern", "<icon=battery%%.xbm/>"
                   ] 80
-    , Run Date "%a %_d %b  <fc=#F5EEEB>%H:%M</fc>:%S" "date" 10
+    , Run Date "%a %_d %b  <fc=#002B36>%H:%M</fc>:%S" "date" 10
     ]
 
   -- appearance
   , font = "xft:Ubuntu:size=10"
   , additionalFonts = ["xft:DejaVu Sans:size=14"]
   , textOffsets = [25]
-  , bgColor = "#3B3228"
-  , fgColor = "#B8AFAD"
+  , bgColor = "#FDF6E3"
+  , fgColor = "#657B83"
 
    -- general behavior
   , persistent = True

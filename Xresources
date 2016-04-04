@@ -8,30 +8,30 @@
 Xft.dpi: 144
 
 
-!-----------------------------------------------------------------------------
-! Colorscheme: Base16 (https://github.com/chriskempson/base16)
-!-----------------------------------------------------------------------------
+!------------------------------------------------------------------------------
+! Colorscheme: Base16: solarized light (https://github.com/chriskempson/base16)
+!------------------------------------------------------------------------------
 
-#define base00 #3B3228
-#define base01 #534636
-#define base02 #645240
-#define base03 #7e705a
-#define base04 #b8afad
-#define base05 #d0c8c6
-#define base06 #e9e1dd
-#define base07 #f5eeeb
-#define base08 #cb6077
-#define base09 #d28b71
-#define base0A #f4bc87
-#define base0B #beb55b
-#define base0C #7bbda4
-#define base0D #8ab3b5
-#define base0E #a89bb9
-#define base0F #bb9584
+#define base00 #002b36
+#define base01 #073642
+#define base02 #586e75
+#define base03 #657b83
+#define base04 #839496
+#define base05 #93a1a1
+#define base06 #eee8d5
+#define base07 #fdf6e3
+#define base08 #dc322f
+#define base09 #cb4b16
+#define base0A #b58900
+#define base0B #859900
+#define base0C #2aa198
+#define base0D #268bd2
+#define base0E #6c71c4
+#define base0F #d33682
 
-*.foreground:   base05
-*.background:   base00
-*.cursorColor:  base05
+*.foreground:   base02
+*.background:   base07
+*.cursorColor:  base03
 
 *.color0:       base00
 *.color1:       base08
@@ -71,8 +71,8 @@ dzen2.font: Ubuntu:size=10
 !-----------------------------------------------------------------------------
 
 dmenu.font: Ubuntu:size=10
-dmenu.selforeground: base0A
-dmenu.selbackground: base00
+dmenu.selforeground: base0C
+dmenu.selbackground: base06
 
 
 !-----------------------------------------------------------------------------

@@ -64,8 +64,8 @@ myConfig =
         borderWidth        = 3,
         modMask            = mod4Mask,
         workspaces         = ["im", "todo", "music"] ++ map show ([4..9] :: [Int]),
-        normalBorderColor  = "#3B3228",
-        focusedBorderColor = "#7E705A"
+        normalBorderColor  = "#FDF6E3",
+        focusedBorderColor = "#839496"
     }
 
 
@@ -240,11 +240,11 @@ myStatusBar = SB.statusBarProp "xmobar" (pure xmobarPP)
 
 xmobarPP :: SB.PP
 xmobarPP = withContextShown . SB.filterOutWsPP [NS.scratchpadWorkspaceTag] $ def
-    { SB.ppCurrent         = styleWS "#8AB3B5"
-    , SB.ppHidden          = styleWS "#B8AFAD"
-    , SB.ppHiddenNoWindows = styleWS "#7E705A"
-    , SB.ppUrgent          = styleWS "#F4BC87"
-    , SB.ppSep             = SB.pad $ SB.xmobarColor "#534636" "" "<fn=1>│</fn>"
+    { SB.ppCurrent         = styleWS "#268BD2"
+    , SB.ppHidden          = styleWS "#586E75"
+    , SB.ppHiddenNoWindows = styleWS "#93A1A1"
+    , SB.ppUrgent          = styleWS "#B58900"
+    , SB.ppSep             = SB.pad $ SB.xmobarColor "#EEE8D5" "" "<fn=1>│</fn>"
 
     , SB.ppWsSep           = ""
     , SB.ppTitle           = SB.shorten 100
