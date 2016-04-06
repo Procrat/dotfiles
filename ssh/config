@@ -11,7 +11,7 @@ Host prince
 Host urenloop
     User urenloop
     Port 2222
-    Hostname fkserv.ugent.be
+    Hostname zeus.ugent.be
 Host gami
     Hostname zeus.ugent.be
     Port 2222
