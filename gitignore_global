@@ -49,6 +49,7 @@ config/secrets.yml_bak
 *.rdb
 
 # Python cache
+*.pyc
 __pycache__
 
 # Python coverage package output
