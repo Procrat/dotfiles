@@ -13,6 +13,7 @@ VIM_PLUG_SCRIPT='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug
 VIM_PLUG_DEST="$HOME/.config/nvim/autoload/plug.vim"
 
 DEFAULT_SHELL='/bin/zsh'
+ZPREZTO_REPO='https://github.com/sorin-ionescu/prezto.git'
 
 
 ensure_repo_exists_and_has_latest_version() {
@@ -99,13 +100,17 @@ if [[ -e "$HOME/.local/share/applications/mimeapps.list" ]]; then
 fi
 
 echo "Ensuring $DEFAULT_SHELL is the default shell..."
-shell=$(getent passwd $USER | cut -d: -f7)
-if [[ x"$shell" != x"$DEFAULT_SHELL" ]]; then
-    if [[ -e "$DEFAULT_SHELL" ]]; then
+if [[ -x "$DEFAULT_SHELL" ]]; then
+    shell=$(getent passwd $USER | cut -d: -f7)
+    if [[ "$shell" != "$DEFAULT_SHELL" ]]; then
         chsh -s "$DEFAULT_SHELL"
-    else
-        echo "Shell $DEFAULT_SHELL does not exist." >&2
     fi
+    if [[ "$DEFAULT_SHELL" == '/bin/zsh'
+        && ! -d '/usr/lib/prezto' && ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]]; then
+        git clone --recursive "$ZPREZTO_REPO" "${ZDOTDIR:-$HOME}/.zprezto"
+    fi
+else
+    echo "Shell $DEFAULT_SHELL isn't installed on the system." >&2
 fi
 
 echo 'Updating vim-plug and NeoVim plugins...'

@@ -2,6 +2,8 @@
 source $HOME/.shellrc
 
 # See .preztorc for most of the configuration
+# If it isn't installed system wide, load user installation
+[[ -d '/usr/lib/prezto' ]] || source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
 # Follow symlinks when cd'ing
 setopt chase_links
