@@ -39,7 +39,7 @@ GIT_PS1_SHOWUPSTREAM=(verbose)
 GIT_PS1_STATESEPARATOR=''
 git_info() {
     # Call the prompt function form /usr/share/git/git-prompt.sh
-    __git_ps1 " (%s)"
+    type __git_ps1 2>&1 >/dev/null && __git_ps1 " (%s)"
 }
 virtualenv_info() {
     # Show wether we're in a virtualenv by adding a "v" to the dir
