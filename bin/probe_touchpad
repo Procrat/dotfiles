@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# Restart touchpad module
+
+set -euo pipefail
+
+sudo rmmod hid_multitouch
+sudo modprobe hid-multitouch
