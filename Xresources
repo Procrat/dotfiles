@@ -34,7 +34,6 @@ URxvt.internalBorder: 2
 
 ! Font
 URxvt*font: xft:Monaco For Powerline:size=13
-URxvt.letterSpace: -2
 
 ! Perl extensions
 URxvt.perl-ext-common: matcher,font-size
