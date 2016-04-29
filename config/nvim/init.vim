@@ -269,7 +269,7 @@ let g:limelight_eop = '\ze\n\s*\n\S'
 " }}}
 " kien/ctrlp.vim {{{
 " Use the silver searcher in CtrlP for listing files
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 " The silver searcher is fast enough so that CtrlP doesn't need to cache
 let g:ctrlp_use_caching = 0
 " }}}
