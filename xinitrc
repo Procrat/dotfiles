@@ -37,6 +37,9 @@ urxvtd &
 # Start unclutter daemon
 unclutter &
 
+# Start lightweight composite manager
+compton -b &
+
 # Launch some programs
 firefox-aurora &
 franz &

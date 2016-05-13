@@ -47,6 +47,7 @@ dotfiles=(
     bashrc
     colors
     config/base16-shell
+    config/compton.conf
     config/dunst
     config/herbstluftwm
     config/htop
