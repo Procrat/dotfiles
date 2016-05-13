@@ -39,6 +39,6 @@ unclutter &
 
 # Launch some programs
 firefox-aurora &
-skype &
+franz &
 
 exec herbstluftwm --locked

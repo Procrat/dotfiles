@@ -69,8 +69,8 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on h
 # Don't manage dzen2 and the like
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
-# Move Skype to IM tag
-hc rule class~'Skype|Slack' tag=im
+# Move IM shizzle to IM tag
+hc rule class~'Skype|Slack|Franz' tag=im
 # Move browsers to 'web' tag
 hc rule instance~'Navigator|Opera' tag=web
 # Turn off default pseudotiling for some programs
