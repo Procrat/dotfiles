@@ -34,12 +34,12 @@ capacity_icon() {
 }
 
 if [[ "$status" = 'Full' || "$capacity" -ge 100 ]]; then
-    echo -n "^fg($SECONDARY_CONTENT_COLOR)^p(;+5)^i($icon_dir/ac_02.xbm)^p()"
+    echo -n "^fg($SECONDARY_CONTENT_COLOR)^p(;+6)^i($icon_dir/ac_02.xbm)^p()"
 elif [[ "$status" = 'Charging' ]]; then
-    echo -n "^fg($SECONDARY_CONTENT_COLOR)^p(;+5)^i($icon_dir/ac_02.xbm)^p()"
+    echo -n "^fg($SECONDARY_CONTENT_COLOR)^p(;+6)^i($icon_dir/ac_02.xbm)^p()"
     echo -n " $capacity%"
 else  # Discharging
-    echo -n "^fg($(capacity_color))^p(;+5)^i($(capacity_icon))^p() $capacity%"
+    echo -n "^fg($(capacity_color))^p(;+6)^i($(capacity_icon))^p() $capacity%"
 fi
 
 echo '^fg()'

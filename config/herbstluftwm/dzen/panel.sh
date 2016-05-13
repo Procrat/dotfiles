@@ -22,7 +22,7 @@ x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=$(cat "$script_dir/panel_height")
-font="Trebuchet MS:size=12"  # Fuck it, I'm hardcoding this shit
+font="Trebuchet MS:size=11"  # Fuck it, I'm hardcoding this shit
 XPM_ICONS_WIDTH=18  # Fuck it, I'm hardcoding this shit
 
 

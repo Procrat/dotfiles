@@ -2,9 +2,8 @@
 ! Xft settings
 !-----------------------------------------------------------------------------
 
+Xft.dpi: 110
 ! Commented since Infinality seems to fix all this
-
-! Xft.dpi: 96
 ! Xft.antialias: true
 ! Xft.rgba: rgb
 ! Xft.hinting: true
@@ -33,7 +32,7 @@ URxvt.saveLines: 0
 URxvt.internalBorder: 2
 
 ! Font
-URxvt*font: xft:Monaco For Powerline:size=13
+URxvt*font: xft:Monaco For Powerline:size=11
 
 ! Perl extensions
 URxvt.perl-ext-common: matcher,font-size
@@ -102,13 +101,13 @@ URxvt.visualBell: true
 ! Dzen settings
 !-----------------------------------------------------------------------------
 
-dzen2*font: -*-Trebuchet MS-*-*-*-*-*-120-*-*-*-*-*-*
+dzen2*font: -*-Trebuchet MS-*-*-*-*-*-110-*-*-*-*-*-*
 
 
 !-----------------------------------------------------------------------------
 ! Dmenu settings
 !-----------------------------------------------------------------------------
 
-dmenu.font: Trebuchet MS:size=12
+dmenu.font: Trebuchet MS:size=11
 dmenu.selforeground: base0A
 dmenu.selbackground: base00
