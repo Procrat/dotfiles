@@ -58,3 +58,6 @@ __pycache__
 # Haskell shit
 *.hi
 .cabal-sandbox
+
+# Rust stuff
+target/
