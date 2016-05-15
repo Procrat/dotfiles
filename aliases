@@ -38,6 +38,7 @@ alias mywatch='watch -d -e -t -n 1'
 alias servewd='python -m http.server'
 alias misort='isort -s .venv -sd THIRDPARTY -fss'
 alias ssh='TERM=screen ssh'
+alias r='exec ranger'
 yupdatef() {
     BUILD_NOCONFIRM=1 EDITFILES=0 yaourt -Syua
     paccache -r
