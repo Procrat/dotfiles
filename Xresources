@@ -46,6 +46,10 @@ URxvt.keysym.C-Down: perl:font-size:decrease
 ! Flash terminal instead of making an annoying sound
 URxvt.visualBell: true
 
+! Disable keycap picture insert mode
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
 
 !-----------------------------------------------------------------------------
 ! Colorscheme: Base16 (https://github.com/chriskempson/base16)
