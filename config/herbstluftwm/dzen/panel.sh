@@ -18,12 +18,13 @@ if [ -z "$geometry" ] ;then
     echo "Invalid monitor $monitor" >&2 && exit 1
 fi
 # geometry has the format W H X Y
-x=${geometry[0]}
+margin=15
+x=$((geometry[0] + margin))
 y=${geometry[1]}
-panel_width=${geometry[2]}
+panel_width=$((geometry[2] - 2*margin))
 panel_height=$(cat "$script_dir/panel_height")
 font="Trebuchet MS:size=11"  # Fuck it, I'm hardcoding this shit
-XPM_ICONS_WIDTH=18  # Fuck it, I'm hardcoding this shit
+XPM_ICONS_WIDTH=0  # Fuck it, I'm hardcoding this shit
 
 
 uniq_linebuffered() {
@@ -105,7 +106,7 @@ hc pad $monitor $panel_height
 
     ### Parser and layouter ###
 
-    SEPARATOR=" ^fg($BACKGROUND_HIGHLIGHT_COLOR)|^fg()"
+    SEPARATOR="  ^fg($BACKGROUND_HIGHLIGHT_COLOR)^r(1x$((panel_height - 2)))^fg() "
 
     visible=true
     date=""
@@ -119,8 +120,15 @@ hc pad $monitor $panel_height
         # This part prints dzen data based on the _previous_ data handling run,
         # and then waits for the next event to happen.
 
+        # Subtle border
+        echo -n "^pa(0;)^ib(1)^fg($B_BASE05)^ro(${panel_width}x${panel_height})"
+        echo -n "^pa(1;0)^fg($B_BASE07)^ro($((panel_width - 1))x1)^pa(0;0)"
+
+        # Vertically center text from now on
+        echo -n "^p()"
+
         # Arch icon
-        echo -n "  ^fg($S_BASE2)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
+        echo -n "   ^fg($S_BASE2)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
         echo -n "$SEPARATOR"
 
         # Tags
@@ -129,7 +137,7 @@ hc pad $monitor $panel_height
         echo -n " ^fg($SECONDARY_CONTENT_COLOR)${windowtitle//^/^^}^fg()"
 
         # Right side
-        right="$date  "
+        right="$date   "
         right="$battery_status$SEPARATOR $right"
         if [[ -n "$network_status" ]]; then
             right="$network_status$SEPARATOR $right"
@@ -145,7 +153,8 @@ hc pad $monitor $panel_height
         width=$((text_width + xbm_icons_width + XPM_ICONS_WIDTH))
 
         # Print padding and right side
-        echo "^pa($(($panel_width - $width)))$right"
+        echo "^pa($((panel_width - width)))$right"
+
 
         ### Data handling ###
         # This part handles the events generated in the event loop, and sets

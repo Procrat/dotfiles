@@ -3,5 +3,5 @@
 set -euo pipefail
 
 
-HEIGHT=$(cat $HOME/.config/herbstluftwm/dzen/panel_height)
-dmenu -i -h $HEIGHT -x 30 "$@"
+HEIGHT=$(($(cat $HOME/.config/herbstluftwm/dzen/panel_height) - 1))
+dmenu -i -h $HEIGHT -x 55 "$@"

@@ -7,7 +7,7 @@ ICON_FOLDER=~/.config/icons/xbm
 PIPE="/tmp/dbrightnesspipe"
 
 dzen_dir=$(dirname $BASH_SOURCE)
-height=$(cat "$dzen_dir/panel_height")
+height=$(($(cat "$dzen_dir/panel_height") - 1))
 
 usage() {
     echo "Usage: dbrightness.sh [options]"
