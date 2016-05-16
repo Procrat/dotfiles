@@ -14,7 +14,7 @@ for tag in "${tags[@]}" ; do
             echo -n "^fg($SECONDARY_CONTENT_COLOR)"
             ;;
         '#')  # On this monitor, focused
-            echo -n "^pa(;0)^fg($B_BASE0D)^r(5x3)^p(-5;)^p()^fg($B_BASE01)"
+            echo -n "^pa(;0)^fg($ACCENT_COLOR)^r(5x3)^p(-5;)^p()^fg($SLIGHTLY_EMPHASIZED_CONTENT_COLOR)"
             ;;
         '+')  # On this monitor, not focused
             echo -n "^ib(0)^bg($BACKGROUND_HIGHLIGHT_COLOR)"
@@ -35,7 +35,7 @@ for tag in "${tags[@]}" ; do
     on_click="herbstclient focus_monitor $monitor && herbstclient use ${tag:1}"
     echo -n "^ca(1,$on_click) ${tag:1} ^ca()"
     if [[ "${tag:0:1}" = "#" ]]; then
-        echo -n "^p(-5)^pa(;23)^fg($B_BASE0D)^r(5x3)^p()"
+        echo -n "^p(-5)^pa(;23)^fg($ACCENT_COLOR)^r(5x3)^p()"
     fi
     echo -n "^fg()^bg()^ib(1)"
 done

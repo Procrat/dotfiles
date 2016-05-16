@@ -121,14 +121,14 @@ hc pad $monitor $panel_height
         # and then waits for the next event to happen.
 
         # Subtle border
-        echo -n "^pa(0;)^ib(1)^fg($B_BASE05)^ro(${panel_width}x${panel_height})"
-        echo -n "^pa(1;0)^fg($B_BASE07)^ro($((panel_width - 1))x1)^pa(0;0)"
+        echo -n "^pa(0;)^ib(1)^fg($BACKGROUND_HIGHLIGHT_COLOR)^ro(${panel_width}x${panel_height})"
+        echo -n "^pa(1;0)^fg($BACKGROUND_COLOR)^ro($((panel_width - 1))x1)^pa(0;0)"
 
         # Vertically center text from now on
         echo -n "^p()"
 
         # Arch icon
-        echo -n "   ^fg($S_BASE2)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
+        echo -n "   ^fg($ACCENT_COLOR)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
         echo -n "$SEPARATOR"
 
         # Tags
