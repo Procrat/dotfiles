@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Easily checkout another version of my dotfiles and reload everything
+
+set -euo pipefail
+
+branch="$1"
+
+cd "$HOME/repos/dotfiles"
+git stash
+git checkout "$branch"
+git stash pop
+
+xrdb "$HOME/.Xresources"
+
+herbstclient reload
