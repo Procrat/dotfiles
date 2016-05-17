@@ -3,6 +3,7 @@
 # HLWM tag status for dzen
 
 source $HOME/.colors
+HEIGHT=$(cat $HOME/.config/herbstluftwm/dzen/panel_height)
 
 monitor=${1:0}
 
@@ -35,7 +36,7 @@ for tag in "${tags[@]}" ; do
     on_click="herbstclient focus_monitor $monitor && herbstclient use ${tag:1}"
     echo -n "^ca(1,$on_click) ${tag:1} ^ca()"
     if [[ "${tag:0:1}" = "#" ]]; then
-        echo -n "^p(-5)^pa(;23)^fg($ACCENT_COLOR)^r(5x3)^p()"
+        echo -n "^p(-5)^pa(;$((HEIGHT - 3)))^fg($ACCENT_COLOR)^r(5x3)^p()"
     fi
     echo -n "^fg()^bg()^ib(1)"
 done
