@@ -13,4 +13,6 @@ git stash pop
 
 xrdb "$HOME/.Xresources"
 
+tmux source-file "$HOME/.tmux.conf"
+
 herbstclient reload
