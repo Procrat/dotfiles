@@ -15,7 +15,8 @@ for tag in "${tags[@]}" ; do
             echo -n "^fg($SECONDARY_CONTENT_COLOR)"
             ;;
         '#')  # On this monitor, focused
-            echo -n "^pa(;0)^fg($ACCENT_COLOR)^r(5x3)^p(-5;)^p()^fg($SLIGHTLY_EMPHASIZED_CONTENT_COLOR)"
+            echo -n "^pa(;0)^fg($ACCENT_COLOR)^r(5x3)^p(-5;)"
+            echo -n "^p()^fg($SLIGHTLY_EMPHASIZED_CONTENT_COLOR)"
             ;;
         '+')  # On this monitor, not focused
             echo -n "^ib(0)^bg($BACKGROUND_HIGHLIGHT_COLOR)"

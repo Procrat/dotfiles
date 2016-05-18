@@ -106,7 +106,7 @@ hc pad $monitor $panel_height
 
     ### Parser and layouter ###
 
-    SEPARATOR="  ^fg($BACKGROUND_HIGHLIGHT_COLOR)^r(1x$((panel_height - 2)))^fg() "
+    SEPARATOR="  ^fg($BACKGROUND_HIGHLIGHT_COLOR)^r(1x$((panel_height - 1)))^fg() "
 
     visible=true
     date=""
