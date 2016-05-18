@@ -38,7 +38,9 @@ alias mywatch='watch -d -e -t -n 1'
 alias servewd='python -m http.server'
 alias misort='isort -s .venv -sd THIRDPARTY -fss'
 alias ssh='TERM=screen ssh'
-alias r='exec ranger'
+source '/usr/share/doc/ranger/examples/bash_automatic_cd.sh' 2>/dev/null
+alias r='ranger-cd'
+alias weather='curl http://wttr.in/Gent'
 yupdatef() {
     BUILD_NOCONFIRM=1 EDITFILES=0 yaourt -Syua
     paccache -r
@@ -142,8 +144,6 @@ alias cdm='cd ~/repos/the-little-monks'
 alias ceva='cd ~/repos/eva'
 
 # Teehee
-alias -- -='yaourt'
-alias §='yaourt -Sy'
 alias hack_production_server='cat /dev/urandom'
 emergency_shutdown() {
     (sleep 10 && systemctl poweroff) &
