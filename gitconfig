@@ -1,12 +1,15 @@
 [user]
     name = Stijn Seghers
-    email = seghers_stijn@hotmail.com
+    email = stijnseghers@gmail.com
 
 [core]
     excludesfile = ~/.gitignore_global
 
 [push]
-    default = simple
+    default = current
+
+[pull]
+    rebase = true
 
 [merge]
     tool = vimdiff
@@ -14,7 +17,13 @@
     # Include summaries of merged commits in newly created merge commit messages
     log = true
 
+[rebase]
+    stat = true
+    autoStash = true
+    missingCommitsCheck = "error"
+
 [diff]
+    mnemonicPrefix = true
     tool = vimdiff
 
 [alias]
@@ -42,13 +51,11 @@
     ignore = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
     contributors = shortlog --summary --numbered
-    merge = merge --no-ff
+    mergeff = merge --ff-only
+    rebasi = rebase -i
 
 [color]
-    ui = auto
-    branch = auto
-    diff = auto
-    status = auto
+    ui = true
 
 [help]
     autocorrect = 1
