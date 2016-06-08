@@ -49,6 +49,7 @@ dotfiles=(
     config/base16-shell
     config/compton.conf
     config/dunst
+    config/gtk-3.0/settings.ini
     config/herbstluftwm
     config/htop
     config/icons
@@ -61,6 +62,7 @@ dotfiles=(
     config/yaourt
     gitconfig
     gitignore_global
+    gtkrc-2.0
     ipython/profile_default/ipython_config.py
     local/share/applications
     shellrc
