@@ -23,7 +23,7 @@ alias vim='nvim'
 alias rm='rm -I'
 alias ipy='exec ipython'
 alias hig='history 0 | grep -i'
-alias todo='grep -r TODO .'
+alias todo='ag -i "todo|xx|yy|zz"'
 alias g='git'
 # Who calls ghostscript from the command line anyway?
 alias gs='git status -sb #'

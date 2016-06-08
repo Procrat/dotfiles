@@ -143,6 +143,8 @@ set shortmess+=I
 set virtualedit=block
 " French spacing all the way
 set nojoinspaces
+" Show normally invisible characters (trailing whitespace, tabs, nbsp)
+set list
 " Ignore whitespace in diff mode
 set diffopt+=iwhite
 " Nvim setting: pipe in insert mode
@@ -343,8 +345,6 @@ nnoremap <leader>= mzggVG='z
 vnoremap <leader>s :!sort<CR>
 " Sudo write
 cnoremap w!! w !sudo tee % >/dev/null
-" Toggle (in)visible characters
-nnoremap <leader>i :set list!<CR>
 " ,w to write
 nnoremap <leader>w :w<CR>
 " Use C-O and C-P to shift between edited parts

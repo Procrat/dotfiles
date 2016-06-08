@@ -22,7 +22,7 @@ hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Return       spawn urxvtc -e tmux
 hc keybind $Mod-c            spawn urxvtc -e zsh -c ". $HOME/bin/choose_session_outside_of_tmux"
 hc keybind $Mod-Shift-Return spawn xterm  # Fallback
-hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu="$HOME/bin/mydmenu -q -f"
+hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu="$HOME/bin/mydmenu -q -f" --term="urxvtc"
 hc keybind $Mod-e            spawn urxvtc -e ranger
 
 # Focus

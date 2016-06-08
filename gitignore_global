@@ -33,6 +33,13 @@ workbench.xmi
 # LaTeX/TeX working files
 *.fls
 *.fdb_latexmk
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.run.xml
+*-blx.bib
 
 # IntelliJ IDEA configuration files
 .idea/

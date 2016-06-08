@@ -12,4 +12,3 @@ if [[ -z "${XDG_DOWNLOAD_DIR:-}" ]]; then
 fi
 
 rclone sync 'gdrive:' "$XDG_DOWNLOAD_DIR/gdrive"
-rclone sync '12ul:12UL 2016' "$XDG_DOWNLOAD_DIR/12UL 2016"
