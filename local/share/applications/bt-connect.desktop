@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Bluetooth Connect
+Comment=Choose a Bluetooth device to connect to
+Exec=bt-connect.sh
+Terminal=true
+Categories=Utility
