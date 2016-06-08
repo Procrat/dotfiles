@@ -21,7 +21,7 @@ ensure_repo_exists_and_has_latest_version() {
     dest="$2"
     if [[ -d "$dest" ]]; then
         mkdir -p $(dirname "$dest")
-        (cd "$dest" && git pull origin master)
+        (cd "$dest" && git pull origin)
     else
         git clone "$repo" "$dest"
     fi
