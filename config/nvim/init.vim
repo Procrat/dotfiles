@@ -371,11 +371,12 @@ let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
 " }}}
 " Valloric/YouCompleteMe {{{
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
+let g:ycm_python_binary_path = '/usr/bin/python3'
 let g:ycm_rust_src_path = '/usr/src/rust/src'
 let g:EclimCompletionMethod = 'omnifunc'
 let g:ycm_collect_identifiers_from_tags_files = 0
 " }}}
-" Plug 'vim-pandoc/vim-pandoc' {{{
+" vim-pandoc/vim-pandoc {{{
 let g:pandoc#filetypes#pandoc_markdown = 0
 " }}}
 " }}}
