@@ -6,6 +6,7 @@ call plug#begin()
 " -- Small plugins (less than .01s)
 Plug 'alfredodeza/khuno.vim'
 Plug 'benekastah/neomake'
+Plug 'cespare/vim-toml'
 Plug 'chase/vim-ansible-yaml'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
