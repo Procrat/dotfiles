@@ -21,6 +21,8 @@ Plug 'jvirtanen/vim-octave'
 " Plug 'klen/python-mode'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'leafgarland/typescript-vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
@@ -290,6 +292,56 @@ let g:ctrlp_use_caching = 0
 " LaTeX-Box-Team/LaTeX-Box {{{
 let g:LatexBox_Folding = 1
 " }}}
+" ludovicchabant/vim-gutentags {{{
+let g:gutentags_cache_dir = '~/.cache/gutentag'
+" }}}
+" majutsushi/tagbar {{{
+let g:tagbar_autofocus = 1
+let g:tagbar_sort = 0
+let g:tagbar_compact = 1
+let g:tagbar_type_make = {
+    \ 'kinds': [
+        \ 'm:macros',
+        \ 't:targets'
+    \ ]
+\ }
+let g:tagbar_type_ansible = {
+    \ 'ctagstype': 'ansible',
+    \ 'kinds': [
+        \ 't:tasks'
+    \ ]
+\ }
+let g:tagbar_type_rust = {
+    \ 'ctagstype': 'rust',
+    \ 'kinds': [
+        \ 'n:modules',
+        \ 's:structs',
+        \ 'i:interfaces',
+        \ 'c:implementations',
+        \ 'f:functions',
+        \ 'g:enums',
+        \ 't:typedefs',
+        \ 'v:variables',
+        \ 'M:macros',
+        \ 'm:fields',
+        \ 'e:enumerators',
+        \ 'F:methods',
+    \ ]
+\ }
+let g:tagbar_type_typescript = {
+    \ 'ctagstype': 'typescript',
+    \ 'kinds': [
+        \ 'c:classes',
+        \ 'n:modules',
+        \ 'f:functions',
+        \ 'v:variables',
+        \ 'v:varlambdas',
+        \ 'm:members',
+        \ 'i:interfaces',
+        \ 'e:enums'
+    \ ]
+\ }
+" }}}
 " mattn/gist-vim {{{
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
@@ -320,6 +372,7 @@ let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
 let g:ycm_rust_src_path = '/usr/src/rust/src'
 let g:EclimCompletionMethod = 'omnifunc'
+let g:ycm_collect_identifiers_from_tags_files = 0
 " }}}
 " Plug 'vim-pandoc/vim-pandoc' {{{
 let g:pandoc#filetypes#pandoc_markdown = 0
@@ -428,6 +481,7 @@ nnoremap <leader>l :Limelight!!<CR>
 " kien/ctrlp.vim {{{
 let g:ctrlp_map = '<leader>t'  " Behave like command-t
 let g:ctrlp_cmd = 'CtrlPMixed'
+nnoremap <leader><leader> :CtrlPTag<CR>
 " }}}
 " klen/python-mode {{{
 "   The following evironments are defined:
@@ -490,6 +544,10 @@ augroup latex_mappings
         imap <buffer> ]] <Plug>LatexCloseCurEnv
     endfunction
 augroup END
+" }}}
+" majutsushi/tagbar {{{
+"   <leader>m  View output file.
+nnoremap <silent> <leader>m :TagbarToggle<CR>
 " }}}
 " Raimondi/delimitMate {{{
 "   <BS>     Also removes closing paren/quote/bracket

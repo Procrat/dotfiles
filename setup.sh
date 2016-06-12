@@ -60,6 +60,7 @@ dotfiles=(
     config/systemd
     config/user-dirs.dirs
     config/yaourt
+    ctags
     gitconfig
     gitignore_global
     gtkrc-2.0
