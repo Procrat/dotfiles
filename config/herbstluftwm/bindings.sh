@@ -73,11 +73,12 @@ hc keybind $Mod-p     pseudotile toggle
 
 # Tags
 ## Cycle through tags
-hc keybind $Mod-f       use_index +1 --skip-visible
-hc keybind $Mod-d       use_index -1 --skip-visible
+hc keybind $Mod-f         use_index +1 --skip-visible
+hc keybind $Mod-d         use_index -1 --skip-visible
+hc keybind $Mod-quoteleft use_previous
 ## Move windows through tags
-hc keybind $Mod-Shift-f move_index +1 --skip-visible
-hc keybind $Mod-Shift-d move_index -1 --skip-visible
+hc keybind $Mod-Shift-f   move_index +1 --skip-visible
+hc keybind $Mod-Shift-d   move_index -1 --skip-visible
 
 
 # Mouse bindings (for floating mode)
