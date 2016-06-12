@@ -300,6 +300,7 @@ let g:gutentags_cache_dir = '~/.cache/gutentag'
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
+let g:tagbar_iconchars=['▸', '▾']
 let g:tagbar_type_make = {
     \ 'kinds': [
         \ 'm:macros',
