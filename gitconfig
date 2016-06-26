@@ -35,8 +35,8 @@
     ci = commit
     br = branch
     co = checkout --
-    df = diff -b -w -B
-    dfc = diff --cached -b -w -B
+    df = diff -b -w -B --color-words
+    dfc = diff --cached -b -w -B --color-words
     vdf = difftool
     vdfc = difftool --cached
     lg = log -p
