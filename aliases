@@ -6,8 +6,11 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # ls shortcuts
-alias ll='ls -AlhFv'
-alias l='ls -Fv'
+# alias ll='ls -AlhFv'
+# alias l='ls -Fv'
+alias l='exa'
+alias ll='exa -al --git'
+alias tree='exa -Tl'
 alias sl='ls'
 
 # Easier directory jumping
