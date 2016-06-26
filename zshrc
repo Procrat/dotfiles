@@ -79,6 +79,7 @@ alias -g S='| sort'
 alias -g F='| sort | uniq -c'
 alias -g G='| ag -i'
 alias -g C='| columns -t'
+alias -g SUM='| awk '\''{ x += $0 } END { print x }'\'
 alias -g sept='PULSE_SERVER=ZEVEN'
 
 # Mappings
