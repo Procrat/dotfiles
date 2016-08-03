@@ -52,7 +52,8 @@ Plug 'tpope/vim-rails'
 " Load: .25s (for Rails)
 Plug 'AndrewRadev/splitjoin.vim'
 " Load: .30s
-Plug 'bling/vim-airline', { 'tag': 'v0.7' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " Load: .93s (for Rails)
 " Defer to insert mode
 Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --racer-completer --tern-completer', 'on': [] }
@@ -81,10 +82,9 @@ filetype plugin indent on
 " }}}
 " Colorscheme settings {{{
 syntax on
-set background=dark
 
 let g:base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-default
+colorscheme base16-default-dark
 
 " }}}
 " General settings {{{
