@@ -30,6 +30,7 @@ alias todo='ag -i "todo|xx|yy|zz"'
 alias g='git'
 # Who calls ghostscript from the command line anyway?
 alias gs='git status -sb #'
+alias gdfs='LESS="$LESS -S" g df'
 alias hc='herbstclient'
 alias be='bundle exec'
 alias open='xdg-open'
