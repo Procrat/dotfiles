@@ -63,7 +63,3 @@
 
 [github]
     user = Procrat
-
-; Set voor Mobicage
-;[http]
-    ;sslverify = false
