@@ -19,6 +19,7 @@ if which rbenv 2>/dev/null >&2; then
 fi
 
 # Prompt
+setopt PROMPT_SUBST
 login_info() {
     if [[ -n "$SSH_CONNECTION" ]]; then
         echo '%n@%m:'
