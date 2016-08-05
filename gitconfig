@@ -39,7 +39,8 @@
     dfc = diff --cached -b -w -B --color-words
     vdf = difftool
     vdfc = difftool --cached
-    lg = log -p
+    lg = log --stat
+    lgp = log --stat -p
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     unstage = reset HEAD --
