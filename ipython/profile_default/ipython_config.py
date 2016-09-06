@@ -7,6 +7,6 @@ c.InteractiveShellApp.exec_lines = [
     'from collections import *',
     'from itertools import *',
     'from math import *',
-    'import numpy as np',
-    'from importlib import reload'
+    'from importlib import reload',
+    'try: import numpy as np\nexcept ImportError: pass',
 ]
