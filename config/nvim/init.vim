@@ -84,7 +84,7 @@ filetype plugin indent on
 syntax on
 
 let g:base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-default-dark
+colorscheme base16-mocha
 
 " }}}
 " General settings {{{

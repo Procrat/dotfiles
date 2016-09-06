@@ -2,7 +2,7 @@
 
 
 # Base16 Shell
-export BASE16_THEME='base16-default-dark'
+export BASE16_THEME='base16-mocha'
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/${BASE16_THEME}.sh"
 [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
 
