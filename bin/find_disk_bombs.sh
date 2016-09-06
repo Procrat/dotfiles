@@ -6,7 +6,7 @@
 set -euo pipefail
 
 if [[ $# -gt 0 ]]; then
-    du -h -a --max-depth 1 "$@" | sort -h
+    du --si -a --max-depth 1 "$@" | sort -h
 else
-    du -h -a --max-depth 1 . | sort -h
+    du --si -a --max-depth 1 . | sort -h
 fi
