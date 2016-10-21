@@ -144,6 +144,12 @@ c() {
     locate -b "${@/#/\\}" | head -1 | while read -r dir; do cl "$dir"; done
 }
 
+# Systemctl shortcuts
+alias start='systemctl start'
+alias stop='systemctl stop'
+alias restart='systemctl restart'
+alias status='systemctl status'
+
 # Quick cd
 alias bu='cd ~/docs/bucht'
 alias cdm='cd ~/repos/the-little-monks'
