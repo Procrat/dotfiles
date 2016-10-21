@@ -51,6 +51,9 @@ Host aur
     Hostname aur.archlinux.org
     IdentityFile ~/.ssh/aur4_rsa
     User aur
+Host mercurious
+    Hostname mercurious.io
+    User root
 
 
 # Tunnels
