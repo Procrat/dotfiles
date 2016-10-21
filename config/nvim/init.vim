@@ -639,7 +639,7 @@ augroup vimrc_misc
     au BufNewFile,BufRead *.txt,*todo*,*TODO* setlocal filetype=journal
 
     " Turn on spelling for some filetypes
-    au FileType tex,mail setlocal spell
+    au FileType tex,mail,markdown setlocal spell
 
     " Set wrapping and markdown folding for Markdown and journal files
     au FileType journal,markdown setlocal textwidth=80 foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
