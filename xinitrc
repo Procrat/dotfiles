@@ -41,7 +41,7 @@ unclutter &
 compton -b &
 
 # Launch some programs
-firefox-aurora &
+firefox-beta &
 franz &
 
 exec herbstluftwm --locked
