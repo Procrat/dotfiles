@@ -45,3 +45,5 @@ if [ $RESULT -ne 0 -o -s "$ERR" ]
 fi
 
 rm -rf "$TMP"
+
+exit $RESULT
