@@ -4,15 +4,10 @@
 
 set -euo pipefail
 
-WIFI_DEVICE='wlp58s0'
-if ! iw dev "$WIFI_DEVICE" info; then
-    WIFI_DEVICE='wlan0'
-    if ! iw dev "$WIFI_DEVICE" info; then
-        echo 'No wifi device found' >&2
-        exit 1
-    fi
-fi
-
+WIFI_DEVICE="$(basename /sys/class/net/wl*)" || {
+    echo 'No wifi device found' >&2
+    exit 1
+}
 
 # Shows SSID
 iw dev "$WIFI_DEVICE" link | sed -rn 's/^\s*SSID: (.*)/\1/p'
