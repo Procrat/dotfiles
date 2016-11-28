@@ -18,6 +18,9 @@ if which rbenv 2>/dev/null >&2; then
     eval "$(rbenv init -)"
 fi
 
+# Extra completions (e.g. rustup)
+fpath+=( /home/procrat/.zfunc )
+
 # Prompt
 setopt PROMPT_SUBST
 login_info() {

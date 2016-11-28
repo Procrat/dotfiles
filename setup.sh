@@ -74,6 +74,7 @@ dotfiles=(
     xinitrc
     xprofile
     Xresources
+    zfunc
     zpreztorc
     zprofile
     zshrc
