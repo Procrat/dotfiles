@@ -45,7 +45,7 @@ alias ssh='TERM=screen ssh'
 source '/usr/share/doc/ranger/examples/bash_automatic_cd.sh' 2>/dev/null
 alias r='ranger-cd'
 alias weather='curl http://wttr.in/Gent'
-alias genpass='apg -m 20 -M sncl'
+alias genpass='apg -m 24 -M SNC'
 
 yupdatef() {
     BUILD_NOCONFIRM=1 EDITFILES=0 yaourt -Syua
