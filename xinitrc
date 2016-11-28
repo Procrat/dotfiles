@@ -15,9 +15,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Better font rendering in Java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
-# Enable Num Lock
-(which numlockx 2>/dev/null >&2 && numlockx) &
-
 # Background
 ([[ -s "$HOME/.fehbg" ]] && bash "$HOME/.fehbg") &
 
