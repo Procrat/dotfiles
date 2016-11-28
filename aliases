@@ -51,10 +51,11 @@ alias genpass='apg -m 24 -M SNC'
 yupdatef() {
     BUILD_NOCONFIRM=1 EDITFILES=0 yaourt -Syua
     paccache -r
-    $HOME/repos/dotfiles/setup.sh
     yaourt -C
+    $HOME/repos/dotfiles/setup.sh
     pip install --upgrade pip
     pip-review -li
+    pip check
 }
 psg() {
     ps auxww | grep -i --color=always $* | grep -v grep \
