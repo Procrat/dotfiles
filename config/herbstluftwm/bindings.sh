@@ -24,6 +24,7 @@ hc keybind $Mod-c            spawn urxvtc -e zsh -c ". $HOME/bin/choose_session_
 hc keybind $Mod-Shift-Return spawn xterm  # Fallback
 hc keybind $Mod-t            spawn j4-dmenu-desktop --dmenu="$HOME/bin/mydmenu -q -f" --term="urxvtc"
 hc keybind $Mod-e            spawn urxvtc -e ranger
+hc keybind $Mod-y            spawn rofi-pass
 
 # Focus
 hc keybind $Mod-Left        focus left
