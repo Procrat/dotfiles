@@ -8,9 +8,9 @@ alias egrep='egrep --color=auto'
 # ls shortcuts
 # alias ll='ls -AlFv --si'
 # alias l='ls -Fv'
-alias l='exa'
-alias ll='exa -al --git'
-alias tree='exa -Tl'
+alias l='exa --color=always'
+alias ll='exa -al --git --color=always'
+alias tree='exa -Tl --color=always'
 alias sl='ls'
 
 # Easier directory jumping
@@ -38,7 +38,7 @@ alias eduroam='sudo systemctl stop NetworkManager && sudo systemctl start connma
 alias uneduroam='sudo systemctl stop connman && sudo systemctl start NetworkManager'
 alias yupdate='yaourt -Syua'
 alias highlight='pygmentize'
-alias mywatch='watch -d -e -t -n 1'
+alias mywatch='watch -c -d -e -t -n 1'
 alias servewd='python -m http.server'
 alias misort='isort -s .venv -sd THIRDPARTY -fss'
 alias ssh='TERM=screen ssh'
