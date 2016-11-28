@@ -26,6 +26,9 @@
     mnemonicPrefix = true
     tool = vimdiff
 
+[commit]
+    gpgsign = true
+
 [alias]
     a = add -A
     au = add -u
