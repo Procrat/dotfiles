@@ -5,6 +5,7 @@ call plug#begin()
 
 " -- Small plugins (less than .01s)
 Plug 'alfredodeza/khuno.vim'
+Plug 'AndrewRadev/switch.vim'
 Plug 'benekastah/neomake'
 Plug 'cespare/vim-toml'
 Plug 'chase/vim-ansible-yaml'
@@ -29,6 +30,7 @@ Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'Raimondi/delimitMate'
 Plug 'rhysd/committia.vim'
+Plug 'rhysd/clever-f.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
@@ -36,6 +38,7 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-pandoc/vim-pandoc'
@@ -83,7 +86,7 @@ filetype plugin indent on
 " Colorscheme settings {{{
 syntax on
 
-let g:base16colorspace=256  " Access colors present in 256 colorspace
+let g:base16colorspace = 256  " Access colors present in 256 colorspace
 colorscheme base16-mocha
 let g:airline_theme = 'base16'
 
@@ -352,6 +355,9 @@ let g:gist_open_browser_after_post = 1
 " Raimondi/delimitMate {{{
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
+" }}}
+" rhysd/clever-f.vim {{{
+let g:clever_f_smart_case = 1
 " }}}
 " scrooloose/nerdcommenter {{{
 let g:NERDCommentWholeLinesInVMode = 1
