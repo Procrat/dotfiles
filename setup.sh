@@ -67,6 +67,7 @@ dotfiles=(
     ipython/profile_default/ipython_config.py
     local/share/applications
     shellrc
+    spacemacs
     ssh/config
     tern-config
     tmux.conf

@@ -14,7 +14,15 @@ export LESS='-R -M -W'
 export PAGER='less'
 
 # Editor settings
-if [[ -n "$(which nvim 2>/dev/null)" ]]; then
+has_emacs="$(which emacsclient 2>/dev/null)"
+has_nvim="$(which nvim 2>/dev/null)"
+if [[ -n "$has_emacs" ]]; then
+    export EDITOR=emc
+    export VISUAL=emc
+    if [[ -n "$has_nvim" ]]; then
+        export ALTERNATE_EDITOR=nvim
+    fi
+elif [[ -n "$has_nvim" ]]; then
     export EDITOR=nvim
     export VISUAL=nvim
 fi
