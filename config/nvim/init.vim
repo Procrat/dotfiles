@@ -92,8 +92,8 @@ let g:airline_theme = 'base16'
 
 " }}}
 " General settings {{{
-let g:mapleader=','
-let g:maplocalleader=','
+let g:mapleader = "\<Space>"
+let g:maplocalleader = "\<Space>"
 " Automatic reloading on external file changes (default in NeoVim)
 "set autoread
 " Automatic writing when using certain commands, e.g. :n, :N
@@ -389,20 +389,28 @@ let g:pandoc#filetypes#pandoc_markdown = 0
 " }}}
 " }}}
 " General mappings {{{
-" jj in insert mode to go to normal mode
+" jj/fd in insert mode to go to normal mode
 inoremap jj <Esc>
+inoremap fd <Esc>
 " Use backspace to delete character
 noremap <BS> X
 " Make Y behave like other capitals
 nnoremap Y y$
 " Center search matches to center of screen
 nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 " Space to (un)fold
-nnoremap <silent> <Space> za
-vnoremap <silent> <Space> za
+nnoremap <leader><leader> za
+vnoremap <leader><leader> za
 " Ex-ex
 nnoremap Q <nop>
-" ,= to autoformat
+" Select all
+nnoremap va ggVG
+" Autoformat whole file
 nnoremap <leader>= mzggVG='z
 " Sort lines
 vnoremap <leader>s :!sort<CR>
@@ -417,6 +425,10 @@ nnoremap <silent> <CR> <CR>:noh<CR>
 " Make < and > behave like they should
 vnoremap < <gv
 vnoremap > >gv
+" Jump to the end after pasting
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
 " Markdown mappings
 augroup markdown_mappings
     autocmd!
@@ -491,7 +503,7 @@ nnoremap <leader>l :Limelight!!<CR>
 " kien/ctrlp.vim {{{
 let g:ctrlp_map = '<leader>t'  " Behave like command-t
 let g:ctrlp_cmd = 'CtrlPMixed'
-nnoremap <leader><leader> :CtrlPTag<CR>
+nnoremap <leader>g :CtrlPTag<CR>
 " }}}
 " klen/python-mode {{{
 "   The following evironments are defined:
@@ -651,7 +663,9 @@ augroup vimrc_misc
     au FileType journal,markdown setlocal textwidth=80 foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
 
     " Autoscale Quickfix window
-    au FileType qf call s:AdjustWindowHeight(3, 10)
+    au FileType qf
+        \ call s:AdjustWindowHeight(3, 10) |
+        \ nnoremap <buffer> <silent> q :close<CR>
 
     " Reload .vimrc on save
     au BufWritePost .vimrc source %
