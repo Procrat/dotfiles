@@ -108,7 +108,17 @@ myKeyBindings conf =
     -- M-S-{w,e}, ("Moveclient to screen 1 or 2
     [("M-" ++ mask ++ key, screenWorkspace screen >>= flip whenJust (windows . action))
         | (screen, key) <- zip [0..] ["w", "e"]
-        , (action, mask) <- [(W.view, ""), (W.shift, "S-")]]
+        , (action, mask) <- [(W.view, ""), (W.shift, "S-")]] ++
+
+    [ ("<XF86AudioRaiseVolume>", spawn "~/.xmonad/dzen/dvolume.sh -i 3")
+    , ("<XF86AudioLowerVolume>", spawn "~/.xmonad/dzen/dvolume.sh -d 3")
+    , ("<XF86AudioMute>", spawn "~/.xmonad/dzen/dvolume.sh -t")
+    , ("<XF86AudioPrev>", spawn "playerctl previous")
+    , ("<XF86AudioPlay>", spawn "playerctl play-pause")
+    , ("<XF86AudioNext>", spawn "playerctl next")
+    , ("<XF86MonBrightnessUp>", spawn "~/.xmonad/dzen/dbrightness.sh +15")
+    , ("<XF86MonBrightnessDown>", spawn "~/.xmonad/dzen/dbrightness.sh -15")
+    ]
 
 
 myLayout = modifiers layouts
