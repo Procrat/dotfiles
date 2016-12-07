@@ -6,6 +6,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
+import XMonad.Layout.NoBorders
 import XMonad.ManageHook
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
@@ -112,7 +113,7 @@ myKeyBindings conf =
 
 myLayout = modifiers layouts
   where
-    modifiers = desktopLayoutModifiers
+    modifiers = smartBorders . desktopLayoutModifiers
     layouts = Tall nmaster delta ratio ||| Full
     -- The default number of windows in the master pane
     nmaster = 1
