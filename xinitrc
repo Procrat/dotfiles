@@ -41,4 +41,4 @@ compton -b &
 firefox-beta &
 franz &
 
-exec herbstluftwm --locked
+exec xmonad

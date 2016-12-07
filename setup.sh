@@ -72,6 +72,8 @@ dotfiles=(
     tern-config
     tmux.conf
     xinitrc
+    xmonad/xmonad.hs
+    xmonad/dzen
     xprofile
     Xresources
     zfunc
