@@ -3,6 +3,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
@@ -149,7 +150,10 @@ myEventHook = fullscreenEventHook <+> docksEventHook
 
 
 myLogHook :: Handle -> X ()
-myLogHook panelHandle = dynamicLogWithPP $ def
+myLogHook panelHandle = fadeInactiveLogHook 0.9 <+> updatePanel panelHandle
+
+updatePanel :: Handle -> X ()
+updatePanel panelHandle = dynamicLogWithPP $ def
     { ppCurrent         = \ws -> clickify ws $ pad $ dzenColor "#8AB3B5" "" ws
     , ppHidden          = \ws -> clickify ws $ pad $ dzenColor "" "#534636" ws
     , ppHiddenNoWindows = \ws -> clickify ws $ pad $ dzenColor "#7E705A" "" ws
