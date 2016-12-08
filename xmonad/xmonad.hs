@@ -7,6 +7,7 @@ import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
+import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
 import XMonad.ManageHook
 import XMonad.Util.EZConfig
@@ -39,7 +40,7 @@ baseConfig = desktopConfig {
     terminal           = "urxvtc -e tmux",
     focusFollowsMouse  = False,
     clickJustFocuses   = False,
-    borderWidth        = 2,
+    borderWidth        = 1,
     modMask            = mod4Mask,
     workspaces         = ["im", "web", "todo"] ++ map show [4..9],
     normalBorderColor  = "#534636",
@@ -124,7 +125,7 @@ myKeyBindings conf =
 
 myLayout = modifiers layouts
   where
-    modifiers = smartBorders . desktopLayoutModifiers
+    modifiers = smartBorders . spacing 15 . desktopLayoutModifiers
     layouts = Tall nmaster delta ratio ||| Full
     -- The default number of windows in the master pane
     nmaster = 1
