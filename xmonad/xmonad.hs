@@ -171,4 +171,15 @@ updatePanel panelHandle = dynamicLogWithPP $ def
 
 
 myStartupHook :: X ()
-myStartupHook = return () >> checkKeymap baseConfig (myKeyBindings baseConfig)
+myStartupHook = do
+    checkKeymap baseConfig (myKeyBindings baseConfig)
+    addFullscreenSupport
+
+addFullscreenSupport :: X ()
+addFullscreenSupport = withDisplay $ \dpy -> do
+    wm <- asks theRoot
+    supportProp <- getAtom "_NET_SUPPORTED"
+    atomType <- getAtom "ATOM"
+    fullscreenSupport <- getAtom "_NET_WM_STATE_FULLSCREEN"
+    io $ changeProperty32 dpy wm supportProp atomType propModeAppend
+                          [fromIntegral fullscreenSupport]
