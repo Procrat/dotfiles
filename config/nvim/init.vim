@@ -455,7 +455,7 @@ vnoremap S "hy:grep! <C-R>h<CR>:cw<CR>
 function! Blame()
     execute '!send_blame_mail ' . expand('%:p') . ' ' . line('.')
 endfunction
-noremap <leader>B :call Blame()<CR>
+nnoremap <leader>B :call Blame()<CR>
 
 " }}}
 " Plugin mappings {{{
@@ -605,13 +605,11 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 " }}}
 " SirVer/ultisnips {{{
 "   ç        Expand ultisnips
-let g:UltiSnipsExpandTrigger='¶'
+let g:UltiSnipsExpandTrigger='ß'
 "   <Tab>    Move to next editable part in the snippet
 let g:UltiSnipsJumpForwardTrigger='<Tab>'
 "   <S-Tab>  Move the previous editable part in the snippet
 let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
-"   <leader>u  Show available snippets
-let g:UltiSnipsListSnippets='<leader>u'
 " }}}
 " tpope/vim-unimpaired {{{
 "   A lot of mapping starting with [ and ]. A full list can be found here:
