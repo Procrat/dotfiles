@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Actions.CycleWS
+import XMonad.Actions.SpawnOn
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -50,9 +51,9 @@ baseConfig = desktopConfig {
 
 myKeyBindings conf =
     -- Launchers
-    [ ("M-<Return>", spawn $ XMonad.terminal conf)
-    , ("M-S-<Return>", spawn "xterm")
-    , ("M-o", spawn "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu -q -f\" --term=urxvtc")
+    [ ("M-<Return>", spawnHere $ XMonad.terminal conf)
+    , ("M-S-<Return>", spawnHere "xterm")
+    , ("M-o", spawnHere "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu -q -f\" --term=urxvtc")
 
     -- Quit xmonad
     , ("M-S-q", io exitSuccess)
@@ -137,7 +138,8 @@ myLayout = modifiers layouts
 
 myManageHook :: ManageHook
 myManageHook = composeAll
-    [ isDialog                      --> doFloat
+    [ manageSpawn
+    , isDialog                      --> doFloat
     , isFullscreen                  --> doFullFloat
     , className =? "Gimp"           --> doFloat
     , className =? "Xmessage"       --> doFloat
