@@ -9,6 +9,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.NoBorders
+import XMonad.Layout.WindowNavigation
 import XMonad.ManageHook
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
@@ -63,9 +64,12 @@ myKeyBindings conf =
 
     -- Focus
     , ("M-<Tab>", windows W.focusDown)
-    , ("M-j", windows W.focusDown)
-    , ("M-k", windows W.focusUp)
+    , ("M-S-<Tab>", windows W.focusUp)
     , ("M-m", windows W.focusMaster)
+    , ("M-h", sendMessage $ Go L)
+    , ("M-j", sendMessage $ Go D)
+    , ("M-k", sendMessage $ Go U)
+    , ("M-l", sendMessage $ Go R)
 
     -- Close focused window
     , ("M-c", kill)
@@ -77,20 +81,20 @@ myKeyBindings conf =
     , ("M-S-r", refresh)
     --   Swap the focused window and the master window
     , ("M-<Space>", windows W.swapMaster)
-    --   Swap the focused window with the next window
-    , ("M-S-j", windows W.swapDown)
-    --   Swap the focused window with the previous window
-    , ("M-S-k", windows W.swapUp)
-    --   Shrink the master area
-    , ("M-h", sendMessage Shrink)
-    --   Expand the master area
-    , ("M-l", sendMessage Expand)
+    --   Swap the focused window with the window in the specified direction
+    , ("M-S-h", sendMessage $ Swap L)
+    , ("M-S-j", sendMessage $ Swap D)
+    , ("M-S-k", sendMessage $ Swap U)
+    , ("M-S-l", sendMessage $ Swap R)
+    --   Shrink and expand the master area
+    , ("M-C-h", sendMessage Shrink)
+    , ("M-C-l", sendMessage Expand)
     --   Push window back into tiling
     , ("M-S-t", withFocused $ windows . W.sink)
-    --   Increment the number of windows in the master area
+    --   Increment/decrement the number of windows in the master area
     , ("M-,", sendMessage (IncMasterN 1))
-    --   Deincrement the number of windows in the master area
     , ("M-.", sendMessage (IncMasterN (-1)))
+    --   Toggle struts
     , ("M-b", sendMessage ToggleStruts)
 
     -- Workspace management
@@ -127,7 +131,8 @@ myKeyBindings conf =
 
 myLayout = modifiers layouts
   where
-    modifiers = avoidStruts . smartBorders . spacing 15 . desktopLayoutModifiers
+    modifiers = avoidStruts . smartBorders . spacing 15
+                . desktopLayoutModifiers . windowNavigation
     layouts = Tall nmaster delta ratio ||| Full
     -- The default number of windows in the master pane
     nmaster = 1
