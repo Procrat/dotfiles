@@ -56,6 +56,8 @@ myKeyBindings conf =
     [ ("M-<Return>", spawnHere $ XMonad.terminal conf)
     , ("M-S-<Return>", spawnHere "xterm")
     , ("M-o", spawnHere "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu -q -f\" --term=urxvtc")
+    , ("M-r", spawnHere "urxvtc -e ranger")
+    , ("M-i", spawnHere "rofi-pass")
 
     -- Quit xmonad
     , ("M-S-q", io exitSuccess)
