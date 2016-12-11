@@ -177,6 +177,8 @@ myStartupHook :: X ()
 myStartupHook = do
     checkKeymap baseConfig (myKeyBindings baseConfig)
     addFullscreenSupport
+    -- Temporary hack awaiting the struts cache fix for docks (in v0.13)
+    mconcat $ replicate 2 $ sendMessage ToggleStruts
 
 addFullscreenSupport :: X ()
 addFullscreenSupport = withDisplay $ \dpy -> do
