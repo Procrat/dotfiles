@@ -8,7 +8,6 @@ import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
-import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
 import XMonad.ManageHook
 import XMonad.Util.EZConfig
@@ -22,6 +21,8 @@ import System.IO
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+
+import XMonad.Layout.SingleSpacing
 
 
 main = do
@@ -126,7 +127,7 @@ myKeyBindings conf =
 
 myLayout = modifiers layouts
   where
-    modifiers = smartBorders . spacing 15 . desktopLayoutModifiers
+    modifiers = avoidStruts . smartBorders . spacing 15 . desktopLayoutModifiers
     layouts = Tall nmaster delta ratio ||| Full
     -- The default number of windows in the master pane
     nmaster = 1

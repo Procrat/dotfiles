@@ -74,6 +74,7 @@ dotfiles=(
     xinitrc
     xmonad/xmonad.hs
     xmonad/dzen
+    xmonad/lib
     xprofile
     Xresources
     zfunc
