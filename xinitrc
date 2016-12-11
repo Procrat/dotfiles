@@ -41,4 +41,4 @@ compton -b &
 firefox-beta &
 franz &
 
-exec xmonad
+exec xmonad &>"$XDG_RUNTIME_DIR/xsession-errors"
