@@ -18,6 +18,9 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 # Background
 ([[ -s "$HOME/.fehbg" ]] && bash "$HOME/.fehbg") &
 
+# Set normal pointer as cursor (for WMs that don't handle this like XMonad)
+xsetroot -cursor_name left_ptr
+
 # Xresources otherwise gets loaded async, which might fuck up some stuff
 xrdb "$HOME/.Xresources"
 
