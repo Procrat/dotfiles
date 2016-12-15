@@ -84,7 +84,7 @@ alias -g F='| sort | uniq -c'
 alias -g G='| ag -i'
 alias -g C='| columns -t'
 alias -g SUM='| awk '\''{ x += $0 } END { print x }'\'
-alias -g sept='PULSE_SERVER=ZEVEN'
+alias -g sprunge='| curl -F "sprunge=<-" http://sprunge.us'
 
 # Mappings
 bindkey '^R' history-incremental-search-backward
