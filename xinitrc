@@ -18,11 +18,8 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 # Background
 ([[ -s "$HOME/.fehbg" ]] && bash "$HOME/.fehbg") &
 
-# Set normal pointer as cursor (for WMs that don't handle this like XMonad)
-xsetroot -cursor_name left_ptr &
-
 # Start autorepeat after .3s and repeat 55/s
-xset r rate 300 55
+xset r rate 300 55 &
 
 # Xresources otherwise gets loaded async, which might fuck up some stuff
 xrdb "$HOME/.Xresources"

@@ -35,7 +35,7 @@ main = do
         manageHook      = myManageHook <+> manageHook baseConfig,
         handleEventHook = myEventHook <+> handleEventHook baseConfig,
         logHook         = myLogHook panelHandle <+> logHook baseConfig,
-        startupHook     = myStartupHook
+        startupHook     = myStartupHook <+> startupHook baseConfig
     }
 
 
