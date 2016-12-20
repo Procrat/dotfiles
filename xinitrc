@@ -44,4 +44,7 @@ compton -b &
 firefox-beta &
 franz &
 
+# Part of the workaround for the known struts bug in XMonad 0.12
+xdotool key --delay 300 'super+b' &
+
 exec xmonad &>"$XDG_RUNTIME_DIR/xsession-errors"
