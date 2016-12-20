@@ -48,6 +48,18 @@ alias r='ranger-cd'
 alias weather='curl http://wttr.in/Gent'
 alias genpass='apg -m 24 -M SNC'
 
+c() {
+    cd ~
+    dir="$(find -L * -path "*/\.*" -prune -o -name "PlayOnLinux*" -prune -o -type d -print | fzf)"
+    [[ -n "$dir" ]] && cd "$dir" || false
+}
+
+f() {
+    c || return
+    file_="$(fzf)"
+    [[ -n "$file_" ]] && $EDITOR "$file_"
+}
+
 yupdatef() {
     BUILD_NOCONFIRM=1 EDITFILES=0 yaourt -Syua
     paccache -r
@@ -136,14 +148,6 @@ function cd() {
     else
         return $?
     fi
-}
-edit() {
-    # Prepending the arguments with backslashes, makes it search for exactly
-    # those filenames, not `*filename*`.
-    locate -b "${@/#/\\}" | xargs -d'\n' nvim
-}
-c() {
-    locate -b "${@/#/\\}" | head -1 | while read -r dir; do cl "$dir"; done
 }
 
 # Systemctl shortcuts
