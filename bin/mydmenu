@@ -7,4 +7,4 @@ height="$(($(cat $HOME/.config/herbstluftwm/dzen/panel_height) - 1))"
 screen_geometry="$(wmctrl -d | awk '/^...\*/ { print $9 }')"
 width="$((${screen_geometry%x*} - 450))"
 
-dmenu -i -h "$height" -x 55 -w "$width" "$@"
+exec yeganesh -- -i -h "$height" -x 55 -w "$width" "$@"
