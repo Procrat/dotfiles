@@ -33,7 +33,7 @@ capacity_icon() {
     echo "$icon_dir/battery${rounded}.xbm"
 }
 
-if [[ "$status" = 'Full' || "$capacity" -ge 100 ]]; then
+if [[ "$status" = 'Full' ]]; then
     echo -n "^fg($SECONDARY_CONTENT_COLOR)^i($icon_dir/ac_02.xbm)"
 elif [[ "$status" = 'Charging' ]]; then
     echo -n "^fg($SECONDARY_CONTENT_COLOR)^i($icon_dir/ac_02.xbm) $capacity%"
