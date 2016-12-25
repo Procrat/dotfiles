@@ -45,7 +45,7 @@ baseConfig = desktopConfig {
     clickJustFocuses   = False,
     borderWidth        = 1,
     modMask            = mod4Mask,
-    workspaces         = ["im", "web", "todo"] ++ map show [4..9],
+    workspaces         = ["im", "todo"] ++ map show [3..9],
     normalBorderColor  = "#534636",
     focusedBorderColor = "#D0C8C6"
 }
