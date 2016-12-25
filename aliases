@@ -45,7 +45,7 @@ alias misort='isort -s .venv -sd THIRDPARTY -fss'
 alias ssh='TERM=screen ssh'
 source '/usr/share/doc/ranger/examples/bash_automatic_cd.sh' 2>/dev/null
 alias r='ranger-cd'
-alias weather='curl http://wttr.in/Gent'
+alias weather='curl http://wttr.in/Wellington'
 alias genpass='apg -m 24 -M SNC'
 
 c() {
