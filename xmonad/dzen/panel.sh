@@ -7,11 +7,8 @@ script_dir=$(dirname "$BASH_SOURCE")
 source $HOME/.colors
 
 
-geometry=( 0 0 1920 1080 )
+screens=($(xrandr | awk '/ connected/ { print $3 }'))
 margin=15
-x=$((geometry[0] + margin))
-y=${geometry[1]}
-panel_width=$((geometry[2] - 2*margin))
 panel_height=$(cat "$script_dir/panel_height")
 font="Trebuchet MS:size=11"  # Fuck it, I'm hardcoding this shit
 XPM_ICONS_WIDTH=0  # Fuck it, I'm hardcoding this shit
@@ -37,6 +34,19 @@ extract_icon_width() {
         sed 's/.*\s\+\([0-9]\+\)\s*/\1/' | \
         sed ':l;N;tl;s/\n/+/g' | \
         bc
+}
+
+dzen_on_screen() {
+    screen=(${1//[x+]/ })
+    screen_width=${screen[0]}
+    screen_x=${screen[2]}
+    screen_y=${screen[3]}
+
+    x=$((screen_x + margin))
+    y=$screen_y
+    width=$((screen_width - 2*margin))
+
+    dzen2 -w $width -x $x -y $y -h $panel_height -ta l -e 'onstart=lower' -dock
 }
 
 
@@ -138,7 +148,7 @@ extract_icon_width() {
         width=$((text_width + xbm_icons_width + XPM_ICONS_WIDTH))
 
         # Print padding and right side
-        echo "^pa($((panel_width - width)))$right"
+        echo "^p(_RIGHT)^p(-$width)$right"
 
 
         ### Data handling ###
@@ -173,8 +183,16 @@ extract_icon_width() {
 
 } | \
 
-    ### dzen2 ###
-    # After the data is gathered and processed, the output of the previous
-    # block gets piped to dzen2.
+### dzen2 ###
+# After the data is gathered and processed, the output of the previous
+# block gets piped to dzen2.
 
-    dzen2 -w $panel_width -x $x -y $y -h $panel_height -ta l -e 'onstart=lower'
+# If there's a second screen, also make a bar there.
+# (Only support for up to two screens.)
+if [[ "${#screens[@]}" > 1 ]]; then
+    tee >(dzen_on_screen "${screens[1]}")
+else
+    cat
+fi | \
+
+dzen_on_screen "${screens[0]}"
