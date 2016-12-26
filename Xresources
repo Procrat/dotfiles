@@ -45,6 +45,8 @@ URxvt.keysym.C-Down: perl:font-size:decrease
 
 ! Flash terminal instead of making an annoying sound
 URxvt.visualBell: true
+! Set urgency hints on bell
+URxvt.urgentOnBell: true
 
 ! Disable keycap picture insert mode
 URxvt.iso14755: false
