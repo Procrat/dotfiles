@@ -35,7 +35,7 @@ export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 # Add ruby gem path to PATH and make Bundler install gems per user
 export GEM_HOME="$HOME/.gem/ruby/2.3.0"
 
-export PATH="$PATH:$JAVA_HOME/bin:$GEM_HOME/bin:$HOME/bin:."
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cabal/bin:$JAVA_HOME/bin:$GEM_HOME/bin:$HOME/bin:."
 
 # Set user virtualenv if unset and add to path if it exists
 if [[ -z "$VIRTUAL_ENV" && -d "$HOME/.venv" ]]; then
