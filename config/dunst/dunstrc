@@ -145,7 +145,8 @@
     icon_position = right
 
     # Paths to default icons.
-    icon_folders = /usr/share/icons/Adwaita/16x16/actions/:/usr/share/icons/Adwaita/16x16/apps/:/usr/share/icons/Adwaita/16x16/categories/:/usr/share/icons/Adwaita/16x16/devices/:/usr/share/icons/Adwaita/16x16/emblems/:/usr/share/icons/Adwaita/16x16/emotes/:/usr/share/icons/Adwaita/16x16/mimetypes/:/usr/share/icons/Adwaita/16x16/places/:/usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/gnome/16x16/actions/:/usr/share/icons/gnome/16x16/animations/:/usr/share/icons/gnome/16x16/apps/:/usr/share/icons/gnome/16x16/categories/:/usr/share/icons/gnome/16x16/devices/:/usr/share/icons/gnome/16x16/emblems/:/usr/share/icons/gnome/16x16/emotes/:/usr/share/icons/gnome/16x16/mimetypes/:/usr/share/icons/gnome/16x16/places/:/usr/share/icons/gnome/16x16/status/
+    icon_folders = /usr/share/icons/Adwaita/16x16/actions:/usr/share/icons/Adwaita/16x16/apps:/usr/share/icons/Adwaita/16x16/categories:/usr/share/icons/Adwaita/16x16/devices:/usr/share/icons/Adwaita/16x16/emblems:/usr/share/icons/Adwaita/16x16/emotes:/usr/share/icons/Adwaita/16x16/mimetypes:/usr/share/icons/Adwaita/16x16/places:/usr/share/icons/Adwaita/16x16/status:/usr/share/icons/hicolor/16x16/actions:/usr/share/icons/hicolor/16x16/apps:/usr/share/icons/hicolor/16x16/devices:/usr/share/icons/hicolor/16x16/mimetypes:/usr/share/icons/hicolor/16x16/status:/usr/share/icons/hicolor/16x16/stock/navigation
+
 
 [frame]
     width = 1
