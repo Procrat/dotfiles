@@ -2,21 +2,21 @@
 #
 # Plays a song or sound after a given period or at a given time.
 
-DEFAULT_SONG="$HOME/music/Arctic Monkeys Discography/I Bet You Look Good on the Dancefloor.mp3"
-
 set -euo pipefail
 
 usage() {
     echo "Usage: $(basename $0) [options] [[hours] minutes] seconds" >&2
     echo "       $(basename $0) [options] -d hour[:minute[:second]]" >&2
     echo "where options include:" >&2
-    echo "    -f file    Sound file to play" >&2
+    echo "    -f file     Sound file to play" >&2
+    echo "    -m message  Notification to send when alarm rings" >&2
 }
 
 seconds=
 song=
+message=
 
-while getopts "d:f:" option; do
+while getopts "d:f:m:" option; do
     case $option in
         d)
             datum=$(date -d "$OPTARG" +'%s')
@@ -25,6 +25,9 @@ while getopts "d:f:" option; do
             ;;
         f)
             song="$OPTARG"
+            ;;
+        m)
+            message="$OPTARG"
             ;;
         ?)
             usage
@@ -50,8 +53,12 @@ if [[ -z "$seconds" ]]; then
     done
 fi
 
-if [[ -z "$song" ]]; then
-    song="$DEFAULT_SONG"
-fi
-
-(sleep $seconds && vlc -q "$song") &
+(sleep $seconds && {
+    if [[ -n "$song" ]]; then
+        vlc -q "$song"
+    else
+        canberra-gtk-play -i alarm-clock-elapsed -V 15 &
+        [[ -z "$message" ]] && message='AAAARGH! SNEL, HAAL DINGEN VAN HET VUUR OF UIT DE OVEN OF ZO!!1!'
+        notify-send -u critical -a ALARM -i alarm-symbolic.symbolic "$message"
+    fi
+}) &
