@@ -1,0 +1,9 @@
+[Unit]
+Description=Time Awareness Daemon
+
+[Service]
+Type=simple
+ExecStart=/home/procrat/bin/tad
+
+[Install]
+WantedBy=default.target

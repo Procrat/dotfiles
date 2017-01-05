@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Time Awareness Daemon
+#
+# Makes me time aware in an enjoyable way. Plays different tunes every hour,
+# every other half hour and every other quarter of an hour.
+
+set -euo pipefail
+
+
+tunes=(
+    'synth pl G2 pl B2 delay 0 .1'
+    'synth pl G2 pl B2 pl D3 pl G3 delay 0 .1 .2 .3'
+    'synth pl G2 pl B2 pl D3 pl G3 pl D4 pl G4 delay 0 .1 .2 .3 .4 .5'
+)
+
+for (( quarter = 1; ; quarter = (quarter + 1) % 4 )); do
+    sleep 15m
+    if [[ $quarter -eq 0 ]]; then
+        ((beeps = 2))
+    else
+        ((beeps = (quarter - 1) % 2, 1))
+    fi
+    play -n ${tunes[$beeps]} remix - fade 0 4 .1 norm -1
+done
