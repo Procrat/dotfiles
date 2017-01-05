@@ -7,8 +7,6 @@ call plug#begin()
 Plug 'alfredodeza/khuno.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'benekastah/neomake'
-Plug 'cespare/vim-toml'
-Plug 'chase/vim-ansible-yaml'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
@@ -33,6 +31,7 @@ Plug 'rhysd/committia.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-endwise'
@@ -373,6 +372,10 @@ let g:NERDTreeChDirMode = 2
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_aggregate_errors = 1
 " let g:syntastic_auto_jump = 2
+" }}}
+" sheerun/vim-polyglot {{{
+" I have better alternative plugins for the following languages
+let g:polyglot_disabled = ['latex', 'markdown', 'octave', 'python', 'rust', 'tmux', 'typescript']
 " }}}
 " SirVer/ultisnips {{{
 let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
