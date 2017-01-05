@@ -40,11 +40,7 @@ unclutter &
 # Start lightweight composite manager
 compton -b &
 
-# Launch some programs
-firefox-beta &
-franz &
-
-# Part of the workaround for the known struts bug in XMonad 0.12
-xdotool key --delay 300 'super+b' &
+# Start tracking me
+rescuetime &
 
 exec xmonad &>"$XDG_RUNTIME_DIR/xsession-errors"

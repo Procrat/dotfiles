@@ -33,6 +33,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
