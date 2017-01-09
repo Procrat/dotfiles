@@ -4,6 +4,6 @@
 [submodule "xmonad/singlespacing"]
 	path = xmonad/singlespacing
 	url = git@github.com:Procrat/xmonad-singlespacing
-[submodule "xmonad/contextswitch"]
-	path = xmonad/contextswitch
-	url = git@github.com:Procrat/xmonad-contextswitch
+[submodule "xmonad/contexts"]
+	path = xmonad/contexts
+	url = git@github.com:Procrat/xmonad-contexts
