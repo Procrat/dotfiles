@@ -691,6 +691,9 @@ augroup vimrc_misc
     " Compile pandoc-markdown async on save
     au BufWritePost *.md if &ft ==# 'pandoc' | Neomake! | endif
 
+    " Run `cargo` when saving a Rust file
+    au BufWritePost *.rs Neomake! cargo
+
     " Compile TypeScript and show errors on save
     au BufWritePost *.ts call s:MakeAndCopen()
 
