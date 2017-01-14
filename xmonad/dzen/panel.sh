@@ -11,7 +11,6 @@ screens=($(xrandr | awk '/ connected/ { if ($3 == "primary") print $4; else prin
 margin=15
 panel_height=$(cat "$script_dir/panel_height")
 font="Trebuchet MS:size=11"  # Fuck it, I'm hardcoding this shit
-XPM_ICONS_WIDTH=0  # Fuck it, I'm hardcoding this shit
 
 
 uniq_linebuffered() {
@@ -24,15 +23,15 @@ without_dzen_tags() {
 
 extract_icon_width() {
     echo "$@" | \
-        # Extract a list of "^i(....xbm)" tags
+        # Extract a list of "^i(....x[bp]m)" tags
         sed 's/\^i([^)]*)/\n&\n/g' | \
         grep '^\^i(' | \
-        # Grep for the defined width in these XBM-files
-        sed 's/\^i(\([^)]*\))/grep width \1/' | \
+        # Grep for the defined width in these XBM-files and XPM-files
+        sed -e 's_\^i(\(.*xpm\))_sed -n '\''/^"/{s\/"\\([0-9]\\+\\).*/\\1/p;q}'\'' \1_' \
+            -e 's_\^i(\(.*xbm\))_sed -n "/width/{s/.*width \\([0-9]\\+\\)/\\1/p;q}" \1_' | \
         bash | \
         # Sum these widths
-        sed 's/.*\s\+\([0-9]\+\)\s*/\1/' | \
-        sed ':l;N;tl;s/\n/+/g' | \
+        sed -n 'G;h;$s/\n/+/g;s/+$//p' | \
         bc
 }
 
@@ -144,8 +143,8 @@ dzen_on_screen() {
         # Calculate padding between left and right side
         right_text_only=$(without_dzen_tags "$right")
         text_width=$($script_dir/xftwidth "$font" "$right_text_only")
-        xbm_icons_width=$(extract_icon_width "$right")
-        width=$((text_width + xbm_icons_width + XPM_ICONS_WIDTH))
+        icons_width=$(extract_icon_width "$right")
+        width=$((text_width + icons_width))
 
         # Print padding and right side
         echo "^p(_RIGHT)^p($((-width - 6)))$right"
