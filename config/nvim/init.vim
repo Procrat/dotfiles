@@ -7,6 +7,7 @@ call plug#begin()
 Plug 'alfredodeza/khuno.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'benekastah/neomake'
+Plug 'bitc/vim-hdevtools'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
@@ -472,6 +473,18 @@ nnoremap <silent><leader>x <Esc>:Khuno show<CR>
 "   gJ  (with the cursor on the first line of a block) to join a block into a
 "       single-line statement.
 " }}}
+" Plug 'bitc/vim-hdevtools' {{{
+augroup haskell_mappings
+    autocmd!
+    au FileType haskell call s:HaskellMappings()
+    function! s:HaskellMappings()
+"   F1  Show type information. Multiple presses for expansion
+        nnoremap <buffer> <F1> :HdevtoolsType<CR>
+"   F2  Clear the type information
+        nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+    endfunction
+augroup END
+" }}}
 " christoomey/vim-tmux-navigator {{{
 "   M-[hjkl]  Move around between vim and tmux panes
 "             (This requires additional settings in .tmux.conf)
@@ -680,6 +693,13 @@ augroup vimrc_misc
 
     " Compile TypeScript and show errors on save
     au BufWritePost *.ts call s:MakeAndCopen()
+
+    " Set GHC options when configuring XMonad
+    au BufNewFile,BufRead ~/.xmonad/xmonad.hs
+        \ let g:hdevtools_options = '-g-ilib' |
+        \ let b:neomake_haskell_hdevtools_args =
+            \ ['--verbosity', 'silent', 'exec', '--',
+            \  'hdevtools', 'check', '-g-Wall', '-g-ilib']
 
     " Automatic renaming of tmux window
     if exists('$TMUX')
