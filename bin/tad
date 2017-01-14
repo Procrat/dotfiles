@@ -21,5 +21,5 @@ for (( quarter = 1; ; quarter = (quarter + 1) % 4 )); do
     else
         ((beeps = (quarter - 1) % 2, 1))
     fi
-    play -n ${tunes[$beeps]} remix - fade 0 4 .1 norm -1
+    play -n ${tunes[$beeps]} remix - fade 0 4 .1 norm -1 vol .6
 done
