@@ -7,7 +7,7 @@ script_dir=$(dirname "$BASH_SOURCE")
 source $HOME/.colors
 
 
-screens=($(xrandr | awk '/ connected/ { print $3 }'))
+screens=($(xrandr | awk '/ connected/ { if ($3 == "primary") print $4; else print $3 }'))
 margin=15
 panel_height=$(cat "$script_dir/panel_height")
 font="Trebuchet MS:size=11"  # Fuck it, I'm hardcoding this shit
@@ -103,7 +103,7 @@ dzen_on_screen() {
 
     ### Parser and layouter ###
 
-    SEPARATOR="  ^fg($BACKGROUND_HIGHLIGHT_COLOR)^r(1x$((panel_height - 1)))^fg() "
+    SEPARATOR=" ^fg($BACKGROUND_HIGHLIGHT_COLOR)^r(1x$((panel_height - 1)))^fg() "
 
     visible=true
     date=""
@@ -126,19 +126,19 @@ dzen_on_screen() {
 
         # Arch icon
         echo -n "   ^fg($ACCENT_COLOR)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
-        echo -n "$SEPARATOR"
+        echo -n " $SEPARATOR"
 
         # Tags and window title
         echo -n "^fg()^bg()$wm_info"
 
         # Right side
         right="$date   "
-        right="$battery_status$SEPARATOR $right"
+        right="$battery_status $SEPARATOR $right"
         if [[ -n "$network_status" ]]; then
-            right="$network_status$SEPARATOR $right"
+            right="$network_status $SEPARATOR $right"
         fi
         if [[ -n "$dropbox_status" ]]; then
-            right="$dropbox_status$SEPARATOR $right"
+            right="$dropbox_status $SEPARATOR $right"
         fi
 
         # Calculate padding between left and right side
@@ -148,7 +148,7 @@ dzen_on_screen() {
         width=$((text_width + xbm_icons_width + XPM_ICONS_WIDTH))
 
         # Print padding and right side
-        echo "^p(_RIGHT)^p(-$width)$right"
+        echo "^p(_RIGHT)^p($((-width - 6)))$right"
 
 
         ### Data handling ###
