@@ -6,7 +6,6 @@ call plug#begin()
 " -- Small plugins (less than .01s)
 Plug 'alfredodeza/khuno.vim'
 Plug 'AndrewRadev/switch.vim'
-Plug 'benekastah/neomake'
 Plug 'bitc/vim-hdevtools'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -27,6 +26,7 @@ Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
+Plug 'neomake/neomake'
 Plug 'Raimondi/delimitMate'
 Plug 'rhysd/committia.vim'
 Plug 'rhysd/clever-f.vim'
