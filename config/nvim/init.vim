@@ -81,11 +81,11 @@ augroup load_us_ycm
 augroup END
 
 
-filetype plugin indent on
+" filetype plugin indent on (default in NeoVim)
 
 " }}}
 " Colorscheme settings {{{
-syntax on
+" syntax on " (default in NeoVim)
 
 let g:base16colorspace = 256  " Access colors present in 256 colorspace
 colorscheme base16-mocha
