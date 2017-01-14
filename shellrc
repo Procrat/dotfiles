@@ -14,18 +14,12 @@ export LESS='-R -M -W -i'
 export PAGER='less'
 
 # Editor settings
-has_emacs="$(which emacsclient 2>/dev/null)"
 has_nvim="$(which nvim 2>/dev/null)"
-if [[ -n "$has_emacs" ]]; then
-    export EDITOR=emc
-    export VISUAL=emc
-    if [[ -n "$has_nvim" ]]; then
-        export ALTERNATE_EDITOR=nvim
-    fi
-elif [[ -n "$has_nvim" ]]; then
+if [[ -n "$has_nvim" ]]; then
     export EDITOR=nvim
     export VISUAL=nvim
 fi
+
 # Disable Ctrl+S for scrolling so we can use it for the save shortcut in vim,
 # but only for interactive shells of course
 [[ $- == *i* ]] && stty -ixon
