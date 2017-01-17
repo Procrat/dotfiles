@@ -1,37 +1,45 @@
-import XMonad
-import XMonad.Actions.CycleWS
-import XMonad.Actions.SpawnOn
-import XMonad.Config.Desktop
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.FadeInactive
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.UrgencyHook
-import XMonad.Layout.NoBorders
-import XMonad.Layout.WindowNavigation
-import XMonad.Util.Dmenu
-import XMonad.Util.EZConfig
-import XMonad.Util.Run
+{-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE RankNTypes     #-}
 
-import Data.List
-import Data.Maybe
-import Data.Monoid
-import System.Exit
-import System.IO
+import           Data.List                      (elemIndex)
+import           Data.Maybe                     (fromJust)
+import           Data.Monoid                    (All)
+import           System.Exit                    (exitSuccess)
+import qualified System.IO                      as IO
 
-import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
+import           XMonad
+import           XMonad.Actions.CycleWS         (Direction1D (..), WSType (..),
+                                                 moveTo, nextWS, prevWS,
+                                                 shiftToNext, shiftToPrev,
+                                                 toggleWS)
+import           XMonad.Actions.SpawnOn         (manageSpawn, spawnHere)
+import           XMonad.Config.Desktop          (desktopConfig,
+                                                 desktopLayoutModifiers)
+import qualified XMonad.Hooks.DynamicLog        as DL
+import           XMonad.Hooks.EwmhDesktops      (fullscreenEventHook)
+import           XMonad.Hooks.FadeInactive      (fadeInactiveLogHook)
+import           XMonad.Hooks.ManageDocks       (docksEventHook)
+import qualified XMonad.Hooks.ManageHelpers     as MH
+import           XMonad.Hooks.UrgencyHook       (focusHook, withUrgencyHook)
+import           XMonad.Layout.NoBorders        (smartBorders)
+import           XMonad.Layout.WindowNavigation (Direction2D (..),
+                                                 Navigate (..),
+                                                 windowNavigation)
+import qualified XMonad.StackSet                as W
+import           XMonad.Util.Dmenu              (menu)
+import qualified XMonad.Util.EZConfig           as EZ
+import           XMonad.Util.Run                (spawnPipe)
 
-import XMonad.Layout.SingleSpacing
-import qualified XMonad.Actions.Contexts as C
+import qualified XMonad.Actions.Contexts        as C
+import           XMonad.Layout.SingleSpacing    (spacing)
 
 
+main :: IO ()
 main = do
     panelHandle <- spawnPipe "~/.xmonad/dzen/panel.sh"
 
     xmonad $ withUrgencyHook focusHook $ baseConfig {
-        keys            = \conf -> mkKeymap conf (myKeyBindings conf),
+        keys            = \conf -> EZ.mkKeymap conf (myKeyBindings conf),
         layoutHook      = myLayout,
         manageHook      = myManageHook <+> manageHook baseConfig,
         handleEventHook = myEventHook <+> handleEventHook baseConfig,
@@ -46,17 +54,18 @@ baseConfig = desktopConfig {
     clickJustFocuses   = False,
     borderWidth        = 1,
     modMask            = mod4Mask,
-    workspaces         = ["im", "todo"] ++ map show [3..9],
+    workspaces         = ["im", "todo"] ++ map show ([3..9] :: [Int]),
     normalBorderColor  = "#534636",
     focusedBorderColor = "#D0C8C6"
 }
 
 
+myKeyBindings :: forall (l :: * -> *). XConfig l -> [(String, X ())]
 myKeyBindings conf =
     -- Launchers
-    [ ("M-<Return>", spawnHere $ XMonad.terminal conf)
+    [ ("M-<Return>", spawnHere $ terminal conf)
     , ("M-S-<Return>", spawnHere "xterm")
-    , ("M-o", spawnHere "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu -q -f\" --term=urxvtc")
+    , ("M-o", spawnHere myProgramLauncher)
     , ("M-r", spawnHere "urxvtc -e ranger")
     , ("M-i", spawnHere "rofi-pass")
 
@@ -114,17 +123,18 @@ myKeyBindings conf =
     ] ++
 
     -- M-[1..9], Switch to workspace N
-    -- M-S-[1..9], ("Moveclient to workspace N
+    -- M-S-[1..9], Move client to workspace N
     [("M-" ++ mask ++ show wsid, windows $ action workspace)
-        | (workspace, wsid) <- zip (XMonad.workspaces conf) [1..9]
+        | (workspace, wsid) <- zip (workspaces conf) ([1..9] :: [Int])
         , (action, mask) <- [(W.greedyView, ""), (W.shift, "S-")]] ++
 
     -- M-{w,e}, Switch to physical/Xinerama screens 1 or 2
-    -- M-S-{w,e}, ("Moveclient to screen 1 or 2
+    -- M-S-{w,e}, Move client to screen 1 or 2
     [("M-" ++ mask ++ key, screenWorkspace screen >>= flip whenJust (windows . action))
         | (screen, key) <- zip [0..] ["w", "e"]
         , (action, mask) <- [(W.view, ""), (W.shift, "S-")]] ++
 
+    -- Media keys
     [ ("<XF86AudioRaiseVolume>", spawn "~/.xmonad/dzen/dvolume.sh -i 3")
     , ("<XF86AudioLowerVolume>", spawn "~/.xmonad/dzen/dvolume.sh -d 3")
     , ("<XF86AudioMute>", spawn "~/.xmonad/dzen/dvolume.sh -t")
@@ -135,25 +145,23 @@ myKeyBindings conf =
     , ("<XF86MonBrightnessDown>", spawn "~/.xmonad/dzen/dbrightness.sh -15")
     ]
 
+myProgramLauncher :: String
+myProgramLauncher =
+    "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu -q -f\" --term=urxvtc"
+
 
 myLayout = modifiers layouts
   where
-    modifiers = avoidStruts . smartBorders . spacing 15
-                . desktopLayoutModifiers . windowNavigation
-    layouts = Tall nmaster delta ratio ||| Full
-    -- The default number of windows in the master pane
-    nmaster = 1
-    -- Default proportion of screen occupied by master pane
-    ratio   = 1/2
-    -- Percent of screen to increment by when resizing panes
-    delta   = 3/100
+    modifiers =
+        desktopLayoutModifiers . smartBorders . spacing 15 . windowNavigation
+    layouts = Tall 1 (3 / 100) (54 / 100) ||| Full
 
 
 myManageHook :: ManageHook
 myManageHook = composeAll
     [ manageSpawn
-    , isDialog                      --> doFloat
-    , isFullscreen                  --> doFullFloat
+    , MH.isDialog                   --> doFloat
+    , MH.isFullscreen               --> MH.doFullFloat
     , className =? "Gimp"           --> doFloat
     , className =? "Xmessage"       --> doFloat
     , resource  =? "desktop_window" --> doIgnore
@@ -165,29 +173,29 @@ myEventHook :: Event -> X All
 myEventHook = fullscreenEventHook <+> docksEventHook
 
 
-myLogHook :: Handle -> X ()
+myLogHook :: IO.Handle -> X ()
 myLogHook panelHandle = fadeInactiveLogHook 0.9 <+> updatePanel panelHandle
 
-updatePanel :: Handle -> X ()
-updatePanel panelHandle = dynamicLogWithPP $ def
-    { ppCurrent         = \ws -> clickify ws $ pad $ dzenColor "#8AB3B5" "" ws
-    , ppHidden          = \ws -> clickify ws $ pad $ dzenColor "" "#534636" ws
-    , ppHiddenNoWindows = \ws -> clickify ws $ pad $ dzenColor "#7E705A" "" ws
-    , ppLayout          = pad . dzenColor "#B8AFAD" ""
-    , ppUrgent          = \ws -> clickify ws $ pad $ dzenColor "#F4BC87" "" ws
-    , ppTitle           = dzenColor "#B8AFAD" "" . shorten 100
-    , ppWsSep           = ""
-    , ppSep             = pad . pad $ dzenColor "#534636" "" "^r(1x27)"
-    , ppOutput          = hPutStrLn panelHandle
+updatePanel :: IO.Handle -> X ()
+updatePanel panelHandle = DL.dynamicLogWithPP $ def
+    { DL.ppCurrent         = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#8AB3B5" "" ws
+    , DL.ppHidden          = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#B8AFAD" "" ws
+    , DL.ppHiddenNoWindows = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#7E705A" "" ws
+    , DL.ppLayout          = DL.pad . DL.dzenColor "#B8AFAD" ""
+    , DL.ppUrgent          = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#F4BC87" "" ws
+    , DL.ppTitle           = DL.dzenColor "#B8AFAD" "" . DL.shorten 100
+    , DL.ppWsSep           = ""
+    , DL.ppSep             = DL.pad . DL.pad $ DL.dzenColor "#534636" "" "^r(1x27)"
+    , DL.ppOutput          = IO.hPutStrLn panelHandle
     }
-    where
-      clickify ws = wrap ("^ca(1,wmctrl -s " ++ show wsid ++ ")") "^ca()"
-        where wsid = fromJust $ elemIndex ws (XMonad.workspaces baseConfig)
+  where
+    clickify ws = DL.wrap ("^ca(1,wmctrl -s " ++ show wsid ++ ")") "^ca()"
+        where wsid = fromJust $ elemIndex ws (workspaces baseConfig)
 
 
 myStartupHook :: X ()
 myStartupHook = do
-    checkKeymap baseConfig (myKeyBindings baseConfig)
+    EZ.checkKeymap baseConfig (myKeyBindings baseConfig)
     addFullscreenSupport
     -- Temporary hack awaiting the struts cache fix for docks (in v0.13)
     sendMessage ToggleStruts
@@ -201,9 +209,10 @@ addFullscreenSupport = withDisplay $ \dpy -> do
     io $ changeProperty32 dpy wm supportProp atomType propModeAppend
                           [fromIntegral fullscreenSupport]
 
+
 safeMenu :: [String] -> X String
 safeMenu options = do
-  uninstallSignalHandlers
-  choice <- menu "/home/procrat/bin/mydmenu" options
-  installSignalHandlers
-  return choice
+    uninstallSignalHandlers
+    choice <- menu "$HOME/bin/mydmenu" options
+    installSignalHandlers
+    return choice

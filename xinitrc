@@ -43,4 +43,4 @@ compton -b &
 # Start tracking me
 rescuetime &
 
-exec xmonad &>"$XDG_RUNTIME_DIR/xsession-errors"
+exec xmonad &>>"$XDG_RUNTIME_DIR/xsession-errors"
