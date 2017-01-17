@@ -68,6 +68,7 @@ myKeyBindings conf =
     , ("M-o", spawnHere myProgramLauncher)
     , ("M-r", spawnHere "urxvtc -e ranger")
     , ("M-i", spawnHere "rofi-pass")
+    , ("M-b", spawnHere "xdg-open http://")
 
     -- Quit xmonad
     , ("M-S-q", io exitSuccess)
