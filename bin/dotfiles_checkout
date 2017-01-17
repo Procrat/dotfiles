@@ -15,4 +15,5 @@ xrdb "$HOME/.Xresources"
 
 tmux source-file "$HOME/.tmux.conf"
 
-herbstclient reload
+xmonad --recompile
+xmonad --restart
