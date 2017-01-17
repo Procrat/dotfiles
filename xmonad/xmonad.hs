@@ -10,7 +10,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.NoBorders
 import XMonad.Layout.WindowNavigation
-import XMonad.ManageHook
+import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
 
@@ -24,6 +24,7 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 import XMonad.Layout.SingleSpacing
+import qualified XMonad.Actions.Contexts as C
 
 
 main = do
@@ -98,6 +99,10 @@ myKeyBindings conf =
     , ("M-.", sendMessage (IncMasterN (-1)))
     --   Toggle struts
     , ("M-b", sendMessage ToggleStruts)
+
+    -- Context management
+    , ("M-s", C.listContextNames >>= safeMenu >>= C.createAndSwitchContext)
+    , ("M-S-s", C.listContextNames >>= safeMenu >>= C.deleteContext >> return ())
 
     -- Workspace management
     , ("M-d", prevWS)
@@ -195,3 +200,10 @@ addFullscreenSupport = withDisplay $ \dpy -> do
     fullscreenSupport <- getAtom "_NET_WM_STATE_FULLSCREEN"
     io $ changeProperty32 dpy wm supportProp atomType propModeAppend
                           [fromIntegral fullscreenSupport]
+
+safeMenu :: [String] -> X String
+safeMenu options = do
+  uninstallSignalHandlers
+  choice <- menu "/home/procrat/bin/mydmenu" options
+  installSignalHandlers
+  return choice
