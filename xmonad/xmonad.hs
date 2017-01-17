@@ -107,8 +107,6 @@ myKeyBindings conf =
     --   Increment/decrement the number of windows in the master area
     , ("M-,", sendMessage (IncMasterN 1))
     , ("M-.", sendMessage (IncMasterN (-1)))
-    --   Toggle struts
-    , ("M-b", sendMessage ToggleStruts)
 
     -- Context management
     , ("M-s", C.listContextNames >>= safeMenu >>= C.createAndSwitchContext)
@@ -198,8 +196,6 @@ myStartupHook :: X ()
 myStartupHook = do
     EZ.checkKeymap baseConfig (myKeyBindings baseConfig)
     addFullscreenSupport
-    -- Temporary hack awaiting the struts cache fix for docks (in v0.13)
-    sendMessage ToggleStruts
 
 addFullscreenSupport :: X ()
 addFullscreenSupport = withDisplay $ \dpy -> do
