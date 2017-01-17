@@ -210,6 +210,6 @@ addFullscreenSupport = withDisplay $ \dpy -> do
 safeMenu :: [String] -> X String
 safeMenu options = do
     uninstallSignalHandlers
-    choice <- menu "$HOME/bin/mydmenu" options
+    choice <- menu "mydmenu" options
     installSignalHandlers
     return choice
