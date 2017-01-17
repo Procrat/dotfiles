@@ -698,11 +698,12 @@ augroup vimrc_misc
     au BufWritePost *.ts call s:MakeAndCopen()
 
     " Set GHC options when configuring XMonad
-    au BufNewFile,BufRead ~/.xmonad/xmonad.hs
-        \ let g:hdevtools_options = '-g-ilib' |
+    let s:xmonad_lib = $HOME . '/.xmonad/lib'
+    au BufNewFile,BufRead xmonad.hs
+        \ let g:hdevtools_options = '-g-i' . s:xmonad_lib |
         \ let b:neomake_haskell_hdevtools_args =
             \ ['--verbosity', 'silent', 'exec', '--',
-            \  'hdevtools', 'check', '-g-Wall', '-g-ilib']
+            \  'hdevtools', 'check', '-g-Wall', '-g-i' . s:xmonad_lib]
 
     " Automatic renaming of tmux window
     if exists('$TMUX')
