@@ -253,6 +253,8 @@ augroup END
 " Plugin settings {{{
 " benekastah/neomake {{{
 let g:neomake_open_list = 2
+" We already have `cargo` as project maker
+let g:neomake_rust_enabled_makers = []
 " }}}
 " bling/vim-airline {{{
 let g:airline_powerline_fonts = 1
