@@ -17,7 +17,6 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
 Plug 'jvirtanen/vim-octave'
-" Plug 'klen/python-mode'
 Plug 'Konfekt/FastFold'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'leafgarland/typescript-vim'
@@ -62,7 +61,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-completer --tern-completer', 'on': [] }
 
 " Unmanaged plugins
-Plug '~/.config/nvim/unplugged/eclim', { 'for': 'java', 'frozen': 1 }
+" Plug '~/.config/nvim/unplugged/eclim', { 'for': 'java', 'frozen': 1 }
 
 call plug#end()
 
@@ -75,11 +74,11 @@ augroup load_us_ycm
 augroup END
 
 
-" filetype plugin indent on (default in NeoVim)
+" filetype plugin indent on  " (default in NeoVim)
 
 " }}}
 " Colorscheme settings {{{
-" syntax on " (default in NeoVim)
+" syntax on  " (default in NeoVim)
 
 let g:base16colorspace = 256  " Access colors present in 256 colorspace
 colorscheme base16-mocha
@@ -278,18 +277,6 @@ let g:limelight_eop = '\ze\n\s*\n\S'
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 " The silver searcher is fast enough so that CtrlP doesn't need to cache
 let g:ctrlp_use_caching = 0
-" }}}
-" klen/python-mode {{{
-" let g:pymode_trim_whitespaces = 0  " This already happens anyway
-" let g:pymode_doc = 0  " Doesn't work when I need it
-" let g:pymode_virtualenv = 0  " Don't need it
-" let g:pymode_run = 0  " Don't use it (because it's not interactive)
-" let g:pymode_breakpoint_cmd = 'import pudb; pudb.set_trace()  # TODO breakpoint'
-" let g:pymode_lint = 0  " Use flake8 for syntax checking
-" let g:pymode_lint_checker = 'pyflakes'
-" let g:pymode_lint_ignore = 'C0103,C0111,E114,E116,E265,E702'
-" let g:pymode_rope = 0  " Rope just sucks
-" let g:pymode_syntax = 0  " Already works out-of-the-box
 " }}}
 " LaTeX-Box-Team/LaTeX-Box {{{
 let g:LatexBox_Folding = 1
@@ -513,43 +500,6 @@ nnoremap <leader>l :Limelight!!<CR>
 let g:ctrlp_map = '<leader>t'  " Behave like command-t
 let g:ctrlp_cmd = 'CtrlPMixed'
 nnoremap <leader>g :CtrlPTag<CR>
-" }}}
-" klen/python-mode {{{
-"   The following evironments are defined:
-"     C   Class
-"     M   Method or function
-"   which makes the following commands possible:
-"     [[  Jump to previous class or function (normal, visual, operator modes)
-"     ]]  Jump to next class or function  (normal, visual, operator modes)
-"     [M  Jump to previous class or method (normal, visual, operator modes)
-"     ]M  Jump to next class or method (normal, visual, operator modes)
-"     aC  Select a class. Ex: vaC, daC, yaC, caC (normal, operator modes)
-"     iC  Select inner class. Ex: viC, diC, yiC, ciC (normal, operator modes)
-"     aM  Select a function or method. Ex: vaM, daM, yaM, caM (normal, operator modes)
-"     iM  Select inner function or method. Ex: viM, diM, yiM, ciM (normal, operator modes)
-"
-"   All the following is currently not enabled:
-"
-"   K          Show pydoc
-"   <leader>g  Runs the python code
-" let g:pymode_run_bind = '<leader>g'
-"   <leader>b  Sets a breakpoint
-"
-"   Rope:
-" let g:pymode_rope_global_prefix = "<leader>r"
-"     <C-Space>  Autocompletion
-"     <C-c>d     Show internal doc
-"     <C-c>g     Go to definition
-"     <C-c>rr    Rename object onder cursor
-"     <C-c>r1r   Rename current module
-"     <C-c>ro    Organize imports (sort + remove unused)
-"     <C-c>ra    Auto import object onder cursor
-"     <C-c>r1p   Convert module to package
-"     <C-c>rm    Extract method
-"     <C-c>rl    Extract variable
-"     <C-c>ru    Automagically finds places where a function can be used
-"     <C-c>rv    Move method/class
-"     <C-c>rs    Change method/function signature
 " }}}
 " LaTeX-Box-Team/LaTeX-Box {{{
 "   <leader>ll  Compile with latexmk.
