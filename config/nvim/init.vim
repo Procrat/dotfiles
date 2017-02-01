@@ -3,8 +3,7 @@ scriptencoding 'utf-8'
 " Plugins {{{
 call plug#begin()
 
-" -- Small plugins (less than .01s)
-Plug 'alfredodeza/khuno.vim'
+" -- Small plugins (less than .01s on boot)
 Plug 'AndrewRadev/switch.vim'
 Plug 'bitc/vim-hdevtools'
 Plug 'chriskempson/base16-vim'
@@ -34,6 +33,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-endwise'
@@ -49,8 +49,6 @@ Plug 'vim-scripts/JavaDecompiler.vim'
 " -- Slightly bigger plugins
 " Load: .02s
 Plug 'ctrlpvim/ctrlp.vim'
-" Load: .10s
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Load: .14s
 Plug 'tpope/vim-rails'
 " Load: .25s (for Rails)
@@ -61,11 +59,6 @@ Plug 'vim-airline/vim-airline-themes'
 " Load: .93s (for Rails)
 " Defer to insert mode
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-completer --tern-completer', 'on': [] }
-
-" -- Massive load time
-" Load: .04s when not used; more than 5s for e.g. Python files
-" If `let g:syntastic_enable_signs=0` is used, it only takes .07s.
-" Plug 'scrooloose/syntastic'
 
 " Unmanaged plugins
 Plug '~/.config/nvim/unplugged/eclim', { 'for': 'java', 'frozen': 1 }
@@ -466,10 +459,6 @@ nnoremap <leader>B :call Blame()<CR>
 
 " }}}
 " Plugin mappings {{{
-" alfredodeza/khuno.vim {{{
-"   <leader>x   Show errors in a quickfix-like pane
-nnoremap <silent><leader>x <Esc>:Khuno show<CR>
-" }}}
 " AndrewRadev/splitjoin.vim {{{
 "   gS  Split a one-liner into multiple lines
 "   gJ  (with the cursor on the first line of a block) to join a block into a
