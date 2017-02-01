@@ -56,6 +56,7 @@ dotfiles=(
     config/mimeapps.list
     config/nvim/init.vim
     config/nvim/ycm_extra_conf.py
+    config/pylintrc
     config/ranger/rc.conf
     config/systemd
     config/user-dirs.dirs
