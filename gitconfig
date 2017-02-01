@@ -43,7 +43,7 @@
     vdf = difftool
     vdfc = difftool --cached
     lg = log --stat
-    lgp = log --stat -p
+    lgp = log --stat -p -b -w -B --color-words
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     unstage = reset HEAD --
