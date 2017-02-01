@@ -212,6 +212,6 @@ addFullscreenSupport = withDisplay $ \dpy -> do
 safeMenu :: [String] -> X String
 safeMenu options = do
     uninstallSignalHandlers
-    choice <- menu "mydmenu" options
+    choice <- menu "/home/procrat/bin/mydmenu" options
     installSignalHandlers
     return choice
