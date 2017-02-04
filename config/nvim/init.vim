@@ -48,6 +48,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-scripts/JavaDecompiler.vim'
 
 " Completion plugins
+Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'eagletmt/neco-ghc'
 Plug 'racer-rust/vim-racer'
@@ -383,6 +384,7 @@ let g:deoplete#enable_at_startup = 1
 let g:necoghc_enable_detailed_browse = 1
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+let g:SuperTabDefaultCompletionType = 'context'
 " }}}
 " }}}
 " General mappings {{{
@@ -572,12 +574,10 @@ nnoremap <silent> <leader>m :TagbarToggle<CR>
 nnoremap <leader>n :NERDTreeToggle<CR>
 " }}}
 " SirVer/ultisnips {{{
-"   ç        Expand ultisnips
+"   ß        Expand ultisnips
 let g:UltiSnipsExpandTrigger='ß'
-"   <Tab>    Move to next editable part in the snippet
-let g:UltiSnipsJumpForwardTrigger='<Tab>'
-"   <S-Tab>  Move the previous editable part in the snippet
-let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
+"   <C-j>    Move to next editable part in the snippet
+"   <C-k>  Move the previous editable part in the snippet
 " }}}
 " tpope/vim-unimpaired {{{
 "   A lot of mapping starting with [ and ]. A full list can be found here:
@@ -594,6 +594,10 @@ let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 "endfunction
 "" }}}
 " Comletion mappings {{{
+let g:SuperTabContextDefaultCompletionType = '<C-n>'
+let g:SuperTabMappingForward = '<silent> <Tab>'
+let g:SuperTabMappingBackward = '<silent> <S-Tab>'
+
 " I want for functionalities when pressing <CR> in insert mode
 " - After delimiter -> delimitMate -> <Plug>delimitMateCR
 " - After endwise keyword -> endwise -> <Plug>DiscretionaryEnd
