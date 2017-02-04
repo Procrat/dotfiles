@@ -32,6 +32,7 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
+Plug 'Shougo/neopairs.vim'
 Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'terryma/vim-multiple-cursors'
@@ -46,6 +47,15 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-scripts/JavaDecompiler.vim'
 
+" Completion plugins
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'eagletmt/neco-ghc'
+Plug 'racer-rust/vim-racer'
+Plug 'Shougo/neco-vim'
+Plug 'zchee/deoplete-clang'
+Plug 'zchee/deoplete-jedi'
+Plug 'zchee/deoplete-zsh'
+
 " -- Slightly bigger plugins
 " Load: .02s
 Plug 'ctrlpvim/ctrlp.vim'
@@ -56,23 +66,17 @@ Plug 'AndrewRadev/splitjoin.vim'
 " Load: .30s
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Load: .93s (for Rails)
-" Defer to insert mode
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-completer --tern-completer', 'on': [] }
 
 " Unmanaged plugins
 " Plug '~/.config/nvim/unplugged/eclim', { 'for': 'java', 'frozen': 1 }
 
 call plug#end()
 
-" Defer loading of ultisnips and YouCompleteMe to insert mode
-augroup load_us_ycm
+" Defer loading of some plugins to insert mode
+augroup load_insert_plugins
     autocmd!
-    autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                       \| autocmd! load_us_ycm
-    autocmd User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
+    autocmd InsertEnter * call plug#load('ultisnips')
 augroup END
-
 
 " filetype plugin indent on  " (default in NeoVim)
 
@@ -88,6 +92,10 @@ let g:airline_theme = 'base16'
 " General settings {{{
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\<Space>"
+" Set path to system python executable so we have the neovim package while
+" having a virtualenv active
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/home/procrat/.venv/bin/python3'
 " Automatic reloading on external file changes (default in NeoVim)
 "set autoread
 " Automatic writing when using certain commands, e.g. :n, :N
@@ -106,8 +114,8 @@ set ignorecase smartcase
 "set incsearch
 " Autocompletion for command-line (default in NeoVim)
 "set wildmenu
-" Always use a menu for autocompletion, not a preview pane
-set completeopt=menu
+" Always use a menu for autocompletion, insert longest match, no preview pane
+set completeopt=menuone,longest
 " Ignore in autocompletion (also ignores in CtrlP/Command-T/Unite.vim)
 set wildignore=*.o,*.obj,*.pyc,*.class,*.orig,*/.git/*
 " Maximum height of the autocompletion popup menu (pum)
@@ -138,8 +146,8 @@ set noshowmode
 set timeoutlen=500
 " Keep the cursor on the same column
 set nostartofline
-" Skip intro
-set shortmess+=I
+" Skip intro, skip autocompletion output and use more abbreviations
+set shortmess+=Ica
 " Allow non-existing blocks in Visual block mode
 set virtualedit=block
 " French spacing all the way
@@ -337,7 +345,6 @@ let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 " }}}
 " Raimondi/delimitMate {{{
-let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 " }}}
 " rhysd/clever-f.vim {{{
@@ -362,18 +369,20 @@ let g:NERDTreeChDirMode = 2
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = ['latex', 'markdown', 'octave', 'python', 'rust', 'tmux', 'typescript']
 " }}}
+" Shougo/neopairs.vim {{{
+let g:neopairs#enable = 1
+" }}}
 " SirVer/ultisnips {{{
 let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
 " }}}
-" Valloric/YouCompleteMe {{{
-let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
-let g:ycm_python_binary_path = '/usr/bin/python3'
-let g:ycm_rust_src_path = '/usr/src/rust/src'
-let g:EclimCompletionMethod = 'omnifunc'
-let g:ycm_collect_identifiers_from_tags_files = 0
-" }}}
 " vim-pandoc/vim-pandoc {{{
 let g:pandoc#filetypes#pandoc_markdown = 0
+" }}}
+" Completion settings {{{
+let g:deoplete#enable_at_startup = 1
+let g:necoghc_enable_detailed_browse = 1
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 " }}}
 " }}}
 " General mappings {{{
@@ -574,15 +583,6 @@ let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 "   A lot of mapping starting with [ and ]. A full list can be found here:
 "   https://github.com/tpope/vim-unimpaired/blob/master/doc/unimpaired.txt
 " }}}
-" Valloric/YouCompleteMe {{{
-"   Tab and S-Tab  Scroll between autocomplete options
-"   C-Space        Force autocompletion without prefix given
-"   gd             Go to definition (or declaration)
-"                  (YCM does a better job at this than Vim.)
-nnoremap gd :YcmCompleter GoTo<CR>
-"   K              Go to documentation
-nnoremap K :YcmCompleter GetDoc<CR>
-" }}}
 "" Java/Eclim mappings {{{
 "au FileType java call EclimBindings()
 "function! EclimBindings()
@@ -593,7 +593,21 @@ nnoremap K :YcmCompleter GetDoc<CR>
 "   nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 "endfunction
 "" }}}
-
+" Comletion mappings {{{
+" I want for functionalities when pressing <CR> in insert mode
+" - After delimiter -> delimitMate -> <Plug>delimitMateCR
+" - After endwise keyword -> endwise -> <Plug>DiscretionaryEnd
+" - pumvisible() -> deoplete: close popup -> <C-y>
+" - Otherwise -> <CR>
+let g:endwise_no_mapping = 1
+imap <expr> <CR> pumvisible() ? "\<C-y>" : "<Plug>delimitMateCR<Plug>DiscretionaryEnd"
+" Make other popup menu keybindings like in IDEs
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+" }}}
 " }}}
 " Misc {{{
 augroup vimrc_misc
