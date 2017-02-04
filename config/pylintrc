@@ -1,6 +1,9 @@
 [MASTER]
 load-plugins=pylint.extensions.overlapping_exceptions,pylint.extensions.redefined_variable_type,pylint.extensions.check_elif,pylint.extensions.docstyle,pylint.extensions.emptystring
 
+[MESSAGES CONTROL]
+disable=too-few-public-methods
+
 [TYPECHECK]
 ignore-mixin-members=no
 
