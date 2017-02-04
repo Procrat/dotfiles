@@ -31,10 +31,11 @@ Plug 'rhysd/committia.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'sheerun/vim-polyglot'
+Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neopairs.vim'
 Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-endwise'
@@ -369,6 +370,9 @@ let g:NERDTreeChDirMode = 2
 " sheerun/vim-polyglot {{{
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = ['latex', 'markdown', 'octave', 'python', 'rust', 'tmux', 'typescript']
+" }}}
+" Shougo/echodoc.vim {{{
+let g:echodoc_enable_at_startup = 1
 " }}}
 " Shougo/neopairs.vim {{{
 let g:neopairs#enable = 1
