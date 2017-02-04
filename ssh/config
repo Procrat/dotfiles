@@ -44,7 +44,7 @@ Host hpc
     Hostname login.hpc.ugent.be
     User vsc41817
 Host flesje
-    Hostname t2-wan.be
+    Hostname r2t2.be
     Port 3618
     User procrat
 Host aur
