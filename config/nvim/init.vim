@@ -37,6 +37,7 @@ Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neopairs.vim'
 Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
 Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-smooth-scroll'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -582,6 +583,12 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 let g:UltiSnipsExpandTrigger='ß'
 "   <C-j>    Move to next editable part in the snippet
 "   <C-k>  Move the previous editable part in the snippet
+" }}}
+" terryma/vim-smooth-scroll {{{
+noremap <silent> <C-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
+noremap <silent> <C-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
+noremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
+noremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
 " }}}
 " tpope/vim-unimpaired {{{
 "   A lot of mapping starting with [ and ]. A full list can be found here:
