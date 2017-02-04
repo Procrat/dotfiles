@@ -27,7 +27,7 @@ fi
 # Pointer to Java JDK
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 # Add ruby gem path to PATH and make Bundler install gems per user
-export GEM_HOME="$HOME/.gem/ruby/2.3.0"
+export GEM_HOME="$HOME/.gem/ruby/2.4.0"
 
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cabal/bin:$JAVA_HOME/bin:$GEM_HOME/bin:$HOME/bin:."
 
