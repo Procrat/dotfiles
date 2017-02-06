@@ -62,6 +62,7 @@ image/pjpeg=feh-browser.desktop
 image/png=feh-browser.desktop
 image/tiff=feh-browser.desktop
 image/x-bmp=feh-browser.desktop
+image/x-canon-cr2=feh-browser.desktop
 image/x-eps=zathura-ps.desktop
 image/x-pcx=feh-browser.desktop
 image/x-png=feh-browser.desktop
@@ -113,3 +114,6 @@ video/x-theora=mpv.desktop
 x-scheme-handler/ftp=chromium.desktop
 x-scheme-handler/http=chromium.desktop
 x-scheme-handler/https=chromium.desktop
+
+[Added Associations]
+image/x-canon-cr2=nufraw.desktop;
