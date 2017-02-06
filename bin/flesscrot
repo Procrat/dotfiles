@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ssh_host="flesje"
-url="http://t2-wan.be"
+url="http://r2t2.be"
 user="$USER"
 
 file="$(mktemp XXXXXX.png)"
