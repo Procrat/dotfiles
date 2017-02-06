@@ -255,12 +255,6 @@ augroup END
 
 " }}}
 " Plugin settings {{{
-" benekastah/neomake {{{
-let g:neomake_open_list = 2
-" We already have `cargo` as project maker
-let g:neomake_rust_enabled_makers = []
-let g:neomake_python_enabled_makers = ['flake8', 'pylint']
-" }}}
 " bling/vim-airline {{{
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
@@ -350,6 +344,13 @@ let g:tagbar_type_typescript = {
 " mattn/gist-vim {{{
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
+" }}}
+" neomake/neomake {{{
+let g:neomake_open_list = 2
+let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
+let g:neomake_python_enabled_makers = ['flake8', 'pylint']
+" We already have `cargo` as project maker
+let g:neomake_rust_enabled_makers = []
 " }}}
 " Raimondi/delimitMate {{{
 let g:delimitMate_expand_space = 1
@@ -600,10 +601,10 @@ let g:UltiSnipsExpandTrigger='ß'
 "   <C-k>  Move the previous editable part in the snippet
 " }}}
 " terryma/vim-smooth-scroll {{{
-noremap <silent> <C-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
-noremap <silent> <C-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
-noremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
-noremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
+nnoremap <silent> <C-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
+nnoremap <silent> <C-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
+nnoremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
+nnoremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
 " }}}
 " tpope/vim-unimpaired {{{
 "   A lot of mapping starting with [ and ]. A full list can be found here:
@@ -621,8 +622,6 @@ noremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
 "" }}}
 " Comletion mappings {{{
 let g:SuperTabContextDefaultCompletionType = '<C-n>'
-let g:SuperTabMappingForward = '<silent> <Tab>'
-let g:SuperTabMappingBackward = '<silent> <S-Tab>'
 
 " I want for functionalities when pressing <CR> in insert mode
 " - After delimiter -> delimitMate -> <Plug>delimitMateCR
