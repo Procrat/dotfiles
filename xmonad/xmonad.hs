@@ -28,7 +28,7 @@ import           XMonad.Layout.WindowNavigation (Direction2D (..),
                                                  Navigate (..),
                                                  windowNavigation)
 import qualified XMonad.StackSet                as W
-import           XMonad.Util.Dmenu              (menu)
+import           XMonad.Util.Dmenu              (menuArgs)
 import qualified XMonad.Util.EZConfig           as EZ
 import           XMonad.Util.Run                (spawnPipe)
 
@@ -111,8 +111,8 @@ myKeyBindings conf =
     , ("M-.", sendMessage (IncMasterN (-1)))
 
     -- Context management
-    , ("M-s", C.listContextNames >>= safeMenu >>= C.createAndSwitchContext)
-    , ("M-S-s", C.listContextNames >>= safeMenu >>= C.deleteContext >> return ())
+    , ("M-s", C.listContextNames >>= safeMenu "Switch:" >>= C.createAndSwitchContext)
+    , ("M-S-s", C.listContextNames >>= safeMenu "Remove:" >>= C.deleteContext >> return ())
 
     -- Workspace management
     , ("M-d", prevWS)
@@ -209,9 +209,9 @@ addFullscreenSupport = withDisplay $ \dpy -> do
                           [fromIntegral fullscreenSupport]
 
 
-safeMenu :: [String] -> X String
-safeMenu options = do
+safeMenu :: String -> [String] -> X String
+safeMenu prompt options = do
     uninstallSignalHandlers
-    choice <- menu "/home/procrat/bin/mydmenu" options
+    choice <- menuArgs "/home/procrat/bin/mydmenu" ["-p", prompt] options
     installSignalHandlers
     return choice
