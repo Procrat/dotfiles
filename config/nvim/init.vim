@@ -9,7 +9,7 @@ Plug 'bitc/vim-hdevtools'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
-Plug 'fisadev/vim-isort'
+Plug 'davidhalter/jedi-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
@@ -275,6 +275,9 @@ let g:airline_extensions = [
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 " }}}
+" davidhalter/jedi-vim {{{
+let g:jedi#completions_enabled = 0
+" }}}
 " easymotion/vim-easymotion {{{
 let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
 let g:EasyMotion_startofline = 0  " Keep cursor column during JK motion
@@ -490,6 +493,20 @@ nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 " }}}
+" davidhalter/jedi-vim {{{
+"   gd          Go to Python definition, falls back to assignments
+"   K           Show docs
+"   <leader>ja  Go to assignment of element under cursor
+"   <leader>jn  Show usages of element under cursor. (Could be non-exhaustive)
+"   <leader>jr  Rename variable. (Seems dangerous to me tbh)
+let g:jedi#goto_command = "gd"
+let g:jedi#documentation_command = "K"
+let g:jedi#completions_command = ""
+let g:jedi#goto_assignments_command = "<leader>ja"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#usages_command = "<leader>jn"
+let g:jedi#rename_command = "<leader>jr"
+" }}}
 " easy-motion/vim-easymotion {{{
 "                     Disable default mappings
 let g:EasyMotion_do_mapping = 0
@@ -505,9 +522,6 @@ map s <Plug>(easymotion-s2)
 "map <leader>l <Plug>(easymotion-lineforward)
 "   <leader>h         Easymotion backward. Jump backward with <leader>h{label}
 "map <leader>h <Plug>(easymotion-linebackward)
-" }}}
-" fisadev/vim-isort {{{
-let g:vim_isort_map = '<C-i>'
 " }}}
 " junegunn/limelight.vim {{{
 "   <leader>l          Toggle Limelight
@@ -683,6 +697,8 @@ augroup vimrc_misc
         au VimLeave * call system('tmux set-window automatic-rename on')
     endif
 
+    au FileType python call s:ExtraPythonMappings()
+
     " Remove trailing whitespace automatically on write when desired (non-binary)
     au BufWritePre * call s:StripTrailingWhitespace()
 
@@ -738,6 +754,12 @@ func! FoldexprMarkdown(lnum)
         " keep previous foldlevel
         return '='
     endif
+endfunc
+
+" Define Isort command and mapping for Python import sorting
+func! s:ExtraPythonMappings()
+    command! -range=% -nargs=* Isort :<line1>,<line2>! isort <args> -
+    noremap <leader>i :Isort<CR>
 endfunc
 
 " }}}
