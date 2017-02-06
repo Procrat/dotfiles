@@ -5,9 +5,8 @@
 set -euo pipefail
 
 wallpaper="$1"
+FIXED_WALLPAPER_PATH="$HOME/.local/share/wallpaper.png"
 geometry="$(xrandr | grep '*' | awk '{ print $1 }')"
 
-feh --bg-scale "$wallpaper"
-if [[ "$wallpaper" != *.png ]]; then
-    convert "$wallpaper" -resize "$geometry" "$HOME/.local/share/wallpaper.png"
-fi
+convert "$wallpaper" -resize "$geometry" "$FIXED_WALLPAPER_PATH"
+feh --bg-scale "$FIXED_WALLPAPER_PATH"
