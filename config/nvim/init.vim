@@ -26,9 +26,9 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'neomake/neomake'
-Plug 'Raimondi/delimitMate'
-Plug 'rhysd/committia.vim'
+Plug 'cohama/lexima.vim'
 Plug 'rhysd/clever-f.vim'
+Plug 'rhysd/committia.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -39,7 +39,6 @@ Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
 Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'tmux-plugins/vim-tmux'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sleuth'
@@ -352,9 +351,6 @@ let g:neomake_python_enabled_makers = ['flake8', 'pylint']
 " We already have `cargo` as project maker
 let g:neomake_rust_enabled_makers = []
 " }}}
-" Raimondi/delimitMate {{{
-let g:delimitMate_expand_space = 1
-" }}}
 " rhysd/clever-f.vim {{{
 let g:clever_f_smart_case = 1
 " }}}
@@ -562,11 +558,6 @@ augroup END
 "   <leader>m  View output file.
 nnoremap <silent> <leader>m :TagbarToggle<CR>
 " }}}
-" Raimondi/delimitMate {{{
-"   <BS>     Also removes closing paren/quote/bracket
-"   <S-BS>   Only removes closing paren/quote/bracket
-"   <S-Tab>  Skips over one the closing parens/quotes/brackets
-"   <C-G>g   Skips over all closing parens/quotes/brackets
 " }}}
 " scrooloose/nerdcommenter {{{
 "   <leader>cc  Comment out the current line or text selected in visual mode.
@@ -622,14 +613,6 @@ nnoremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
 "" }}}
 " Comletion mappings {{{
 let g:SuperTabContextDefaultCompletionType = '<C-n>'
-
-" I want for functionalities when pressing <CR> in insert mode
-" - After delimiter -> delimitMate -> <Plug>delimitMateCR
-" - After endwise keyword -> endwise -> <Plug>DiscretionaryEnd
-" - pumvisible() -> deoplete: close popup -> <C-y>
-" - Otherwise -> <CR>
-let g:endwise_no_mapping = 1
-imap <expr> <CR> pumvisible() ? "\<C-y>" : "<Plug>delimitMateCR<Plug>DiscretionaryEnd"
 " Make other popup menu keybindings like in IDEs
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
