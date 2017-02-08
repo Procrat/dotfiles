@@ -4,6 +4,14 @@
 
 set -euo pipefail
 
+# Assert etckeeper's index is clean
+if ! (cd /etc && sudo git diff-index --quiet HEAD); then
+    echo '/etc is not clean. Please fix.' >&2
+    cd /etc
+    sudo git status
+    exit 1
+fi
+
 BUILD_NOCONFIRM=1 EDITFILES=0 yaourt -Syua
 paccache -r
 yaourt -C
