@@ -19,7 +19,8 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
-Plug 'maksimr/vim-jsbeautify'
+Plug 'maksimr/vim-jsbeautify', { 'for': [
+            \ 'javascript', 'javascript.jsx', 'json', 'html', 'css'] }
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'neomake/neomake'
@@ -53,9 +54,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " -- Slow plugins (> 50ms)
+" -- All of these are fixed by loading them on demand
 Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
-Plug 'bitc/vim-hdevtools'
-Plug 'davidhalter/jedi-vim'
+Plug 'bitc/vim-hdevtools', { 'on': [
+            \ 'HdevtoolsType', 'HdevtoolsClear', 'HdevtoolsInfo'] }
+Plug 'Procrat/jedi-vim'
 
 " -- Completion plugins
 Plug 'ervandew/supertab'
@@ -75,7 +78,7 @@ call plug#end()
 " Defer loading of some plugins to insert mode
 augroup load_insert_plugins
     autocmd!
-    autocmd InsertEnter * call plug#load('ultisnips')
+    autocmd InsertEnter * call plug#load('ultisnips', 'jedi-vim')
 augroup END
 
 " filetype plugin indent on  " (default in NeoVim)
@@ -556,6 +559,20 @@ augroup END
 "   <leader>m  View output file.
 nnoremap <silent> <leader>m :TagbarToggle<CR>
 " }}}
+" Procrat/jedi-vim {{{
+let g:jedi#auto_initialization = 0
+augroup python_jedi_mappings
+    autocmd!
+    au FileType python call s:JediMappings()
+    function! s:JediMappings()
+        nmap <buffer>         gd <Plug>JediGoto
+        nmap <buffer> <leader>ja <Plug>JediGotoAssignments
+        nmap <buffer> <leader>ju <Plug>JediUsages
+        map  <buffer> <leader>jr <Plug>JediRename
+        nmap <buffer>          K <Plug>JediDocumentation
+        imap <buffer>    <space> <Plug>JediSmartAutoMapping
+    endfunction
+augroup END
 " }}}
 " scrooloose/nerdcommenter {{{
 "   <leader>cc  Comment out the current line or text selected in visual mode.
