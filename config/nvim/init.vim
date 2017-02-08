@@ -3,18 +3,15 @@ scriptencoding 'utf-8'
 " Plugins {{{
 call plug#begin()
 
-" -- Small plugins (less than .01s on boot)
+" -- Fast plugins (< 5ms on boot)
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
-Plug 'bitc/vim-hdevtools'
-Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'easymotion/vim-easymotion'
-Plug 'davidhalter/jedi-vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/limelight.vim'
-Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
 Plug 'jvirtanen/vim-octave'
 Plug 'Konfekt/FastFold'
@@ -32,10 +29,8 @@ Plug 'rhysd/committia.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neopairs.vim'
-Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
 Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'tmux-plugins/vim-tmux'
@@ -48,7 +43,21 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-scripts/JavaDecompiler.vim'
 
-" Completion plugins
+" -- Slightly slower plugins (5ms -- 50ms)
+Plug 'chriskempson/base16-vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/vim-journal'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-rails'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" -- Slow plugins (> 50ms)
+Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
+Plug 'bitc/vim-hdevtools'
+Plug 'davidhalter/jedi-vim'
+
+" -- Completion plugins
 Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'eagletmt/neco-ghc'
@@ -57,17 +66,6 @@ Plug 'Shougo/neco-vim'
 Plug 'zchee/deoplete-clang'
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-zsh'
-
-" -- Slightly bigger plugins
-" Load: .02s
-Plug 'ctrlpvim/ctrlp.vim'
-" Load: .14s
-Plug 'tpope/vim-rails'
-" Load: .25s (for Rails)
-Plug 'AndrewRadev/splitjoin.vim'
-" Load: .30s
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 
 " Unmanaged plugins
 " Plug '~/.config/nvim/unplugged/eclim', { 'for': 'java', 'frozen': 1 }
