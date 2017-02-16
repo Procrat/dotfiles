@@ -673,9 +673,11 @@ augroup vimrc_misc
     " Set wrapping and markdown folding for Markdown and journal files
     au FileType journal,markdown setlocal textwidth=80 foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
 
-    " Autoscale Quickfix window
+    " Autoscale Quickfix window, don't let it appear in buffer lists and close
+    " it with `q`
     au FileType qf
         \ call s:AdjustWindowHeight(3, 10) |
+        \ setlocal nobuflisted |
         \ nnoremap <buffer> <silent> q :close<CR>
 
     " Reload .vimrc on save

@@ -4,6 +4,12 @@
 
 set -euo pipefail
 
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $(basename $0) file" >&2
+    exit 1
+fi
+
 wallpaper="$1"
 FIXED_WALLPAPER_PATH="$HOME/.local/share/wallpaper.png"
 geometry="$(xrandr | grep '*' | awk '{ print $1 }')"
