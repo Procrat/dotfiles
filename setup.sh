@@ -46,6 +46,7 @@ dotfiles=(
     bash_profile
     bashrc
     colors
+    config/alacritty/alacritty.yml
     config/base16-shell
     config/compton.conf
     config/dunst
