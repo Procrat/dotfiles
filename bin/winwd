@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#
+# Finds the working directory of the focused tmux pane of the given window
+
+set -euo pipefail
+
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $(basename $0) window-id" >&2
+    echo >&2
+    echo "Finds the working directory of the focused tmux pane of the given window" >&2
+    echo >&2
+    echo "window-id must be of the form '0x00000000'" >&2
+    exit 1
+fi
+
+window_id="$1"
+
+session_id=$( \
+    wmctrl -l -p | \
+    grep "^${window_id}\s" | \
+    sed 's/.*\[\([^]]*\)\].*/\1/')
+
+tmux list-clients -F "#{session_id}	#{pane_current_path}" | \
+    grep "^\$${session_id}\s" | \
+    awk '{ print $2 }'

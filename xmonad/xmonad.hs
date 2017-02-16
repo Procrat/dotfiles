@@ -8,6 +8,7 @@ import           Data.Maybe                     (fromJust)
 import           Data.Monoid                    (All)
 import           System.Exit                    (exitSuccess)
 import qualified System.IO                      as IO
+import           Text.Printf                    (printf)
 
 import           XMonad
 import           XMonad.Actions.CycleWS         (Direction1D (..), WSType (..),
@@ -30,7 +31,7 @@ import           XMonad.Layout.WindowNavigation (Direction2D (..),
 import qualified XMonad.StackSet                as W
 import           XMonad.Util.Dmenu              (menuArgs)
 import qualified XMonad.Util.EZConfig           as EZ
-import           XMonad.Util.Run                (spawnPipe)
+import           XMonad.Util.Run                (runProcessWithInput, spawnPipe)
 
 import qualified XMonad.Actions.Contexts        as C
 import           XMonad.Layout.SingleSpacing    (spacing)
@@ -51,7 +52,7 @@ main = do
 
 
 baseConfig = desktopConfig {
-    terminal           = "urxvtc -e tmux",
+    terminal           = plainTerminal,
     focusFollowsMouse  = False,
     clickJustFocuses   = False,
     borderWidth        = 1,
@@ -65,8 +66,9 @@ baseConfig = desktopConfig {
 myKeyBindings :: forall (l :: * -> *). XConfig l -> [(String, X ())]
 myKeyBindings conf =
     -- Launchers
-    [ ("M-<Return>", spawnHere $ terminal conf)
-    , ("M-S-<Return>", spawnHere "xterm")
+    [ ("M-<Return>", mirrorTerminal >>= spawnHere)
+    , ("M-S-<Return>", spawnHere plainTerminal)
+    , ("M-C-<Return>", spawnHere "xterm")
     , ("M-o", spawnHere myProgramLauncher)
     , ("M-r", spawnHere "urxvtc -e ranger")
     , ("M-i", spawnHere "rofi-pass")
@@ -215,3 +217,19 @@ safeMenu prompt options = do
     choice <- menuArgs "/home/procrat/bin/mydmenu" ["-p", prompt] options
     installSignalHandlers
     return choice
+
+
+mirrorTerminal :: X String
+mirrorTerminal = withWindowSet $ \ws ->
+    case W.peek ws of
+        Nothing -> return plainTerminal
+        Just window -> do
+            let hexWindowId = printf "0x%08x" window
+            workingDir <- runProcessWithInput "/home/procrat/bin/winwd" [hexWindowId] ""
+            return $ terminalWithWorkingDir $ init workingDir
+
+terminalWithWorkingDir :: String -> String
+terminalWithWorkingDir dir = "urxvtc -e tmux new-session -c '" ++ dir ++ "'"
+
+plainTerminal :: String
+plainTerminal = "urxvtc -e tmux"
