@@ -352,6 +352,9 @@ let g:neomake_python_enabled_makers = ['flake8', 'pylint']
 " We already have `cargo` as project maker
 let g:neomake_rust_enabled_makers = []
 " }}}
+" racer-rust/vim-racer {{{
+let g:racer_experimental_completer = 1
+" }}}
 " rhysd/clever-f.vim {{{
 let g:clever_f_smart_case = 1
 " }}}
@@ -558,6 +561,16 @@ augroup END
 " majutsushi/tagbar {{{
 "   <leader>m  View output file.
 nnoremap <silent> <leader>m :TagbarToggle<CR>
+" }}}
+" racer-rust/vim-racer {{{
+augroup rust_racer_mappings
+    autocmd!
+    au FileType rust call s:RacerMappings()
+    function! s:RacerMappings()
+        nmap <buffer> gd <Plug>(rust-def)
+        nmap <buffer>  K <Plug>(rust-doc)
+    endfunction
+augroup END
 " }}}
 " Procrat/jedi-vim {{{
 let g:jedi#auto_initialization = 0
