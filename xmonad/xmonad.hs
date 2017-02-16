@@ -226,7 +226,9 @@ mirrorTerminal = withWindowSet $ \ws ->
         Just window -> do
             let hexWindowId = printf "0x%08x" window
             workingDir <- runProcessWithInput "/home/procrat/bin/winwd" [hexWindowId] ""
-            return $ terminalWithWorkingDir $ init workingDir
+            return $ case workingDir of
+                ""  -> plainTerminal
+                dir -> terminalWithWorkingDir $ init dir
 
 terminalWithWorkingDir :: String -> String
 terminalWithWorkingDir dir = "urxvtc -e tmux new-session -c '" ++ dir ++ "'"

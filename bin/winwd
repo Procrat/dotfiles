@@ -19,7 +19,12 @@ window_id="$1"
 session_id=$( \
     wmctrl -l -p | \
     grep "^${window_id}\s" | \
-    sed 's/.*\[\([^]]*\)\].*/\1/')
+    sed -n 's/.*\[\([^]]*\)\].*/\1/p')
+
+if [[ -z "$session_id" ]]; then
+    # The focused window is not a tmux terminal
+    exit 1
+fi
 
 tmux list-clients -F "#{session_id}	#{pane_current_path}" | \
     grep "^\$${session_id}\s" | \
