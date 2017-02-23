@@ -3,6 +3,7 @@
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE RankNTypes     #-}
 
+import           Control.Monad                  (mfilter)
 import           Data.List                      (elemIndex)
 import           Data.Maybe                     (fromJust)
 import           Data.Monoid                    (All)
@@ -184,16 +185,20 @@ updatePanel panelHandle = DL.dynamicLogWithPP $ def
     { DL.ppCurrent         = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#8AB3B5" "" ws
     , DL.ppHidden          = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#B8AFAD" "" ws
     , DL.ppHiddenNoWindows = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#7E705A" "" ws
-    , DL.ppLayout          = DL.pad . DL.dzenColor "#B8AFAD" ""
     , DL.ppUrgent          = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#F4BC87" "" ws
-    , DL.ppTitle           = DL.dzenColor "#B8AFAD" "" . DL.shorten 100
     , DL.ppWsSep           = ""
     , DL.ppSep             = DL.pad . DL.pad $ DL.dzenColor "#534636" "" "^r(1x27)"
+    , DL.ppLayout          = DL.pad . DL.dzenColor "#B8AFAD" ""
+    , DL.ppTitle           = DL.dzenColor "#B8AFAD" "" . DL.shorten 100
+    , DL.ppExtras          = [fmap (fmap DL.pad) context]
+    , DL.ppOrder           = \(ws:layout:title':maybeContext) -> (maybeContext ++ [ws, layout, title'])
     , DL.ppOutput          = IO.hPutStrLn panelHandle
     }
   where
     clickify ws = DL.wrap ("^ca(1,wmctrl -s " ++ show wsid ++ ")") "^ca()"
         where wsid = fromJust $ elemIndex ws (workspaces baseConfig)
+    context = do name <- C.showCurrentContextName
+                 return $ mfilter (/= C.defaultContextName) (Just name)
 
 
 myStartupHook :: X ()

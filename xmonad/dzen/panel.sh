@@ -120,8 +120,8 @@ dzen_on_screen() {
         echo -n "^p()"
 
         # Arch icon
-        echo -n "   ^fg($ACCENT_COLOR)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg()"
-        echo -n " $SEPARATOR"
+        echo -n "    ^fg($ACCENT_COLOR)^i($HOME/.config/icons/xbm/arch_10x10.xbm)^fg() "
+        echo -n " $SEPARATOR "
 
         # Tags and window title
         echo -n "^fg()^bg()$wm_info"
