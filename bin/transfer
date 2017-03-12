@@ -1,0 +1,77 @@
+#!/usr/bin/bash -xv
+#
+# Easy file and folder sharing.
+#
+#
+# Original https://gist.github.com/nl5887/a511f172d3fb3cd0e42d
+# Authors:
+#   Remco Verhoef <remco@dutchcoders.io>
+#   Stijn Seghers <stijnseghers@gmail.com>
+
+set -euo pipefail
+
+
+function usage() {
+    echo "Usage: $(basename $0) [options] <file>" >&2
+    echo "       $(basename $0) [options] <directory>" >&2
+    echo "       cat <local-file> | $(basename $0) [options] <remote-filename>" >&2
+    echo "where options include:" >&2
+    echo "    -h            Show this help message" >&2
+    echo "    -c <options>  Add options to curl when uploading" >&2
+    echo "                  (e.g. -H 'Max-Downloads: 1' -H 'Max-Days: 5')" >&2
+}
+
+
+extra_curl_options=
+while getopts "c:h" option; do
+    case "$option" in
+        c)
+            declare -a "extra_curl_options=($OPTARG)"
+            ;;
+        h)
+            usage
+            exit
+            ;;
+        ?)
+            echo "Unknown option $option." >&2
+            usage
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+if [[ $# -eq 0 ]]; then
+    echo "No file or directory specified." >&2
+    usage
+    exit 1
+elif [[ $# -gt 1 ]]; then
+    echo "Supply only one output filename please." >&2
+    usage
+    exit 1
+fi
+file="$1"
+
+
+remote_filename="https://transfer.sh/$(basename "$file" | sed -e 's/[^a-zA-Z0-9._-]/-/g')"
+curl_options=(--progress-bar)
+[[ -n "${extra_curl_options[*]}" ]] && curl_options+=("${extra_curl_options[@]}")
+
+if tty -s; then
+    if [ ! -e "$file" ]; then
+        echo "File $file doesn't exists."
+        exit 2
+    fi
+
+    if [ -d "$file" ]; then
+        # Zip directory and transfer
+        zip -r - "$file" | \
+            curl "${curl_options[@]}" --upload-file - "$remote_filename.zip"
+    else
+        # Transfer file
+        curl "${curl_options[@]}" --upload-file "$file" "$remote_filename"
+    fi
+else
+    # Transfer stdin
+    curl "${curl_options[@]}" --upload-file - "$remote_filename"
+fi
