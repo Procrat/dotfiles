@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -euo pipefail
 
 
 height="$(($(cat $HOME/.config/herbstluftwm/dzen/panel_height) - 1))"
-screen_geometry="$(wmctrl -d | awk '/^...\*/ { print $9 }')"
+screen_geometry="$(wmctrl -d | awk '/^...\*/ { print $4 }')"
 width="$((${screen_geometry%x*} - 450))"
 
-exec yeganesh -f -- -i -h "$height" -x 55 -w "$width" "$@"
+exec yeganesh -f -- -i -h "$height" -x 60 -w "$width" "$@"

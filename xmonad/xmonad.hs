@@ -204,16 +204,30 @@ updatePanel panelHandle = DL.dynamicLogWithPP $ def
 myStartupHook :: X ()
 myStartupHook = do
     EZ.checkKeymap baseConfig (myKeyBindings baseConfig)
-    addFullscreenSupport
+    fixEWMH
 
-addFullscreenSupport :: X ()
-addFullscreenSupport = withDisplay $ \dpy -> do
+-- Set full screen support and the desktop geometry.
+-- Might not work for multiple monitors.
+fixEWMH :: X ()
+fixEWMH = withDisplay $ \dpy -> do
     wm <- asks theRoot
-    supportProp <- getAtom "_NET_SUPPORTED"
+
     atomType <- getAtom "ATOM"
+    cardinalType <- getAtom "CARDINAL"
+
+    supportProp <- getAtom "_NET_SUPPORTED"
+    desktopGeometryProp <- getAtom "_NET_DESKTOP_GEOMETRY"
     fullscreenSupport <- getAtom "_NET_WM_STATE_FULLSCREEN"
-    io $ changeProperty32 dpy wm supportProp atomType propModeAppend
-                          [fromIntegral fullscreenSupport]
+
+    io $ do
+        changeProperty32 dpy wm supportProp atomType propModeAppend
+                         [fromIntegral fullscreenSupport,
+                          fromIntegral desktopGeometryProp]
+        windowAttributes <- getWindowAttributes dpy wm
+        let width = fromIntegral $ wa_width windowAttributes
+            height = fromIntegral $ wa_height windowAttributes
+        changeProperty32 dpy wm desktopGeometryProp cardinalType propModeReplace
+                         [width, height]
 
 
 safeMenu :: String -> [String] -> X String

@@ -67,7 +67,7 @@ ICON="$ICON_FOLDER/volume${ROUNDED_VOLUME}.xbm"
 if [ ! -e "$PIPE" ]; then
     mkfifo "$PIPE"
 
-    geometry="$(wmctrl -d | awk '/^...\*/ { print $9 }')"
+    geometry="$(wmctrl -d | awk '/^...\*/ { print $4 }')"
     screen_width="${geometry%x*}"
     dzen_x=$(((screen_width - WIDTH) / 2))
     (dzen2 -x $dzen_x -w $WIDTH -h $height < "$PIPE"; rm -f "$PIPE") &
