@@ -111,6 +111,8 @@ set noswapfile
 set number
 " Show vertical column at 79 (maximum line length for Python)
 set colorcolumn=80
+" Highlight current line
+set cursorline
 " Ignore case when searching except if search has uppercase letters
 set ignorecase smartcase
 " Find as you type (default in NeoVim)
