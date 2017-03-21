@@ -81,7 +81,7 @@ mcd() {
 clone() {
     cd "$HOME/repos"
     git clone "$@"
-    repo=$(echo $@ | sed 's#.*/##')
+    repo=$(echo $@ | perl -pe 's|.*/(.*?)(\.git)?$|\1|')
     cd "$repo"
 }
 # Ugly hacks incoming, not for sensitive eyes
