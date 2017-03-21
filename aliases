@@ -44,6 +44,7 @@ source '/usr/share/doc/ranger/examples/bash_automatic_cd.sh' 2>/dev/null
 alias r='ranger-cd'
 alias weather='wego'
 alias genpass='apg -m 24 -M SNC'
+alias haz_internetz='ping 8.8.8.8'
 
 c() {
     cd ~
