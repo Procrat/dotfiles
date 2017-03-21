@@ -404,7 +404,7 @@ let g:SuperTabDefaultCompletionType = 'context'
 " }}}
 " General mappings {{{
 " jj/fd in insert mode to go to normal mode
-inoremap jj <Esc>
+inoremap jj <Esc>:w<CR>
 inoremap fd <Esc>
 " Use backspace to delete character
 noremap <BS> X
