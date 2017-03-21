@@ -353,7 +353,7 @@ let g:gist_open_browser_after_post = 1
 " neomake/neomake {{{
 let g:neomake_open_list = 2
 let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
-let g:neomake_python_enabled_makers = ['flake8', 'pylint']
+let g:neomake_python_enabled_makers = ['flake8'] ", 'pylint']
 " We already have `cargo` as project maker
 let g:neomake_rust_enabled_makers = []
 " }}}
