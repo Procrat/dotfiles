@@ -162,6 +162,8 @@ set nojoinspaces
 set list
 " Ignore whitespace in diff mode
 set diffopt+=iwhite
+" Set window title
+set title
 " Nvim setting: pipe in insert mode
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
