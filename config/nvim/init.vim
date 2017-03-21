@@ -422,6 +422,10 @@ nnoremap <leader><leader> za
 vnoremap <leader><leader> za
 " Ex-ex
 nnoremap Q <nop>
+" Funny story: before this keybind, I realised I was actually typing the Z
+" with my thumb, because typing both Z and Q with my pinky takes up too much
+" time.
+nnoremap QQ ZQ
 " Select all
 nnoremap va ggVG
 " Autoformat whole file
