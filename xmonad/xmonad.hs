@@ -1,7 +1,8 @@
-{-# OPTIONS_GHC -fno-warn-missing-signatures #-}
+{-# OPTIONS_GHC -fno-warn-missing-signatures -fno-warn-orphans #-}
 
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE RankNTypes     #-}
+{-# LANGUAGE FlexibleInstances #-}
 
 import           Control.Monad                  (mfilter)
 import           Data.List                      (elemIndex)
@@ -159,6 +160,9 @@ myLayout = modifiers layouts
     modifiers =
         desktopLayoutModifiers . smartBorders . spacing 15 . windowNavigation
     layouts = Tall 1 (3 / 100) (54 / 100) ||| Full
+
+instance Read (Layout Window) where
+    readsPrec _ = readsLayout (Layout myLayout)
 
 
 myManageHook :: ManageHook
