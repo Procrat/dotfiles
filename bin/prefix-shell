@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+#
+# Makes a new shell that executes commands prefixed with a predetermined set of
+# arguments. It's an abstraction of git-sh and the like.
+# So instead of running
+#
+#     git status
+#     git add <file>
+#     git commit
+#     git push
+#
+# ... you write ...
+#
+#     prefix-shell git
+#     add <file>
+#     commit <file>
+#     push
+#     <Ctrl-D>
+#
+# You can also add multiple arguments to the prefix, e.g.
+#
+#     prefix-shell pacman -Qi
+#     bash
+#     grep
+#     less
+#     <Ctrl-D>
+
+set -euo pipefail
+
+RED=$(echo -e '\033[31m')
+BOLD=$(echo -e '\033[1m')
+NORMAL=$(echo -e '\033[0m')
+
+
+if [[ $# -lt 1 ]]; then
+    echo 'Please supply a prefix' >&2
+    exit 1
+fi
+prefix=("$@")
+
+
+set +euo pipefail
+
+# shellcheck disable=2162
+while read -e -a args -p "\$ ${prefix[*]} "; do
+    "${prefix[@]}" "${args[@]}"
+
+    exit_code=$?
+    if [[ "$exit_code" -ne 0 ]]; then
+        echo -n "$RED" >&2
+        echo -n "Command '${prefix[*]} ${args[*]}' failed" >&2
+        echo -n " with exit code $BOLD$exit_code" >&2
+        echo -e "$NORMAL" >&2
+    fi
+
+    echo >&2
+done
