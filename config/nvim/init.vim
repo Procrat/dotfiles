@@ -11,6 +11,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
+Plug 'jreybert/vimagit'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'jvirtanen/vim-octave'
@@ -270,7 +271,7 @@ let g:airline_extensions = [
     \'netrw',
     \'quickfix',
     \'tabline',
-    \'virtualenv']
+    \'vimagit']
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 " }}}
