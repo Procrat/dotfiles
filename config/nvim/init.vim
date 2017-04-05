@@ -269,11 +269,15 @@ let g:airline_extensions = [
     \'branch',
     \'ctrlp',
     \'netrw',
+    \'neomake',
     \'quickfix',
     \'tabline',
+    \'tagbar',
     \'vimagit']
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#neomake#error_symbol = '✖'
+let g:airline#extensions#neomake#warning_symbol = '⚠'
 " }}}
 " davidhalter/jedi-vim {{{
 let g:jedi#completions_enabled = 0
