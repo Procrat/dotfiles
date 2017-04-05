@@ -5,7 +5,7 @@
 set -euo pipefail
 
 usage() {
-    echo "Usage: $(basename $0) file line_no"
+    echo "Usage: $(basename "$0") file line_no"
 }
 
 if [[ $# -ne 2 ]]; then

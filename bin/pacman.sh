@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Original Posted at http://crunchbang.org/forums/viewtopic.php?pid=126921%23p126921#p126921
 # [ESC] character in original post removed here.
 
@@ -6,6 +6,8 @@
 #    and format output. Make sure to output the reset sequence after
 #    colors (f = foreground, b = background), and use the 'off'
 #    feature for anything you turn on.
+
+# shellcheck disable=2034
 
 set -euo pipefail
 

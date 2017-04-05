@@ -12,9 +12,9 @@ set -euo pipefail
 
 
 function usage() {
-    echo "Usage: $(basename $0) [options] <file>" >&2
-    echo "       $(basename $0) [options] <directory>" >&2
-    echo "       cat <local-file> | $(basename $0) [options] <remote-filename>" >&2
+    echo "Usage: $(basename "$0") [options] <file>" >&2
+    echo "       $(basename "$0") [options] <directory>" >&2
+    echo "       cat <local-file> | $(basename "$0") [options] <remote-filename>" >&2
     echo "where options include:" >&2
     echo "    -h            Show this help message" >&2
     echo "    -c <options>  Add options to curl when uploading" >&2

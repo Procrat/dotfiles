@@ -5,7 +5,7 @@
 set -euo pipefail
 
 usage() {
-    echo "Usage: $(basename $0)" >&2
+    echo "Usage: $(basename "$0")" >&2
 }
 
 

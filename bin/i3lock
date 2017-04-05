@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-source $HOME/.colors
+source "$HOME/.colors"
 
 i3lock="$HOME/repos/i3lock/i3lock"
 wallpaper="$HOME/.local/share/wallpaper.png"

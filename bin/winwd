@@ -6,7 +6,7 @@ set -euo pipefail
 
 
 if [[ $# -ne 1 ]]; then
-    echo "Usage: $(basename $0) window-id" >&2
+    echo "Usage: $(basename "$0") window-id" >&2
     echo >&2
     echo "Finds the working directory of the focused tmux pane of the given window" >&2
     echo >&2
@@ -26,6 +26,6 @@ if [[ -z "$session_id" ]]; then
     exit 1
 fi
 
-tmux list-clients -F "#{session_id}	#{pane_current_path}" | \
-    grep "^\$${session_id}\s" | \
+tmux list-clients -F "#{session_name}	#{pane_current_path}" | \
+    grep -m1 "^${session_id}	" | \
     awk '{ print $2 }'

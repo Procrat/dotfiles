@@ -22,7 +22,7 @@ arr=()
 for i in *; do
     [[ -f $i ]] || continue
     arr+=("$i")
-    [[ $i == $file ]] && c=$((${#arr[@]} - 1))
+    [[ $i == "$file" ]] && c=$((${#arr[@]} - 1))
 done
 
 exec feh "${FEH_OPTIONS[@]}" "$@" -- "${arr[@]:c}" "${arr[@]:0:c}"

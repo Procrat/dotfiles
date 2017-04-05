@@ -15,7 +15,7 @@ fi
 BUILD_NOCONFIRM=1 EDITFILES=0 yaourt -Syua
 paccache -r
 yaourt -C
-$HOME/repos/dotfiles/setup.sh
+"$HOME/repos/dotfiles/setup.sh"
 pip install --upgrade pip
 pip-review -li
 pip check

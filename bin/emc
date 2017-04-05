@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-if tty 2>&1 >/dev/null; then
+if tty &>/dev/null; then
     options="-t"
 else
     options="-nc"

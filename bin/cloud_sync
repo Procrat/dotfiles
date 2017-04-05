@@ -8,7 +8,7 @@
 set -euo pipefail
 
 if [[ -z "${XDG_DOWNLOAD_DIR:-}" ]]; then
-    source ${XDG_CONFIG_DIR:-$HOME/.config}/user-dirs.dirs
+    source "${XDG_CONFIG_DIR:-$HOME/.config}/user-dirs.dirs"
 fi
 
 rclone sync 'gdrive:' "$XDG_DOWNLOAD_DIR/gdrive"

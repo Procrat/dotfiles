@@ -12,13 +12,14 @@ exec 3>&2 2> >(tee /tmp/bash-profile-$$.log | \
                date -f - +%s.%N >/tmp/bash-profile-$$.tim)
 set -x
 
+# shellcheck disable=1090
 . "$@"
 
 set +x
 exec 2>&3 3>&-
 
 paste <(
-    while read tim ;do
+    while read -r tim; do
         crt=000000000$((${tim//.}-10#0$last))
         printf "%12.9f\n" ${crt:0:${#crt}-9}.${crt:${#crt}-9}
         last=${tim//.}
@@ -27,7 +28,7 @@ paste <(
 
 paste \
     <(cut -f1 $$.timings) \
-    <(cat /tmp/bash-profile-$$.log | \
+    <(</tmp/bash-profile-$$.log \
         sed 's/^+\+ //' | \
         sed 's/^\(local\s\|declare\s\|\S\+=\).*/[[assignment]]/') | \
     tail -n +2 | \

@@ -1,18 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Let it gooooo...
 
 set -euo pipefail
 
-set -- `stty size`
-
-LINES=$1
-COLUMNS=$2
+COLUMNS=$(stty size | cut -d ' ' -f 2)
 
 clear
 
-while :;
-do
-  echo $LINES $COLUMNS $(( $RANDOM % $COLUMNS ))
+while true; do
+  echo $((RANDOM % COLUMNS))
   sleep 0.1
-done | gawk '{a[$3]=0;for(x in a) {o=a[x];a[x]=a[x]+1;printf "\033[%s;%sH ",o,x;printf "\033[%s;%sH*\033[0;0H",a[x],x;}}'
+done | \
+  awk '{
+    a[$1] = 0;
+    for (x in a) {
+      o = a[x];
+      a[x] = a[x] + 1;
+      printf "\033[%s;%sH ", o, x;
+      printf "\033[%s;%sH*\033[0;0H", a[x], x;
+    }
+  }'

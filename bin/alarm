@@ -5,8 +5,8 @@
 set -euo pipefail
 
 usage() {
-    echo "Usage: $(basename $0) [options] [[hours] minutes] seconds" >&2
-    echo "       $(basename $0) [options] -d hour[:minute[:second]]" >&2
+    echo "Usage: $(basename "$0") [options] [[hours] minutes] seconds" >&2
+    echo "       $(basename "$0") [options] -d hour[:minute[:second]]" >&2
     echo "where options include:" >&2
     echo "    -f file     Sound file to play" >&2
     echo "    -m message  Notification to send when alarm rings" >&2
@@ -21,7 +21,7 @@ while getopts "d:f:m:" option; do
         d)
             datum=$(date -d "$OPTARG" +'%s')
             now=$(date +'%s')
-            seconds=$(($datum - $now))
+            seconds=$((datum - now))
             ;;
         f)
             song="$OPTARG"
@@ -35,10 +35,10 @@ while getopts "d:f:m:" option; do
             ;;
     esac
 done
-shift $(($OPTIND-1))
+shift $((OPTIND-1))
 
 if [[ -z "$seconds" ]]; then
-    if [ $# -eq 0 -o $# -gt 3 ]; then
+    if [[ $# -eq 0 || $# -gt 3 ]]; then
         usage
         exit 1
     fi
@@ -47,7 +47,7 @@ if [[ -z "$seconds" ]]; then
     i=$((${#mul} - $# + 1))
     seconds=0
     while [ $# -ne 0 ]; do
-        seconds=$((($seconds + $1) * ${mul[$i]}))
+        seconds=$(((seconds + $1) * mul[i]))
         shift
         let i+=1
     done

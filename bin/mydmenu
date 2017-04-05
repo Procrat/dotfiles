@@ -3,7 +3,7 @@
 set -euo pipefail
 
 
-height="$(($(cat $HOME/.config/herbstluftwm/dzen/panel_height) - 1))"
+height="$(($(cat "$HOME/.config/herbstluftwm/dzen/panel_height") - 1))"
 screen_geometry="$(wmctrl -d | awk '/^...\*/ { print $4 }')"
 width="$((${screen_geometry%x*} - 450))"
 

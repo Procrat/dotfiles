@@ -7,7 +7,7 @@ url="http://r2t2.be"
 user="$USER"
 
 file="$(mktemp XXXXXX.png)"
-escrotum $* "$file"
+escrotum "$@" "$file"
 chmod 644 "$file"  # escrotum produces one with 600
 scp -p "$file" "$ssh_host:~/images/"
 rm "$file"
