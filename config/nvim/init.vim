@@ -432,7 +432,7 @@ nnoremap Q <nop>
 " time.
 nnoremap QQ ZQ
 " Select all
-nnoremap va ggVG
+nnoremap vA ggVG
 " Autoformat whole file
 nnoremap <leader>= mzggVG='z
 " Sort lines
@@ -514,13 +514,13 @@ nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 "   <leader>ja  Go to assignment of element under cursor
 "   <leader>jn  Show usages of element under cursor. (Could be non-exhaustive)
 "   <leader>jr  Rename variable. (Seems dangerous to me tbh)
-let g:jedi#goto_command = "gd"
-let g:jedi#documentation_command = "K"
-let g:jedi#completions_command = ""
-let g:jedi#goto_assignments_command = "<leader>ja"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#usages_command = "<leader>jn"
-let g:jedi#rename_command = "<leader>jr"
+let g:jedi#goto_command = 'gd'
+let g:jedi#documentation_command = 'K'
+let g:jedi#completions_command = ''
+let g:jedi#goto_assignments_command = '<leader>ja'
+let g:jedi#goto_definitions_command = ''
+let g:jedi#usages_command = '<leader>jn'
+let g:jedi#rename_command = '<leader>jr'
 " }}}
 " easy-motion/vim-easymotion {{{
 "                     Disable default mappings
