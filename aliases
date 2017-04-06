@@ -45,6 +45,8 @@ alias ssh='TERM=screen ssh'
 source '/usr/share/doc/ranger/examples/bash_automatic_cd.sh' 2>/dev/null
 alias r='ranger-cd'
 alias weather='wego'
+alias tne='trans nl:en'
+alias ten='trans en:nl'
 alias genpass='apg -m 24 -M SNC'
 alias haz_internetz='ping 8.8.8.8'
 
