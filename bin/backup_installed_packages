@@ -2,4 +2,3 @@
 
 yaourt -Qen > ~/dropbox/.arch_official_packages
 yaourt -Qem > ~/dropbox/.arch_aur_packages
-pip3 list --not-required > ~/dropbox/.arch_pip3_packages
