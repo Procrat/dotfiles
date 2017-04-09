@@ -278,6 +278,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#neomake#error_symbol = '✖'
 let g:airline#extensions#neomake#warning_symbol = '⚠'
+let g:airline_skip_empty_sections = 1
 " }}}
 " davidhalter/jedi-vim {{{
 let g:jedi#completions_enabled = 0
