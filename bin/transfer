@@ -74,4 +74,6 @@ if tty -s; then
 else
     # Transfer stdin
     curl "${curl_options[@]}" --upload-file - "$remote_filename"
-fi
+fi | \
+    tee >(xclip -in -selection clipboard) | \
+    xargs notify-send -a 'transfer'
