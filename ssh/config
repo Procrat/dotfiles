@@ -1,5 +1,8 @@
 Host *
     ForwardAgent yes
+    ControlMaster auto
+    ControlPath ~/.ssh/controlmasters/%r@%h:%p
+    ControlPersist 10m
 Host zeus
     Hostname kelder.zeus.ugent.be
     Port 2222
