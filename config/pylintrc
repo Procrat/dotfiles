@@ -6,7 +6,7 @@ init-hook="
     inithook()"
 
 [MESSAGES CONTROL]
-disable=too-few-public-methods
+disable=too-few-public-methods,invalid-name,missing-docstring
 
 [TYPECHECK]
 ignore-mixin-members=no

@@ -1,4 +1,4 @@
-#!/usr/bin/bash -xv
+#!/usr/bin/bash
 #
 # Easy file and folder sharing.
 #

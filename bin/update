@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Cleanly updates Arch, Neovim plugins and local Python packages.
+# Cleanly updates Arch, Neovim plugins, Tmux plugins and local Python packages.
 
 set -euo pipefail
 
@@ -12,7 +12,7 @@ if ! (cd /etc && sudo git diff-index --quiet HEAD); then
     exit 1
 fi
 
-BUILD_NOCONFIRM=1 EDITFILES=0 yaourt -Syua
+yaourt -Syua
 paccache -r
 yaourt -C
 
