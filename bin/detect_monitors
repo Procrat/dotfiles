@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Detect screens and asks where to put them relative to the main screen.
+
+set -euo pipefail
+
+LAPTOP_SCREEN='eDP1'
+OTHER_SCREENS=('DP1')
+
+
+ask_orientation() {
+    echo -e 'left\nright' | rofi -dmenu -p "Where is the external monitor?"
+}
+
+# Removes disconnected monitors
+xrandr --auto
+
+for screen in "${OTHER_SCREENS[@]}" ; do
+    if grep -q "^$screen connected" <(xrandr); then
+        orientation=$(ask_orientation)
+        xrandr --output "$screen" --auto "--${orientation:-right}-of" $LAPTOP_SCREEN
+    fi
+done
+
+if wmctrl -m | grep xmonad; then
+    xmonad --restart
+fi

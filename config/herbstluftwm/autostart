@@ -45,27 +45,7 @@ hc unlock
 
 ### MULTI MONITOR SETUP ###
 
-find_orientation() {
-    geometry=( $(herbstclient monitor_rect) )
-    screen_width=${geometry[2]}
-    screen_height=${geometry[3]}
-    echo -e 'left\nright' | \
-        dmenu -i -l 2 -w 300 \
-        -p 'Where is the external monitor?' \
-        -x $((screen_width / 2 - 150)) \
-        -y $((screen_height / 2 - 24))
-}
-
-# Removes disconnected monitors
-xrandr --auto
-xrandr --output LVDS1 --auto
-if grep -q "VGA1 connected" <(xrandr); then
-    orientation=$(find_orientation)
-    xrandr --output VGA1 --auto --${orientation:-right}-of LVDS1
-elif  grep -q "HDMI1 connected" <(xrandr); then
-    orientation=$(find_orientation)
-    xrandr --output HDMI1 --auto --${orientation:-right}-of LVDS1
-fi
+$HOME/bin/detect_monitors
 
 hc detect_monitors
 # Or manual:
