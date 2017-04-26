@@ -32,7 +32,6 @@ alias g='git'
 # Who calls ghostscript from the command line anyway?
 alias gs='git status -sb #'
 alias gdfs='LESS="$LESS -S" g df'
-alias hc='herbstclient'
 alias be='bundle exec'
 alias open='xdg-open'
 alias psh='prefix-shell'
@@ -47,7 +46,6 @@ alias r='ranger-cd'
 alias weather='wego'
 alias tne='trans nl:en'
 alias ten='trans en:nl'
-alias genpass='apg -m 24 -M SNC'
 alias haz_internetz='ping 8.8.8.8'
 
 c() {
@@ -79,9 +77,6 @@ man() {
         LESS_TERMCAP_us=$'\E[3m' \
         LESS_TERMCAP_ue=$'\E[0m' \
         /usr/bin/man "$@"
-}
-mcd() {
-    mkdir -p "$@" && cd "$@"
 }
 clone() {
     cd "$HOME/repos"
@@ -151,8 +146,7 @@ alias status='systemctl status'
 
 # Quick cd
 alias bu='cd ~/docs/bucht'
-alias cdm='cd ~/repos/the-little-monks'
-alias ceva='cd ~/repos/eva'
+alias ceva='cd ~/repos/eva-scheduler'
 
 # Teehee
 alias hack_production_server='cat /dev/urandom'
