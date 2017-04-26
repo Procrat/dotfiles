@@ -84,6 +84,9 @@ clone() {
     repo=$(echo $@ | perl -pe 's|.*/(.*?)(\.git)?$|\1|')
     cd "$repo"
 }
+pgen() {
+    pass generate -c "$@" 30
+}
 # Ugly hacks incoming, not for sensitive eyes
 function cd() {
     # !! Assumes virtualenvs aren't activated manually
