@@ -57,11 +57,11 @@ baseConfig = desktopConfig {
     terminal           = plainTerminal,
     focusFollowsMouse  = False,
     clickJustFocuses   = False,
-    borderWidth        = 1,
+    borderWidth        = 3,
     modMask            = mod4Mask,
     workspaces         = ["im", "todo"] ++ map show ([3..9] :: [Int]),
-    normalBorderColor  = "#534636",
-    focusedBorderColor = "#D0C8C6"
+    normalBorderColor  = "#3B3228",
+    focusedBorderColor = "#7E705A"
 }
 
 
@@ -117,6 +117,7 @@ myKeyBindings conf =
     -- Context management
     , ("M-s", C.listContextNames >>= safeMenu "Switch:" >>= C.createAndSwitchContext)
     , ("M-S-s", C.listContextNames >>= safeMenu "Remove:" >>= C.deleteContext >> return ())
+    , ("M-S-v", C.showContextStorage)
 
     -- Workspace management
     , ("M-d", prevWS)

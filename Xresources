@@ -29,7 +29,7 @@ URxvt.scrollBar: false
 URxvt.saveLines: 0
 
 ! Padding
-URxvt.internalBorder: 2
+! URxvt.internalBorder: 2
 
 ! Font
 URxvt*font: xft:Monaco For Powerline:size=11
