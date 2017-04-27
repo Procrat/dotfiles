@@ -27,7 +27,7 @@ find_db_icon() {
 
 icon=$(find_db_icon)
 if [[ "$icon" != 'x' ]]; then
-    echo -n '^ca(dropbox-cli status | xargs -0 notify-send -a Dropbox)'
+    echo -n '^ca(1, dropbox-cli status | xargs -0 notify-send -a Dropbox)'
     echo -n "^i($SCRIPT_DIR/db_images/dropboxstatus-${icon}.xpm)"
     echo '^ca()'
 fi
