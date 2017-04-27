@@ -7,7 +7,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/scripts/${BASE16_THEME}.sh"
 [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
 
 # Aliases
-source $HOME/.aliases
+source "$HOME/.aliases"
 
 # In less, parse colors, show longer prompt
 export LESS='-R -M -W -i'
@@ -29,7 +29,7 @@ export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 # Add ruby gem path to PATH and make Bundler install gems per user
 export GEM_HOME="$HOME/.gem/ruby/2.4.0"
 
-export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$JAVA_HOME/bin:$GEM_HOME/bin:$HOME/bin:$PATH."
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$JAVA_HOME/bin:$GEM_HOME/bin:${PATH}:"
 
 # Set user virtualenv if unset and add to path if it exists
 if [[ -z "$VIRTUAL_ENV" && -d "$HOME/.venv" ]]; then
