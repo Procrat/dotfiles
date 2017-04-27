@@ -360,8 +360,7 @@ let g:gist_open_browser_after_post = 1
 let g:neomake_open_list = 2
 let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
 let g:neomake_python_enabled_makers = ['flake8'] ", 'pylint']
-" We already have `cargo` as project maker
-let g:neomake_rust_enabled_makers = []
+let g:neomake_python_enabled_makers = []
 " }}}
 " racer-rust/vim-racer {{{
 let g:racer_experimental_completer = 1
@@ -703,9 +702,6 @@ augroup vimrc_misc
 
     " Compile pandoc-markdown async on save
     au BufWritePost *.md if &ft ==# 'pandoc' | Neomake! | endif
-
-    " Run `cargo` when saving a Rust file
-    au BufWritePost *.rs Neomake! cargo
 
     " Compile TypeScript and show errors on save
     au BufWritePost *.ts call s:MakeAndCopen()
