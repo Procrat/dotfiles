@@ -107,8 +107,8 @@ let g:python3_host_prog = '/home/procrat/.venv/bin/python3'
 set autowrite
 " Hides buffers instead of closing
 set hidden
-" No swap files
-set noswapfile
+" Persistent undo
+set undofile
 " Line numbering
 set number
 " Show vertical column at 79 (maximum line length for Python)
