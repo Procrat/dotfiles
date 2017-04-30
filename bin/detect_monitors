@@ -22,6 +22,6 @@ for screen in "${OTHER_SCREENS[@]}" ; do
     fi
 done
 
-if wmctrl -m | grep xmonad; then
+if grep -q 'xmonad' <(wmctrl -m); then
     xmonad --restart
 fi
