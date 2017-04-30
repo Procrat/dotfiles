@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-source $HOME/.colors
+source "$HOME/.colors"
 
 ICON_DIR="$HOME/.config/icons/xbm"
 
@@ -15,7 +15,8 @@ find_link_quality() {
 
 # Converts a link quality ([0,70]) to a link quality order ([1,5])
 find_link_quality_order() {
-    local link_quality="$(find_link_quality)"
+    local link_quality
+    link_quality=$(find_link_quality)
 
     if [[ -z "$link_quality" ]]; then
         # Don't show an image
@@ -27,7 +28,8 @@ find_link_quality_order() {
 }
 
 icon() {
-    local link_quality_order="$(find_link_quality_order)"
+    local link_quality_order
+    link_quality_order=$(find_link_quality_order)
 
     if [[ -n "$link_quality_order" ]]; then
         echo -n "^fg($SECONDARY_CONTENT_COLOR)"

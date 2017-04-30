@@ -4,10 +4,10 @@
 
 set -euo pipefail
 
-source $HOME/.colors
-SCRIPT_DIR=$(dirname "$BASH_SOURCE")
+source "$HOME/.colors"
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
 DROPBOX_DIR="$HOME/.dropbox/Dropbox/"
-ICON_DIR="$HOME/.config/icons"
+ICON_DIR="$SCRIPT_DIR/db_images"
 NOT_RUNNING_MSG="Dropbox isn't running!"
 IDLE_MSG="up to date"
 SYNCING_MSG="syncing"
@@ -28,6 +28,6 @@ find_db_icon() {
 icon=$(find_db_icon)
 if [[ "$icon" != 'x' ]]; then
     echo -n '^ca(1, dropbox-cli status | xargs -0 notify-send -a Dropbox)'
-    echo -n "^i($SCRIPT_DIR/db_images/dropboxstatus-${icon}.xpm)"
+    echo -n "^i($ICON_DIR/dropboxstatus-${icon}.xpm)"
     echo '^ca()'
 fi

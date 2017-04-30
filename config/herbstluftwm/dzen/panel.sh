@@ -2,7 +2,7 @@
 #
 # HLWM bar using dzen2
 
-script_dir=$(dirname "$BASH_SOURCE")
+script_dir=$(dirname "${BASH_SOURCE[0]}")
 logs="$HOME/.local/share/herbstluftwm/logs"
 mkdir -p "$(dirname $logs)"
 

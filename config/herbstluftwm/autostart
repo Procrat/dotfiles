@@ -2,7 +2,7 @@
 #
 # HLWM settings
 
-script_dir=$(dirname $BASH_SOURCE)
+script_dir=$(dirname "${BASH_SOURCE[0]}")
 
 hc() { herbstclient "$@" ; }
 
@@ -24,7 +24,7 @@ source "$script_dir/theme.sh"
 tag_names=( im web 3 4 5 6 7 )
 tag_keys=( 1 2 3 4 5 6 7 )
 hc rename default "${tag_names[0]}" 2>/dev/null || true
-for i in ${!tag_names[@]} ; do
+for i in "${!tag_names[@]}"; do
     hc add "${tag_names[$i]}"
     key="${tag_keys[$i]}"
     if ! [ -z "$key" ] ; then
@@ -45,7 +45,7 @@ hc unlock
 
 ### MULTI MONITOR SETUP ###
 
-$HOME/bin/detect_monitors
+"$HOME/bin/detect_monitors"
 
 hc detect_monitors
 # Or manual:
@@ -57,5 +57,5 @@ panel="$script_dir/dzen/panel.sh"
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 # Start panel on each monitor
 for monitor in $(herbstclient list_monitors | cut -d: -f1); do
-    "$panel" $monitor &
+    "$panel" "$monitor" &
 done

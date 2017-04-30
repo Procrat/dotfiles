@@ -7,7 +7,7 @@ ICON_FOLDER=~/.config/icons/xbm
 PIPE="/tmp/dvolumepipe"
 WIDTH=124
 
-dzen_dir=$(dirname $BASH_SOURCE)
+dzen_dir=$(dirname "${BASH_SOURCE[0]}")
 height=$(($(cat "$dzen_dir/panel_height") - 1))
 
 usage() {
@@ -30,12 +30,12 @@ err() {
 case "$1" in
     '-i'|'--increase')
         [ -z "$2" ] && err "No argument specified for increase."
-        [ -n "$(tr -d [0-9] <<<$2)" ] && err "The argument needs to be an integer."
+        [ -n "$(tr -d '0-9' <<<"$2")" ] && err "The argument needs to be an integer."
         AMIXARG="${2}%+ unmute"
         ;;
     '-d'|'--decrease')
         [ -z "$2" ] && err "No argument specified for decrease."
-        [ -n "$(tr -d [0-9] <<<$2)" ] && err "The argument needs to be an integer."
+        [ -n "$(tr -d '0-9' <<<"$2")" ] && err "The argument needs to be an integer."
         AMIXARG="${2}%- unmute"
         ;;
     '-t'|'--toggle')

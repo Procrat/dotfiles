@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-source $HOME/.colors
+source "$HOME/.colors"
 
 battery=/sys/class/power_supply/BAT0
 icon_dir=$HOME/.config/icons/xbm
@@ -14,16 +14,16 @@ capacity="$(cat $battery/capacity)"
 
 capacity_color() {
     if [[ $capacity -gt 66 ]]; then
-        echo $OK_COLOR
+        echo "$OK_COLOR"
     elif [[ $capacity -gt 33 ]]; then
-        echo $WARNING_COLOR
+        echo "$WARNING_COLOR"
     else
-        echo $URGENT_WARNING_COLOR
+        echo "$URGENT_WARNING_COLOR"
     fi
 }
 
 capacity_icon() {
-    local rounded=$(echo "($capacity + 5) / 10 * 10" | bc)
+    local rounded=$(((capacity + 5) / 10 * 10))
     # We only have icons for 10 to 90 (not for 0 and 100)
     if [[ $rounded -lt 10 ]]; then
         rounded=10

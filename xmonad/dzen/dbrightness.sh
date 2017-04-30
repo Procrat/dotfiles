@@ -7,7 +7,7 @@ ICON_FOLDER=~/.config/icons/xbm
 PIPE="/tmp/dbrightnesspipe"
 WIDTH=124
 
-dzen_dir=$(dirname $BASH_SOURCE)
+dzen_dir=$(dirname "${BASH_SOURCE[0]}")
 height=$(($(cat "$dzen_dir/panel_height") - 1))
 
 usage() {
@@ -18,7 +18,7 @@ usage() {
 }
 
 # Actual brightness changing
-xbacklight $@
+xbacklight "$@"
 
 # Find rounded brightness and select (matching) icon
 BRIGHTNESS=$(xbacklight | sed 's/\..*//')

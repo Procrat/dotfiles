@@ -5,7 +5,7 @@
 
 hc() { herbstclient "$@" ; }
 
-source $HOME/.colors
+source "$HOME/.colors"
 
 
 # Frame looks
@@ -27,9 +27,9 @@ hc set frame_normal_opacity 100
 # Window looks
 hc set window_gap 15
 hc set window_border_width 1
-hc set window_border_active_color $SECONDARY_CONTENT_COLOR
-hc set window_border_normal_color $BACKGROUND_COLOR
-hc set window_border_urgent_color $WARNING_COLOR
+hc set window_border_active_color "$SECONDARY_CONTENT_COLOR"
+hc set window_border_normal_color "$BACKGROUND_COLOR"
+hc set window_border_urgent_color "$WARNING_COLOR"
 hc set window_border_inner_width 0
 # hc set window_border_inner_color
 

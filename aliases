@@ -49,9 +49,13 @@ alias ten='trans en:nl'
 alias haz_internetz='ping 8.8.8.8'
 
 c() {
-    cd ~
-    dir="$(find -L * -path "*/\.*" -prune -o -name "PlayOnLinux*" -prune -o -type d -print | fzf)"
-    [[ -n "$dir" ]] && cd "$dir" || false
+    cd ~ || return 1
+    dir="$(find -L ./* -path "*/\.*" -prune -o -name "PlayOnLinux*" -prune -o -type d -print | fzf)"
+    if [[ -n "$dir" ]]; then
+        cd "$dir" || return 1
+    else
+        return 2
+    fi
 }
 
 f() {
@@ -61,8 +65,7 @@ f() {
 }
 
 psg() {
-    ps auxww | grep -i --color=always $* | grep -v grep \
-        | sed 's/\s\+/\t/g' | cut -f 2,11- | sed 's/\t/ /g2'
+    pgrep -f -i -a "$*" | grep -v '[0-9]\+ grep' | grep "$*"
 }
 cl() {
     cd "$1" && ls -AFhlv
@@ -79,10 +82,10 @@ man() {
         /usr/bin/man "$@"
 }
 clone() {
-    cd "$HOME/repos"
-    git clone "$@"
-    repo=$(echo $@ | perl -pe 's|.*/(.*?)(\.git)?$|\1|')
-    cd "$repo"
+    cd "$HOME/repos" || return 1
+    git clone "$1"
+    repo=$(echo "$1" | perl -pe 's|.*/(.*?)(\.git)?$|\1|')
+    cd "$repo" || return 1
 }
 pgen() {
     pass generate -c "$@" 30
@@ -103,7 +106,7 @@ function cd() {
                 echo "$possible_venv"
                 return 0
             fi
-            builtin cd ..
+            builtin cd .. || return 1
         done
     }
 
@@ -117,17 +120,18 @@ function cd() {
         # explicitely or cd'ed to another directory, which we know through the
         # exit code. Exit or cd accordingly.
         if [[ "$exit_code" = 137 ]]; then
-            cd $(cat "$HOME/.local/share/venv_last_wd")
+            cd "$(cat "$HOME/.local/share/venv_last_wd")" || return 2
         else
             exit "$exit_code"
         fi
     }
 
     if builtin cd "$@"; then
-        local venv=$(search_virtualenv)
+        local venv
+        venv=$(search_virtualenv)
         # If there is a virtualenv active and the closest enclosing one isn't
         # the same, exit the subshell with a special exit code
-        if [[ -n "$VIRTUAL_ENV" && "$PWD" != "$(dirname $VIRTUAL_ENV)"*
+        if [[ -n "$VIRTUAL_ENV" && "$PWD" != "$(dirname "$VIRTUAL_ENV")"*
                 && "$VIRTUAL_ENV" != "$default_venv" ]]; then
             realpath "$PWD" >!"$HOME/.local/share/venv_last_wd"
             exit 137

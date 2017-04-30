@@ -3,7 +3,7 @@
 # Key and mouse bindings for HLWM
 
 
-script_dir=$(dirname $BASH_SOURCE)
+script_dir=$(dirname "${BASH_SOURCE[0]}")
 
 hc() { herbstclient "$@" ; }
 
@@ -90,12 +90,12 @@ hc mousebind $Mod-Button3 resize
 
 
 # Media key bindings (this probably shouldn't be defined here)
-hc keybind XF86AudioRaiseVolume  spawn $script_dir/dzen/dvolume.sh -i 2
-hc keybind XF86AudioLowerVolume  spawn $script_dir/dzen/dvolume.sh -d 2
-hc keybind XF86AudioMute         spawn $script_dir/dzen/dvolume.sh -t
+hc keybind XF86AudioRaiseVolume  spawn "$script_dir/dzen/dvolume.sh" -i 2
+hc keybind XF86AudioLowerVolume  spawn "$script_dir/dzen/dvolume.sh" -d 2
+hc keybind XF86AudioMute         spawn "$script_dir/dzen/dvolume.sh" -t
 hc keybind XF86AudioPlay         spawn playerctl play
 hc keybind XF86AudioPause        spawn playerctl pause
 hc keybind XF86AudioNext         spawn playerctl next
 hc keybind XF86AudioPrev         spawn playerctl previous
-hc keybind XF86MonBrightnessUp   spawn $script_dir/dzen/dbrightness.sh +15
-hc keybind XF86MonBrightnessDown spawn $script_dir/dzen/dbrightness.sh -10
+hc keybind XF86MonBrightnessUp   spawn "$script_dir/dzen/dbrightness.sh" +15
+hc keybind XF86MonBrightnessDown spawn "$script_dir/dzen/dbrightness.sh" -10

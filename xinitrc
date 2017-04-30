@@ -14,7 +14,7 @@ fi
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Background
-([[ -s "$HOME/.fehbg" ]] && bash "$HOME/.fehbg") &
+([ -s "$HOME/.fehbg" ] && bash "$HOME/.fehbg") &
 
 # Start autorepeat after .3s and repeat 55/s
 xset r rate 300 55 &
@@ -26,7 +26,7 @@ xrdb "$HOME/.Xresources"
 xautolock -locker "$HOME/bin/i3lock" -corners 0+0- -detectsleep &
 
 # Enable keyring
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
 export SSH_AUTH_SOCK
 
 # Start urxvt daemon (This is preferred above systemd)

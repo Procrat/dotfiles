@@ -43,13 +43,12 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on h
 (hc --idle | {
     while true; do
         # Wait till the next dialog spawns or reload
-        read event || break
+        read -r event || break
 
         if [[ "$event" = reload ]]; then
             break
         elif (echo "$event" | grep '^rule\s*dialog'); then
             hc lock
-            dialog_id=$(echo "$event" | sed 's/rule\s*dialog\s*\(.*\)/\1/')
             # hc manage on
             hc add float_tag
             hc floating float_tag on

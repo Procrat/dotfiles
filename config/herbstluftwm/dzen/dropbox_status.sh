@@ -5,7 +5,7 @@
 set -euo pipefail
 
 source $HOME/.colors
-SCRIPT_DIR=$(dirname "$BASH_SOURCE")
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
 DROPBOX_DIR="$HOME/.dropbox/Dropbox/"
 ICON_DIR="$HOME/.config/icons"
 NOT_RUNNING_MSG="Dropbox isn't running!"

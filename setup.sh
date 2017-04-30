@@ -20,7 +20,7 @@ ensure_repo_exists_and_has_latest_version() {
     repo="$1"
     dest="$2"
     if [[ -d "$dest" ]]; then
-        mkdir -p $(dirname "$dest")
+        mkdir -p "$(dirname "$dest")"
         (cd "$dest" && git pull origin)
     else
         git clone "$repo" "$dest"
@@ -84,8 +84,8 @@ dotfiles=(
     zprofile
     zshrc
 )
-for dotfile in ${dotfiles[@]}; do
-    mkdir -p "$(dirname $HOME/.$dotfile)"
+for dotfile in "${dotfiles[@]}"; do
+    mkdir -p "$(dirname "$HOME/.$dotfile")"
     ln -sfnT "$DEST/$dotfile" "$HOME/.$dotfile"
 done
 
@@ -115,7 +115,7 @@ fi
 
 echo "Ensuring $DEFAULT_SHELL is the default shell..."
 if [[ -x "$DEFAULT_SHELL" ]]; then
-    shell=$(getent passwd $USER | cut -d: -f7)
+    shell=$(getent passwd "$USER" | cut -d: -f7)
     if [[ "$shell" != "$DEFAULT_SHELL" ]]; then
         chsh -s "$DEFAULT_SHELL"
     fi

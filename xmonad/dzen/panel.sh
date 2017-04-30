@@ -2,9 +2,9 @@
 #
 # Xmonad bar using dzen2
 
-script_dir=$(dirname "$BASH_SOURCE")
+script_dir=$(dirname "${BASH_SOURCE[0]}")
 
-source $HOME/.colors
+source "$HOME/.colors"
 
 
 screens=($(xrandr | awk '/ connected/ { if ($3 == "primary") print $4; else print $3 }'))
@@ -14,7 +14,7 @@ font="Trebuchet MS:size=11"  # Fuck it, I'm hardcoding this shit
 
 
 uniq_linebuffered() {
-    awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
+    awk '$0 != l { print ; l=$0 ; fflush(); }'
 }
 
 without_dzen_tags() {
@@ -43,9 +43,9 @@ dzen_on_screen() {
 
     x=$((screen_x + margin))
     y=$screen_y
-    width=$((screen_width - 2*margin))
+    width=$((screen_width - 2 * margin))
 
-    dzen2 -w $width -x $x -y $y -h $panel_height -ta l -e 'onstart=lower' -dock
+    dzen2 -w $width -x $x -y "$y" -h "$panel_height" -ta l -e 'onstart=lower' -dock
 }
 
 
@@ -67,7 +67,7 @@ dzen_on_screen() {
 
     # Battery status generator
     while true ; do
-        $script_dir/battery_status.sh | \
+        "$script_dir/battery_status.sh" | \
             paste <(echo battery) -
         sleep 8 || break
     done > >(uniq_linebuffered) &
@@ -75,7 +75,7 @@ dzen_on_screen() {
 
     # Dropbox status generator
     while true ; do
-        $script_dir/dropbox_status.sh | \
+        "$script_dir/dropbox_status.sh" | \
             paste <(echo dropbox) -
         sleep 8 || break
     done > >(uniq_linebuffered) &
@@ -83,7 +83,7 @@ dzen_on_screen() {
 
     # Network status generator
     while true ; do
-        $script_dir/wifi_status.sh | \
+        "$script_dir/wifi_status.sh" | \
             paste <(echo network) -
         sleep 8 || break
     done > >(uniq_linebuffered) &
@@ -104,7 +104,6 @@ dzen_on_screen() {
 
     SEPARATOR=" ^fg($BACKGROUND_HIGHLIGHT_COLOR)^r(1x$((panel_height - 1)))^fg() "
 
-    visible=true
     date=""
     battery_status=""
     dropbox_status=""
@@ -138,7 +137,7 @@ dzen_on_screen() {
 
         # Calculate padding between left and right side
         right_text_only=$(without_dzen_tags "$right")
-        text_width=$($script_dir/xftwidth "$font" "$right_text_only")
+        text_width=$("$script_dir/xftwidth" "$font" "$right_text_only")
         icons_width=$(extract_icon_width "$right")
         width=$((text_width + icons_width))
 
@@ -157,21 +156,23 @@ dzen_on_screen() {
         # wait for next event
         IFS=$'\t' read -ra cmd || break
         # find out event origin
-        case "${cmd[0]}" in
+        kind=${cmd[0]}
+        data=("${cmd[@]:1}")
+        case "$kind" in
             date)
-                date="${cmd[@]:1}"
+                date="${data[*]}"
                 ;;
             battery)
-                battery_status="${cmd[@]:1}"
+                battery_status="${data[*]}"
                 ;;
             dropbox)
-                dropbox_status="${cmd[@]:1}"
+                dropbox_status="${data[*]}"
                 ;;
             network)
-                network_status="${cmd[@]:1}"
+                network_status="${data[*]}"
                 ;;
             wm)
-                wm_info="${cmd[@]:1}"
+                wm_info="${data[*]}"
                 ;;
         esac
     done
@@ -184,7 +185,7 @@ dzen_on_screen() {
 
 # If there's a second screen, also make a bar there.
 # (Only support for up to two screens.)
-if [[ "${#screens[@]}" > 1 ]]; then
+if [[ "${#screens[@]}" -gt 1 ]]; then
     tee >(dzen_on_screen "${screens[1]}")
 else
     cat
