@@ -127,8 +127,8 @@ set completeopt=menuone,longest
 set wildignore=*.o,*.obj,*.pyc,*.class,*.orig,*/.git/*
 " Maximum height of the autocompletion popup menu (pum)
 set pumheight=8
-" Mouse interactivity (default in NeoVim)
-"set mouse=a
+" Mouse interactivity
+set mouse=a
 " Copy/paste with X11 CLIPBOARD
 set clipboard=unnamedplus
 " Paste mode shortcut
@@ -165,8 +165,14 @@ set list
 set diffopt+=iwhite
 " Set window title
 set title
-" Nvim setting: pipe in insert mode
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+" Pipe cursor in insert & command mode, underline in replace mode
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+
+" Nvim settings
+if has('nvim')
+    " Show substitution feedback <3
+    set inccommand=split
+endif
 
 " }}}
 " Folding {{{
