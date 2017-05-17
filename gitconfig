@@ -29,6 +29,9 @@
 [commit]
     gpgsign = true
 
+[interactive]
+    singleKey = true
+
 [alias]
     a = add -A
     au = add -u
@@ -36,6 +39,7 @@
     s = status -sb
     st = status -sb
     ci = commit
+    ca = commit --amend -C HEAD
     br = branch
     co = checkout --
     df = diff -b -w -B --color-words
@@ -57,6 +61,7 @@
     contributors = shortlog --summary --numbered
     mergeff = merge --ff-only
     rebasi = rebase -i
+    pushf = push --force-with-lease
 
 [color]
     ui = true
