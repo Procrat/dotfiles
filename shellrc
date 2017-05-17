@@ -25,7 +25,7 @@ fi
 [[ $- == *i* ]] && stty -ixon
 
 # Pointer to Java JDK
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
+export JAVA_HOME="/usr/lib/jvm/default"
 # Add ruby gem path to PATH and make Bundler install gems per user
 export GEM_HOME="$HOME/.gem/ruby/2.4.0"
 
