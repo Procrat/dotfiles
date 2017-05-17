@@ -43,6 +43,7 @@ workbench.xmi
 
 # IntelliJ IDEA configuration files
 .idea/
+*.iml
 # IntelliJ IDEA output files
 out/
 
@@ -74,3 +75,6 @@ Library/
 Temp/
 ProjectSettings/
 *.meta
+
+# Dot-env
+.env
