@@ -42,6 +42,7 @@
     ca = commit --amend -C HEAD
     br = branch
     co = checkout --
+    cop = checkout -p
     df = diff -b -w -B --color-words
     dfc = diff --cached -b -w -B --color-words
     vdf = difftool
