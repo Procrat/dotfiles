@@ -108,14 +108,14 @@ URxvt.iso14755_52: false
 ! Dzen settings
 !-----------------------------------------------------------------------------
 
-dzen2.font: Trebuchet MS:size=11
+dzen2.font: Ubuntu:size=11
 
 
 !-----------------------------------------------------------------------------
 ! Dmenu settings
 !-----------------------------------------------------------------------------
 
-dmenu.font: Trebuchet MS:size=11
+dmenu.font: Ubuntu:size=11
 dmenu.selforeground: base0A
 dmenu.selbackground: base00
 
