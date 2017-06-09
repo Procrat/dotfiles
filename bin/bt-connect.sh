@@ -21,6 +21,6 @@ pulse_sink="${PULSE_SINKS[$device]:-}"
 {
     echo 'power on'
     echo -e "connect $mac_address"
-} | bluetoothctl -a
+} | bluetoothctl
 
 [[ -n "$pulse_sink" ]] && pactl set-default-sink "$pulse_sink"
