@@ -24,6 +24,8 @@ fi
 # but only for interactive shells of course
 [[ $- == *i* ]] && stty -ixon
 
+# Set the path to the Rust source (for use in Vim)
+export RUST_SRC_PATH='/usr/src/rust/src'
 # Pointer to Java JDK
 export JAVA_HOME="/usr/lib/jvm/default"
 # Add ruby gem path to PATH and make Bundler install gems per user
