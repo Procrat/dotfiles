@@ -25,7 +25,8 @@ import           XMonad.Hooks.EwmhDesktops      (fullscreenEventHook)
 import           XMonad.Hooks.FadeInactive      (fadeInactiveLogHook)
 import           XMonad.Hooks.ManageDocks       (docksEventHook)
 import qualified XMonad.Hooks.ManageHelpers     as MH
-import           XMonad.Hooks.UrgencyHook       (focusHook, withUrgencyHook)
+import           XMonad.Hooks.UrgencyHook       (NoUrgencyHook (..),
+                                                 withUrgencyHook)
 import           XMonad.Layout.NoBorders        (smartBorders)
 import           XMonad.Layout.WindowNavigation (Direction2D (..),
                                                  Navigate (..),
@@ -43,7 +44,7 @@ main :: IO ()
 main = do
     panelHandle <- spawnPipe "~/.xmonad/dzen/panel.sh"
 
-    xmonad $ withUrgencyHook focusHook $ baseConfig {
+    xmonad $ withUrgencyHook NoUrgencyHook $ baseConfig {
         keys            = \conf -> EZ.mkKeymap conf (myKeyBindings conf),
         layoutHook      = myLayout,
         manageHook      = myManageHook <+> manageHook baseConfig,
