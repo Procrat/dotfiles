@@ -91,8 +91,8 @@ myKeyBindings conf =
     , ("M-k", sendMessage $ Go U)
     , ("M-l", sendMessage $ Go R)
 
-    -- Close focused window
-    , ("M-c", kill)
+    -- Close focused window and ensure Tall layout
+    , ("M-c", kill >> sendMessage FirstLayout)
 
     -- Layout management
     --   Rotate through the available layout algorithms
