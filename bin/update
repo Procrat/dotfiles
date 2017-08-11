@@ -19,7 +19,8 @@ yaourt -C
 "$HOME/repos/dotfiles/setup.sh"
 
 pip install --upgrade pip
-pip-compile --output-file "$HOME/.config/pip/requirements.txt" \
+pip-compile --upgrade \
+    --output-file "$HOME/.config/pip/requirements.txt" \
     "$HOME/.config/pip/requirements.in"
 pip-sync "$HOME/.config/pip/requirements.txt"
 pip check
