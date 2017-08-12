@@ -63,6 +63,7 @@ dotfiles=(
     config/user-dirs.dirs
     config/yaourt
     ctags
+    environment
     gitconfig
     gitignore_global
     gtkrc-2.0

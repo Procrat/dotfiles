@@ -1,19 +1,13 @@
-# This file should be bash and zsh compatible
+# In less, parse colors, show longer prompt
+export LESS='-R -M -W -i'
+export PAGER='less'
 
-source "$HOME/.environment"
-
-# Base16 Shell
-export BASE16_THEME='base16-mocha'
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/${BASE16_THEME}.sh"
-[[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
-
-# Aliases
-source "$HOME/.aliases"
-
-
-# Disable Ctrl+S for scrolling so we can use it for the save shortcut in vim,
-# but only for interactive shells of course
-[[ $- == *i* ]] && stty -ixon
+# Editor settings
+has_nvim="$(which nvim 2>/dev/null)"
+if [[ -n "$has_nvim" ]]; then
+    export EDITOR=nvim
+    export VISUAL=nvim
+fi
 
 # Set the path to the Rust source (for use in Vim)
 export RUST_SRC_PATH='/usr/src/rust/src'
