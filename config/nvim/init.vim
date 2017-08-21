@@ -32,6 +32,7 @@ Plug 'rhysd/committia.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'shime/vim-livedown'
 Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neopairs.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -466,6 +467,7 @@ augroup markdown_mappings
         nnoremap <buffer> <leader>1 yypVr=:redraw<CR>
         nnoremap <buffer> <leader>2 yypVr-:redraw<CR>
         nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
+        nnoremap <buffer> <leader>v :LivedownPreview<CR>
     endfunction
 augroup END
 " Windows resizing
@@ -632,6 +634,9 @@ augroup END
 " scrooloose/nerdtree {{{
 "   <leader>n  Open NERD Tree
 nnoremap <leader>n :NERDTreeToggle<CR>
+" }}}
+" Plug 'shime/vim-livedown' {{{
+"   <leader>v  Opens generated markdown in browser. See markdown_mappings.
 " }}}
 " SirVer/ultisnips {{{
 "   ß        Expand ultisnips
