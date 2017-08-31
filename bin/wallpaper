@@ -14,5 +14,5 @@ wallpaper="$1"
 FIXED_WALLPAPER_PATH="$HOME/.local/share/wallpaper.png"
 geometry="$(xrandr | grep '\*' | awk '{ print $1 }')"
 
-convert "$wallpaper" -resize "${geometry}!" "$FIXED_WALLPAPER_PATH"
-feh --bg-scale "$FIXED_WALLPAPER_PATH"
+convert "$wallpaper" -resize "${geometry}^" "$FIXED_WALLPAPER_PATH"
+feh --bg-fill "$FIXED_WALLPAPER_PATH"
