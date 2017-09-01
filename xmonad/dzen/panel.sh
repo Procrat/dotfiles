@@ -10,7 +10,7 @@ source "$HOME/.colors"
 screens=($(xrandr | awk '/ connected/ { if ($3 == "primary") print $4; else print $3 }'))
 margin=15
 panel_height=$(cat "$script_dir/panel_height")
-font="Trebuchet MS:size=11"  # Fuck it, I'm hardcoding this shit
+font="Ubuntu:size=11"  # Fuck it, I'm hardcoding this shit
 
 
 uniq_linebuffered() {
