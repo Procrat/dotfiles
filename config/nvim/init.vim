@@ -368,6 +368,13 @@ let g:gist_open_browser_after_post = 1
 let g:neomake_open_list = 2
 let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
 let g:neomake_python_enabled_makers = []
+augroup au_neomake_rust_enabled_makers
+    autocmd!
+    au FileType rust call s:RustMakers()
+    function! s:RustMakers()
+        let g:neomake_enabled_makers = ['clippy']
+    endfunction
+augroup END
 " }}}
 " racer-rust/vim-racer {{{
 let g:racer_experimental_completer = 1
@@ -711,8 +718,8 @@ augroup vimrc_misc
     " Run all makers (linters etc) on save
     au BufWritePost * Neomake
 
-    " Compile pandoc-markdown async on save
-    au BufWritePost *.md if &ft ==# 'pandoc' | Neomake! | endif
+    " Run clippy when saving Rust files
+    au BufWritePost *.rs Neomake!
 
     " Compile TypeScript and show errors on save
     au BufWritePost *.ts call s:MakeAndCopen()
