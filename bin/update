@@ -24,3 +24,6 @@ pip-compile --upgrade \
     "$HOME/.config/pip/requirements.in"
 pip-sync "$HOME/.config/pip/requirements.txt"
 pip check
+
+rustup update
+cargo install-update -a
