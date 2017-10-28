@@ -718,9 +718,6 @@ augroup vimrc_misc
     " Run all makers (linters etc) on save
     au BufWritePost * Neomake
 
-    " Run clippy when saving Rust files
-    au BufWritePost *.rs Neomake!
-
     " Compile TypeScript and show errors on save
     au BufWritePost *.ts call s:MakeAndCopen()
 
