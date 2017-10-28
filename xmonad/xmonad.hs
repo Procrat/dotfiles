@@ -34,6 +34,7 @@ import           XMonad.Layout.WindowNavigation (Direction2D (..),
 import qualified XMonad.StackSet                as W
 import           XMonad.Util.Dmenu              (menuArgs)
 import qualified XMonad.Util.EZConfig           as EZ
+import qualified XMonad.Util.NamedScratchpad    as NS
 import           XMonad.Util.Run                (runProcessWithInput, spawnPipe)
 
 import qualified XMonad.Actions.Contexts        as C
@@ -76,6 +77,7 @@ myKeyBindings conf =
     , ("M-r", spawnHere "urxvtc -e ranger")
     , ("M-i", spawnHere "rofi-pass")
     , ("M-b", spawnHere "xdg-open http://")
+    , ("M-p", NS.namedScratchpadAction myScratchpads "sound control")
 
     -- Quit xmonad
     , ("M-S-q", io exitSuccess)
@@ -176,6 +178,12 @@ myManageHook = composeAll
     , className =? "Xmessage"       --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
+    , NS.namedScratchpadManageHook myScratchpads
+    ]
+
+
+myScratchpads = [
+    NS.NS "sound control" "pavucontrol" (className =? "Pavucontrol") MH.doCenterFloat
     ]
 
 
@@ -187,22 +195,27 @@ myLogHook :: IO.Handle -> X ()
 myLogHook panelHandle = fadeInactiveLogHook 0.9 <+> updatePanel panelHandle
 
 updatePanel :: IO.Handle -> X ()
-updatePanel panelHandle = DL.dynamicLogWithPP $ def
-    { DL.ppCurrent         = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#8AB3B5" "" ws
-    , DL.ppHidden          = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#B8AFAD" "" ws
-    , DL.ppHiddenNoWindows = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#7E705A" "" ws
-    , DL.ppUrgent          = \ws -> clickify ws $ DL.pad $ DL.dzenColor "#F4BC87" "" ws
+updatePanel panelHandle = DL.dynamicLogWithPP
+    . NS.namedScratchpadFilterOutWorkspacePP $ def
+    { DL.ppCurrent         = styleWS "#8AB3B5"
+    , DL.ppHidden          = styleWS "#B8AFAD"
+    , DL.ppHiddenNoWindows = styleWS "#7E705A"
+    , DL.ppUrgent          = styleWS "#F4BC87"
     , DL.ppWsSep           = ""
     , DL.ppSep             = DL.pad . DL.pad $ DL.dzenColor "#534636" "" "^r(1x27)"
     , DL.ppLayout          = DL.pad . DL.dzenColor "#B8AFAD" ""
     , DL.ppTitle           = DL.dzenColor "#B8AFAD" "" . DL.shorten 100
     , DL.ppExtras          = [fmap (fmap DL.pad) context]
-    , DL.ppOrder           = \(ws:layout:title':maybeContext) -> (maybeContext ++ [ws, layout, title'])
+    , DL.ppOrder           = \(ws:layout:title':maybeContext) ->
+                                (maybeContext ++ [ws, layout, title'])
     , DL.ppOutput          = IO.hPutStrLn panelHandle
     }
   where
-    clickify ws = DL.wrap ("^ca(1,wmctrl -s " ++ show wsid ++ ")") "^ca()"
-        where wsid = fromJust $ elemIndex ws (workspaces baseConfig)
+    styleWS color ws = clickify ws $ DL.pad $ DL.dzenColor color "" ws
+    clickify ws =
+        case elemIndex ws (workspaces baseConfig) of
+          Nothing -> id
+          Just wsIndex -> DL.wrap ("^ca(1,wmctrl -s " ++ show wsIndex ++ ")") "^ca()"
     context = do name <- C.showCurrentContextName
                  return $ mfilter (/= C.defaultContextName) (Just name)
 
