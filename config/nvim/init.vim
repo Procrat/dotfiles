@@ -740,6 +740,9 @@ augroup vimrc_misc
 
     au FileType python call s:ExtraPythonMappings()
 
+    " Stop vim-vue from slowing down (See https://github.com/posva/vim-vue)
+    au FileType vue let g:vue_disable_pre_processors=1
+
     " Remove trailing whitespace automatically on write when desired (non-binary)
     au BufWritePre * call s:StripTrailingWhitespace()
 
