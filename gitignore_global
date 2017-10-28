@@ -71,7 +71,6 @@ target/
 # Unity stuff
 Library/
 Temp/
-ProjectSettings/
 
 # Dot-env
 .env
