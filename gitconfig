@@ -20,6 +20,7 @@
 [rebase]
     stat = true
     autoStash = true
+    autoSquash = true
     missingCommitsCheck = "error"
 
 [diff]
@@ -40,6 +41,7 @@
     st = status -sb
     ci = commit
     ca = commit --amend -C HEAD
+    fix = commit --fixup
     br = branch
     co = checkout --
     cop = checkout -p
