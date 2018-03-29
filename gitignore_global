@@ -74,3 +74,6 @@ Temp/
 
 # Dot-env
 .env
+
+# I have this habit of creating a personal todo file in a project
+todo
