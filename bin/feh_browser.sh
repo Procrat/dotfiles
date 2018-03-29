@@ -5,7 +5,7 @@
 set -euo pipefail
 shopt -s nullglob
 
-FEH_OPTIONS=(--info 'exiv2 %F')
+FEH_OPTIONS=(-. --info 'exiv2 %F')
 
 if [[ -z "$1" || ! -f "$1" ]]; then
     echo "$0: First argument is not a file" >&2
