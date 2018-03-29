@@ -1,6 +1,6 @@
 # This file should be bash and zsh compatible
 
-source "$HOME/.environment"
+source "$HOME/.profile"
 
 # Base16 Shell
 export BASE16_THEME='base16-mocha'
@@ -10,25 +10,12 @@ BASE16_SHELL="$HOME/.config/base16-shell/scripts/${BASE16_THEME}.sh"
 # Aliases
 source "$HOME/.aliases"
 
-
 # Disable Ctrl+S for scrolling so we can use it for the save shortcut in vim,
 # but only for interactive shells of course
 [[ $- == *i* ]] && stty -ixon
 
-# Set the path to the Rust source (for use in Vim)
-export RUST_SRC_PATH='/usr/src/rust/src'
-# Pointer to Java JDK
-export JAVA_HOME="/usr/lib/jvm/default"
-# Add ruby gem path to PATH and make Bundler install gems per user
-export GEM_HOME="$HOME/.gem/ruby/2.4.0"
-
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$JAVA_HOME/bin:$GEM_HOME/bin:${PATH}:"
-
-# Set user virtualenv if unset and add to path if it exists
-if [[ -z "$VIRTUAL_ENV" && -d "$HOME/.venv" ]]; then
-    export VIRTUAL_ENV="$HOME/.venv"
-    export PATH="$VIRTUAL_ENV/bin:$PATH"
-fi
+# Add current dir to PATH
+PATH="$PATH:"
 
 
 # vim:filetype=sh

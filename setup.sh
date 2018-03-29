@@ -63,12 +63,12 @@ dotfiles=(
     config/user-dirs.dirs
     config/yaourt
     ctags
-    environment
     gitconfig
     gitignore_global
     gtkrc-2.0
     ipython/profile_default/ipython_config.py
     local/share/applications
+    profile
     shellrc
     spacemacs
     ssh/config
