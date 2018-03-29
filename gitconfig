@@ -24,6 +24,7 @@
     missingCommitsCheck = "error"
 
 [diff]
+    algorithm = histogram
     mnemonicPrefix = true
     tool = vimdiff
 
