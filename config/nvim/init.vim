@@ -29,6 +29,7 @@ Plug 'neomake/neomake'
 Plug 'cohama/lexima.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
+" Plug 'a-watson/vim-gdscript'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
