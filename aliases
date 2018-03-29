@@ -154,6 +154,7 @@ alias status='systemctl status'
 # Quick cd
 alias bu='cd ~/docs/bucht'
 alias ceva='cd ~/repos/eva'
+alias cweb='cd ~/repos/eva-web'
 
 # Teehee
 alias hack_production_server='cat /dev/urandom'
