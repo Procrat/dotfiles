@@ -48,9 +48,11 @@
     ci = commit
     ca = commit --amend -C HEAD
     fix = commit --fixup
+    wip = commit -am "WIP"
     br = branch
-    co = checkout --
-    cop = checkout -p
+    co = checkout
+    cob = checkout -b
+    cop = checkout -p --
     df = diff -b -w -B
     dff = diff -b -w -B -W
     dfw = diff -b -w -B --color-words
@@ -73,7 +75,11 @@
     unignore = update-index --no-assume-unchanged
     contributors = shortlog --summary --numbered
     mergeff = merge --ff-only
+    rb = rebase
     rebasi = rebase -i
+    rbi = rebase -i
+    rba = rebase --abort
+    rbc = rebase --continue
     pushf = push --force-with-lease
 
 [color]
