@@ -7,3 +7,6 @@
 [submodule "xmonad/contexts"]
 	path = xmonad/contexts
 	url = git@github.com:Procrat/xmonad-contexts
+[submodule "xmonad/pseudotiling"]
+	path = xmonad/pseudotiling
+	url = git@github.com:Procrat/xmonad-pseudotiling

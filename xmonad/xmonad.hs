@@ -1,12 +1,11 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures -fno-warn-orphans #-}
 
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE RankNTypes     #-}
-{-# LANGUAGE FlexibleInstances #-}
 
 import           Control.Monad                  (mfilter)
 import           Data.List                      (elemIndex)
-import           Data.Maybe                     (fromJust)
 import           Data.Monoid                    (All)
 import           System.Exit                    (exitSuccess)
 import qualified System.IO                      as IO
@@ -27,6 +26,7 @@ import           XMonad.Hooks.ManageDocks       (docksEventHook)
 import qualified XMonad.Hooks.ManageHelpers     as MH
 import           XMonad.Hooks.UrgencyHook       (NoUrgencyHook (..),
                                                  withUrgencyHook)
+import           XMonad.Layout.LayoutHints      (layoutHintsWithPlacement)
 import           XMonad.Layout.NoBorders        (smartBorders)
 import           XMonad.Layout.WindowNavigation (Direction2D (..),
                                                  Navigate (..),
@@ -38,6 +38,8 @@ import qualified XMonad.Util.NamedScratchpad    as NS
 import           XMonad.Util.Run                (runProcessWithInput, spawnPipe)
 
 import qualified XMonad.Actions.Contexts        as C
+import           XMonad.Layout.PseudoTiling     (doPseudoTile, pseudoTiling)
+import qualified XMonad.Layout.PseudoTiling     as PseudoTiling
 import           XMonad.Layout.SingleSpacing    (spacing)
 
 
@@ -117,6 +119,9 @@ myKeyBindings conf =
     , ("M-,", sendMessage (IncMasterN 1))
     , ("M-.", sendMessage (IncMasterN (-1)))
 
+    -- Pseudotile
+    , ("M-S-p", sendMessage PseudoTiling.ToggleFocusedWindow)
+
     -- Context management
     , ("M-s", C.listContextNames >>= safeMenu "Switch:" >>= C.createAndSwitchContext)
     , ("M-S-s", C.listContextNames >>= safeMenu "Remove:" >>= C.deleteContext >> return ())
@@ -162,7 +167,12 @@ myProgramLauncher =
 myLayout = modifiers layouts
   where
     modifiers =
-        desktopLayoutModifiers . smartBorders . spacing 15 . windowNavigation
+        desktopLayoutModifiers
+        . smartBorders
+        . layoutHintsWithPlacement (0.5, 0.5)
+        . pseudoTiling
+        . spacing 15
+        . windowNavigation
     layouts = Tall 1 (3 / 100) (54 / 100) ||| Full
 
 instance Read (Layout Window) where
@@ -179,9 +189,11 @@ myManageHook = composeAll
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
     , NS.namedScratchpadManageHook myScratchpads
+    , doPseudoTile
     ]
 
 
+myScratchpads :: [NS.NamedScratchpad]
 myScratchpads = [
     NS.NS "sound control" "pavucontrol" (className =? "Pavucontrol") MH.doCenterFloat
     ]
