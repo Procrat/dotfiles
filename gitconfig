@@ -11,6 +11,10 @@
 [pull]
     rebase = true
 
+[fetch]
+    prune = true
+    pruneTags = true
+
 [merge]
     tool = vimdiff
 
