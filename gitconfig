@@ -29,6 +29,7 @@
 
 [diff]
     algorithm = histogram
+    colorMoved = true
     mnemonicPrefix = true
     tool = vimdiff
 
@@ -50,8 +51,12 @@
     br = branch
     co = checkout --
     cop = checkout -p
-    df = diff -b -w -B --color-words
-    dfc = diff --cached -b -w -B --color-words
+    df = diff -b -w -B
+    dff = diff -b -w -B -W
+    dfw = diff -b -w -B --color-words
+    dffw = diff -b -w -B -W --color-words
+    dfc = diff --cached -b -w -B
+    dffc = diff --cached -b -w -B -W
     vdf = difftool
     vdfc = difftool --cached
     lg = log --stat
