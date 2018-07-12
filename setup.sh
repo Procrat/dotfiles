@@ -61,7 +61,7 @@ dotfiles=(
     config/ranger/rc.conf
     config/systemd
     config/user-dirs.dirs
-    config/yaourt
+    config/yay
     ctags
     gitconfig
     gitignore_global

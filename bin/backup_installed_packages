@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-yaourt -Qen > ~/dropbox/.arch_official_packages
-yaourt -Qem > ~/dropbox/.arch_aur_packages
+pacman -Qen > ~/dropbox/.arch_official_packages
+pacman -Qem > ~/dropbox/.arch_aur_packages

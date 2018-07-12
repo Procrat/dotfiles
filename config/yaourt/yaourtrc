@@ -1,6 +1,0 @@
-AURCOMMENT=0
-USEPAGER=1
-USECOLOR=2
-PACMAN=/usr/bin/powerpill
-
-# vim ft:conf

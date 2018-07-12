@@ -12,9 +12,11 @@ if ! (cd /etc && sudo git diff-index --quiet HEAD); then
     exit 1
 fi
 
-yaourt -Syua
-paccache -r
-yaourt -C
+# Show latest Arch Linux news
+yay -w
+yay
+paccache -r -k2
+sudo pacdiff
 
 "$HOME/repos/dotfiles/setup.sh"
 

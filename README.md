@@ -64,7 +64,7 @@ Dependency tree
   - urxvt
   - dzen
   - dmenu
-- yaourt
+- yay
 - zsh
   - prezto
   - base16-shell (git submodule)
