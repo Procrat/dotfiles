@@ -39,8 +39,7 @@ unclutter &
 # Start lightweight composite manager
 compton -b &
 
-exec \
-  xmonad \
-  # herbstluftwm --locked \
-  # gnome-shell \
+# exec herbstluftwm --locked \
+# exec gnome-shell \
+exec xmonad \
   &>>"$XDG_RUNTIME_DIR/xsession-errors"
