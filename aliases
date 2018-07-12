@@ -95,8 +95,6 @@ function cd() {
     # !! Assumes virtualenvs aren't activated manually
     # But then again, who'd want to do that? Look at that activation script :/
 
-    local default_venv="$HOME/.venv"
-
     # No turning back now.
 
     function search_virtualenv() {
@@ -131,13 +129,12 @@ function cd() {
         venv=$(search_virtualenv)
         # If there is a virtualenv active and the closest enclosing one isn't
         # the same, exit the subshell with a special exit code
-        if [[ -n "$VIRTUAL_ENV" && "$PWD" != "$(dirname "$VIRTUAL_ENV")"*
-                && "$VIRTUAL_ENV" != "$default_venv" ]]; then
+        if [[ -n "$VIRTUAL_ENV" &&
+              "$PWD" != "$(dirname "$VIRTUAL_ENV")"* ]]; then
             realpath "$PWD" >!"$HOME/.local/share/venv_last_wd"
             exit 137
         # Elif the new one is a new one, activate it
-        elif [[ -n "$venv" && "$VIRTUAL_ENV" != "$venv"
-                && "$venv" != "$default_venv" ]]; then
+        elif [[ -n "$venv" && "$VIRTUAL_ENV" != "$venv" ]]; then
             activate_virtualenv
         fi
     else

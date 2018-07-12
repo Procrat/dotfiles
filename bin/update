@@ -20,11 +20,11 @@ sudo pacdiff
 
 "$HOME/repos/dotfiles/setup.sh"
 
-pip install --upgrade pip
+pip install --user --upgrade pip pip-tools
 pip-compile --upgrade \
     --output-file "$HOME/.config/pip/requirements.txt" \
     "$HOME/.config/pip/requirements.in"
-pip-sync "$HOME/.config/pip/requirements.txt"
+pip-sync --user "$HOME/.config/pip/requirements.txt"
 pip check
 
 rustup update

@@ -49,7 +49,7 @@ git_info() {
 }
 virtualenv_info() {
     # Show wether we're in a virtualenv by adding a "v" to the dir
-    if [[ -n "$VIRTUAL_ENV" && "$VIRTUAL_ENV" != "$HOME/.venv" ]]; then
+    if [[ -n "$VIRTUAL_ENV" ]]; then
         echo ' %B%F{green}v%f%b'
     fi
 }

@@ -99,10 +99,6 @@ let g:airline_theme = 'base16'
 " General settings {{{
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\<Space>"
-" Set path to system python executable so we have the neovim package while
-" having a virtualenv active
-let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = '/home/procrat/.venv/bin/python3'
 " Automatic reloading on external file changes (default in NeoVim)
 "set autoread
 " Automatic writing when using certain commands, e.g. :n, :N
