@@ -63,6 +63,7 @@ dotfiles=(
     config/user-dirs.dirs
     config/yay
     ctags
+    emacs.d/private
     gitconfig
     gitignore_global
     gtkrc-2.0
