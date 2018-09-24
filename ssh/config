@@ -56,7 +56,7 @@ Host aur
     User aur
 Host mercurious
     Hostname mercurious.io
-    User root
+    User procrat
 
 
 # Tunnels
