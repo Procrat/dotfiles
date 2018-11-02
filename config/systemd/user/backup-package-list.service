@@ -1,0 +1,8 @@
+[Unit]
+Description=Backup of package list to Dropbox
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '\
+          pacman -Qen > "$HOME/dropbox/.arch_official_packages" \
+          && pacman -Qem > "$HOME/dropbox/.arch_aur_packages"'

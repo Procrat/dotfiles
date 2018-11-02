@@ -1,0 +1,11 @@
+[Unit]
+Description=Watchdog for system failures
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "\
+          if ! systemctl -q is-system-running; then \
+            systemctl list-units --state=failed --full | sed '/^$/,$d'; \
+            notify-send -u critical -a 'systemd watchdog' \
+              'Some systemd unit(s) failed.'; \
+          fi"

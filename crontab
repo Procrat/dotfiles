@@ -1,5 +1,0 @@
-MAILTO=stijnseghers@gmail.com
-PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:~/bin:/home/procrat/bin:
-0 12 * * * cronic backup_passwords
-0 12 * * * cronic backup_installed_packages
-0 12 * * * cronic cloud_sync

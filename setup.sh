@@ -98,13 +98,6 @@ ln -sfn "$HOME/.config/nvim/init.vim" "$HOME/.vimrc"
 echo 'Link bin folder...'
 ln -sfn "$DEST/bin" "$HOME/bin"
 
-echo 'Setting crontab...'
-if which crontab 2>/dev/null >&2; then
-    crontab "$DEST/crontab"
-else
-    echo 'No cron handler found.' >&2
-fi
-
 echo 'Making sure ~/.ssh/controlmasters exists...'
 mkdir -p "$HOME/.ssh/controlmasters"
 

@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-pacman -Qen > ~/dropbox/.arch_official_packages
-pacman -Qem > ~/dropbox/.arch_aur_packages

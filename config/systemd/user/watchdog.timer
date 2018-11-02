@@ -1,0 +1,9 @@
+[Unit]
+Description=Notify user when system is degraded
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=1day
+
+[Install]
+WantedBy=timers.target
