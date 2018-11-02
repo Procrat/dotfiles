@@ -165,7 +165,7 @@
     max_icon_size = 32
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_path = /usr/share/icons/Adwaita/32x32/actions:/usr/share/icons/Adwaita/32x32/apps:/usr/share/icons/Adwaita/32x32/categories:/usr/share/icons/Adwaita/32x32/devices:/usr/share/icons/Adwaita/32x32/emblems:/usr/share/icons/Adwaita/32x32/emotes:/usr/share/icons/Adwaita/32x32/mimetypes:/usr/share/icons/Adwaita/32x32/places:/usr/share/icons/Adwaita/32x32/status
 
     ### History ###
 
@@ -253,18 +253,18 @@
 
 # See ~/.colors for the color names
 [urgency_low]
-    background = "#3b3228"  # background
-    foreground = "#d0c8c6"  # primary content
+    background = "#3b3228"
+    foreground = "#d0c8c6"
     timeout = 3
 
 [urgency_normal]
-    background = "#534636"  # background highlight
-    foreground = "#e9e1dd"  # base06 (slightly lighter than primary)
+    background = "#534636"
+    foreground = "#e9e1dd"
     timeout = 4
 
 [urgency_critical]
-    background = "#534636"  # background highlight
-    foreground = "#f4bc87"  # warning
+    background = "#534636"
+    foreground = "#f4bc87"
     frame_color = "#ff0000"
     timeout = 0
 
