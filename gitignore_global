@@ -68,6 +68,9 @@ __pycache__
 # Rust stuff
 target/
 
+# JavaScript stuff
+.tern-port
+
 # Unity stuff
 Library/
 Temp/
