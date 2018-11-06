@@ -1,8 +1,8 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures -fno-warn-orphans #-}
 
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE KindSignatures #-}
-{-# LANGUAGE RankNTypes     #-}
+{-# LANGUAGE KindSignatures    #-}
+{-# LANGUAGE RankNTypes        #-}
 
 import           Control.Monad                  (mfilter)
 import           Data.List                      (elemIndex)
@@ -182,15 +182,25 @@ instance Read (Layout Window) where
 myManageHook :: ManageHook
 myManageHook = composeAll
     [ manageSpawn
-    , MH.isDialog                   --> doFloat
-    , MH.isFullscreen               --> MH.doFullFloat
-    , className =? "Gimp"           --> doFloat
-    , className =? "Xmessage"       --> doFloat
-    , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore
+    , shouldFloat      --> doFloat
+    , shouldIgnore     --> doIgnore
+    , shouldPseudoTile --> doPseudoTile
+    , MH.isFullscreen  --> MH.doFullFloat
     , NS.namedScratchpadManageHook myScratchpads
-    , doPseudoTile
     ]
+  where
+    shouldFloat =
+        MH.isDialog
+        <||> appName =? "xmessage"
+    shouldIgnore =
+        appName =? "desktop_window"
+        <||> appName =? "kdesktop"
+    shouldPseudoTile = not <$>
+        appName =? "emacs"
+        <||> appName =? "chromium"
+        <||> appName =? "Navigator"  -- Firefox
+        <||> appName =? "rambox"
+        <||> className =? "jetbrains-idea-ce"
 
 
 myScratchpads :: [NS.NamedScratchpad]
@@ -228,8 +238,8 @@ updatePanel panelHandle = DL.dynamicLogWithPP
         case elemIndex ws (workspaces baseConfig) of
           Nothing -> id
           Just wsIndex -> DL.wrap ("^ca(1,wmctrl -s " ++ show wsIndex ++ ")") "^ca()"
-    context = do name <- C.showCurrentContextName
-                 return $ mfilter (/= C.defaultContextName) (Just name)
+    context :: X (Maybe String)
+    context = mfilter (/= C.defaultContextName) . Just <$> C.showCurrentContextName
 
 
 myStartupHook :: X ()
