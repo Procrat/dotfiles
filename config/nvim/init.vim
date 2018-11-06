@@ -444,6 +444,9 @@ nnoremap Q <nop>
 nnoremap QQ ZQ
 " Select all
 nnoremap vA ggVG
+" Create newlines like o and O, but stay in normal mode
+nnoremap zj o<Esc>k
+nnoremap zk O<Esc>j
 " Autoformat whole file
 nnoremap <leader>= mzggVG='z
 " Sort lines
