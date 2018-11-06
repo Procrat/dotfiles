@@ -59,6 +59,7 @@ dotfiles=(
     config/pip/requirements.in
     config/pylintrc
     config/ranger/rc.conf
+    config/redshift
     config/systemd
     config/user-dirs.dirs
     config/yay
