@@ -74,6 +74,9 @@ PROMPT='$prompt_newline$(login_info)$(dir_info)$(git_info)$(virtualenv_info)'\
 # Optionally show error code in right hand side prompt
 RPROMPT='%(?..%F{red}%?%f)$(battery_info)'
 
+autoload -U +X bashcompinit && bashcompinit
+source ~/.bash_completion
+
 # Global aliases
 alias -g L="| ${PAGER:-less}"
 alias -g H='| head'
