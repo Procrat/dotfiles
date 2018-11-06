@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
 #
-# Cleanly updates Arch, Neovim plugins, Tmux plugins and local Python packages.
+# Cleanly updates Arch packages, Neovim plugins, Tmux plugins, local Python
+# packages, Rust compiler, local Rust crates, the remote secrets repo and the
+# backup of /etc.
 
 set -euo pipefail
 
-# Assert etckeeper's index is clean
+
+# Assert that etckeeper's index is clean
 if ! (cd /etc && sudo git diff-index --quiet HEAD); then
-    echo '/etc is not clean. Please fix.' >&2
+    echo '/etc is not clean; please commit your changes before updating.' >&2
     cd /etc
     sudo git status
     exit 1
 fi
 
 # Show latest Arch Linux news
-yay -w
+yay -Pw
+
+# Ensure system packages are up to date
 yay
 paccache -r -k2
 sudo pacdiff
 
+# Ensure dotfiles are linked Neovim and Tmux plugins are up to date
 "$HOME/repos/dotfiles/setup.sh"
 
+# Ensure local Python packages are up to date
 pip install --user --upgrade pip pip-tools
 pip-compile --upgrade \
     --output-file "$HOME/.config/pip/requirements.txt" \
@@ -27,5 +34,18 @@ pip-compile --upgrade \
 pip-sync --user "$HOME/.config/pip/requirements.txt"
 pip check
 
+# Ensure Rust and local crates are up to date
 rustup update
 cargo install-update -a
+
+# Ensure remote secrets store is up to date
+(cd "$HOME/.password-store" && git pull && git push)
+
+# Ensure /etc backup is up to date
+if (cd /etc && sudo git diff-index --quiet HEAD); then
+    cd /etc
+    sudo git push
+else
+    echo 'The update changed your /etc folder. Please review and commit ' >&2
+    echo 'the new changes.' >&2
+fi
