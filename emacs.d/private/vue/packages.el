@@ -26,11 +26,13 @@
   (add-to-list 'editorconfig-indentation-alist
                '(vue-mode css-indent-offset
                           js-indent-level
+                          typescript-indent-level
                           sgml-basic-offset
                           ssass-tab-width
                           )))
 
 (defun vue/post-init-flycheck ()
+  (require 'flycheck)
   ;; Vetur, the Vue language server doesn't seem to provide any syntax checking
   ;; capabilities yet, so use the ESLint checker for now.
   (flycheck-add-mode 'javascript-eslint 'vue-mode)
