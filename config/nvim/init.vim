@@ -67,7 +67,6 @@ Plug 'Procrat/jedi-vim'
 " -- Completion plugins
 Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'eagletmt/neco-ghc'
 Plug 'racer-rust/vim-racer'
 Plug 'Shougo/neco-vim'
 Plug 'zchee/deoplete-clang'
@@ -412,7 +411,6 @@ let g:pandoc#filetypes#pandoc_markdown = 0
 " }}}
 " Completion settings {{{
 let g:deoplete#enable_at_startup = 1
-let g:necoghc_enable_detailed_browse = 1
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 let g:SuperTabDefaultCompletionType = 'context'
@@ -508,9 +506,9 @@ augroup haskell_mappings
     au FileType haskell call s:HaskellMappings()
     function! s:HaskellMappings()
 "   F1  Show type information. Multiple presses for expansion
-        nnoremap <buffer> <F1> :HdevtoolsType<CR>
+        nnoremap <buffer> <leader>ht :HdevtoolsType<CR>
 "   F2  Clear the type information
-        nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+        nnoremap <buffer> <silent> <leader>hc :HdevtoolsClear<CR>
     endfunction
 augroup END
 " }}}
@@ -721,9 +719,12 @@ augroup vimrc_misc
     " Compile TypeScript and show errors on save
     au BufWritePost *.ts call s:MakeAndCopen()
 
+    " Run stylish-haskell when saving Haskell files
+    au BufWritePost *.hs call s:StylishHaskell()
+
     " Set GHC options when configuring XMonad
-    let s:xmonad_lib = $HOME . '/.xmonad/lib'
-    au BufNewFile,BufRead xmonad.hs
+    let s:xmonad_lib = expand('~/.xmonad/lib')
+    au BufNewFile,BufRead ~/.xmonad/*
         \ let g:hdevtools_options = '-g-i' . s:xmonad_lib |
         \ let b:neomake_haskell_hdevtools_args =
             \ ['--verbosity', 'silent', 'exec', '--',
@@ -756,6 +757,13 @@ func! s:MakeAndCopen()
     else
         cclose
     endif
+endfunc
+
+func! s:StylishHaskell()
+    let l:winview = winsaveview()
+    silent! exe "undojoin"
+    silent! exe "keepjumps %!stylish-haskell"
+    call winrestview(l:winview)
 endfunc
 
 func! s:StripTrailingWhitespace()
