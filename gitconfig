@@ -92,7 +92,3 @@
 
 [github]
     user = Procrat
-
-# Enforce SSH on GitHub
-[url "ssh://git@github.com/"]
-    insteadOf = https://github.com/
