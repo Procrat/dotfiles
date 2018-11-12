@@ -39,6 +39,8 @@ unclutter &
 # Start lightweight composite manager
 compton -b &
 
+redshift &
+
 # exec herbstluftwm --locked \
 # exec gnome-shell \
 exec xmonad \
