@@ -27,7 +27,7 @@ alias e='TERM=screen-256color emacsclient -t'
 alias rm='rm -Iv'
 alias ipy='exec ipython'
 alias hig='history 0 | grep -i'
-alias todo='ag -i "todo|fixme|xx|yy|zz"'
+alias todo='ag -i "todo|fixme|xxx"'
 alias g='git'
 # Who calls ghostscript from the command line anyway?
 alias gs='git status -sb #'
