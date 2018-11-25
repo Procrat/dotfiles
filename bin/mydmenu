@@ -3,8 +3,16 @@
 set -euo pipefail
 
 
+usage() {
+    echo "Usage: $(basename "$0") yeganesh-profile [dmenu-options]" >&2
+}
+
+yeganesh_profile=$1
+shift
+
 height="$(($(cat "$HOME/.config/herbstluftwm/dzen/panel_height") - 1))"
 screen_geometry="$(wmctrl -d | awk '/^...\*/ { print $4 }')"
 width="$((${screen_geometry%x*} - 450))"
 
-exec yeganesh -f -- -i -h "$height" -x 60 -w "$width" "$@"
+exec yeganesh -f -p "$yeganesh_profile" -- \
+    -i -f -h "$height" -x 60 -w "$width" "$@"

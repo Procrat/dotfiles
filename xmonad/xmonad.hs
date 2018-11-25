@@ -161,7 +161,7 @@ myKeyBindings conf =
 
 myProgramLauncher :: String
 myProgramLauncher =
-    "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu -q -f\" --term=urxvtc"
+    "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu apps -q\" --term=urxvtc"
 
 
 myLayout = modifiers layouts
@@ -274,7 +274,7 @@ fixEWMH = withDisplay $ \dpy -> do
 safeMenu :: String -> [String] -> X String
 safeMenu prompt options = do
     uninstallSignalHandlers
-    choice <- menuArgs "/home/procrat/bin/mydmenu" ["-p", prompt] options
+    choice <- menuArgs "/home/procrat/bin/mydmenu" ["default", "-p", prompt] options
     installSignalHandlers
     return choice
 

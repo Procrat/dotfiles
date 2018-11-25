@@ -14,7 +14,7 @@ declare -a DEVICES=("${!MAC_ADDRESSES[@]}")
 rfkill unblock bluetooth
 systemctl is-active bluetooth >/dev/null || sudo systemctl start bluetooth
 
-device=$(printf '%s\n' "${DEVICES[@]}" | mydmenu)
+device=$(printf '%s\n' "${DEVICES[@]}" | mydmenu bluetooth-devices -p device:)
 mac_address="${MAC_ADDRESSES[$device]}"
 pulse_sink="${PULSE_SINKS[$device]:-}"
 

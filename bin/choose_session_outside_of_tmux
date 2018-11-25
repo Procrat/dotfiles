@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-chosen_session="$(tmux ls -F '#{session_name}' | "$HOME/bin/mydmenu")"
+chosen_session="$(tmux ls -F '#{session_name}' | "$HOME/bin/mydmenu" tmux -p session:)"
 if [[ -n "$chosen_session" ]]; then
     exec tmux attach -t "$chosen_session"
 fi
