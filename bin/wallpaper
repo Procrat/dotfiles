@@ -14,10 +14,10 @@ wallpaper="$1"
 FIXED_WALLPAPER_PATH="$HOME/.local/share/wallpaper.png"
 geometry="$(xrandr | grep '\*' | awk '{ print $1 }')"
 
+# Resize it such that the smallest dimension fits exactly, and
+# cut of the extra bits of the other dimension, assuming a centered image
 convert "$wallpaper" \
-    # Resize it such that it the smallest dimension fits exactly
     -resize "${geometry}^" \
-    # Cut of the extra bits of the other dimension, assuming a centered image
     -gravity Center -extent "${geometry}" \
     "$FIXED_WALLPAPER_PATH"
 feh --bg-fill "$FIXED_WALLPAPER_PATH"
