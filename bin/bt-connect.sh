@@ -5,22 +5,33 @@
 set -euo pipefail
 
 
-declare -A MAC_ADDRESSES PULSE_SINKS
-MAC_ADDRESSES['Nude Super-M']='A0:E9:DB:5C:FD:44'
-MAC_ADDRESSES['Zeus']='60:E3:27:09:12:DE'
-PULSE_SINKS['Nude Super-M']='bluez_sink.A0_E9_DB_5C_FD_44.a2dp_sink'
+declare -A MAC_ADDRESSES
+
+function populate_mac_addresses() {
+    readarray -t device_lines < <(bluetoothctl <<<'devices' | \
+        grep '^Device ' | \
+        cut -d ' ' -f 2-)
+
+    for line in "${device_lines[@]}"; do
+        read -rs mac_address device_name <<<"$line"
+        MAC_ADDRESSES[$device_name]=$mac_address
+    done
+}
+
+populate_mac_addresses
+
 declare -a DEVICES=("${!MAC_ADDRESSES[@]}")
 
+
 rfkill unblock bluetooth
-systemctl is-active bluetooth >/dev/null || sudo systemctl start bluetooth
+if ! systemctl is-active bluetooth >/dev/null; then
+    sudo systemctl start bluetooth
+fi
 
 device=$(printf '%s\n' "${DEVICES[@]}" | mydmenu bluetooth-devices -p device:)
 mac_address="${MAC_ADDRESSES[$device]}"
-pulse_sink="${PULSE_SINKS[$device]:-}"
 
 {
     echo 'power on'
     echo -e "connect $mac_address"
 } | bluetoothctl
-
-[[ -n "$pulse_sink" ]] && pactl set-default-sink "$pulse_sink"
