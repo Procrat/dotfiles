@@ -7,6 +7,17 @@ set -euo pipefail
 
 declare -A MAC_ADDRESSES
 
+
+function enable_bluetooth() {
+    rfkill unblock bluetooth
+
+    if ! systemctl is-active bluetooth >/dev/null; then
+        sudo systemctl start bluetooth
+    fi
+
+    bluetoothctl <<<'power on'
+}
+
 function populate_mac_addresses() {
     readarray -t device_lines < <(bluetoothctl <<<'devices' | \
         grep '^Device ' | \
@@ -18,20 +29,13 @@ function populate_mac_addresses() {
     done
 }
 
+
+enable_bluetooth
+
 populate_mac_addresses
 
 declare -a DEVICES=("${!MAC_ADDRESSES[@]}")
-
-
-rfkill unblock bluetooth
-if ! systemctl is-active bluetooth >/dev/null; then
-    sudo systemctl start bluetooth
-fi
-
 device=$(printf '%s\n' "${DEVICES[@]}" | mydmenu bluetooth-devices -p device:)
 mac_address="${MAC_ADDRESSES[$device]}"
 
-{
-    echo 'power on'
-    echo -e "connect $mac_address"
-} | bluetoothctl
+bluetoothctl <<<"connect $mac_address"
