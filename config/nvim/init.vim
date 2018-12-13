@@ -7,6 +7,7 @@ call plug#begin()
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'godlygeek/tabular'
@@ -26,7 +27,6 @@ Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'neomake/neomake'
-Plug 'cohama/lexima.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
 " Plug 'a-watson/vim-gdscript'
@@ -35,7 +35,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'shime/vim-livedown'
 Plug 'Shougo/echodoc.vim'
-Plug 'Shougo/neopairs.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'tmux-plugins/vim-tmux'
@@ -283,6 +282,14 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#neomake#error_symbol = '✖'
 let g:airline#extensions#neomake#warning_symbol = '⚠'
 let g:airline_skip_empty_sections = 1
+" }}}
+" cohama/lexima.vim {{{
+" Enable space rules only for certain filetypes
+let g:lexima_enable_space_rules = 0
+for rule in g:lexima#space_rules
+    let rule.filetype = ['rust', 'toml']
+    call lexima#add_rule(rule)
+endfor
 " }}}
 " davidhalter/jedi-vim {{{
 let g:jedi#completions_enabled = 0
