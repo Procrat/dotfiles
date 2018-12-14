@@ -3,7 +3,9 @@ Description=Reminder of calendar events
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/gcalcli remind 15 \
+ExecStart=/usr/bin/gcalcli \
+          --configFolder %h/.config/gcalcli/ \
+          remind 15 \
           'notify-send -u critical -a Calendar \
           -i appointment-soon-symbolic.symbolic \
           \\%%s'

@@ -50,6 +50,7 @@ dotfiles=(
     config/base16-shell
     config/compton.conf
     config/dunst
+    config/gcalcli/gcalclirc
     config/gtk-3.0/settings.ini
     config/herbstluftwm
     config/htop
