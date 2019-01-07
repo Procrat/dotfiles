@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+
+if ! nm-online --quiet --timeout 1; then
+    # We don't have an internet connection
+    echo 'Not showing reminders because there is no internet connction.' >&2
+    exit
+fi
+
+
+gcalcli \
+    --configFolder "$HOME/.config/gcalcli/" \
+    remind 15 \
+    'notify-send -u critical -a Calendar -i appointment-soon-symbolic.symbolic %s'
