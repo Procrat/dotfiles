@@ -65,7 +65,8 @@ This function should only modify configuration layer settings."
                  node-add-modules-path t)
      markdown
      ;; python  ;; Currently errors on spacemacs/moon branch
-     rust
+     (rust :variables
+           rust-backend 'lsp)
      shell-scripts
      sql
      systemd
