@@ -45,7 +45,7 @@ import           XMonad.Layout.SingleSpacing    (spacing)
 
 main :: IO ()
 main = do
-    panelHandle <- spawnPipe "~/.xmonad/dzen/panel.sh"
+    panelHandle <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
 
     xmonad $ withUrgencyHook NoUrgencyHook $ baseConfig {
         keys            = \conf -> EZ.mkKeymap conf (myKeyBindings conf),
@@ -218,19 +218,21 @@ myLogHook panelHandle = fadeInactiveLogHook 0.9 <+> updatePanel panelHandle
 
 updatePanel :: IO.Handle -> X ()
 updatePanel panelHandle = DL.dynamicLogWithPP
-    . NS.namedScratchpadFilterOutWorkspacePP $ def
+    . NS.namedScratchpadFilterOutWorkspacePP
+    . withContextShown
+    $ xmobarPP { DL.ppOutput = IO.hPutStrLn panelHandle }
+
+
+dzenPP :: DL.PP
+dzenPP = def
     { DL.ppCurrent         = styleWS "#8AB3B5"
     , DL.ppHidden          = styleWS "#B8AFAD"
     , DL.ppHiddenNoWindows = styleWS "#7E705A"
     , DL.ppUrgent          = styleWS "#F4BC87"
-    , DL.ppWsSep           = ""
     , DL.ppSep             = DL.pad . DL.pad $ DL.dzenColor "#534636" "" "^r(1x27)"
+    , DL.ppWsSep           = ""
     , DL.ppLayout          = DL.pad . DL.dzenColor "#B8AFAD" ""
     , DL.ppTitle           = DL.dzenColor "#B8AFAD" "" . DL.shorten 100
-    , DL.ppExtras          = [fmap (fmap DL.pad) context]
-    , DL.ppOrder           = \(ws:layout:title':maybeContext) ->
-                                (maybeContext ++ [ws, layout, title'])
-    , DL.ppOutput          = IO.hPutStrLn panelHandle
     }
   where
     styleWS color ws = clickify ws $ DL.pad $ DL.dzenColor color "" ws
@@ -238,8 +240,42 @@ updatePanel panelHandle = DL.dynamicLogWithPP
         case elemIndex ws (workspaces baseConfig) of
           Nothing -> id
           Just wsIndex -> DL.wrap ("^ca(1,wmctrl -s " ++ show wsIndex ++ ")") "^ca()"
+
+
+xmobarPP :: DL.PP
+xmobarPP = def
+    { DL.ppCurrent         = styleWS "#8AB3B5"
+    , DL.ppHidden          = styleWS "#B8AFAD"
+    , DL.ppHiddenNoWindows = styleWS "#7E705A"
+    , DL.ppUrgent          = styleWS "#F4BC87"
+    , DL.ppSep             = DL.pad $ DL.xmobarColor "#534636" "" "<fn=1>│</fn>"
+
+    , DL.ppWsSep           = ""
+    , DL.ppTitle           = DL.shorten 100
+    }
+  where
+    styleWS color ws = clickify ws $ DL.pad $ DL.xmobarColor color "" ws
+    clickify ws =
+        case elemIndex ws (workspaces baseConfig) of
+          Nothing      -> id
+          Just wsIndex -> DL.xmobarAction ("wmctrl -s " ++ show wsIndex) "1"
+
+
+withContextShown :: DL.PP -> DL.PP
+withContextShown pp = pp
+    { DL.ppOrder  = putContextFirst . DL.ppOrder pp
+    -- If we're on a non-default context, show its name
+    , DL.ppExtras = DL.ppExtras pp ++ [fmap (fmap DL.pad) context]
+    }
+  where
+    putContextFirst :: [String] -> [String]
+    putContextFirst (ws:layout:title:extras) =
+        if null extras
+           then ws:layout:title:extras
+           else last extras : ws:layout:title : init extras
     context :: X (Maybe String)
-    context = mfilter (/= C.defaultContextName) . Just <$> C.showCurrentContextName
+    context = mfilter (/= C.defaultContextName)
+        . Just <$> C.showCurrentContextName
 
 
 myStartupHook :: X ()

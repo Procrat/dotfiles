@@ -63,6 +63,7 @@ dotfiles=(
     config/redshift
     config/systemd
     config/user-dirs.dirs
+    config/xmobar
     config/yay
     ctags
     emacs.d/private
