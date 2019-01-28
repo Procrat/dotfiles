@@ -1,1 +1,8 @@
-/usr/share/applications/sun-java-jre8.desktop
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=Java Runtime Environment
+Exec=java -jar %f
+Terminal=false
+MimeType=application/x-java-archive;
+Categories=Utility;
