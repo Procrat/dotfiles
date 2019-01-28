@@ -48,9 +48,9 @@ This function should only modify configuration layer settings."
      (evil-snipe :variables  ;; ~ vim-easymotion
                  evil-snipe-enable-alternate-f-and-t-behaviors t)
      git
-     github
      helm
      imenu-list ;; sidebar with quick links
+     multiple-cursors
      spacemacs-evil
      spell-checking
      syntax-checking
