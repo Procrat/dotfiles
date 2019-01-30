@@ -4,9 +4,9 @@
 {-# LANGUAGE KindSignatures    #-}
 {-# LANGUAGE RankNTypes        #-}
 
-import           Control.Monad                  (mfilter)
+import           Control.Monad                  (mfilter, when)
 import           Data.List                      (elemIndex)
-import           Data.Monoid                    (All)
+import           Data.Monoid                    (All (..))
 import           System.Exit                    (exitSuccess)
 import qualified System.IO                      as IO
 import           Text.Printf                    (printf)
@@ -96,7 +96,7 @@ myKeyBindings conf =
     , ("M-l", sendMessage $ Go R)
 
     -- Close focused window and ensure Tall layout
-    , ("M-c", kill >> sendMessage FirstLayout)
+    , ("M-c", kill)
 
     -- Layout management
     --   Rotate through the available layout algorithms
@@ -210,7 +210,15 @@ myScratchpads = [
 
 
 myEventHook :: Event -> X All
-myEventHook = fullscreenEventHook <+> docksEventHook
+myEventHook = fullscreenEventHook
+                <+> docksEventHook
+                <+> tallLayoutOnCloseEventHook
+
+tallLayoutOnCloseEventHook :: Event -> X All
+tallLayoutOnCloseEventHook DestroyWindowEvent{} = do
+    sendMessage FirstLayout
+    return $ All True
+tallLayoutOnCloseEventHook _ = return $ All True
 
 
 myLogHook :: IO.Handle -> X ()
@@ -221,7 +229,6 @@ updatePanel panelHandle = DL.dynamicLogWithPP
     . NS.namedScratchpadFilterOutWorkspacePP
     . withContextShown
     $ xmobarPP { DL.ppOutput = IO.hPutStrLn panelHandle }
-
 
 dzenPP :: DL.PP
 dzenPP = def
@@ -241,7 +248,6 @@ dzenPP = def
           Nothing -> id
           Just wsIndex -> DL.wrap ("^ca(1,wmctrl -s " ++ show wsIndex ++ ")") "^ca()"
 
-
 xmobarPP :: DL.PP
 xmobarPP = def
     { DL.ppCurrent         = styleWS "#8AB3B5"
@@ -259,7 +265,6 @@ xmobarPP = def
         case elemIndex ws (workspaces baseConfig) of
           Nothing      -> id
           Just wsIndex -> DL.xmobarAction ("wmctrl -s " ++ show wsIndex) "1"
-
 
 withContextShown :: DL.PP -> DL.PP
 withContextShown pp = pp
