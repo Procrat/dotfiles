@@ -24,7 +24,7 @@ xset r rate 300 55 &
 xrdb "$HOME/.Xresources"
 
 # Screenlocker
-xautolock -locker "$HOME/bin/i3lock" -corners 0+0- -detectsleep &
+xautolock -locker "$HOME/bin/i3lock" -corners 0+0- &
 
 # Enable keyring
 eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
