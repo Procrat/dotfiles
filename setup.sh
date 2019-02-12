@@ -50,6 +50,7 @@ dotfiles=(
     config/base16-shell
     config/compton.conf
     config/dunst
+    config/dzen
     config/gcalcli/gcalclirc
     config/gtk-3.0/settings.ini
     config/herbstluftwm
@@ -64,6 +65,7 @@ dotfiles=(
     config/systemd
     config/user-dirs.dirs
     config/xmobar
+    config/xmonad
     config/yay
     ctags
     emacs.d/private
@@ -79,9 +81,6 @@ dotfiles=(
     tern-config
     tmux.conf
     xinitrc
-    xmonad/xmonad.hs
-    xmonad/dzen
-    xmonad/lib
     xprofile
     Xresources
     zfunc

@@ -147,14 +147,14 @@ myKeyBindings conf =
         , (action, mask) <- [(W.view, ""), (W.shift, "S-")]] ++
 
     -- Media keys
-    [ ("<XF86AudioRaiseVolume>", spawn "~/.xmonad/dzen/dvolume.sh -i 3")
-    , ("<XF86AudioLowerVolume>", spawn "~/.xmonad/dzen/dvolume.sh -d 3")
-    , ("<XF86AudioMute>", spawn "~/.xmonad/dzen/dvolume.sh -t")
+    [ ("<XF86AudioRaiseVolume>", spawn "~/.config/dzen/dvolume.sh -i 3")
+    , ("<XF86AudioLowerVolume>", spawn "~/.config/dzen/dvolume.sh -d 3")
+    , ("<XF86AudioMute>", spawn "~/.config/dzen/dvolume.sh -t")
     , ("<XF86AudioPrev>", spawn "playerctl previous")
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")
     , ("<XF86AudioNext>", spawn "playerctl next")
-    , ("<XF86MonBrightnessUp>", spawn "~/.xmonad/dzen/dbrightness.sh +15")
-    , ("<XF86MonBrightnessDown>", spawn "~/.xmonad/dzen/dbrightness.sh -15")
+    , ("<XF86MonBrightnessUp>", spawn "~/.config/dzen/dbrightness.sh +15")
+    , ("<XF86MonBrightnessDown>", spawn "~/.config/dzen/dbrightness.sh -15")
     ]
 
 myProgramLauncher :: String
