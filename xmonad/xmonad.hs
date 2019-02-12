@@ -1,17 +1,15 @@
-{-# OPTIONS_GHC -fno-warn-missing-signatures -fno-warn-orphans #-}
+{-# OPTIONS_GHC -fno-warn-orphans -fno-warn-missing-signatures -fno-warn-unused-top-binds #-}
 
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE KindSignatures    #-}
-{-# LANGUAGE RankNTypes        #-}
 
-import           Control.Monad                  (mfilter, when)
+import           Control.Monad                  (mfilter)
 import           Data.List                      (elemIndex)
 import           Data.Monoid                    (All (..))
 import           System.Exit                    (exitSuccess)
 import qualified System.IO                      as IO
 import           Text.Printf                    (printf)
 
-import           XMonad
+import           XMonad                         hiding (title)
 import           XMonad.Actions.CycleWS         (Direction1D (..), WSType (..),
                                                  moveTo, nextWS, prevWS,
                                                  shiftToNext, shiftToPrev,
@@ -69,7 +67,7 @@ baseConfig = desktopConfig {
 }
 
 
-myKeyBindings :: forall (l :: * -> *). XConfig l -> [(String, X ())]
+myKeyBindings :: XConfig l -> [(String, X ())]
 myKeyBindings conf =
     -- Launchers
     [ ("M-<Return>", mirrorTerminal >>= spawnHere)
@@ -164,7 +162,8 @@ myProgramLauncher =
     "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu apps -q\" --term=urxvtc"
 
 
-myLayout = modifiers layouts
+myLayout :: Layout Window
+myLayout = Layout $ modifiers layouts
   where
     modifiers =
         desktopLayoutModifiers
@@ -278,6 +277,7 @@ withContextShown pp = pp
         if null extras
            then ws:layout:title:extras
            else last extras : ws:layout:title : init extras
+    putContextFirst noExtras = noExtras
     context :: X (Maybe String)
     context = mfilter (/= C.defaultContextName)
         . Just <$> C.showCurrentContextName

@@ -43,5 +43,5 @@ redshift &
 
 # exec herbstluftwm --locked \
 # exec gnome-shell \
-exec xmonad \
+exec "$HOME/.xmonad/xmonad-x86_64-linux" \
   &>>"$XDG_RUNTIME_DIR/xsession-errors"
