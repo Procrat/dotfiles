@@ -11,6 +11,6 @@ fi
 
 
 gcalcli \
-    --configFolder "$HOME/.config/gcalcli/" \
+    --config-folder "$HOME/.config/gcalcli/" \
     remind 15 \
     'notify-send -u critical -a Calendar -i appointment-soon-symbolic.symbolic %s'
