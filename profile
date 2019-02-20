@@ -13,10 +13,8 @@ export PACMAN=powerpill
 
 # Set the path to the Rust source (for use in Vim)
 export RUST_SRC_PATH="$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-# Pointer to Java JDK
-export JAVA_HOME="/usr/lib/jvm/default"
 
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$JAVA_HOME/bin:./node_modules/.bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:./node_modules/.bin:$PATH"
 
 
 # vim:filetype=sh
