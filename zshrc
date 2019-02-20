@@ -12,12 +12,6 @@ setopt interactive_comments
 # Implicit tees & cats with multiple redirections
 setopt multios
 
-# rbenv: adjust PATH and add completion for rbenv command
-# Looks scary though :/
-if which rbenv 2>/dev/null >&2; then
-    eval "$(rbenv init -)"
-fi
-
 # Extra completions (e.g. rustup)
 fpath+=( /home/procrat/.zfunc )
 

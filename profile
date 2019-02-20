@@ -15,10 +15,8 @@ export PACMAN=powerpill
 export RUST_SRC_PATH="$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 # Pointer to Java JDK
 export JAVA_HOME="/usr/lib/jvm/default"
-# Add ruby gem path to PATH and make Bundler install gems per user
-export GEM_HOME="$HOME/.gem/ruby/2.4.0"
 
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$JAVA_HOME/bin:$GEM_HOME/bin:./node_modules/.bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$JAVA_HOME/bin:./node_modules/.bin:$PATH"
 
 
 # vim:filetype=sh
