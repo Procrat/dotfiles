@@ -43,7 +43,6 @@ curl -fLo "$VIM_PLUG_DEST" --create-dirs "$VIM_PLUG_SCRIPT"
 echo 'Linking dotfiles...'
 dotfiles=(
     aliases
-    bash_profile
     bashrc
     colors
     config/alacritty/alacritty.yml

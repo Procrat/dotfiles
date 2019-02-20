@@ -1,12 +1,5 @@
 # This file should be bash and zsh compatible
 
-source "$HOME/.profile"
-
-# Base16 Shell
-export BASE16_THEME='base16-mocha'
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/${BASE16_THEME}.sh"
-[[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
-
 # Aliases
 source "$HOME/.aliases"
 

@@ -11,9 +11,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-# Read environment variables for graphical programs
-. "$HOME/.profile"
-
 # Background
 ([ -s "$HOME/.fehbg" ] && bash "$HOME/.fehbg") &
 
