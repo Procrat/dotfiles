@@ -16,12 +16,6 @@ export RUST_SRC_PATH="$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/
 
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:./node_modules/.bin:$PATH"
 
-# For urxvt, the first 16 colours are already set through ~/.Xresources.
-# This also makes it work in TTYs and with more colours.
-export BASE16_THEME='base16-mocha'
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/${BASE16_THEME}.sh"
-[[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
-
 # If we don't have a display server running yet, and this is the first virtual
 # console, start a graphical environment here. This allows us to still have
 # non-graphical virtual consoles next to TTY1 in case something goes wrong with
