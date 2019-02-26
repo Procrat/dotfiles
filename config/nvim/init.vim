@@ -216,37 +216,6 @@ set shiftround
 set smartindent
 
 
-let g:pyindent_open_paren = '&sw'
-let g:pyindent_continue = '&sw'
-
-let s:maxoff = 50  " Maximum number of lines to look backwards.
-function! GetGooglePythonIndent(lnum)
-    " Indent inside parens.
-    " Align with the open paren unless it is at the end of the line.
-    " E.g.
-    "   open_paren_not_at_EOL(100,
-    "                         (200,
-    "                          300),
-    "                         400)
-    "   open_paren_at_EOL(
-    "       100, 200, 300, 400)
-    call cursor(a:lnum, 1)
-    let [l:par_line, l:par_col] = searchpairpos('(\|{\|\[', '', ')\|}\|\]', 'bW',
-                \ "line('.') < " . (a:lnum - s:maxoff) . ' ? dummy :'
-                \ . " synIDattr(synID(line('.'), col('.'), 1), 'name')"
-                \ . " =~ '\\(Comment\\|String\\)$'")
-    if l:par_line > 0
-        call cursor(l:par_line, 1)
-        if l:par_col != col('$') - 1
-            return l:par_col
-        endif
-    endif
-
-    " Delegate the rest to the original function.
-    return GetPythonIndent(a:lnum)
-endfunction
-
-
 " Indentation per filetype
 augroup indentation
     autocmd!
@@ -254,7 +223,7 @@ augroup indentation
     au FileType xml,html,xhtml,htmldjango,eruby,xslt setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
     au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
     au FileType css,scss setlocal shiftwidth=2 softtabstop=2
-    au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 textwidth=79 colorcolumn=79 indentexpr=GetGooglePythonIndent(v:lnum)
+    au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 textwidth=79 colorcolumn=79
     au FileType haskell setlocal shiftwidth=4 softtabstop=4
     au FileType rust setlocal shiftwidth=4 softtabstop=4 textwidth=99 colorcolumn=99
     au FileType prolog setlocal shiftwidth=4 softtabstop=4
@@ -687,6 +656,9 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 " }}}
 " }}}
 " Misc {{{
+
+let g:python3_host_prog = "/usr/bin/python3"
+
 augroup vimrc_misc
     autocmd!
 
