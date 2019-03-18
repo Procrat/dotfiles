@@ -58,7 +58,7 @@ This function should only modify configuration layer settings."
      ;; Languages and frameworks
      (clojure :variables clojure-enable-fancify-symbols t)
      emacs-lisp
-     haskell
+     (haskell :variables haskell-completion-backend 'intero)
      html
      (javascript :variables
                  javascript-disable-tern-port-files t
@@ -497,6 +497,10 @@ before packages are loaded."
 
   ;; Keep parentheses balanced in evilified lisp-y buffers
   (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+
+  ;; Enable HLint in Haskell layer; they wrongly assume Intero enables it
+  (with-eval-after-load 'intero
+    (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
