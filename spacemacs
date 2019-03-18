@@ -71,6 +71,7 @@ This function should only modify configuration layer settings."
      sql
      systemd
      vue
+     yaml
      )
 
    ;; List of additional packages that will be installed without being
