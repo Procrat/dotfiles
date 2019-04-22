@@ -86,13 +86,11 @@ Dependency tree
   - libcanberra
   - libnotify
   - mpv
-  - openldap
   - pacman
   - pass
   - pip
   - pulseaudio
   - pygmentize
-  - rclone
   - sendmail
   - sox
   - systemd
@@ -103,7 +101,6 @@ Dependency tree
   - xclip
   - XMonad
   - xorg-xrdb
-  - yaourt
   - yeganesh
 
 
