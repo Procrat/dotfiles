@@ -45,14 +45,12 @@ dotfiles=(
     aliases
     bashrc
     colors
-    config/alacritty/alacritty.yml
     config/base16-shell
     config/compton.conf
     config/dunst
     config/dzen
     config/gcalcli/gcalclirc
     config/gtk-3.0/settings.ini
-    config/herbstluftwm
     config/htop
     config/icons
     config/mimeapps.list

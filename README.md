@@ -8,7 +8,7 @@ certain parts.
 Dependency tree
 ---------------
 
-- Alacritty
+- Bash
 - compton
 - dunst
 - feh
@@ -31,6 +31,7 @@ Dependency tree
   - isort
 - pylint
 - ranger
+- Spacemacs
 - systemd
   - Service files for tmux and redshift
 - tern
@@ -105,24 +106,11 @@ Dependency tree
   - yaourt
   - yeganesh
 
-### Outdated
-- Bash
-  - Base16-shell (git submodule)
-- Spacemacs
-- Herbstluftwm
-    - Dzen (bar)
-        - Alsa-utils (volume manager)
-        - Icons (defined in .config/icons/)
-    - Feh (background)
-    - Dmenu (keybinding)
-    - URxvt (keybinding)
-
 
 Color scheme
 ------------
 The color scheme is explicitly defined in `colors`, `Xresources`,
-`config/dunst/dunstrc`, `config/alacritty/alacritty.yml` and
-`xmonad/xmonad.hs`. `shellrc` and in `vimrc` also set the same color scheme
-through a plugin. URxvt, dzen and dmenu use the colors defined in `Xresources`.
-Herbstluftwm and special content in dzen use `colors` to get the appropriate
-colors.
+`config/dunst/dunstrc` and `config/xmonad/xmonad.hs`. The same color scheme is
+set in `shellrc` through `base16-shell` and in `vimrc` through the `base16` vim
+plugin. URxvt, dzen and dmenu use the colors defined in `Xresources`. i3lock and
+special content in dzen use `colors` to get the appropriate colors.

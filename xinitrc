@@ -38,7 +38,6 @@ compton -b &
 
 redshift &
 
-# exec herbstluftwm --locked \
 # exec gnome-shell \
 exec "$HOME/.local/bin/xmonad-x86_64-linux" \
   &>>"$XDG_RUNTIME_DIR/xsession-errors"
