@@ -65,7 +65,10 @@ f() {
 }
 
 psg() {
-    pgrep -f -i -a "$*" | grep -v '[0-9]\+ grep' | grep "$*"
+    # The extra grep is just for highlighting.
+    # We don't pipe here because then the extra grep would be part
+    # of the output.
+    grep -i "$*" <<<"$(pgrep -fia "$*")"
 }
 cl() {
     cd "$1" && ls -AFhlv
