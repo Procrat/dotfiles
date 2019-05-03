@@ -76,6 +76,8 @@ myKeyBindings conf =
     , ("M-o", spawnHere myProgramLauncher)
     , ("M-r", spawnHere "urxvtc -e ranger")
     , ("M-i", spawnHere "rofi-pass")
+    , ("M-S-e", spawnHere "rofimoji")
+    , ("M-S-c", spawnHere "rofi -show calc -modi calc -no-show-match")
     , ("M-b", spawnHere "xdg-open http://")
     , ("M-p", NS.namedScratchpadAction myScratchpads "sound control")
 
@@ -141,10 +143,8 @@ myKeyBindings conf =
         , (action, mask) <- [(W.greedyView, ""), (W.shift, "S-")]] ++
 
     -- M-{w,e}, Switch to physical/Xinerama screens 1 or 2
-    -- M-S-{w,e}, Move client to screen 1 or 2
-    [("M-" ++ mask ++ key, screenWorkspace screen >>= flip whenJust (windows . action))
-        | (screen, key) <- zip [0..] ["w", "e"]
-        , (action, mask) <- [(W.view, ""), (W.shift, "S-")]] ++
+    [("M-" ++ key, screenWorkspace screen >>= flip whenJust (windows . W.view))
+        | (screen, key) <- zip [0..] ["w", "e"]] ++
 
     -- Media keys
     [ ("<XF86AudioRaiseVolume>", spawn "~/.config/dzen/dvolume.sh -i 3")
