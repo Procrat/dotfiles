@@ -52,4 +52,7 @@
 
 (defun vue/init-vue-mode ()
   (use-package vue-mode
-    :defer t))
+    :defer t
+    :config
+    (set-face-background 'mmm-default-submode-face nil)
+    ))
