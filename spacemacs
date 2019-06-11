@@ -82,6 +82,10 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(editorconfig
+                                      (js-align
+                                       :location (recipe
+                                                  :fetcher github
+                                                  :repo "johnhooks/js-align"))
                                       yasnippet-snippets)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -502,6 +506,15 @@ before packages are loaded."
   ;; Enable HLint in Haskell layer; they wrongly assume Intero enables it
   (with-eval-after-load 'intero
     (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
+
+  ;; Use better JS indentation (js-align) when possible
+  (dolist (mode-and-hook '((vue-mode js-mode-hook)
+                           (js-mode js-mode-hook)
+                           (js2-mode js2-mode-hook)))
+    (destructuring-bind (mode hook) mode-and-hook
+      (with-eval-after-load mode
+        (require 'js-align)
+        (add-hook hook 'js-align-mode))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
