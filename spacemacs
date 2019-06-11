@@ -487,6 +487,9 @@ before packages are loaded."
   (setq spaceline-buffer-size-p nil)
   (setq spaceline-hud-p nil)
 
+  ;; Stop auto-indent when pasting for certain modes
+  (add-to-list 'spacemacs-indent-sensitive-modes 'ssass-mode)
+
   ;; Window management
   (define-key global-map (kbd "M-h") 'evil-window-left)
   (define-key global-map (kbd "M-j") 'evil-window-down)
