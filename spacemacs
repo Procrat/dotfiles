@@ -52,7 +52,7 @@ This function should only modify configuration layer settings."
      imenu-list ;; sidebar with quick links
      multiple-cursors
      spacemacs-evil
-     spell-checking
+     (spell-checking :variables spell-checking-enable-by-default nil)
      syntax-checking
      ;;
      ;; Languages and frameworks
