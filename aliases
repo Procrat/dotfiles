@@ -4,6 +4,7 @@ alias grep='grep --color=auto'
 alias gr='grep --color=always'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
 
 # ls shortcuts
 # alias ll='ls -AlFv --si'
