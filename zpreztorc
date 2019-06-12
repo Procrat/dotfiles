@@ -1,25 +1,25 @@
-# Order is important!
+# Order is important! You can check out the order in
+# /usr/lib/prezto/runcoms/zpreztorc
 zstyle ':prezto:load' pmodule \
   'environment' \
-  'terminal' \
   'editor' \
   'history' \
   'directory' \
-  'command-not-found' \
   'completion' \
   'syntax-highlighting' \
   'prompt'
 
-# TODO Checkout the bloated ones:
-# utility, completion, python, rails, prompt
-# Remember to check out the order in /usr/lib/prezto/runcoms/...
+# Yaay, colors everywhere!
+zstyle ':prezto:*:*' color 'yes'
 
 # Set extra vim bindings and prompt interaction
 zstyle ':prezto:module:editor' key-bindings 'vi'
 
-zstyle ':prezto:*:*' color 'yes'
+# Have editor tab completion ignore binary/media files.
+zstyle ':prezto:module:completion' editor-ignores 'yes'
 
 # Don't do cursor highlighting
 zstyle ':prezto:module:syntax-highlighting' highlighters 'main'
+
 
 # vim:filetype=zsh

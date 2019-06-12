@@ -9,8 +9,6 @@ source $HOME/.shellrc
 setopt chase_links
 # Allow comments
 setopt interactive_comments
-# Implicit tees & cats with multiple redirections
-setopt multios
 
 # Extra completions (e.g. rustup)
 fpath+=( /home/procrat/.zfunc )
@@ -83,3 +81,6 @@ alias -g sprunge='| curl -F "sprunge=<-" http://sprunge.us'
 # Mappings
 bindkey '^R' history-incremental-search-backward
 bindkey -M viins jj vi-cmd-mode
+
+# Add command-not-found hook to search for missing package
+source /usr/share/doc/find-the-command/ftc.zsh
