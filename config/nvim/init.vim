@@ -38,8 +38,10 @@ Plug 'Shougo/echodoc.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -362,6 +364,8 @@ let g:NERDSpaceDelims = 1
 let g:NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeChDirMode = 2
+let g:NERDTreeMapActivateNode = 'l'
+let g:NERDTreeMapJumpParent = 'h'
 " }}}
 " scrooloose/syntastic {{{
 " let g:syntastic_python_pylint_args = "-d C0103,C0111"
@@ -657,7 +661,7 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 " }}}
 " Misc {{{
 
-let g:python3_host_prog = "/usr/bin/python3"
+let g:python3_host_prog = '/usr/bin/python3'
 
 augroup vimrc_misc
     autocmd!
@@ -677,7 +681,10 @@ augroup vimrc_misc
     au BufNewFile,BufRead *.txt,*todo*,*TODO* setlocal filetype=journal
 
     " Turn on spelling for some filetypes
-    au FileType tex,mail,markdown setlocal spell
+    au FileType tex,mail,markdown,gitcommit setlocal spell
+
+    " Don't wrap lines in the middle of a word
+    au FileType text,journal,markdown setlocal linebreak
 
     " Set wrapping and markdown folding for Markdown and journal files
     au FileType journal,markdown setlocal textwidth=80 foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
@@ -688,6 +695,9 @@ augroup vimrc_misc
         \ call s:AdjustWindowHeight(3, 10) |
         \ setlocal nobuflisted |
         \ nnoremap <buffer> <silent> q :close<CR>
+
+    " Also quit help files with `q`
+    au FileType help nnoremap <buffer> <silent> q :close<CR>
 
     " Reload .vimrc on save
     au BufWritePost .vimrc source %
@@ -740,8 +750,8 @@ endfunc
 
 func! s:StylishHaskell()
     let l:winview = winsaveview()
-    silent! exe "undojoin"
-    silent! exe "keepjumps %!stylish-haskell"
+    silent! exe 'undojoin'
+    silent! exe 'keepjumps %!stylish-haskell'
     call winrestview(l:winview)
 endfunc
 
