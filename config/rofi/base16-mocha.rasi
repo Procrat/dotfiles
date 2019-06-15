@@ -1,0 +1,108 @@
+* {
+  /* Color theme definitions */
+  base00: #3b3228;
+  base00-transparent: #3b322890;
+  base01: #534636;
+  base02: #645240;
+  base03: #7e705a;
+  base04: #b8afad;
+  base05: #d0c8c6;
+  base06: #e9e1dd;
+  base07: #f5eeeb;
+  base08: #cb6077;
+  base09: #d28b71;
+  base0A: #f4bc87;
+  base0B: #beb55b;
+  base0C: #7bbda4;
+  base0D: #8ab3b5;
+  base0E: #a89bb9;
+  base0F: #bb9584;
+
+  /* Custom variables */
+  background-transparent: @base00-transparent;
+  background-solid: @base00;
+  background-highlight: @base01;
+  foreground: @base05;
+  separator-color: @base01;
+  selection-background: @base02;
+  selection-foreground: @base0D;
+  active-foreground: @base0C;
+  urgent-foreground: @base0A;
+
+  /* Global properties */
+  background-color: transparent;
+  text-color: @foreground;
+  border-color: @separator-color;
+}
+
+window {
+  fullscreen: true;
+  background-color: @background-transparent;
+  font: "Ubuntu 12";
+}
+
+mainbox, error-message {
+  background-color: @background-solid;
+  margin: 30%;
+  border: 1px solid;
+}
+
+inputbar {
+  children: [prompt, entry];
+  border: 0px 0px 1px solid;
+}
+
+prompt {
+  background-color: @background-highlight;
+}
+
+prompt, entry, message {
+  padding: 5px;
+}
+
+listview {
+  border: 1px solid 0px 0px;
+  spacing: 2px;
+  scrollbar: true;
+}
+
+element {
+  border: 0px 0px 0px 2px solid;
+  padding: 2px 5px;
+  border-color: @background-solid;
+}
+element normal.urgent, element alternate.urgent, element selected.urgent {
+  text-color: @urgent-foreground;
+}
+element normal.active, element alternate.active, element selected.active {
+  text-color: @active-foreground;
+}
+element selected {
+  background-color: @selection-background;
+  border-color: @selection-foreground;
+}
+element selected.normal {
+  text-color: @selection-foreground;
+}
+
+scrollbar {
+  handle-color: @background-highlight;
+}
+
+sidebar {
+  border: 1px solid 0px 0px;
+}
+button {
+  padding: 5px;
+}
+button selected {
+  background-color: @selection-background;
+  text-color: @selection-foreground;
+}
+
+error-message {
+  padding: 15px;
+}
+
+
+// vim:ft=css

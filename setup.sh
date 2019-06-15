@@ -59,6 +59,7 @@ dotfiles=(
     config/pylintrc
     config/ranger/rc.conf
     config/redshift
+    config/rofi
     config/systemd
     config/user-dirs.dirs
     config/xmobar

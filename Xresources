@@ -118,24 +118,3 @@ dzen2.font: Ubuntu:size=11
 dmenu.font: Ubuntu:size=11
 dmenu.selforeground: base0A
 dmenu.selbackground: base00
-
-
-!-----------------------------------------------------------------------------
-! Rofi settings
-!-----------------------------------------------------------------------------
-
-rofi.color-normal: base00, base05, base00, base01, base0A
-rofi.color-urgent: base00, base08, base00, base01, base08
-rofi.color-active: base00, base0D, base00, base01, base0D
-rofi.color-window: argb:883B3228, argb:00000000, base02
-
-rofi.separator-style: solid
-rofi.dpi: 110
-rofi.font: Monaco 11
-rofi.padding: 450
-rofi.fullscreen: true
-rofi.hide-scrollbar: true
-rofi.line-padding: 3
-rofi.line-margin: 0
-
-rofi.terminal: urxvtc
