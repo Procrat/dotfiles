@@ -3,53 +3,6 @@ Host *
     ControlMaster auto
     ControlPath ~/.ssh/controlmasters/%r@%h:%p
     ControlPersist 10m
-Host zeus
-    Hostname kelder.zeus.ugent.be
-    Port 2222
-    User root
-Host verne
-    Hostname kelder.zeus.ugent.be
-    Port 2223
-    User root
-Host verne.local
-    Hostname verne
-    Port 2223
-    User root
-Host prince
-    Hostname zeus.ugent.be
-    Port 2222
-    User root
-Host urenloop
-    User urenloop
-    Port 2222
-    Hostname zeus.ugent.be
-Host gami
-    Hostname zeus.ugent.be
-    Port 2222
-    User gamification
-Host stuw
-    Hostname zeus.ugent.be
-    Port 2222
-    User stuw
-Host cc
-    Hostname zeus.ugent.be
-    Port 2222
-    User cursuscruisen-informatica
-Host battlebots
-    Hostname zeus.ugent.be
-    Port 2222
-    User battlebots
-Host helios
-    Hostname helios.ugent.be
-    User svsegher
-    ProxyCommand ssh zeus 'exec nc -w 18000s %h %p'
-Host hpc
-    Hostname login.hpc.ugent.be
-    User vsc41817
-Host flesje
-    Hostname r2t2.be
-    Port 3618
-    User procrat
 Host aur
     Hostname aur.archlinux.org
     IdentityFile ~/.ssh/aur4_rsa
@@ -57,22 +10,3 @@ Host aur
 Host mercurious
     Hostname mercurious.io
     User procrat
-
-
-# Tunnels
-Host cammie
-    Hostname kelder.zeus.ugent.be
-    User root
-    Port 2222
-    LocalForward 8008 cammie:80
-
-Host zeven
-    Hostname kelder.zeus.ugent.be
-    User stijns
-    Port 2222
-    # Minecraft
-    LocalForward 25565 ZEVEN:25565
-    # Mumble
-    LocalForward 64738 ZEVEN:64738
-    # PulseAudio
-    LocalForward 7777 ZEVEN:4713
