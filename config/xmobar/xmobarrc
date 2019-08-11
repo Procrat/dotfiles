@@ -32,7 +32,8 @@ Config {
 
   -- appearance
   , font = "xft:Ubuntu:size=11"
-  , additionalFonts = ["xft:Symbola:size=15"]
+  , additionalFonts = ["xft:DejaVu Sans:size=16"]
+  , textOffsets = [22]
   , bgColor = "#3B3228"
   , fgColor = "#B8AFAD"
 
