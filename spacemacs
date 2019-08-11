@@ -70,6 +70,7 @@ This function should only modify configuration layer settings."
      shell-scripts
      sql
      systemd
+     (typescript :variables typescript-backend 'lsp)
      vue
      yaml
      )
