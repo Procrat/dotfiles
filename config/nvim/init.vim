@@ -235,6 +235,10 @@ augroup END
 
 " }}}
 " Plugin settings {{{
+" AndrewRadev/splitjoin.vim {{{
+" Put closing angle bracket in HTML on a new line
+let g:splitjoin_html_attributes_bracket_on_new_line = 1
+" }}}
 " bling/vim-airline {{{
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
