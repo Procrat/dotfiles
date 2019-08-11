@@ -49,6 +49,7 @@ dotfiles=(
     config/compton.conf
     config/dunst
     config/dzen
+    config/environment.d
     config/gcalcli/gcalclirc
     config/gtk-3.0/settings.ini
     config/htop

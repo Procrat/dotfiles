@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# Downloads a random image from Unsplash and sets it as the wallpaper
+
+set -euo pipefail
+
+CURL='curl -sSfL'
+API_BASE='https://api.unsplash.com'
+API_URL="$API_BASE/photos/random?orientation=landscape"
+API_ACCESS_KEY=$(cat "$HOME/.config/unsplash-api-key")
+
+photo_url=$($CURL \
+    -H 'Accept-Version: v1' \
+    -H "Authorization: Client-ID $API_ACCESS_KEY" \
+    "$API_URL" \
+    | jq -r .urls.full)
+photo=$(mktemp --tmpdir background.XXX)
+trap 'rm $photo' EXIT
+$CURL -o "$photo" "$photo_url"
+wallpaper "$photo"

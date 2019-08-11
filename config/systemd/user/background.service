@@ -1,0 +1,6 @@
+[Unit]
+Description=Download and set a picture from Unsplash as the wallpaper
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/unsplash-background

@@ -3,7 +3,7 @@ Description=Time Awareness Daemon
 
 [Service]
 Type=simple
-ExecStart=/home/procrat/bin/tad
+ExecStart=%h/bin/tad
 
 [Install]
 WantedBy=default.target
