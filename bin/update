@@ -35,7 +35,7 @@ pip-compile --upgrade \
     --output-file "$HOME/.config/pip/requirements.txt" \
     "$HOME/.config/pip/requirements.in"
 pip-sync --user "$HOME/.config/pip/requirements.txt"
-pip check
+pip check || true
 
 # Ensure Rust and local crates are up to date
 rustup update
