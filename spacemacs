@@ -50,6 +50,7 @@ This function should only modify configuration layer settings."
      git
      helm
      imenu-list ;; sidebar with quick links
+     lsp
      multiple-cursors
      spacemacs-evil
      (spell-checking :variables spell-checking-enable-by-default nil)
@@ -65,12 +66,11 @@ This function should only modify configuration layer settings."
                  node-add-modules-path t)
      markdown
      ;; python  ;; Currently errors on spacemacs/moon branch
-     (rust :variables
-           rust-backend 'lsp)
+     rust
      shell-scripts
      sql
      systemd
-     (typescript :variables typescript-backend 'lsp)
+     typescript
      vue
      yaml
      )
