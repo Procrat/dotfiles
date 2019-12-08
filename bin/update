@@ -20,7 +20,10 @@ yay -Pw
 
 # Ensure system packages are up to date
 yay
+# Keep last two versions of cached packages, remove older ones
 paccache -r -k2
+# Remove all cached packages of uninstalled packages
+paccache -r -u -k0
 sudo pacdiff
 
 # Ensure dotfiles are linked Neovim and Tmux plugins are up to date
