@@ -76,7 +76,7 @@ myKeyBindings conf =
     , ("M-o", spawnHere myProgramLauncher)
     , ("M-r", spawnHere "urxvtc -e ranger")
     , ("M-i", spawnHere "rofi-pass")
-    , ("M-S-e", spawnHere "rofimoji")
+    , ("M-S-e", spawnHere "rofimoji --skin-tone neutral")
     , ("M-S-c", spawnHere "rofi -show calc -modi calc -no-show-match")
     , ("M-b", spawnHere "xdg-open http://")
     , ("M-p", NS.namedScratchpadAction myScratchpads "sound control")
