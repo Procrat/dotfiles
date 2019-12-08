@@ -58,6 +58,7 @@ This function should only modify configuration layer settings."
      ;;
      ;; Languages and frameworks
      (clojure :variables clojure-enable-fancify-symbols t)
+     docker
      emacs-lisp
      (haskell :variables haskell-completion-backend 'intero)
      html
@@ -65,7 +66,7 @@ This function should only modify configuration layer settings."
                  javascript-disable-tern-port-files t
                  node-add-modules-path t)
      markdown
-     ;; python  ;; Currently errors on spacemacs/moon branch
+     python
      rust
      shell-scripts
      sql
