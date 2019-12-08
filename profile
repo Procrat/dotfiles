@@ -11,6 +11,8 @@ fi
 
 export PACMAN=powerpill
 
+export SUDO_ASKPASS="$HOME/bin/zenity-ask-pass"
+
 # Set the path to the Rust source (for use in Vim)
 export RUST_SRC_PATH="$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 

@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+exec zenity --password --title='Sudo authentication'
