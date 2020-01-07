@@ -83,4 +83,4 @@ bindkey '^R' history-incremental-search-backward
 bindkey -M viins jj vi-cmd-mode
 
 # Add command-not-found hook to search for missing package
-source /usr/share/doc/find-the-command/ftc.zsh
+source /usr/share/doc/find-the-command/ftc.zsh quiet noprompt
