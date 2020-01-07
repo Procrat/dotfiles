@@ -41,6 +41,9 @@
 [interactive]
     singleKey = true
 
+[rerere]
+    enabled = true
+
 [alias]
     a = add -A
     au = add -u
