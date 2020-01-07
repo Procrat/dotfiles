@@ -1,7 +1,7 @@
 Host *
     ForwardAgent yes
     ControlMaster auto
-    ControlPath ~/.ssh/controlmasters/%r@%h:%p
+    ControlPath /tmp/ssh-%r@%h:%p
     ControlPersist 10m
 Host aur
     Hostname aur.archlinux.org
