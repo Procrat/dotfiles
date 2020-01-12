@@ -162,8 +162,7 @@ myProgramLauncher =
     "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu apps -q\" --term=urxvtc"
 
 
-myLayout :: Layout Window
-myLayout = Layout $ modifiers layouts
+myLayout = modifiers layouts
   where
     modifiers =
         desktopLayoutModifiers
