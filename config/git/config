@@ -2,9 +2,6 @@
     name = Stijn Seghers
     email = stijnseghers@gmail.com
 
-[core]
-    excludesfile = ~/.gitignore_global
-
 [push]
     default = current
 

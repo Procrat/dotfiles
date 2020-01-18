@@ -51,6 +51,7 @@ dotfiles=(
     config/dzen
     config/environment.d
     config/gcalcli/gcalclirc
+    config/git
     config/gtk-3.0/settings.ini
     config/htop
     config/icons
@@ -68,8 +69,6 @@ dotfiles=(
     config/yay
     ctags
     emacs.d/private
-    gitconfig
-    gitignore_global
     gtkrc-2.0
     ipython/profile_default/ipython_config.py
     local/share/applications
