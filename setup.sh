@@ -97,9 +97,6 @@ done
 echo 'Link bin folder...'
 ln -sfn "$DEST/bin" "$HOME/bin"
 
-echo 'Making sure ~/.ssh/controlmasters exists...'
-mkdir -p "$HOME/.ssh/controlmasters"
-
 # Really, Freedesktop? There is no hope left if you don't even follow your own
 # standards.
 if [[ -e "$HOME/.local/share/applications/mimeapps.list" ]]; then
