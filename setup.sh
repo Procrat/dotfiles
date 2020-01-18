@@ -79,6 +79,8 @@ dotfiles=(
     ssh/config
     tern-config
     tmux.conf
+    vim
+    vimrc
     xinitrc
     xprofile
     Xresources
@@ -91,10 +93,6 @@ for dotfile in "${dotfiles[@]}"; do
     mkdir -p "$(dirname "$HOME/.$dotfile")"
     ln -sfnT "$DEST/$dotfile" "$HOME/.$dotfile"
 done
-
-echo 'Link Vim config files to NeoVim config files (just to be safe)...'
-ln -sfn "$HOME/.config/nvim" "$HOME/.vim"
-ln -sfn "$HOME/.config/nvim/init.vim" "$HOME/.vimrc"
 
 echo 'Link bin folder...'
 ln -sfn "$DEST/bin" "$HOME/bin"
