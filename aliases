@@ -50,9 +50,9 @@ alias ten='trans en:nl'
 alias haz_internetz='ping 8.8.8.8'
 
 c() {
-    dir="$(fd --follow --type directory --exclude dropbox/archive --ignore-file ~/.config/git/ignore '' ~ | fzf)"
+    dir="$(cd ~ && fd --follow --type directory --exclude dropbox/archive --ignore-file ~/.config/git/ignore | fzf)"
     if [[ -n "$dir" ]]; then
-        cd "$dir" || return 1
+        cd "$HOME/$dir" || return 1
     else
         return 2
     fi
