@@ -140,8 +140,8 @@ set splitbelow
 set splitright
 " Check modelines (like the one at the bottom of this file)
 set modelines=2
-" Use the silver searcher to grep and always print file name in Quickfix list
-set grepprg=ag\ --vimgrep\ -w\ -Q\ \"$*\"
+" Use ripgrep to grep and always print file name in Quickfix list
+set grepprg=rg\ --vimgrep\ --word-regexp\ --fixed-strings\ \"$*\"
 set grepformat=%f:%l:%c:%m
 " Always show statusline/powerline/airline (default in NeoVim)
 "set laststatus=2

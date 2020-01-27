@@ -19,7 +19,7 @@ Dependency tree
   - NeoVim and tmux interact through the M-[hjkl] bindings (see `vimrc` and `tmux.conf`)
   - vim-plug
   - For all plugins, see `vimrc`
-  - ag
+  - ripgrep
   - xclip or xsel for synchronisation with X11 clipboard
   - universal-ctags
   - hdevtools
