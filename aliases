@@ -94,13 +94,10 @@ clone() {
 pgen() {
     pass generate -c "$@" 30
 }
-# Ugly hacks incoming, not for sensitive eyes
+
+# Override built-in `cd` to auto-activate Python virtualenvs
 function cd() {
-    # !! Assumes virtualenvs aren't activated manually
-    # But then again, who'd want to do that? Look at that activation script :/
-
-    # No turning back now.
-
+    # Find the closest virtualenv if any along the path ancestry
     function search_virtualenv() {
         while [[ "$PWD" != "/" ]]; do
             local possible_venv="$PWD/.venv"
@@ -112,37 +109,20 @@ function cd() {
         done
     }
 
-    # This code is horrible and I should feel horrible.
-
-    function activate_virtualenv() {
-        VIRTUAL_ENV="$venv" PATH="$venv/bin:$PATH" "$SHELL" -i
-        local exit_code=$?
-
-        # Once the subshell has exited, we know that user either exited it
-        # explicitely or cd'ed to another directory, which we know through the
-        # exit code. Exit or cd accordingly.
-        if [[ "$exit_code" = 137 ]]; then
-            cd "$(cat "$HOME/.local/share/venv_last_wd")" || return 2
-        else
-            exit "$exit_code"
-        fi
-    }
-
-    if builtin cd "$@"; then
-        local venv
-        venv=$(search_virtualenv)
-        # If there is a virtualenv active and the closest enclosing one isn't
-        # the same, exit the subshell with a special exit code
-        if [[ -n "$VIRTUAL_ENV" &&
-              "$PWD" != "$(dirname "$VIRTUAL_ENV")"* ]]; then
-            realpath "$PWD" >!"$HOME/.local/share/venv_last_wd"
-            exit 137
-        # Elif the new one is a new one, activate it
-        elif [[ -n "$venv" && "$VIRTUAL_ENV" != "$venv" ]]; then
-            activate_virtualenv
-        fi
-    else
+    if ! builtin cd "$@"; then
         return $?
+    fi
+
+    local venv
+    venv=$(search_virtualenv) || return 1
+    if [[ "$VIRTUAL_ENV" == "$venv" ]]; then
+        return 0
+    fi
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        deactivate
+    fi
+    if [[ -n "$venv" ]]; then
+        source "$venv/bin/activate"
     fi
 }
 
