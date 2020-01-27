@@ -24,6 +24,9 @@ yay
 paccache -r -k2
 # Remove all cached packages of uninstalled packages
 paccache -r -u -k0
+# Remove all unused cached AUR packages
+echo 'n\nn\nY\nY\n' | yay -Sc
+# Resolve .pacnew files
 sudo pacdiff
 
 # Ensure dotfiles are linked Neovim and Tmux plugins are up to date
