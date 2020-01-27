@@ -50,8 +50,7 @@ alias ten='trans en:nl'
 alias haz_internetz='ping 8.8.8.8'
 
 c() {
-    cd ~ || return 1
-    dir="$(find -L ./* -path "*/\.*" -prune -o -name "PlayOnLinux*" -prune -o -type d -print | fzf)"
+    dir="$(fd --follow --type directory --exclude dropbox/archive --ignore-file ~/.config/git/ignore '' ~ | fzf)"
     if [[ -n "$dir" ]]; then
         cd "$dir" || return 1
     else
