@@ -8,11 +8,12 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'cohama/lexima.vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'jreybert/vimagit'
+Plug '/usr/share/vim/vimfiles/plugin/fzf.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'jvirtanen/vim-octave'
@@ -245,7 +246,6 @@ let g:airline_exclude_preview = 1
 " Optimization: don't search for all possible extensions
 let g:airline_extensions = [
     \'branch',
-    \'ctrlp',
     \'netrw',
     \'neomake',
     \'quickfix',
@@ -273,16 +273,24 @@ let g:jedi#completions_enabled = 0
 let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
 let g:EasyMotion_startofline = 0  " Keep cursor column during JK motion
 " }}}
+" junegunn/fzf {{{
+" Remove statusline from FZF popup
+augroup fzf
+  autocmd!
+  au FileType fzf set laststatus=0 noruler
+    \| au BufLeave <buffer> set laststatus=2 ruler
+augroup END
+" Fuzzy file finder with preview window
+"   :Files[!]        -> fzf in current dir
+"   :Files[!] <dir>  -> fzf in given dir
+"   Adding the bang puts fzf across the whole window
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" }}}
 " junegunn/limelight.vim {{{
 " Highlight complete top level elements
 let g:limelight_bop = '^\s*\n\zs\S'
 let g:limelight_eop = '\ze\n\s*\n\S'
-" }}}
-" kien/ctrlp.vim {{{
-" Use the silver searcher in CtrlP for listing files
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-" The silver searcher is fast enough so that CtrlP doesn't need to cache
-let g:ctrlp_use_caching = 0
 " }}}
 " LaTeX-Box-Team/LaTeX-Box {{{
 let g:LatexBox_Folding = 1
@@ -535,14 +543,12 @@ map s <Plug>(easymotion-s2)
 "   <leader>h         Easymotion backward. Jump backward with <leader>h{label}
 "map <leader>h <Plug>(easymotion-linebackward)
 " }}}
+" Plug junegunn/fzf {{{
+nnoremap <leader>o :Files<CR>
+" }}}
 " junegunn/limelight.vim {{{
 "   <leader>l          Toggle Limelight
 nnoremap <leader>l :Limelight!!<CR>
-" }}}
-" kien/ctrlp.vim {{{
-let g:ctrlp_map = '<leader>t'  " Behave like command-t
-let g:ctrlp_cmd = 'CtrlPMixed'
-nnoremap <leader>g :CtrlPTag<CR>
 " }}}
 " LaTeX-Box-Team/LaTeX-Box {{{
 "   <leader>ll  Compile with latexmk.
