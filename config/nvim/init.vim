@@ -286,6 +286,14 @@ augroup END
 "   Adding the bang puts fzf across the whole window
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" Recursive search with fuzzy selector and preview window
+"   :Rg[!]                -> Dynamic search using fzf
+"   :Rg[!] <search-term>  -> Static search with rg + dynamic selection with fzf
+"   Adding the bang puts fzf across the whole window
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 " }}}
 " junegunn/limelight.vim {{{
 " Highlight complete top level elements
@@ -545,6 +553,9 @@ map s <Plug>(easymotion-s2)
 " }}}
 " Plug junegunn/fzf {{{
 nnoremap <leader>o :Files<CR>
+nnoremap <leader>g :Rg<space>
+vnoremap <leader>g "hy:Rg <C-R>h<CR>
+nnoremap <leader>t :Tags<CR>
 " }}}
 " junegunn/limelight.vim {{{
 "   <leader>l          Toggle Limelight
