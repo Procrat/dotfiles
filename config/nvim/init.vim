@@ -716,7 +716,7 @@ augroup vimrc_misc
     au FileType help nnoremap <buffer> <silent> q :close<CR>
 
     " Reload .vimrc on save
-    au BufWritePost .vimrc source %
+    au BufWritePost .vimrc,*/nvim/init.vim source %
 
     " Run all makers (linters etc) on save
     au BufWritePost * Neomake
