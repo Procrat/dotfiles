@@ -813,7 +813,7 @@ endfunc
 " Define Isort command and mapping for Python import sorting
 func! s:ExtraPythonMappings()
     command! -range=% -nargs=* Isort :<line1>,<line2>! isort <args> -
-    noremap <leader>i :Isort<CR>
+    noremap <buffer> <leader>i :Isort<CR>
 endfunc
 
 " }}}
