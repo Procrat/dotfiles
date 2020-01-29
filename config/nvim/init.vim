@@ -305,6 +305,7 @@ let g:LatexBox_Folding = 1
 " }}}
 " ludovicchabant/vim-gutentags {{{
 let g:gutentags_cache_dir = '~/.cache/gutentag'
+let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
 " }}}
 " majutsushi/tagbar {{{
 let g:tagbar_autofocus = 1
