@@ -388,12 +388,6 @@ let g:NERDTreeChDirMode = 2
 let g:NERDTreeMapActivateNode = 'l'
 let g:NERDTreeMapJumpParent = 'h'
 " }}}
-" scrooloose/syntastic {{{
-" let g:syntastic_python_pylint_args = "-d C0103,C0111"
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_aggregate_errors = 1
-" let g:syntastic_auto_jump = 2
-" }}}
 " sheerun/vim-polyglot {{{
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = ['latex', 'markdown', 'octave', 'python', 'rust', 'tmux', 'typescript']
