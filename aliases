@@ -51,6 +51,10 @@ alias ten='trans en:nl'
 alias haz_internetz='ping 8.8.8.8'
 
 c() {
+    if [[ $# -gt 0 ]]; then
+        cd "$@"
+        return $?
+    fi
     dir="$(cd ~ && fd --follow --type directory --exclude dropbox/archive --ignore-file ~/.config/git/ignore | fzf)"
     if [[ -n "$dir" ]]; then
         cd "$HOME/$dir" || return 1
