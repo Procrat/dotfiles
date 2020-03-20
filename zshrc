@@ -65,6 +65,8 @@ PROMPT='$prompt_newline$(login_info)$(dir_info)$(git_info)$(virtualenv_info)'\
 '$prompt_newline$(job_info)$(prompt)'
 # Optionally show error code in right hand side prompt
 RPROMPT='%(?..%F{red}%?%f)$(battery_info)'
+# Disable virtualenv prompt because we just included our own
+export VIRTUAL_ENV_DISABLE_PROMPT=plzdont
 
 # Global aliases
 alias -g L="| ${PAGER:-less}"
