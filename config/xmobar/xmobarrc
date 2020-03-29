@@ -12,11 +12,15 @@ Config {
               \<action=`xdg-open http://calendar.google.com` button=1>%date%</action>  "
   , commands = [
     Run UnsafeStdinReader
-    , Run Wireless "wlp58s0" ["-t", "<qualityipat>"
-                             , "--"
-                             , "--quality-icon-pattern", "<icon=wireless8-%%.xbm/>"
-                             ] 80
-    , Run DiskU [("/", "<free>")] [] 36000
+    , Run Wireless "wlp58s0"
+                   ["-t", "<qualityipat>"
+                   , "--"
+                   , "--quality-icon-pattern", "<icon=wireless8-%%.xbm/>"
+                   ] 80
+    , Run DiskU [("/", "<free>")]
+                ["-L", "2"
+                , "-l", "#CB6077"
+                ] 36000
     , Run Battery ["-t", "<leftipat> <left>"
                   , "-S", "true"
                   , "-h", "#BEB55B"
