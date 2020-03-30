@@ -42,7 +42,11 @@ pip check || true
 
 # Ensure Rust and local crates are up to date
 rustup update
-cargo install-update -a
+# Update all local crates except wasm-bindgen-cli
+cargo install-update -l \
+    | tail +4 | cut -d' ' -f1 \
+    | grep -vw 'wasm-bindgen-cli' \
+    | xargs cargo install-update
 
 # Ensure remote secrets store is up to date
 (cd "$HOME/.password-store" && git pull && git push)
