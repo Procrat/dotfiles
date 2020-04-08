@@ -33,7 +33,6 @@ sudo pacdiff
 "$HOME/repos/dotfiles/setup.sh"
 
 # Ensure local Python packages are up to date
-pip install --user --upgrade pip pip-tools
 pip-compile --upgrade \
     --output-file "$HOME/.config/pip/requirements.txt" \
     "$HOME/.config/pip/requirements.in"
