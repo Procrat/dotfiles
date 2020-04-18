@@ -47,6 +47,23 @@ cargo install-update -l \
     | grep -vw 'wasm-bindgen-cli' \
     | xargs cargo install-update
 
+# Install Haskell tools
+stack install \
+    hasktags \
+    hlint \
+    hoogle \
+    pandoc \
+    ShellCheck \
+    stylish-haskell \
+    xmobar \
+    --flag xmobar:with_alsa \
+    --flag xmobar:with_iwlib \
+    --flag xmobar:with_nl80211 \
+    --flag xmobar:with_threaded \
+    --flag xmobar:-with_weather \
+    --flag xmobar:with_xft \
+    yeganesh
+
 # Ensure remote secrets store is up to date
 (cd "$HOME/.password-store" && git pull && git push)
 
