@@ -45,6 +45,11 @@ virtualenv_info() {
         echo ' %B%F{green}v%f%b'
     fi
 }
+terraform_info() {
+    if [[ -d ".terraform/" ]]; then
+        echo ' (%F{magenta}'$(terraform workspace show)'%f)'
+    fi
+}
 battery_info() {
     # Show when we're below 5% charge
     local battery=/sys/class/power_supply/BAT0
@@ -62,7 +67,7 @@ prompt() {
     echo '%B%(!,#,%(?;%F{yellow}^.^;%F{red}o.0)%f)%b '
 }
 PROMPT='$prompt_newline$(login_info)$(dir_info)$(git_info)$(virtualenv_info)'\
-'$prompt_newline$(job_info)$(prompt)'
+'$(terraform_info)$prompt_newline$(job_info)$(prompt)'
 # Optionally show error code in right hand side prompt
 RPROMPT='%(?..%F{red}%?%f)$(battery_info)'
 # Disable virtualenv prompt because we just included our own
