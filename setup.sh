@@ -63,6 +63,7 @@ dotfiles=(
     config/redshift
     config/rofi
     config/systemd
+    config/tmux
     config/user-dirs.dirs
     config/xmobar
     config/xmonad
@@ -77,7 +78,6 @@ dotfiles=(
     spacemacs
     ssh/config
     tern-config
-    tmux.conf
     vim
     vimrc
     xinitrc
