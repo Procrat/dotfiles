@@ -82,6 +82,7 @@
     rbi = rebase -i
     rba = rebase --abort
     rbc = rebase --continue
+    rbp = rebase --show-current-patch
     pushf = push --force-with-lease
 
 [color]
