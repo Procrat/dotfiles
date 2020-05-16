@@ -9,7 +9,6 @@ Dependency tree
 ---------------
 
 - Bash
-- compton
 - dunst
 - feh
 - Git
@@ -29,6 +28,7 @@ Dependency tree
   - racer
   - clang
   - isort
+- picom
 - pylint
 - ranger
 - Spacemacs

@@ -46,7 +46,6 @@ dotfiles=(
     bashrc
     colors
     config/base16-shell
-    config/compton.conf
     config/dunst
     config/dzen
     config/environment.d
