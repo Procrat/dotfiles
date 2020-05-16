@@ -4,6 +4,7 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'editor' \
   'history' \
+  'autosuggestions' \
   'directory' \
   'completion' \
   'syntax-highlighting' \
@@ -14,6 +15,8 @@ zstyle ':prezto:*:*' color 'yes'
 
 # Set extra vim bindings and prompt interaction
 zstyle ':prezto:module:editor' key-bindings 'vi'
+# Expand ... to ../..
+zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Have editor tab completion ignore binary/media files.
 zstyle ':prezto:module:completion' editor-ignores 'yes'
