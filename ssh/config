@@ -10,3 +10,7 @@ Host aur
 Host mercurious
     Hostname mercurious.io
     User procrat
+Host bitbucket.org
+    Hostname bitbucket.org
+    User git
+    AddressFamily inet
