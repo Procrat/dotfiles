@@ -2,7 +2,7 @@ name:                xmonadrc
 version:             0.1.0.0
 author:              Stijn Seghers
 maintainer:          stijnseghers@gmail.com
-copyright:           2018 Stijn Seghers
+copyright:           2017-2020 Stijn Seghers
 build-type:          Simple
 cabal-version:       >=1.10
 
