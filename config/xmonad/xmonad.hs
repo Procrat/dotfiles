@@ -78,7 +78,7 @@ myKeyBindings conf =
     , ("M-i", spawnHere "rofi-pass")
     , ("M-S-e", spawnHere "rofimoji --skin-tone neutral")
     , ("M-S-c", spawnHere "rofi -show calc -modi calc -no-show-match")
-    , ("M-b", spawnHere "xdg-open http://")
+    , ("M-b", spawnHere "handlr launch x-scheme-handler/https")
     , ("M-p", NS.namedScratchpadAction myScratchpads "sound control")
 
     -- Quit xmonad
