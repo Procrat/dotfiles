@@ -20,6 +20,12 @@
     # Show base version in merge conflicts
     conflictStyle = diff3
 
+[mergetool]
+    keepBackup = false
+
+[mergetool "vimdiff"]
+    cmd = nvim -d $MERGED $LOCAL $BASE $REMOTE -c 'wincmd J'
+
 [rebase]
     stat = true
     autoStash = true
