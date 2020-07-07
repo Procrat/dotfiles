@@ -2,7 +2,7 @@
 
 {-# LANGUAGE FlexibleInstances #-}
 
-import           Control.Monad                  (mfilter)
+import           Control.Monad                  (mfilter, when)
 import           Data.List                      (elemIndex)
 import           Data.Monoid                    (All (..))
 import           System.Exit                    (exitSuccess)
@@ -213,8 +213,12 @@ myEventHook = fullscreenEventHook
                 <+> tallLayoutOnCloseEventHook
 
 tallLayoutOnCloseEventHook :: Event -> X All
-tallLayoutOnCloseEventHook DestroyWindowEvent{} = do
-    sendMessage FirstLayout
+tallLayoutOnCloseEventHook DestroyWindowEvent{ev_window = window, ev_event = event} = do
+    -- Not sure why, but DestroyWindowEvent is sometimes triggered when no
+    -- window is being removed. It's always with the root window as the `event`
+    -- though. Otherwise the event is set to the destroyed window. See
+    -- https://tronche.com/gui/x/xlib/events/window-state-change/destroy.html.
+    when (window == event) $ sendMessage FirstLayout
     return $ All True
 tallLayoutOnCloseEventHook _ = return $ All True
 
