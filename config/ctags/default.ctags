@@ -1,0 +1,18 @@
+--recurse=yes
+
+--exclude=.venv
+--exclude=target
+--exclude=.git
+--exclude=node_modules
+--exclude=dist
+--exclude=.stack-work
+--exclude=.tox
+--exclude=.idea
+--exclude=Library
+--exclude=Build
+--exclude=*.json
+--exclude=*.min.*
+
+--langdef=ansible
+--langmap=ansible:.yml
+--regex-ansible=/^\s*- name:\s*(.*)/\1/t,task/

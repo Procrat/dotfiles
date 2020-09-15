@@ -46,6 +46,7 @@ dotfiles=(
     bashrc
     colors
     config/base16-shell
+    config/ctags
     config/dunst
     config/dzen
     config/environment.d
@@ -67,7 +68,6 @@ dotfiles=(
     config/xmobar
     config/xmonad
     config/yay
-    ctags
     emacs.d/private
     gtkrc-2.0
     ipython/profile_default/ipython_config.py
