@@ -907,11 +907,9 @@ endfunc
 
 func! s:StripTrailingWhitespace()
     if &l:fileencoding ==? 'utf-8'
-        let l:line_no = 1
-        for l:line in getline(1, '$')
-            call setline(l:line_no, substitute(l:line, '\s\+$', '', ''))
-            let l:line_no = l:line_no + 1
-        endfor
+        let l:save = winsaveview()
+        keeppatterns %s/\s\+$//e
+        call winrestview(l:save)
     endif
 endfunction
 
