@@ -55,6 +55,15 @@ Plug 'vim-scripts/JavaDecompiler.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-journal'
+" I have better alternative plugins for the following languages
+let g:polyglot_disabled = [
+    \ 'latex',
+    \ 'markdown',
+    \ 'python',
+    \ 'rust',
+    \ 'tmux',
+    \ 'typescript'
+    \ ]
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-rails'
 Plug 'vim-airline/vim-airline'
@@ -423,12 +432,6 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeChDirMode = 2
 let g:NERDTreeMapActivateNode = 'l'
 let g:NERDTreeMapJumpParent = 'h'
-
-" }}}
-" sheerun/vim-polyglot {{{
-
-" I have better alternative plugins for the following languages
-let g:polyglot_disabled = ['latex', 'markdown', 'octave', 'python', 'rust', 'tmux', 'typescript']
 
 " }}}
 " Shougo/echodoc.vim {{{
