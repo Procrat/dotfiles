@@ -1,6 +1,7 @@
 scriptencoding 'utf-8'
 
 " Plugins {{{
+
 call plug#begin()
 
 " -- Fast plugins (< 5ms on boot)
@@ -90,6 +91,7 @@ augroup END
 
 " }}}
 " Colorscheme settings {{{
+
 " syntax on  " (default in NeoVim)
 
 let g:base16colorspace = 256  " Access colors present in 256 colorspace
@@ -98,6 +100,7 @@ let g:airline_theme = 'base16'
 
 " }}}
 " General settings {{{
+
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\<Space>"
 " Automatic reloading on external file changes (default in NeoVim)
@@ -198,6 +201,7 @@ augroup END
 
 " }}}
 " Indentation {{{
+
 " Number of spaces that a Tab respresents
 set tabstop=8
 " Number of spaces for an (auto)indent
@@ -236,11 +240,15 @@ augroup END
 
 " }}}
 " Plugin settings {{{
+
 " AndrewRadev/splitjoin.vim {{{
+
 " Put closing angle bracket in HTML on a new line
 let g:splitjoin_html_attributes_bracket_on_new_line = 1
+
 " }}}
 " bling/vim-airline {{{
+
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
 " Optimization: don't search for all possible extensions
@@ -257,23 +265,31 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#neomake#error_symbol = '✖'
 let g:airline#extensions#neomake#warning_symbol = '⚠'
 let g:airline_skip_empty_sections = 1
+
 " }}}
 " cohama/lexima.vim {{{
+
 " Enable space rules only for certain filetypes
 let g:lexima_enable_space_rules = 0
 for rule in g:lexima#space_rules
     let rule.filetype = ['rust', 'toml']
     call lexima#add_rule(rule)
 endfor
+
 " }}}
 " davidhalter/jedi-vim {{{
+
 let g:jedi#completions_enabled = 0
+
 " }}}
 " easymotion/vim-easymotion {{{
+
 let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
 let g:EasyMotion_startofline = 0  " Keep cursor column during JK motion
+
 " }}}
 " junegunn/fzf {{{
+
 " Remove statusline from FZF popup
 augroup fzf
   autocmd!
@@ -294,11 +310,14 @@ command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
+
 " }}}
 " junegunn/limelight.vim {{{
+
 " Highlight complete top level elements
 let g:limelight_bop = '^\s*\n\zs\S'
 let g:limelight_eop = '\ze\n\s*\n\S'
+
 " }}}
 " lervag/vimtex {{{
 
@@ -307,8 +326,16 @@ let g:vimtex_fold_enabled = 1
 
 " }}}
 " ludovicchabant/vim-gutentags {{{
+
 let g:gutentags_cache_dir = '~/.cache/gutentag'
-let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
+let g:gutentags_exclude_filetypes = [
+    \ 'gitcommit',
+    \ 'gitconfig',
+    \ 'gitrebase',
+    \ 'gitsendemail',
+    \ 'git'
+    \ ]
+
 " }}}
 " majutsushi/tagbar {{{
 let g:tagbar_autofocus = 1
@@ -357,12 +384,16 @@ let g:tagbar_type_typescript = {
         \ 'e:enums'
     \ ]
 \ }
+
 " }}}
 " mattn/gist-vim {{{
+
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
+
 " }}}
 " neomake/neomake {{{
+
 let g:neomake_open_list = 2
 let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
 let g:neomake_python_enabled_makers = []
@@ -373,41 +404,60 @@ augroup au_neomake_rust_enabled_makers
         let g:neomake_enabled_makers = ['clippy']
     endfunction
 augroup END
+
 " }}}
 " racer-rust/vim-racer {{{
+
 let g:racer_experimental_completer = 1
+
 " }}}
 " rhysd/clever-f.vim {{{
+
 let g:clever_f_smart_case = 1
+
 " }}}
 " scrooloose/nerdcommenter {{{
+
 let g:NERDCommentWholeLinesInVMode = 1
 let g:NERDSpaceDelims = 1
+
 " }}}
 " scrooloose/nerdtree {{{
+
 let g:NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeChDirMode = 2
 let g:NERDTreeMapActivateNode = 'l'
 let g:NERDTreeMapJumpParent = 'h'
+
 " }}}
 " sheerun/vim-polyglot {{{
+
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = ['latex', 'markdown', 'octave', 'python', 'rust', 'tmux', 'typescript']
+
 " }}}
 " Shougo/echodoc.vim {{{
+
 let g:echodoc_enable_at_startup = 1
+
 " }}}
 " Shougo/neopairs.vim {{{
 let g:neopairs#enable = 1
+
 " }}}
 " SirVer/ultisnips {{{
+
 let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
+
 " }}}
 " vim-pandoc/vim-pandoc {{{
+
 let g:pandoc#filetypes#pandoc_markdown = 0
+
 " }}}
 " Completion settings {{{
+
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
@@ -415,9 +465,12 @@ call deoplete#custom#var('omni', 'input_patterns', {
     \ 'tex': g:vimtex#re#deoplete
     \})
 let g:SuperTabDefaultCompletionType = 'context'
+
 " }}}
+
 " }}}
 " General mappings {{{
+
 " jj/fd in insert mode to go to normal mode
 inoremap jj <Esc>:w<CR>
 inoremap fd <Esc>
@@ -498,12 +551,16 @@ nnoremap <leader>B :call Blame()<CR>
 
 " }}}
 " Plugin mappings {{{
+
 " AndrewRadev/splitjoin.vim {{{
+
 "   gS  Split a one-liner into multiple lines
 "   gJ  (with the cursor on the first line of a block) to join a block into a
 "       single-line statement.
+
 " }}}
 " Plug 'bitc/vim-hdevtools' {{{
+
 augroup haskell_mappings
     autocmd!
     au FileType haskell call s:HaskellMappings()
@@ -514,8 +571,10 @@ augroup haskell_mappings
         nnoremap <buffer> <silent> <leader>hc :HdevtoolsClear<CR>
     endfunction
 augroup END
+
 " }}}
 " christoomey/vim-tmux-navigator {{{
+
 "   M-[hjkl]  Move around between vim and tmux panes
 "             (This requires additional settings in .tmux.conf)
 let g:tmux_navigator_no_mappings = 1
@@ -523,8 +582,10 @@ nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
+
 " }}}
 " davidhalter/jedi-vim {{{
+
 "   gd          Go to Python definition, falls back to assignments
 "   K           Show docs
 "   <leader>ja  Go to assignment of element under cursor
@@ -537,8 +598,10 @@ let g:jedi#goto_assignments_command = '<leader>ja'
 let g:jedi#goto_definitions_command = ''
 let g:jedi#usages_command = '<leader>jn'
 let g:jedi#rename_command = '<leader>jr'
+
 " }}}
 " easy-motion/vim-easymotion {{{
+
 "                     Disable default mappings
 let g:EasyMotion_do_mapping = 0
 "   s                 Bi-directional find. Jump to anywhere with s{char}{label}
@@ -553,16 +616,21 @@ map s <Plug>(easymotion-s2)
 "map <leader>l <Plug>(easymotion-lineforward)
 "   <leader>h         Easymotion backward. Jump backward with <leader>h{label}
 "map <leader>h <Plug>(easymotion-linebackward)
+
 " }}}
-" Plug junegunn/fzf {{{
+" junegunn/fzf {{{
+
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>g :Rg<space>
 vnoremap <leader>g "hy:Rg <C-R>h<CR>
 nnoremap <leader>t :Tags<CR>
+
 " }}}
 " junegunn/limelight.vim {{{
-"   <leader>l          Toggle Limelight
+
+"   <leader>l         Toggle Limelight
 nnoremap <leader>l :Limelight!!<CR>
+
 " }}}
 " lervag/vimtex {{{
 
@@ -614,10 +682,13 @@ nnoremap <leader>l :Limelight!!<CR>
 
 " }}}
 " majutsushi/tagbar {{{
+
 "   <leader>m  View output file.
 nnoremap <silent> <leader>m :TagbarToggle<CR>
+
 " }}}
 " racer-rust/vim-racer {{{
+
 augroup rust_racer_mappings
     autocmd!
     au FileType rust call s:RacerMappings()
@@ -626,8 +697,10 @@ augroup rust_racer_mappings
         nmap <buffer>  K <Plug>(rust-doc)
     endfunction
 augroup END
+
 " }}}
 " Procrat/jedi-vim {{{
+
 let g:jedi#auto_initialization = 0
 augroup python_jedi_mappings
     autocmd!
@@ -641,8 +714,10 @@ augroup python_jedi_mappings
         imap <buffer>    <space> <Plug>JediSmartAutoMapping
     endfunction
 augroup END
+
 " }}}
 " scrooloose/nerdcommenter {{{
+
 "   <leader>cc  Comment out the current line or text selected in visual mode.
 "   <leader>cn  Same as <leader>cc but forces nesting.
 "   <leader>c<Space>
@@ -663,31 +738,43 @@ augroup END
 "               Same as |NERDComComment| except that the delimiters are aligned
 "               down the left side (<leader>cl) or both sides (<leader>cb).
 "   <leader>cu  Uncomments the selected line(s).
+
 " }}}
 " scrooloose/nerdtree {{{
+
 "   <leader>n  Open NERD Tree
 nnoremap <leader>n :NERDTreeToggle<CR>
+
 " }}}
 " Plug 'shime/vim-livedown' {{{
+
 "   <leader>v  Opens generated markdown in browser. See markdown_mappings.
+
 " }}}
 " SirVer/ultisnips {{{
+
 "   ß        Expand ultisnips
 let g:UltiSnipsExpandTrigger='ß'
 "   <C-j>    Move to next editable part in the snippet
-"   <C-k>  Move the previous editable part in the snippet
+"   <C-k>    Move the previous editable part in the snippet
+
 " }}}
 " terryma/vim-smooth-scroll {{{
+
 nnoremap <silent> <C-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
 nnoremap <silent> <C-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
 nnoremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
 nnoremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
+
 " }}}
 " tpope/vim-unimpaired {{{
+
 "   A lot of mapping starting with [ and ]. A full list can be found here:
 "   https://github.com/tpope/vim-unimpaired/blob/master/doc/unimpaired.txt
+
 " }}}
 "" Java/Eclim mappings {{{
+
 "au FileType java call EclimBindings()
 "function! EclimBindings()
 "   nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
@@ -696,8 +783,10 @@ nnoremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
 "   nnoremap <silent> <buffer> <leader><space> :JavaCorrect<cr>
 "   nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 "endfunction
+
 "" }}}
 " Comletion mappings {{{
+
 let g:SuperTabContextDefaultCompletionType = '<C-n>'
 " Make other popup menu keybindings like in IDEs
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
@@ -705,7 +794,9 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
 " }}}
+
 " }}}
 " Misc {{{
 
