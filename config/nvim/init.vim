@@ -18,8 +18,8 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'jvirtanen/vim-octave'
 Plug 'Konfekt/FastFold'
-Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'leafgarland/typescript-vim'
+Plug 'lervag/vimtex'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify', { 'for': [
@@ -300,8 +300,11 @@ command! -bang -nargs=* Rg
 let g:limelight_bop = '^\s*\n\zs\S'
 let g:limelight_eop = '\ze\n\s*\n\S'
 " }}}
-" LaTeX-Box-Team/LaTeX-Box {{{
-let g:LatexBox_Folding = 1
+" lervag/vimtex {{{
+
+let g:tex_flavor = 'latex'
+let g:vimtex_fold_enabled = 1
+
 " }}}
 " ludovicchabant/vim-gutentags {{{
 let g:gutentags_cache_dir = '~/.cache/gutentag'
@@ -408,6 +411,9 @@ let g:pandoc#filetypes#pandoc_markdown = 0
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+call deoplete#custom#var('omni', 'input_patterns', {
+    \ 'tex': g:vimtex#re#deoplete
+    \})
 let g:SuperTabDefaultCompletionType = 'context'
 " }}}
 " }}}
@@ -558,30 +564,54 @@ nnoremap <leader>t :Tags<CR>
 "   <leader>l          Toggle Limelight
 nnoremap <leader>l :Limelight!!<CR>
 " }}}
-" LaTeX-Box-Team/LaTeX-Box {{{
-"   <leader>ll  Compile with latexmk.
-"   <leader>lL  Force compilation with latexmk.
-"   <leader>lc  Clean temporary output from LaTeX.
-"   <leader>lC  Clean all output from LaTeX.
-"   <leader>lk  Stop latexmk if it is running.
-"   <leader>lg  Show the running status of latexmk for the current buffer.
-"   <leader>lG  Show the running status of latexmk for all buffers with process
-"               group ID's.
-"   <leader>le  Load the log file for the current document and jump to the
-"               first error.
-"   <leader>lv  View output file.
-"   <leader>lf  Recalculate the folds.
-"   <leader>lt  Open a table of contents.
-augroup latex_mappings
-    autocmd!
-    au FileType tex call s:LaTeXMappings()
-    function! s:LaTeXMappings()
-"   [[          Start an environment
-        imap <buffer> [[ \begin{
-"   ]]          Close the environment
-        imap <buffer> ]] <Plug>LatexCloseCurEnv
-    endfunction
-augroup END
+" lervag/vimtex {{{
+
+" Compilation bindings:
+"   <leader>lc        Clean auxiliary files
+"   <leader>lC        Clean auxiliary and output files
+"   <leader>le        Toggle errors (quickfix)
+"   <leader>lg        Show compilation status
+"   <leader>li        Show info
+"   <leader>lI        Show full info
+"   <leader>lk        Stop compilation
+"   <leader>ll        Compile (and keep running in continous mode)
+"   <leader>lm        Show list of insert-mode mappings
+"   <leader>lo        Show compilation output
+"   <leader>lt        Open table of contents (sidebar)
+"   <leader>lT        Toggle table of contents (sidebar)
+"   <leader>lv        Open pdf for current document
+"
+" Navigation bindings:
+"   ]]                Go to next end of a section
+"   ][                Go to next beginning of a section
+"   []                Go to previous end of a section
+"   [[                Go to previous beginning of a section
+"   ]m                Go to next start of an environment
+"   ]M                Go to next end of an environment
+"   [m                Go to previous start of an environment
+"   [M                Go to previous end of an environment
+"   K                 Open documentation for package
+"
+" Defined text objects:
+"   c   command
+"   d   delimiter
+"   e   environment
+"   $   inline math
+"   P   section
+"   m   item
+" So you can use [cd]s[ec$d] to change/delete surrounding environment /
+" command / math delimiter / math environment.
+"
+" Insert mode bindings:
+"   ]]                Close current environment
+" Use <leader>lm to see other ones.
+"
+" Also bound, but probably won't use:
+"   <leader>l[GKLqrsxX]
+"   ts[fcedD]
+"   <F7>
+"   ]/, ]* [/, [*
+
 " }}}
 " majutsushi/tagbar {{{
 "   <leader>m  View output file.
