@@ -34,12 +34,12 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
 " Plug 'a-watson/vim-gdscript'
 Plug 'rust-lang/rust.vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'shime/vim-livedown'
 Plug 'Shougo/echodoc.vim'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
@@ -416,12 +416,6 @@ let g:racer_experimental_completer = 1
 let g:clever_f_smart_case = 1
 
 " }}}
-" scrooloose/nerdcommenter {{{
-
-let g:NERDCommentWholeLinesInVMode = 1
-let g:NERDSpaceDelims = 1
-
-" }}}
 " scrooloose/nerdtree {{{
 
 let g:NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
@@ -737,30 +731,6 @@ augroup python_jedi_mappings
 augroup END
 
 " }}}
-" scrooloose/nerdcommenter {{{
-
-"   <leader>cc  Comment out the current line or text selected in visual mode.
-"   <leader>cn  Same as <leader>cc but forces nesting.
-"   <leader>c<Space>
-"               Toggles the comment state of the selected line(s). If the
-"               topmost selected line is commented, all selected lines are
-"               uncommented and vice versa.
-"   <leader>cm  Comments the given lines using only one set of multipart
-"               delimiters.
-"   <leader>ci  Toggles the comment state of the selected line(s) individually.
-"   <leader>cs  Comments out the selected lines ``sexily''
-"   <leader>cy  Same as <leader>cc except that the commented line(s) are yanked
-"               first.
-"   <leader>c$  Comments the current line from the cursor to the end of line.
-"   <leader>cA  Adds comment delimiters to the end of line and goes into insert
-"               mode between them.
-"   <leader>ca  Switches to the alternative set of delimiters.
-"   <leader>cl and <leader>cb
-"               Same as |NERDComComment| except that the delimiters are aligned
-"               down the left side (<leader>cl) or both sides (<leader>cb).
-"   <leader>cu  Uncomments the selected line(s).
-
-" }}}
 " scrooloose/nerdtree {{{
 
 "   <leader>n  Open NERD Tree
@@ -786,6 +756,23 @@ nnoremap <silent> <C-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
 nnoremap <silent> <C-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
 nnoremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
 nnoremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
+
+" }}}
+" tpope/vim-commentary {{{
+
+"   <leader>c<motion> Toggle comments over <motion>
+map <leader>c <Plug>Commentary
+"   <leader>cc        Toggle comments on the current line or selected text in
+"                     visual mode.
+nmap <leader>cc <Plug>CommentaryLine
+"   <leader>cl        Same, just to save the pain from unlearning Spacemacs
+"                     bindings.
+nmap <leader>cl <Plug>CommentaryLine
+"   <leader>cy        Yank and then toggle.
+nmap <leader>cy yy<Plug>CommentaryLine
+xmap <leader>cy ygv<Plug>Commentary
+"   <leader>cu        Uncomment current and adjacent lines.
+nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
 " }}}
 " tpope/vim-unimpaired {{{
