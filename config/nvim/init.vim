@@ -44,6 +44,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -96,12 +97,8 @@ augroup load_insert_plugins
     autocmd InsertEnter * call plug#load('ultisnips', 'jedi-vim')
 augroup END
 
-" filetype plugin indent on  " (default in NeoVim)
-
 " }}}
 " Colorscheme settings {{{
-
-" syntax on  " (default in NeoVim)
 
 let g:base16colorspace = 256  " Access colors present in 256 colorspace
 colorscheme base16-mocha
@@ -112,8 +109,6 @@ let g:airline_theme = 'base16'
 
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\<Space>"
-" Automatic reloading on external file changes (default in NeoVim)
-"set autoread
 " Automatic writing when using certain commands, e.g. :n, :N
 set autowrite
 " Hides buffers instead of closing
@@ -128,10 +123,6 @@ set colorcolumn=80
 set cursorline
 " Ignore case when searching except if search has uppercase letters
 set ignorecase smartcase
-" Find as you type (default in NeoVim)
-"set incsearch
-" Autocompletion for command-line (default in NeoVim)
-"set wildmenu
 " Always use a menu for autocompletion, insert longest match, no preview pane
 set completeopt=menuone,longest
 " Ignore in autocompletion (also ignores in CtrlP/Command-T/Unite.vim)
@@ -146,8 +137,6 @@ set clipboard=unnamedplus
 set pastetoggle=<leader>p
 " Start scrolling earlier
 set scrolloff=6
-set sidescroll=2
-set sidescrolloff=2
 " Make the new window below or right of the current one
 set splitbelow
 set splitright
@@ -156,8 +145,6 @@ set modelines=2
 " Use ripgrep to grep and always print file name in Quickfix list
 set grepprg=rg\ --vimgrep\ --word-regexp\ --fixed-strings\ \"$*\"
 set grepformat=%f:%l:%c:%m
-" Always show statusline/powerline/airline (default in NeoVim)
-"set laststatus=2
 " Disable showing the current mode because powerline/airline already shows it
 set noshowmode
 " Wait less than a second for mapped seauence to complete
@@ -221,13 +208,6 @@ set softtabstop=4
 set expandtab
 " Round off indentation to multiple of shiftwidth
 set shiftround
-" When smarttab is on, a <Tab> in front of a line inserts blanks according to
-" 'shiftwidth'.  'tabstop' is used in other places. A <BS> will delete a
-" 'shiftwidth' worth of space at the start of the line.
-" (default in NeoVim)
-"set smarttab
-" Copy indent from current line when starting a new line (default in NeoVim)
-"set autoindent
 " Indent after '{' and after keywords (if, for, else, while, do, switch)
 set smartindent
 
@@ -494,8 +474,6 @@ nnoremap <leader>w :w<CR>
 nnoremap ZA :wqa<CR>
 " Use C-O and C-P to shift between edited parts
 nnoremap <C-P> <C-I>
-" <Enter> to clear the current search highlighting
-nnoremap <silent> <CR> <CR>:noh<CR>
 " Make < and > behave like they should
 vnoremap < <gv
 vnoremap > >gv
