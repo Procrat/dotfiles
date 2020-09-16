@@ -305,20 +305,6 @@ augroup fzf
   au FileType fzf set laststatus=0 noruler
     \| au BufLeave <buffer> set laststatus=2 ruler
 augroup END
-" Fuzzy file finder with preview window
-"   :Files[!]        -> fzf in current dir
-"   :Files[!] <dir>  -> fzf in given dir
-"   Adding the bang puts fzf across the whole window
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-" Recursive search with fuzzy selector and preview window
-"   :Rg[!]                -> Dynamic search using fzf
-"   :Rg[!] <search-term>  -> Static search with rg + dynamic selection with fzf
-"   Adding the bang puts fzf across the whole window
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
 
 " }}}
 " junegunn/limelight.vim {{{
@@ -617,10 +603,35 @@ map s <Plug>(easymotion-s2)
 " }}}
 " junegunn/fzf {{{
 
+"   <leader>o         Fzf file in current working directory
 nnoremap <leader>o :Files<CR>
-nnoremap <leader>g :Rg<space>
-vnoremap <leader>g "hy:Rg <C-R>h<CR>
+"   <leader>O         Fzf recently opened file
+nnoremap <leader>O :History<CR>
+"   <leader>gr        Fzf text (with selection in visual mode)
+nnoremap <leader>gr :Rg<space>
+vnoremap <leader>gr "hy:Rg <C-R>h<CR>
+"   <leader>t         Fzf tag
 nnoremap <leader>t :Tags<CR>
+"   <leader>/         Fzf line in current buffer
+nnoremap <leader>/ :BLines<CR>
+
+" Commands include:
+"   :BLines[!]           Fzf line in current buffer
+"   :BLines[!] <query>   Same but with static filter
+"   :Files[!]            Fzf file in working dir
+"   :Files[!] <dir>      Fzf file in given directory
+"   :Helptags[!]         Fzf help tag
+"   :History[!]          Fzf recently opened file
+"   :Maps[!]             Fzf normal mode mapping
+"   :Rg[!]               Fzf text recursively
+"   :Rg[!] <query>       Same but with static filter
+"   :Tags[!]             Fzf tag
+"   :Tags[!] <query>     Same but with static filter
+
+" For :Files and :History, use enter key, CTRL-T, CTRL-X or CTRL-V to open
+" selected files in the current window, in new tabs, in horizontal splits, or
+" in vertical splits respectively.
+" Adding the bang puts fzf across the whole window.
 
 " }}}
 " junegunn/limelight.vim {{{
