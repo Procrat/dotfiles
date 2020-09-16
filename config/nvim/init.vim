@@ -778,6 +778,61 @@ xmap <leader>cy ygv<Plug>Commentary
 nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
 " }}}
+" tpope/vim-fugitive {{{
+
+"   <leader>gs   Open interactive mode (also shows status like git status)
+nnoremap <leader>gs  :Git<CR>
+"   <leader>gdf  Open git df in new window
+nnoremap <leader>gdf :Git df<CR>
+"   <leader>gdc  Open git dfc in new window
+nnoremap <leader>gdc :Git dfc<CR>
+"   <leader>gds  Show side-by-side diff for current file
+nnoremap <leader>gds :Gdiffsplit<CR>
+"   <leader>glg  Show git lg in new window
+nnoremap <leader>glg :Git lg<CR>
+"   <leader>glp  Show git lgp in new window
+nnoremap <leader>glp :Git lgp<CR>
+"   <leader>gb   Show git blame in sidebar
+nnoremap <leader>gb  :Git blame<CR>
+
+" Common mappings in the summary buffer (:Git):
+"   s                       Stage file or hunk
+"   u                       Unstage file or hunk
+"   U                       Unstage everything
+"   X                       Discard change
+"   =                       Toggle diff
+"   I/P                     Invoke git add -p or reset -p
+"   dd                      Perform :Gdiffsplit
+"   dv                      Perform :Gvdiffsplit
+"   ds/dh                   Perform :Ghdiffsplit
+"   <CR>                    Open file
+"   o                       Open file in new split
+"   gO                      Open file in new vertical split
+"   (/)                     Jump to previous/next file, hunk or revision
+"   i                       Jump to next file or hunk, expanding diffs
+"   cc                      Create commit
+"   ca                      Amend last commit and edit message
+"   ce                      Amend last commit without editing message
+"   cf                      Create `fixup!` commit
+"   cF                      Create `fixup!` commit and immediately rebase it
+"   co<Space>               Populate command line with ":Git checkout "
+"   czz                     Push stash
+"   czp                     Pop topmost stash, preserving index
+"   ri                      Perform interactive rebase using ancestor of commit
+"   rf                      Perform autosquash rebase without editing the todo
+"                           list, using ancestor of commit
+"   ru                      Perform interactive rebase against @{upstream}
+"   rp                      Perform interactive rebase against @{push}
+"   rr                      Continue current rebase
+"   rs                      Skip current commit and continue rebase
+"   ra                      Abort current rebase
+
+" Other useful commands:
+"   :GWrite           Write and git add
+"   :GMove/:GRename   Like git mv
+"   :GDelete          Like git rm
+
+" }}}
 " tpope/vim-unimpaired {{{
 
 "   A lot of mapping starting with [ and ]. A full list can be found here:
