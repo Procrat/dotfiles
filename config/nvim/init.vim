@@ -28,6 +28,7 @@ Plug 'maksimr/vim-jsbeautify', { 'for': [
 Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
+Plug 'mg979/vim-visual-multi'
 Plug 'neomake/neomake'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
@@ -37,7 +38,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'shime/vim-livedown'
 Plug 'Shougo/echodoc.vim'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-eunuch'
@@ -685,6 +685,27 @@ nnoremap <leader>l :Limelight!!<CR>
 
 "   <leader>m  View output file.
 nnoremap <silent> <leader>m :TagbarToggle<CR>
+
+" }}}
+" mg979/vim-visual-multi {{{
+
+" Start multi-cursor mode
+"   <C-n>             ... by matching word under cursor
+"   <C-↓/↑>           ... vertically
+"   <S-←/→>           ... horizontally
+"   \\A               ... by matching word under cursor and selecting all
+"                         occurrenes
+"   \\/               ... by matching a regex
+" In multi-cursor mode:
+"   n/N               Get next/previous occurrence
+"   [/]               Select next/previous cursor
+"   q                 Skip current cursor and get next occurrence
+"   Q                 Remove current cursor and go back to previous occurrence
+"   <Tab>             Switch between cursor (normal) and extend (visual) mode
+"   m<motion>         Select all patterns in given <motion>
+"   gc                (extend/visual mode) like c, but preserve case
+"   <Esc>             Quit multi-cursor mode
+" See :h visual-multi for more mappings.
 
 " }}}
 " racer-rust/vim-racer {{{
