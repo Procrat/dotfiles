@@ -273,8 +273,9 @@ let g:jedi#completions_enabled = 0
 " }}}
 " easymotion/vim-easymotion {{{
 
-let g:EasyMotion_smartcase = 1  " Turn on case sensitive feature
-let g:EasyMotion_startofline = 0  " Keep cursor column during JK motion
+let g:EasyMotion_smartcase = 1
+" Turn of messages like 'Jumping to [l,c]' and 'EasyMotion: Cancelled'
+let g:EasyMotion_verbose = 0
 
 " }}}
 " junegunn/fzf {{{
@@ -563,20 +564,20 @@ let g:jedi#rename_command = '<leader>jr'
 " }}}
 " easy-motion/vim-easymotion {{{
 
-"                     Disable default mappings
 let g:EasyMotion_do_mapping = 0
-"   s                 Bi-directional find. Jump to anywhere with s{char}{label}
-"noremap s <Plug>(easymotion-s)
-"   s                 Bi-directional find. Jump to anywhere with s{char}{char}{label}
-map s <Plug>(easymotion-s2)
-"   <leader>j         Easymotion up. Jump up with <leader>j{label}
-"map <leader>j <Plug>(easymotion-j)
-"   <leader>k         Easymotion down. Jump down with <leader>k{label}
-"map <leader>k <Plug>(easymotion-k)
-"   <leader>l         Easymotion forward. Jump forward with <leader>l{label}
-"map <leader>l <Plug>(easymotion-lineforward)
-"   <leader>h         Easymotion backward. Jump backward with <leader>h{label}
-"map <leader>h <Plug>(easymotion-linebackward)
+"   s<char><char><label>   Bi-directional find. Jump to the right place with
+"                          the label that shows up. Works across windows in
+"                          normal mode, within window in visual mode.
+nmap s <Plug>(easymotion-overwin-s2)
+vmap s <Plug>(easymotion-s2)
+"   s<char><char><Space>   Bi-directional find. Jump to first match with
+"                          <Space>.
+let g:EasyMotion_space_jump_first = 1
+
+" Mappings in EasyMotion's pending mode:
+"   <CR>                   Execute now
+"   <C-c>/<Esc>            Cancel
+"   <C-h>/<BS>             Delete a character
 
 " }}}
 " junegunn/fzf {{{
