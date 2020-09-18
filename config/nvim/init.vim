@@ -7,6 +7,7 @@ call plug#begin()
 " -- Fast plugins (< 5ms on boot)
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
+Plug 'chrisbra/csv.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'cohama/lexima.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
@@ -243,6 +244,7 @@ let g:airline_exclude_preview = 1
 " Optimization: don't search for all possible extensions
 let g:airline_extensions = [
     \'branch',
+    \ 'csv',
     \'netrw',
     \'neomake',
     \'quickfix',
@@ -254,6 +256,14 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#neomake#error_symbol = '✖'
 let g:airline#extensions#neomake#warning_symbol = '⚠'
 let g:airline_skip_empty_sections = 1
+
+" }}}
+" chrisbra/csv.vim {{{
+
+" Make plugin aware of quoted newlines
+let g:csv_nl = 1
+" Highlight the current column
+let g:csv_highlight_column = 'y'
 
 " }}}
 " cohama/lexima.vim {{{
@@ -535,6 +545,35 @@ augroup haskell_mappings
         nnoremap <buffer> <silent> <leader>hc :HdevtoolsClear<CR>
     endfunction
 augroup END
+
+" }}}
+" chrisbra/csv.vim {{{
+
+" ⚠ Can be slow for large CSVs
+
+"   <C-Right>/L/W                     Move to field on the right
+"   <C-Left>/E/H                      Move to field on the left
+"   <Up>/K                            Move up in the same column
+"   <Down>/J                          Move down in the same column
+"   <Enter>                           Fold lines away that don't match value
+"   <Space>                           Fold lines away that match value
+"   <BS>                              Undo fold
+
+" Text objects:
+"   if                                Inner field
+"   af                                Outer field
+"   iL                                Inner line
+
+" Commands include:
+"   :SearchInColumn [<col>] /<pat>/   Search for <pat> in column
+"   :HiColumn [<col>]                 Highight column
+"   :HiColumn!                        Remove highlight
+"   :[range]ArrangeColumn[!]          Vertically align columns
+"                                     (Slow for large files!)
+"   :[range]UnArrangeColumn           Undo vertical align
+"   :[V]HeaderToggle                  Freeze/unfreeze (vertical) header
+"   :CSVTabularize                    Draw a fancy table in a new buffer
+"   :DeleteColumn, :Sort, :Column (to copy), :MoveColumn, :NewDelimiter
 
 " }}}
 " christoomey/vim-tmux-navigator {{{
