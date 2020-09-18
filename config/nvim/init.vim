@@ -470,7 +470,7 @@ vnoremap <leader>s :!sort<CR>
 " Sudo write
 cnoremap w!! w !sudo tee % >/dev/null
 " Save current file
-nnoremap <leader>w :w<CR>
+nnoremap <leader>s :w<CR>
 " Save all files and exit (useful when using vim as git mergetool)
 nnoremap ZA :wqa<CR>
 " Use C-O and C-P to shift between edited parts
@@ -493,10 +493,12 @@ augroup markdown_mappings
         nnoremap <buffer> <leader>v :LivedownPreview<CR>
     endfunction
 augroup END
-" Windows resizing
-noremap + <C-W>+
-noremap - <C-W>-
-" Tab management
+" Window management
+noremap <leader>w <C-w>
+noremap + <C-w>+
+noremap - <C-w>-
+noremap <silent> <leader>wm :call ToggleZoom()<CR>
+" Buffer management
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprev<CR>
 nnoremap <leader>e :enew<cr>
@@ -992,6 +994,19 @@ func! s:ExtraPythonMappings()
     command! -range=% -nargs=* Isort :<line1>,<line2>! isort <args> -
     noremap <buffer> <leader>i :Isort<CR>
 endfunc
+
+" Toggle window maximisation
+function! ToggleZoom() abort
+    if exists('t:zoomed') && t:zoomed
+        execute t:zoom_winrestcmd
+        let t:zoomed = 0
+    else
+        let t:zoom_winrestcmd = winrestcmd()
+        resize
+        vertical resize
+        let t:zoomed = 1
+    endif
+endfunction
 
 " }}}
 
