@@ -52,6 +52,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-scripts/JavaDecompiler.vim'
+Plug 'wellle/context.vim'
 
 " -- Slightly slower plugins (5ms -- 50ms)
 Plug 'chriskempson/base16-vim'
@@ -428,6 +429,14 @@ let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
 " vim-pandoc/vim-pandoc {{{
 
 let g:pandoc#filetypes#pandoc_markdown = 0
+
+" }}}
+" wellle/context.vim {{{
+
+" Don't show the "<context.vim>" tag
+let g:context_highlight_tag = '<hide>'
+" Stop screen flicker
+let g:context_nvim_no_redraw = 1
 
 " }}}
 " Completion settings {{{
