@@ -31,6 +31,7 @@ Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
 Plug 'neomake/neomake'
+Plug 'plasticboy/vim-markdown'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
 " Plug 'a-watson/vim-gdscript'
@@ -49,8 +50,6 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-scripts/JavaDecompiler.vim'
 Plug 'wellle/context.vim'
 
@@ -167,6 +166,8 @@ set diffopt+=iwhite
 set title
 " Pipe cursor in insert & command mode, underline in replace mode
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+" Use conceal (and don't waste space like level 1)
+set conceallevel=2
 
 " Nvim settings
 if has('nvim')
@@ -393,6 +394,16 @@ augroup au_neomake_rust_enabled_makers
 augroup END
 
 " }}}
+" plasticboy/vim-markdown {{{
+
+" Fold heading together with content
+let g:vim_markdown_folding_style_pythonic = 1
+" Use my own, better foldtext (uses spaces instead of dots for visual ease)
+let g:vim_markdown_override_foldtext = 0
+" Show strikethroughs
+let g:vim_markdown_strikethrough = 1
+
+" }}}
 " racer-rust/vim-racer {{{
 
 let g:racer_experimental_completer = 1
@@ -424,11 +435,6 @@ let g:neopairs#enable = 1
 " SirVer/ultisnips {{{
 
 let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
-
-" }}}
-" vim-pandoc/vim-pandoc {{{
-
-let g:pandoc#filetypes#pandoc_markdown = 0
 
 " }}}
 " wellle/context.vim {{{
@@ -932,7 +938,7 @@ augroup vimrc_misc
     au FileType text,journal,markdown setlocal linebreak
 
     " Set wrapping and markdown folding for Markdown and journal files
-    au FileType journal,markdown setlocal textwidth=80 foldmethod=expr foldexpr=FoldexprMarkdown(v:lnum)
+    au FileType journal,markdown setlocal textwidth=80
 
     " Autoscale Quickfix window, don't let it appear in buffer lists and close
     " it with `q`
@@ -1007,35 +1013,6 @@ func! s:StripTrailingWhitespace()
         call winrestview(l:save)
     endif
 endfunction
-
-" Thanks to Steve Losh (https://gist.github.com/sjl/1038710)
-func! FoldexprMarkdown(lnum)
-    let l:l1 = getline(a:lnum)
-
-    if l:l1 =~# '^\s*$'
-        " ignore empty lines
-        return '='
-    endif
-
-    let l:l2 = getline(a:lnum+1)
-
-    if l:l2 =~# '^==\+\s*'
-        " next line is underlined (level 1)
-        return '>1'
-    elseif l:l2 =~# '^--\+\s*'
-        " next line is underlined (level 2)
-        return '>2'
-    elseif l:l1 =~# '^#'
-        " current line starts with hashes
-        return '>'.matchend(l:l1, '^#\+')
-    elseif a:lnum == 1
-        " fold any 'preamble'
-        return '>1'
-    else
-        " keep previous foldlevel
-        return '='
-    endif
-endfunc
 
 " Define Isort command and mapping for Python import sorting
 func! s:ExtraPythonMappings()
