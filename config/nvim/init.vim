@@ -32,6 +32,7 @@ Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
 Plug 'neomake/neomake'
 Plug 'plasticboy/vim-markdown'
+Plug 'psliwka/vim-smoothie'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
 " Plug 'a-watson/vim-gdscript'
@@ -39,7 +40,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'shime/vim-livedown'
 Plug 'Shougo/echodoc.vim'
-Plug 'terryma/vim-smooth-scroll'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -798,13 +798,6 @@ let g:UltiSnipsExpandTrigger='ß'
 "   <C-j>    Move to next editable part in the snippet
 "   <C-k>    Move the previous editable part in the snippet
 
-" }}}
-" terryma/vim-smooth-scroll {{{
-
-nnoremap <silent> <C-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
-nnoremap <silent> <C-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
-nnoremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
-nnoremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
 
 " }}}
 " tpope/vim-commentary {{{
