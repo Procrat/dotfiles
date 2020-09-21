@@ -76,6 +76,7 @@
     lolaf = log --graph --pretty=format:'%C(auto)%h%d %C(brightblack)%cr %C(magenta)%an %C(auto)%s' --all
     unstage = reset HEAD --
     us = reset HEAD --
+    usp = reset -p HEAD --
     stash-unapply = !git stash show -p | git apply -R
     pop = stash pop
     sshow = stash show -p
