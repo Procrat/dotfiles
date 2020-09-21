@@ -10,92 +10,85 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'cohama/lexima.vim'
-Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
-Plug 'jreybert/vimagit'
 Plug '/usr/share/vim/vimfiles/plugin/fzf.vim'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
-Plug 'jvirtanen/vim-octave'
-Plug 'Konfekt/FastFold'
 Plug 'leafgarland/typescript-vim'
-Plug 'lervag/vimtex'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify', { 'for': [
-            \ 'javascript', 'javascript.jsx', 'json', 'html', 'css'] }
+    \ 'javascript', 'javascript.jsx', 'json', 'html', 'css'] }
 Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
 Plug 'neomake/neomake'
 Plug 'plasticboy/vim-markdown'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'preservim/tagbar'
 Plug 'psliwka/vim-smoothie'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
-" Plug 'a-watson/vim-gdscript'
-Plug 'rust-lang/rust.vim'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'shime/vim-livedown'
 Plug 'Shougo/echodoc.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/JavaDecompiler.vim'
 Plug 'wellle/context.vim'
 
-" -- Slightly slower plugins (5ms -- 50ms)
-Plug 'chriskempson/base16-vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/vim-journal'
+" -- Slightly slower plugins (3ms -- 50ms)
+Plug 'chriskempson/base16-vim'  " ~9ms
+Plug 'easymotion/vim-easymotion'  " ~3ms
+Plug 'junegunn/vim-journal'  " ~4ms
+Plug 'rust-lang/rust.vim'  " ~15ms
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = [
+    \ 'csv',
     \ 'latex',
     \ 'markdown',
     \ 'python',
+    \ 'python-compiler',
     \ 'rust',
     \ 'tmux',
-    \ 'typescript'
+    \ 'typescript',
     \ ]
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-rails'
-Plug 'vim-airline/vim-airline'
+Plug 'sheerun/vim-polyglot'  " 20-50ms, depending on filetype
+Plug 'vim-airline/vim-airline'  " ~40ms
 Plug 'vim-airline/vim-airline-themes'
 
 " -- Slow plugins (> 50ms)
-" -- All of these are fixed by loading them on demand
-Plug 'SirVer/ultisnips', { 'on': [] }  " Defer to insert mode
-Plug 'bitc/vim-hdevtools', { 'on': [
-            \ 'HdevtoolsType', 'HdevtoolsClear', 'HdevtoolsInfo'] }
-Plug 'Procrat/jedi-vim'
+" Completely defer to insert mode or when I press a relevant keybinding
+Plug 'davidhalter/jedi-vim', { 'on': [] }  " ~150ms, this is ridiculous
+" I don't write enough tex to optimise this
+Plug 'lervag/vimtex'  " ~80ms
+" Completely defer to insert mode
+Plug 'SirVer/ultisnips', { 'on': [] }  " ~105ms for Ruby, <3ms for others 🤷
+" I'll fix this when I write some RoR again
+Plug 'tpope/vim-rails'  " ~60ms
 
-" -- Completion plugins
+" -- Completion plugins (all < 3ms)
 Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-tag'
+Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'racer-rust/vim-racer'
 Plug 'Shougo/neco-vim'
-Plug 'zchee/deoplete-clang'
-Plug 'zchee/deoplete-jedi'
-Plug 'zchee/deoplete-zsh'
-
-" Unmanaged plugins
-" Plug '~/.config/nvim/unplugged/eclim', { 'for': 'java', 'frozen': 1 }
 
 call plug#end()
 
 " Defer loading of some plugins to insert mode
 augroup load_insert_plugins
     autocmd!
-    autocmd InsertEnter * call plug#load('ultisnips', 'jedi-vim')
+    autocmd InsertEnter * call plug#load('jedi-vim', 'ultisnips')
+        \| autocmd! load_insert_plugins
 augroup END
 
 " }}}
@@ -110,15 +103,14 @@ let g:airline_theme = 'base16'
 
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\<Space>"
-" Automatic writing when using certain commands, e.g. :n, :N
-set autowrite
+
 " Hides buffers instead of closing
 set hidden
-" Persistent undo
+" Persistent undo (slow for large files, so turned off with autocommand)
 set undofile
 " Line numbering
 set number
-" Show vertical column at 79 (maximum line length for Python)
+" Show vertical column at 80
 set colorcolumn=80
 " Highlight current line
 set cursorline
@@ -126,13 +118,13 @@ set cursorline
 set ignorecase smartcase
 " Always use a menu for autocompletion, insert longest match, no preview pane
 set completeopt=menuone,longest
-" Ignore in autocompletion (also ignores in CtrlP/Command-T/Unite.vim)
+" Ignore files in autocompletion
 set wildignore=*.o,*.obj,*.pyc,*.class,*.orig,*/.git/*
 " Maximum height of the autocompletion popup menu (pum)
 set pumheight=8
 " Mouse interactivity
 set mouse=a
-" Copy/paste with X11 CLIPBOARD
+" Copy/paste with X11 clipboard
 set clipboard=unnamedplus
 " Paste mode shortcut
 set pastetoggle=<leader>p
@@ -168,6 +160,9 @@ set title
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 " Use conceal (and don't waste space like level 1)
 set conceallevel=2
+" Let wrapped lines keep indentation, but show a ">>" to mark them
+set breakindent
+set showbreak=>>
 
 " Nvim settings
 if has('nvim')
@@ -177,6 +172,7 @@ endif
 
 " }}}
 " Folding {{{
+
 set foldmethod=indent
 set foldlevelstart=0
 set foldnestmax=1
@@ -201,9 +197,9 @@ augroup END
 " }}}
 " Indentation {{{
 
-" Number of spaces that a Tab respresents
+" Number of spaces that a tab respresents
 set tabstop=8
-" Number of spaces for an (auto)indent
+" Number of spaces for an (auto-)indent
 set shiftwidth=4
 " Number of spaces that a Tab feels like while editing
 set softtabstop=4
@@ -213,18 +209,25 @@ set expandtab
 set shiftround
 " Indent after '{' and after keywords (if, for, else, while, do, switch)
 set smartindent
-
+" Try to maintain existing indentation
+set copyindent
+set preserveindent
 
 " Indentation per filetype
 augroup indentation
     autocmd!
 
-    au FileType xml,html,xhtml,htmldjango,eruby,xslt setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
-    au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120 colorcolumn=120
+    au FileType xml,html,xhtml,htmldjango,eruby,xslt
+        \ setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
+        \ colorcolumn=120
+    au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120
+        \ colorcolumn=120
     au FileType css,scss setlocal shiftwidth=2 softtabstop=2
-    au FileType python setlocal nocindent shiftwidth=4 softtabstop=4 textwidth=79 colorcolumn=79
+    au FileType python setlocal nocindent noshiftround shiftwidth=4
+        \ softtabstop=4 textwidth=79 colorcolumn=79
     au FileType haskell setlocal shiftwidth=4 softtabstop=4
-    au FileType rust setlocal shiftwidth=4 softtabstop=4 textwidth=99 colorcolumn=99
+    au FileType rust setlocal shiftwidth=4 softtabstop=4 textwidth=99
+        \ colorcolumn=99
     au FileType prolog setlocal shiftwidth=4 softtabstop=4
     au FileType ruby setlocal shiftwidth=2 softtabstop=2
     au FileType tex setlocal shiftwidth=2 softtabstop=2
@@ -243,21 +246,29 @@ let g:splitjoin_html_attributes_bracket_on_new_line = 1
 
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
+" Don't draw separators for empty sections. (Adds ~35ms to startup time!)
+" let g:airline_skip_empty_sections = 1
+" Make airline a tiny bit faster (~5ms)
+let g:airline_highlighting_cache = 1
 " Optimization: don't search for all possible extensions
 let g:airline_extensions = [
-    \'branch',
+    \ 'branch',
     \ 'csv',
-    \'netrw',
-    \'neomake',
-    \'quickfix',
-    \'tabline',
-    \'tagbar',
-    \'vimagit']
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_min_count = 2
+    \ 'fugitiveline',
+    \ 'gutentags',
+    \ 'neomake',
+    \ 'quickfix',
+    \ 'tabline',
+    \ 'tagbar',
+    \ 'term',
+    \ 'vimtex'
+    \ ]
+" Show column name for CSVs instead of index
+let g:airline#extensions#csv#column_display = 'Name'
 let g:airline#extensions#neomake#error_symbol = '✖'
 let g:airline#extensions#neomake#warning_symbol = '⚠'
-let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " }}}
 " chrisbra/csv.vim {{{
@@ -268,19 +279,12 @@ let g:csv_nl = 1
 let g:csv_highlight_column = 'y'
 
 " }}}
-" cohama/lexima.vim {{{
-
-" Enable space rules only for certain filetypes
-let g:lexima_enable_space_rules = 0
-for rule in g:lexima#space_rules
-    let rule.filetype = ['rust', 'toml']
-    call lexima#add_rule(rule)
-endfor
-
-" }}}
 " davidhalter/jedi-vim {{{
 
+" Completions are handled by deoplete-jedi (for async completions)
 let g:jedi#completions_enabled = 0
+" Don't show function signature; echodoc.vim already does it better
+let g:jedi#show_call_signatures = 0
 
 " }}}
 " easymotion/vim-easymotion {{{
@@ -294,17 +298,10 @@ let g:EasyMotion_verbose = 0
 
 " Remove statusline from FZF popup
 augroup fzf
-  autocmd!
-  au FileType fzf set laststatus=0 noruler
-    \| au BufLeave <buffer> set laststatus=2 ruler
+    autocmd!
+    au FileType fzf set laststatus=0 noruler
+        \| au BufLeave <buffer> set laststatus=2 ruler
 augroup END
-
-" }}}
-" junegunn/limelight.vim {{{
-
-" Highlight complete top level elements
-let g:limelight_bop = '^\s*\n\zs\S'
-let g:limelight_eop = '\ze\n\s*\n\S'
 
 " }}}
 " lervag/vimtex {{{
@@ -321,57 +318,8 @@ let g:gutentags_exclude_filetypes = [
     \ 'gitconfig',
     \ 'gitrebase',
     \ 'gitsendemail',
-    \ 'git'
+    \ 'git',
     \ ]
-
-" }}}
-" majutsushi/tagbar {{{
-let g:tagbar_autofocus = 1
-let g:tagbar_sort = 0
-let g:tagbar_compact = 1
-let g:tagbar_iconchars=['▸', '▾']
-let g:tagbar_type_make = {
-    \ 'kinds': [
-        \ 'm:macros',
-        \ 't:targets'
-    \ ]
-\ }
-let g:tagbar_type_ansible = {
-    \ 'ctagstype': 'ansible',
-    \ 'kinds': [
-        \ 't:tasks'
-    \ ]
-\ }
-let g:tagbar_type_rust = {
-    \ 'ctagstype': 'rust',
-    \ 'kinds': [
-        \ 'n:modules',
-        \ 's:structs',
-        \ 'i:interfaces',
-        \ 'c:implementations',
-        \ 'f:functions',
-        \ 'g:enums',
-        \ 't:typedefs',
-        \ 'v:variables',
-        \ 'M:macros',
-        \ 'm:fields',
-        \ 'e:enumerators',
-        \ 'F:methods',
-    \ ]
-\ }
-let g:tagbar_type_typescript = {
-    \ 'ctagstype': 'typescript',
-    \ 'kinds': [
-        \ 'c:classes',
-        \ 'n:modules',
-        \ 'f:functions',
-        \ 'v:variables',
-        \ 'v:varlambdas',
-        \ 'm:members',
-        \ 'i:interfaces',
-        \ 'e:enums'
-    \ ]
-\ }
 
 " }}}
 " mattn/gist-vim {{{
@@ -396,12 +344,47 @@ augroup END
 " }}}
 " plasticboy/vim-markdown {{{
 
-" Fold heading together with content
-let g:vim_markdown_folding_style_pythonic = 1
 " Use my own, better foldtext (uses spaces instead of dots for visual ease)
 let g:vim_markdown_override_foldtext = 0
 " Show strikethroughs
 let g:vim_markdown_strikethrough = 1
+
+" }}}
+" preservim/nerdtree {{{
+
+let g:NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeChDirMode = 2
+let g:NERDTreeMapActivateNode = 'l'
+let g:NERDTreeMapJumpParent = 'h'
+
+" }}}
+" preservim/tagbar {{{
+
+let g:tagbar_autofocus = 1
+let g:tagbar_sort = 0
+let g:tagbar_compact = 1
+let g:tagbar_iconchars=['▸', '▾']
+let g:tagbar_type_ansible = {
+    \ 'ctagstype': 'ansible',
+    \ 'kinds': [
+        \ 't:tasks'
+    \ ],
+    \ 'sort': 0
+\ }
+let g:tagbar_type_typescript = {
+    \ 'ctagstype': 'typescript',
+    \ 'kinds': [
+        \ 'c:classes',
+        \ 'n:modules',
+        \ 'f:functions',
+        \ 'v:variables',
+        \ 'v:varlambdas',
+        \ 'm:members',
+        \ 'i:interfaces',
+        \ 'e:enums'
+    \ ]
+\ }
 
 " }}}
 " racer-rust/vim-racer {{{
@@ -414,13 +397,10 @@ let g:racer_experimental_completer = 1
 let g:clever_f_smart_case = 1
 
 " }}}
-" scrooloose/nerdtree {{{
+" sheerun/vim-polyglot {{{
 
-let g:NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeChDirMode = 2
-let g:NERDTreeMapActivateNode = 'l'
-let g:NERDTreeMapJumpParent = 'h'
+" Stop vim-vue from slowing down (See https://github.com/posva/vim-vue)
+let g:vue_disable_pre_processors = 1
 
 " }}}
 " Shougo/echodoc.vim {{{
@@ -428,13 +408,10 @@ let g:NERDTreeMapJumpParent = 'h'
 let g:echodoc_enable_at_startup = 1
 
 " }}}
-" Shougo/neopairs.vim {{{
-let g:neopairs#enable = 1
-
-" }}}
 " SirVer/ultisnips {{{
 
-let g:UltiSnipsEditSplit='vertical'  " Let the UltiSnipsEdit split
+" Let :UltiSnipsEdit split horizontally or vertically
+let g:UltiSnipsEditSplit='context'
 
 " }}}
 " wellle/context.vim {{{
@@ -448,12 +425,15 @@ let g:context_nvim_no_redraw = 1
 " Completion settings {{{
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+" Abbreviate type info
+let g:deoplete#sources#jedi#enable_short_types = 1
 call deoplete#custom#var('omni', 'input_patterns', {
     \ 'tex': g:vimtex#re#deoplete
     \})
+" Enable context-dependent completion
 let g:SuperTabDefaultCompletionType = 'context'
+" And fall back to normal <c-n>
+let g:SuperTabContextDefaultCompletionType = '<C-n>'
 
 " }}}
 
@@ -499,7 +479,7 @@ nnoremap <leader>s :w<CR>
 " Save all files and exit (useful when using vim as git mergetool)
 nnoremap ZA :wqa<CR>
 " Use C-O and C-P to shift between edited parts
-nnoremap <C-P> <C-I>
+nnoremap <C-p> <C-i>
 " Make < and > behave like they should
 vnoremap < <gv
 vnoremap > >gv
@@ -507,17 +487,6 @@ vnoremap > >gv
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
-" Markdown mappings
-augroup markdown_mappings
-    autocmd!
-    au FileType markdown,journal call s:MardownMappings()
-    function! s:MardownMappings()
-        nnoremap <buffer> <leader>1 yypVr=:redraw<CR>
-        nnoremap <buffer> <leader>2 yypVr-:redraw<CR>
-        nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
-        nnoremap <buffer> <leader>v :LivedownPreview<CR>
-    endfunction
-augroup END
 " Window management
 noremap <leader>w <C-w>
 noremap + <C-w>+
@@ -537,6 +506,26 @@ function! Blame()
     execute '!send_blame_mail ' . expand('%:p') . ' ' . line('.')
 endfunction
 nnoremap <leader>B :call Blame()<CR>
+" Markdown mappings for header decorations
+augroup markdown_mappings
+    autocmd!
+    au FileType markdown,journal call s:MarkdownMappings()
+    function! s:MarkdownMappings()
+        nnoremap <buffer> <leader>1 yypVr=:redraw<CR>
+        nnoremap <buffer> <leader>2 yypVr-:redraw<CR>
+        nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
+    endfunction
+augroup END
+" Define Isort command and mapping for Python import sorting
+augroup python_isort_mappings
+    autocmd!
+    au FileType python call s:PythonIsortMappings()
+    function! s:PythonIsortMappings()
+        command! -range=% -nargs=* Isort :<line1>,<line2>! isort <args> -
+        nnoremap <buffer> <leader>i :Isort<CR>
+        vnoremap <buffer> <leader>i :Isort<CR>
+    endfunction
+augroup END
 
 " }}}
 " Plugin mappings {{{
@@ -548,15 +537,20 @@ nnoremap <leader>B :call Blame()<CR>
 "       single-line statement.
 
 " }}}
-" Plug 'bitc/vim-hdevtools' {{{
+" AndrewRadev/switch.vim {{{
+
+"   gs  Switch a language construct to another form
+
+" }}}
+" bitc/vim-hdevtools {{{
 
 augroup haskell_mappings
     autocmd!
     au FileType haskell call s:HaskellMappings()
     function! s:HaskellMappings()
-"   F1  Show type information. Multiple presses for expansion
+"   <leader>ht  Show type information. Multiple presses for expansion
         nnoremap <buffer> <leader>ht :HdevtoolsType<CR>
-"   F2  Clear the type information
+"   <leader>hc  Clear the type information
         nnoremap <buffer> <silent> <leader>hc :HdevtoolsClear<CR>
     endfunction
 augroup END
@@ -604,18 +598,32 @@ nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 " }}}
 " davidhalter/jedi-vim {{{
 
-"   gd          Go to Python definition, falls back to assignments
-"   K           Show docs
-"   <leader>ja  Go to assignment of element under cursor
-"   <leader>jn  Show usages of element under cursor. (Could be non-exhaustive)
-"   <leader>jr  Rename variable. (Seems dangerous to me tbh)
-let g:jedi#goto_command = 'gd'
-let g:jedi#documentation_command = 'K'
-let g:jedi#completions_command = ''
-let g:jedi#goto_assignments_command = '<leader>ja'
+augroup python_jedi_mappings
+    autocmd!
+    au FileType python call s:PythonJediMappings()
+    " Lazily load jedi-vim when we press these bindings
+    function! s:PythonJediMappings()
+"   gd           Go to Python definition, falls back to assignments
+        nnoremap <buffer> <silent> gd :call plug#load('jedi-vim') <Bar> call jedi#goto()<CR>
+"   <leader>jr   Rename variable. (Seems dangerous to me tbh)
+        nnoremap <buffer> <silent> <leader>jr :call plug#load('jedi-vim') <Bar> call jedi#rename()<CR>
+"   <leader>ju   Show usages of element under cursor. (Could be non-exhaustive)
+        nnoremap <buffer> <silent> <leader>ju :call plug#load('jedi-vim') <Bar> call jedi#usages()<CR>
+"   K            Show docs
+        nnoremap <silent> <buffer> K :call plug#load('jedi-vim') <Bar> call jedi#show_documentation()<CR>
+    endfunction
+augroup END
+
+"   <Space> in insert mode after "from mod.name" to insert "import"
+let g:jedi#smart_auto_mappings = 1
+
+" Disable default mappings because define them ourselves so we can lazily load
+let g:jedi#goto_assignments_command = ''
+let g:jedi#goto_stubs_command = ''
 let g:jedi#goto_definitions_command = ''
-let g:jedi#usages_command = '<leader>jn'
-let g:jedi#rename_command = '<leader>jr'
+let g:jedi#goto_command = ''
+let g:jedi#rename_command = ''
+let g:jedi#usages_command = ''
 
 " }}}
 " easy-motion/vim-easymotion {{{
@@ -624,8 +632,8 @@ let g:EasyMotion_do_mapping = 0
 "   s<char><char><label>   Bi-directional find. Jump to the right place with
 "                          the label that shows up. Works across windows in
 "                          normal mode, within window in visual mode.
-nmap s <Plug>(easymotion-overwin-s2)
-vmap s <Plug>(easymotion-s2)
+nmap s <Plug>(easymotion-overwin-f2)
+vmap s <Plug>(easymotion-bd-f2)
 "   s<char><char><Space>   Bi-directional find. Jump to first match with
 "                          <Space>.
 let g:EasyMotion_space_jump_first = 1
@@ -667,12 +675,6 @@ nnoremap <leader>/ :BLines<CR>
 " selected files in the current window, in new tabs, in horizontal splits, or
 " in vertical splits respectively.
 " Adding the bang puts fzf across the whole window.
-
-" }}}
-" junegunn/limelight.vim {{{
-
-"   <leader>l         Toggle Limelight
-nnoremap <leader>l :Limelight!!<CR>
 
 " }}}
 " lervag/vimtex {{{
@@ -724,10 +726,9 @@ nnoremap <leader>l :Limelight!!<CR>
 "   ]/, ]* [/, [*
 
 " }}}
-" majutsushi/tagbar {{{
+" mattn/emmet-vim {{{
 
-"   <leader>m  View output file.
-nnoremap <silent> <leader>m :TagbarToggle<CR>
+"   <C-y>,            Interpret text before cursor with emmet.
 
 " }}}
 " mg979/vim-visual-multi {{{
@@ -751,8 +752,22 @@ nnoremap <silent> <leader>m :TagbarToggle<CR>
 " See :h visual-multi for more mappings.
 
 " }}}
+" preservim/nerdtree {{{
+
+"   <leader>n  Open NERD Tree
+nnoremap <leader>n :NERDTreeToggle<CR>
+
+" }}}
+" preservim/tagbar {{{
+
+"   <leader>m  View output file.
+nnoremap <silent> <leader>m :TagbarToggle<CR>
+
+" }}}
 " racer-rust/vim-racer {{{
 
+"   gd         Go to definition
+"   K          Open docs for item under cursor
 augroup rust_racer_mappings
     autocmd!
     au FileType rust call s:RacerMappings()
@@ -763,47 +778,43 @@ augroup rust_racer_mappings
 augroup END
 
 " }}}
-" Procrat/jedi-vim {{{
+" shime/vim-livedown {{{
 
-let g:jedi#auto_initialization = 0
-augroup python_jedi_mappings
+"   <leader>v  Opens generated markdown in browser. See markdown_mappings.
+augroup markdown_livedown_mappings
     autocmd!
-    au FileType python call s:JediMappings()
-    function! s:JediMappings()
-        nmap <buffer>         gd <Plug>JediGoto
-        nmap <buffer> <leader>ja <Plug>JediGotoAssignments
-        nmap <buffer> <leader>ju <Plug>JediUsages
-        map  <buffer> <leader>jr <Plug>JediRename
-        nmap <buffer>          K <Plug>JediDocumentation
-        imap <buffer>    <space> <Plug>JediSmartAutoMapping
+    au FileType markdown call s:MarkdownLiveDownMappings()
+    function! s:MarkdownLiveDownMappings()
+        nnoremap <buffer> <leader>v :LivedownPreview<CR>
     endfunction
 augroup END
 
-" }}}
-" scrooloose/nerdtree {{{
-
-"   <leader>n  Open NERD Tree
-nnoremap <leader>n :NERDTreeToggle<CR>
-
-" }}}
-" Plug 'shime/vim-livedown' {{{
-
-"   <leader>v  Opens generated markdown in browser. See markdown_mappings.
 
 " }}}
 " SirVer/ultisnips {{{
 
-"   ß        Expand ultisnips
+"   ß                   Expand snippet
 let g:UltiSnipsExpandTrigger='ß'
-"   <C-j>    Move to next editable part in the snippet
-"   <C-k>    Move the previous editable part in the snippet
+"   <C-j>               Move to next editable part in the snippet
+"   <C-k>               Move the previous editable part in the snippet
 
+" Commands:
+"   :UltiSnipsEdit[!]   Open (global) snippets file
+
+" }}}
+" tmux-plugins/vim-tmux {{{
+
+"   K           Jump to relevant manpage section
+"   :make       Invoke tmux config and place errors in quicklist
+"   g!<motion>  Excecute lines as tmux commands
+"   g!!         Excecute current line as tmux commands
 
 " }}}
 " tpope/vim-commentary {{{
 
 "   <leader>c<motion> Toggle comments over <motion>
-map <leader>c <Plug>Commentary
+nmap <leader>c <Plug>Commentary
+vmap <leader>c <Plug>Commentary
 "   <leader>cc        Toggle comments on the current line or selected text in
 "                     visual mode.
 nmap <leader>cc <Plug>CommentaryLine
@@ -815,6 +826,20 @@ nmap <leader>cy yy<Plug>CommentaryLine
 xmap <leader>cy ygv<Plug>Commentary
 "   <leader>cu        Uncomment current and adjacent lines.
 nmap <leader>cu <Plug>Commentary<Plug>Commentary
+
+" }}}
+" tpope/vim-eunuch {{{
+
+" Binds a bunch of useful commands, including:
+"   :Delete     Delete a buffer and the file on disk simultaneously.
+"   :Move       Rename a buffer and the file on disk simultaneously.
+"   :Rename     Like :Move, but relative to the current file's containing
+"               directory.
+"   :Chmod      Change the permissions of the current file.
+"   :Mkdir      Create a directory, defaulting to the parent of the current
+"               file.
+"   :SudoWrite  Write a privileged file with sudo.
+"   :SudoEdit   Edit a privileged file with sudo.
 
 " }}}
 " tpope/vim-fugitive {{{
@@ -872,27 +897,45 @@ nnoremap <leader>gb  :Git blame<CR>
 "   :GDelete          Like git rm
 
 " }}}
-" tpope/vim-unimpaired {{{
+" tpope/vim-surround {{{
 
-"   A lot of mapping starting with [ and ]. A full list can be found here:
-"   https://github.com/tpope/vim-unimpaired/blob/master/doc/unimpaired.txt
+" Custom mapping to avoid collision with S in visual mode
+let g:surround_no_mappings = 1
+"   ys<motion><char>         Wrap <motion> with <char>
+nmap ys  <Plug>Ysurround
+"   yS<motion><char>         Same, but put inner part on an indented new line
+nmap yS  <Plug>YSurround
+"   cs<old-char><new-char>   Change surroundings from <old-char> to <new-char>
+nmap cs  <Plug>Csurround
+"   ds<char>                 Delete <char> surroundings
+nmap ds  <Plug>Dsurround
+"   gs<char>                 (visual mode) Wrap selecton in <char>
+vmap gs <Plug>VSurround
+"   gS<char>                 (visual mode) Same, but put inner part on an
+"                            indented new line.
+vmap gS  <Plug>VgSurround
+
+" Targets:
+"   (){}[]<>'"`  as is
+"   t            for XML/HTML tags
+"   wWsp         just so you can use e.g. csw( for ysiw(
+" Replacements:
+"   )}]>'"`      as is
+"   ({[          add an extra space inside
+"   t<           prompts for a custom tag
+"   f            prompts for wrapping in a function call
 
 " }}}
-"" Java/Eclim mappings {{{
-
-"au FileType java call EclimBindings()
-"function! EclimBindings()
-"   nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
-"   nnoremap <silent> <buffer> <leader>o :JavaImportOrganize<CR>
-"   nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
-"   nnoremap <silent> <buffer> <leader><space> :JavaCorrect<cr>
-"   nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
-"endfunction
-
-"" }}}
 " Comletion mappings {{{
 
-let g:SuperTabContextDefaultCompletionType = '<C-n>'
+"   <Tab>/<S-Tab>  Trigger completion (shows popup menu)
+"   <C-Tab>        Insert real tab
+
+" With the popup menu open:
+"   <C-n>/<Tab>/<Down>    Select next match
+"   <C-p>/<S-Tab>/<Up>    Select previous match
+"   <C-e>/<Esc>           Exit completion and return to initial text
+"   <PageUp>/<PageDown>   Scroll half a page up/down in the menu
 " Make other popup menu keybindings like in IDEs
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
@@ -907,22 +950,34 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 let g:python3_host_prog = '/usr/bin/python3'
 
+" Disable netrw completely. It's not behaving.
+let loaded_netrwPlugin = 1
+
 augroup vimrc_misc
     autocmd!
 
-    " Help for Matlab/Octave (with shortcut K)
-    au FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
+    " Recognise binary(-like) filetypes mainly to speed up boot time
+    au BufReadPre *.bin,*.csv,*.dat,*.db,*.db-journal,*.hex,*.log,*.sqlite,*.sqlite3,*.wasm
+        \ setlocal binary nofoldenable foldmethod=manual
+
+    " Unset some features when dealing with large files to speed up boot time
+    au BufReadPre * call s:UnsetFeaturesForLargeFiles(10 * 1024 * 1024)
 
     " Recognize some file extensions
-    "   Filename ending in .pl is a Prolog file and not a Perl one
-    au BufNewFile,BufRead *.pl setlocal filetype=prolog
-    "   Filename ending in .py3 is a Python3 file
-    au BufNewFile,BufRead *.py3 setfiletype python
-    "   Filename ending in rc is probably a config file if nothing else
-    au BufNewFile,BufRead *rc setfiletype dosini
     "   Highlight todo files and other textfiles with vim-journal
     "   (and override detection of Markdown and text filetypes)
     au BufNewFile,BufRead *.txt,*todo*,*TODO* setlocal filetype=journal
+
+    " Set GHC options when configuring XMonad
+    let s:xmonad_lib = expand('~/.xmonad/lib')
+    au BufNewFile,BufRead ~/.xmonad/*
+        \ let g:hdevtools_options = '-g-i' . s:xmonad_lib |
+        \ let b:neomake_haskell_hdevtools_args =
+            \ ['--verbosity', 'silent', 'exec', '--',
+            \  'hdevtools', 'check', '-g-Wall', '-g-i' . s:xmonad_lib]
+
+    " Help for Matlab/Octave (with shortcut K)
+    au FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
 
     " Turn on spelling for some filetypes
     au FileType tex,mail,markdown,gitcommit setlocal spell
@@ -930,7 +985,7 @@ augroup vimrc_misc
     " Don't wrap lines in the middle of a word
     au FileType text,journal,markdown setlocal linebreak
 
-    " Set wrapping and markdown folding for Markdown and journal files
+    " Set wrapping for Markdown and journal files
     au FileType journal,markdown setlocal textwidth=80
 
     " Autoscale Quickfix window, don't let it appear in buffer lists and close
@@ -942,6 +997,9 @@ augroup vimrc_misc
 
     " Also quit help files with `q`
     au FileType help nnoremap <buffer> <silent> q :close<CR>
+
+    " Remove trailing whitespace automatically on write when desired (non-binary)
+    au BufWritePre * call s:StripTrailingWhitespace()
 
     " Reload .vimrc on save
     au BufWritePost .vimrc,*/nvim/init.vim source %
@@ -955,29 +1013,25 @@ augroup vimrc_misc
     " Run stylish-haskell when saving Haskell files
     au BufWritePost *.hs call s:StylishHaskell()
 
-    " Set GHC options when configuring XMonad
-    let s:xmonad_lib = expand('~/.xmonad/lib')
-    au BufNewFile,BufRead ~/.xmonad/*
-        \ let g:hdevtools_options = '-g-i' . s:xmonad_lib |
-        \ let b:neomake_haskell_hdevtools_args =
-            \ ['--verbosity', 'silent', 'exec', '--',
-            \  'hdevtools', 'check', '-g-Wall', '-g-i' . s:xmonad_lib]
+augroup END
 
-    " Automatic renaming of tmux window
-    if exists('$TMUX')
-        au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
-        au VimLeave * call system('tmux set-window automatic-rename on')
+
+function! s:UnsetFeaturesForLargeFiles(max_file_size)
+    let l:size = getfsize(expand('<afile>'))
+    if l:size < a:max_file_size && l:size != -2
+        return
     endif
 
-    au FileType python call s:ExtraPythonMappings()
-
-    " Stop vim-vue from slowing down (See https://github.com/posva/vim-vue)
-    au FileType vue let g:vue_disable_pre_processors=1
-
-    " Remove trailing whitespace automatically on write when desired (non-binary)
-    au BufWritePre * call s:StripTrailingWhitespace()
-
-augroup END
+    syntax clear
+    setlocal binary
+    setlocal noswapfile
+    setlocal nofoldenable
+    setlocal foldmethod=manual
+    " This is the significant one
+    setlocal noundofile
+    setlocal undolevels=-1
+    setlocal nowritebackup
+endfunction
 
 func! s:AdjustWindowHeight(minheight, maxheight)
     exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
@@ -1001,17 +1055,13 @@ endfunc
 
 func! s:StripTrailingWhitespace()
     if &l:fileencoding ==? 'utf-8'
-        let l:save = winsaveview()
+        let l:winview = winsaveview()
+        " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
         keeppatterns %s/\s\+$//e
-        call winrestview(l:save)
+        " vint: +ProhibitCommandRelyOnUser +ProhibitCommandWithUnintendedSideEffect
+        call winrestview(l:winview)
     endif
 endfunction
-
-" Define Isort command and mapping for Python import sorting
-func! s:ExtraPythonMappings()
-    command! -range=% -nargs=* Isort :<line1>,<line2>! isort <args> -
-    noremap <buffer> <leader>i :Isort<CR>
-endfunc
 
 " Toggle window maximisation
 function! ToggleZoom() abort
