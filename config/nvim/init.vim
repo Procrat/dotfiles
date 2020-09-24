@@ -24,6 +24,7 @@ Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
 Plug 'neomake/neomake'
+Plug 'nvim-lua/diagnostic-nvim'
 Plug 'plasticboy/vim-markdown'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'preservim/tagbar'
@@ -46,8 +47,10 @@ Plug 'wellle/context.vim'
 " -- Slightly slower plugins (3ms -- 50ms)
 Plug 'chriskempson/base16-vim'  " ~9ms
 Plug 'easymotion/vim-easymotion'  " ~3ms
-Plug 'junegunn/vim-journal'  " ~4ms
-Plug 'rust-lang/rust.vim'  " ~15ms
+Plug 'junegunn/vim-journal'  " ~8ms for journal files
+" Loaded on demand for specific filetypes (Python)
+Plug 'neovim/nvim-lspconfig', { 'for': [] }  " ~10ms
+Plug 'rust-lang/rust.vim'  " ~15ms for Rust
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = [
     \ 'csv',
@@ -64,22 +67,20 @@ Plug 'vim-airline/vim-airline'  " ~40ms
 Plug 'vim-airline/vim-airline-themes'
 
 " -- Slow plugins (> 50ms)
-" Completely defer to insert mode or when I press a relevant keybinding
-Plug 'davidhalter/jedi-vim', { 'on': [] }  " ~150ms, this is ridiculous
 " I don't write enough tex to optimise this
-Plug 'lervag/vimtex'  " ~80ms
+Plug 'lervag/vimtex'  " ~80ms for (La)TeX
 " Completely defer to insert mode
 Plug 'SirVer/ultisnips', { 'on': [] }  " ~105ms for Ruby, <3ms for others 🤷
 " I'll fix this when I write some RoR again
-Plug 'tpope/vim-rails'  " ~60ms
+Plug 'tpope/vim-rails'  " ~60ms for Rails
 
 " -- Completion plugins (all < 3ms)
 Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'deoplete-plugins/deoplete-tag'
 Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'racer-rust/vim-racer'
+Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
 
 call plug#end()
@@ -87,7 +88,7 @@ call plug#end()
 " Defer loading of some plugins to insert mode
 augroup load_insert_plugins
     autocmd!
-    autocmd InsertEnter * call plug#load('jedi-vim', 'ultisnips')
+    autocmd InsertEnter * call plug#load('ultisnips')
         \| autocmd! load_insert_plugins
 augroup END
 
@@ -279,14 +280,6 @@ let g:csv_nl = 1
 let g:csv_highlight_column = 'y'
 
 " }}}
-" davidhalter/jedi-vim {{{
-
-" Completions are handled by deoplete-jedi (for async completions)
-let g:jedi#completions_enabled = 0
-" Don't show function signature; echodoc.vim already does it better
-let g:jedi#show_call_signatures = 0
-
-" }}}
 " easymotion/vim-easymotion {{{
 
 let g:EasyMotion_smartcase = 1
@@ -340,6 +333,12 @@ augroup au_neomake_rust_enabled_makers
         let g:neomake_enabled_makers = ['clippy']
     endfunction
 augroup END
+
+" }}}
+" nvim-lua/diagnostic-nvim {{{
+
+" Don't show stuff in the gutter; we still have underlining for errors.
+let g:diagnostic_show_sign = 0
 
 " }}}
 " plasticboy/vim-markdown {{{
@@ -425,8 +424,6 @@ let g:context_nvim_no_redraw = 1
 " Completion settings {{{
 
 let g:deoplete#enable_at_startup = 1
-" Abbreviate type info
-let g:deoplete#sources#jedi#enable_short_types = 1
 call deoplete#custom#var('omni', 'input_patterns', {
     \ 'tex': g:vimtex#re#deoplete
     \})
@@ -495,7 +492,7 @@ noremap <silent> <leader>wm :call ToggleZoom()<CR>
 " Buffer management
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprev<CR>
-nnoremap <leader>e :enew<cr>
+nnoremap <leader>n :enew<cr>
 nnoremap <leader>d :bd<cr>
 nnoremap <leader>D :bd!<cr>
 " Use S to grep (dependent on format of grepprg)
@@ -594,36 +591,6 @@ nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
-
-" }}}
-" davidhalter/jedi-vim {{{
-
-augroup python_jedi_mappings
-    autocmd!
-    au FileType python call s:PythonJediMappings()
-    " Lazily load jedi-vim when we press these bindings
-    function! s:PythonJediMappings()
-"   gd           Go to Python definition, falls back to assignments
-        nnoremap <buffer> <silent> gd :call plug#load('jedi-vim') <Bar> call jedi#goto()<CR>
-"   <leader>jr   Rename variable. (Seems dangerous to me tbh)
-        nnoremap <buffer> <silent> <leader>jr :call plug#load('jedi-vim') <Bar> call jedi#rename()<CR>
-"   <leader>ju   Show usages of element under cursor. (Could be non-exhaustive)
-        nnoremap <buffer> <silent> <leader>ju :call plug#load('jedi-vim') <Bar> call jedi#usages()<CR>
-"   K            Show docs
-        nnoremap <silent> <buffer> K :call plug#load('jedi-vim') <Bar> call jedi#show_documentation()<CR>
-    endfunction
-augroup END
-
-"   <Space> in insert mode after "from mod.name" to insert "import"
-let g:jedi#smart_auto_mappings = 1
-
-" Disable default mappings because define them ourselves so we can lazily load
-let g:jedi#goto_assignments_command = ''
-let g:jedi#goto_stubs_command = ''
-let g:jedi#goto_definitions_command = ''
-let g:jedi#goto_command = ''
-let g:jedi#rename_command = ''
-let g:jedi#usages_command = ''
 
 " }}}
 " easy-motion/vim-easymotion {{{
@@ -754,8 +721,8 @@ nnoremap <leader>/ :BLines<CR>
 " }}}
 " preservim/nerdtree {{{
 
-"   <leader>n  Open NERD Tree
-nnoremap <leader>n :NERDTreeToggle<CR>
+"   <leader>T  Open NERD Tree
+nnoremap <leader>T :NERDTreeToggle<CR>
 
 " }}}
 " preservim/tagbar {{{
@@ -963,6 +930,10 @@ augroup vimrc_misc
     " Unset some features when dealing with large files to speed up boot time
     au BufReadPre * call s:UnsetFeaturesForLargeFiles(10 * 1024 * 1024)
 
+    " Configure LSP for Python. Unfortunately, we can't use the FileType or
+    " BufRead events to configure nvim-lsp for some unknown reason.
+    au BufReadPre,BufNewFile *.py call s:ConfigureLspForPython()
+
     " Recognize some file extensions
     "   Highlight todo files and other textfiles with vim-journal
     "   (and override detection of Markdown and text filetypes)
@@ -1035,6 +1006,25 @@ endfunction
 
 func! s:AdjustWindowHeight(minheight, maxheight)
     exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
+endfunction
+
+function! s:ConfigureLspForPython()
+    call plug#load('nvim-lspconfig')
+
+    lua require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
+
+    " Set up bindings
+    nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+    nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+    nnoremap <buffer> <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
+    nnoremap <buffer> <silent> <leader>es
+        \ <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+    " Other useful functionality for future reference: implementation(),
+    " code_action(), formatting(), signature_help(), type_definition(),
+    " workspace_symbol().
 endfunction
 
 func! s:MakeAndCopen()
