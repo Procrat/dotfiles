@@ -930,9 +930,11 @@ augroup vimrc_misc
     " Unset some features when dealing with large files to speed up boot time
     au BufReadPre * call s:UnsetFeaturesForLargeFiles(10 * 1024 * 1024)
 
-    " Configure LSP for Python. Unfortunately, we can't use the FileType or
-    " BufRead events to configure nvim-lsp for some unknown reason.
-    au BufReadPre,BufNewFile *.py call s:ConfigureLspForPython()
+    " Configure LSP for some filetypes. Unfortunately, we can't use the
+    " FileType or BufRead events to configure nvim-lsp for some unknown
+    " reason.
+    au BufReadPre,BufNewFile *.py call s:ConfigureLsp('python')
+    au BufReadPre,BufNewFile *.vue call s:ConfigureLsp('vue')
 
     " Recognize some file extensions
     "   Highlight todo files and other textfiles with vim-journal
@@ -1008,20 +1010,39 @@ func! s:AdjustWindowHeight(minheight, maxheight)
     exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
 
-function! s:ConfigureLspForPython()
+function! s:ConfigureLsp(language)
     call plug#load('nvim-lspconfig')
 
-    lua require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
+    if a:language ==# 'python'
+        lua require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
+    elseif a:language ==# 'vue'
+        lua require'nvim_lsp'.vuels.setup{on_attach=require'diagnostic'.on_attach}
+    endif
 
     " Set up bindings
-    nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
-    nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-    nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-    nnoremap <buffer> <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
-    nnoremap <buffer> <silent> <leader>es
-        \ <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+    nnoremap <buffer> <silent> <c-]>  <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <buffer> <silent> gd     <cmd>lua vim.lsp.buf.definition()<CR>
+    if a:language ==# 'python'
+        nnoremap <buffer> <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+    else
+        nnoremap <buffer> <silent> gD
+            \ :echoerr 'Jumping to declaration is not supported.'<CR>
+    endif
+    nnoremap <buffer> <silent> K      <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <buffer> <silent> gr     <cmd>lua vim.lsp.buf.references()<CR>
+    if a:language ==# 'python'
+        nnoremap <buffer> <silent> gR <cmd>lua vim.lsp.buf.rename()<CR>
+    else
+        nnoremap <buffer> <silent> gR
+            \ :echoerr 'Renaming is not supported.'<CR>
+    endif
+    if a:language ==# 'python'
+        nnoremap <buffer> <silent> <leader>es
+            \ <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+    else
+        nnoremap <buffer> <silent> <leader>es
+            \ :echoerr 'Line diagnostics are not supported.'<CR>
+    endif
     " Other useful functionality for future reference: implementation(),
     " code_action(), formatting(), signature_help(), type_definition(),
     " workspace_symbol().
