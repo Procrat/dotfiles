@@ -10,6 +10,7 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'cohama/lexima.vim'
+Plug 'dense-analysis/ale'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug '/usr/share/vim/vimfiles/plugin/fzf.vim'
@@ -23,7 +24,6 @@ Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
-Plug 'neomake/neomake'
 Plug 'nvim-lua/diagnostic-nvim'
 Plug 'plasticboy/vim-markdown'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -253,21 +253,22 @@ let g:airline_exclude_preview = 1
 let g:airline_highlighting_cache = 1
 " Optimization: don't search for all possible extensions
 let g:airline_extensions = [
+    \ 'ale',
     \ 'branch',
     \ 'csv',
     \ 'fugitiveline',
     \ 'gutentags',
-    \ 'neomake',
     \ 'quickfix',
     \ 'tabline',
     \ 'tagbar',
     \ 'term',
     \ 'vimtex'
     \ ]
+let g:airline#extensions#ale#error_symbol = '✖'
+let g:airline#extensions#ale#warning_symbol = '⚠'
+let g:airline#extensions#ale#show_line_numbers = 0
 " Show column name for CSVs instead of index
 let g:airline#extensions#csv#column_display = 'Name'
-let g:airline#extensions#neomake#error_symbol = '✖'
-let g:airline#extensions#neomake#warning_symbol = '⚠'
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
@@ -278,6 +279,14 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:csv_nl = 1
 " Highlight the current column
 let g:csv_highlight_column = 'y'
+
+" }}}
+" dense-analysis/ale {{{
+
+" Adds about 30ms (depending on linter) to boot time if we do
+let g:ale_lint_on_enter = 0
+" Don't set signs in an extra column for warnings and errors
+let g:ale_set_signs = 0
 
 " }}}
 " easymotion/vim-easymotion {{{
@@ -498,6 +507,12 @@ nnoremap <leader>D :bd!<cr>
 " Use S to grep (dependent on format of grepprg)
 nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
 vnoremap S "hy:grep! <C-R>h<CR>:cw<CR>
+" Error management
+nnoremap <leader>el :call ToggleLocationList()<CR>
+nnoremap <leader>ev :ALEInfo<CR>
+nnoremap <leader>en :lnext<CR>
+nnoremap <leader>ep :lprevious<CR>
+" See also <leader>es mapping in LSP mappings
 " Send a blame mail from a git repo
 function! Blame()
     execute '!send_blame_mail ' . expand('%:p') . ' ' . line('.')
@@ -977,14 +992,14 @@ augroup vimrc_misc
     " Reload .vimrc on save
     au BufWritePost .vimrc,*/nvim/init.vim source %
 
-    " Run all makers (linters etc) on save
-    au BufWritePost * Neomake
-
     " Compile TypeScript and show errors on save
     au BufWritePost *.ts call s:MakeAndCopen()
 
     " Run stylish-haskell when saving Haskell files
     au BufWritePost *.hs call s:StylishHaskell()
+
+    " Close loclist when last buffer is closed
+    autocmd QuitPre * if empty(&buftype) | lclose | endif
 
 augroup END
 
@@ -1085,6 +1100,16 @@ function! ToggleZoom() abort
         vertical resize
         let t:zoomed = 1
     endif
+endfunction
+
+function! ToggleLocationList()
+    for i in range(1, winnr('$'))
+        if getbufvar(winbufnr(i), '&buftype') ==# 'quickfix'
+            lclose
+            return
+        endif
+    endfor
+    lopen
 endfunction
 
 " }}}
