@@ -973,11 +973,11 @@ augroup vimrc_misc
     " Turn on spelling for some filetypes
     au FileType tex,mail,markdown,gitcommit setlocal spell
 
-    " Don't wrap lines in the middle of a word
-    au FileType text,journal,markdown setlocal linebreak
+    " Set wrapping but don't wrap lines in the middle of a word
+    au FileType text,journal,markdown setlocal textwidth=80 linebreak
 
-    " Set wrapping for Markdown and journal files
-    au FileType journal,markdown setlocal textwidth=80
+    " Disable lexima for Markdown-like files, esp. for space rules vs [ ]
+    au FileType journal,markdown let b:lexima_disabled = 1
 
     " Autoscale Quickfix window, don't let it appear in buffer lists and close
     " it with `q`
