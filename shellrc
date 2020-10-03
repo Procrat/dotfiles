@@ -12,8 +12,8 @@ PATH="$PATH:"
 
 # For urxvt, the first 16 colours are already set through ~/.Xresources.
 # This also makes it work in TTYs and with more colours.
-export BASE16_THEME='base16-mocha'
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/${BASE16_THEME}.sh"
+export BASE16_THEME='mocha'
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-${BASE16_THEME}.sh"
 [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
 
 

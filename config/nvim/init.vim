@@ -45,11 +45,11 @@ Plug 'vim-scripts/JavaDecompiler.vim'
 Plug 'wellle/context.vim'
 
 " -- Slightly slower plugins (3ms -- 50ms)
-Plug 'chriskempson/base16-vim'  " ~9ms
 Plug 'easymotion/vim-easymotion'  " ~3ms
 Plug 'junegunn/vim-journal'  " ~8ms for journal files
-" Loaded on demand for specific filetypes (Python)
+" Loaded on demand for specific filetypes (Python, Vue)
 Plug 'neovim/nvim-lspconfig', { 'for': [] }  " ~10ms
+Plug 'norcalli/nvim-base16.lua'  " ~6ms
 Plug 'rust-lang/rust.vim'  " ~15ms for Rust
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = [
@@ -95,8 +95,11 @@ augroup END
 " }}}
 " Colorscheme settings {{{
 
-let g:base16colorspace = 256  " Access colors present in 256 colorspace
-colorscheme base16-mocha
+lua << EOF
+    nvim = require 'nvim'
+    local base16 = require 'base16'
+    base16(base16.themes[nvim.env.BASE16_THEME or "mocha"], true)
+EOF
 let g:airline_theme = 'base16'
 
 " }}}
