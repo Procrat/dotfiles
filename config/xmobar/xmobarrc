@@ -7,7 +7,7 @@ Config {
               \<fc=#534636> <fn=1>│</fn> </fc>\
               \%disku%\
               \<fc=#534636> <fn=1>│</fn> </fc>\
-              \%wlp58s0wi%\
+              \<action=`wifi-info | sed -z 's/\n$//' | xargs -0 notify-send -a wifi` button=1>%wlp58s0wi%</action>\
               \<fc=#534636> <fn=1>│</fn> </fc>\
               \%battery%\
               \<fc=#534636> <fn=1>│</fn> </fc>\

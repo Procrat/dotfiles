@@ -1,0 +1,3 @@
+--theme="base16-256"
+# Line number and Git changes, but no file name or grid
+--style="numbers,changes"

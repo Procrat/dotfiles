@@ -10,9 +10,6 @@ setopt chase_links
 # Allow comments
 setopt interactive_comments
 
-# Extra completions (e.g. rustup)
-fpath+=( /home/procrat/.zfunc )
-
 # Prompt
 setopt PROMPT_SUBST
 login_info() {
@@ -54,7 +51,7 @@ battery_info() {
     # Show when we're below 5% charge
     local battery=/sys/class/power_supply/BAT0
     local capacity="$(cat $battery/capacity)"
-    if [[ "$(cat $battery/status)" = 'Discharging' && "$capacity" -le 5 ]]; then
+    if [[ "$capacity" -le 5 && "$(cat $battery/status)" = 'Discharging' ]]; then
         echo " %B%F{red}$capacity%%%f%b"
     fi
 }

@@ -3,6 +3,6 @@ Type=Application
 Version=1.0
 Name=Bluetooth Connect
 Comment=Choose a Bluetooth device to connect to
-Exec=bt-connect.sh
+Exec=bt-connect
 Terminal=false
 Categories=Utility

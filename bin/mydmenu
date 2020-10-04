@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+#
+# Open dmenu through yeganesh with the given profile and use the right geometry
 
 set -euo pipefail
 

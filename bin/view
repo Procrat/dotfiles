@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# View and browse images with feh using some good default settings
+
+# If we get passed options, skip the --starts-with
+if [[ "$1" = -* ]]; then
+    optional_start_at=
+else
+    optional_start_at='--start-at'
+fi
+
+exec feh \
+    --auto-zoom \
+    --draw-filename \
+    --fullscreen \
+    --info '; exiv2 %F' \
+    --scale-down \
+    $optional_start_at \
+    "$@"

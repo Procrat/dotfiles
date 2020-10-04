@@ -1,5 +1,5 @@
 [Unit]
-Description=Backup package list to Dropbox every 12h
+Description=Back up package list to Dropbox every 12h
 
 [Timer]
 OnBootSec=5min

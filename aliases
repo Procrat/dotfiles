@@ -1,5 +1,4 @@
 # Colorized output ^_^
-alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias gr='grep --color=always'
 alias fgrep='fgrep --color=auto'
@@ -7,12 +6,13 @@ alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 
 # ls shortcuts
-# alias ll='ls -AlFv --si'
-# alias l='ls -Fv'
-alias l='exa --color=always'
-alias ll='exa -al --git --color=always'
-alias tree='exa -Tl --color=always'
-alias sl='ls'
+#alias ll='ls -AlFv --si --color=auto'
+#alias l='ls -Fv --color=auto'
+alias ls='exa'
+alias l='exa'
+alias sl='exa'
+alias ll='exa -al --git'
+alias tree='exa -Tl'
 
 # Easier directory jumping
 alias ..='cd ..'
@@ -22,6 +22,7 @@ alias .....='cd ../../../..'
 alias cd..='cd ..'
 
 # Frequently used commands
+alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias e='TERM=screen-256color emacsclient -t'
@@ -34,7 +35,6 @@ alias g='git'
 # Who calls ghostscript from the command line anyway?
 alias gs='git status -sb #'
 alias gdfs='LESS="$LESS -S" g df'
-alias be='bundle exec'
 alias open='xdg-open'
 alias psh='prefix-shell'
 alias mosh='mosh --predict=experimental'
@@ -54,7 +54,6 @@ ranger_cd() {
     fi
 }
 alias r='ranger_cd'
-alias weather='wego'
 alias tne='trans nl:en'
 alias ten='trans en:nl'
 alias haz_internetz='ping 8.8.8.8'
@@ -89,6 +88,7 @@ cl() {
     cd "$1" && ls -AFhlv
 }
 man() {
+    # Use nice formatting for man pages
     env \
         LESS_TERMCAP_mb=$'\E[5m' \
         LESS_TERMCAP_md=$'\E[32m' \
@@ -143,11 +143,6 @@ alias start='systemctl start'
 alias stop='systemctl stop'
 alias restart='systemctl restart'
 alias status='systemctl status'
-
-# Quick cd
-alias bu='cd ~/docs/bucht'
-alias ceva='cd ~/repos/eva'
-alias cweb='cd ~/repos/eva-web'
 
 # Teehee
 alias hack_production_server='cat /dev/urandom'

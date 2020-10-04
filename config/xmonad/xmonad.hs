@@ -43,7 +43,7 @@ import           XMonad.Layout.SingleSpacing    (spacing)
 
 main :: IO ()
 main = do
-    panelHandle <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
+    panelHandle <- spawnPipe "xmobar"
 
     xmonad $ withUrgencyHook NoUrgencyHook $ baseConfig {
         keys            = \conf -> EZ.mkKeymap conf (myKeyBindings conf),
@@ -113,7 +113,7 @@ myKeyBindings conf =
     --   Shrink and expand the master area
     , ("M-C-h", sendMessage Shrink)
     , ("M-C-l", sendMessage Expand)
-    --   Push window back into tiling
+    --   Push floating window back into tiling
     , ("M-S-t", withFocused $ windows . W.sink)
     --   Increment/decrement the number of windows in the master area
     , ("M-,", sendMessage (IncMasterN 1))
@@ -231,24 +231,6 @@ updatePanel panelHandle = DL.dynamicLogWithPP
     . NS.namedScratchpadFilterOutWorkspacePP
     . withContextShown
     $ xmobarPP { DL.ppOutput = IO.hPutStrLn panelHandle }
-
-dzenPP :: DL.PP
-dzenPP = def
-    { DL.ppCurrent         = styleWS "#8AB3B5"
-    , DL.ppHidden          = styleWS "#B8AFAD"
-    , DL.ppHiddenNoWindows = styleWS "#7E705A"
-    , DL.ppUrgent          = styleWS "#F4BC87"
-    , DL.ppSep             = DL.pad . DL.pad $ DL.dzenColor "#534636" "" "^r(1x27)"
-    , DL.ppWsSep           = ""
-    , DL.ppLayout          = DL.pad . DL.dzenColor "#B8AFAD" ""
-    , DL.ppTitle           = DL.dzenColor "#B8AFAD" "" . DL.shorten 100
-    }
-  where
-    styleWS color ws = clickify ws $ DL.pad $ DL.dzenColor color "" ws
-    clickify ws =
-        case elemIndex ws (workspaces baseConfig) of
-          Nothing -> id
-          Just wsIndex -> DL.wrap ("^ca(1,wmctrl -s " ++ show wsIndex ++ ")") "^ca()"
 
 xmobarPP :: DL.PP
 xmobarPP = def

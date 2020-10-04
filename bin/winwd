@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# Finds the working directory of the focused tmux pane of the given window
+# Finds the working directory of the focused tmux pane of the given window.
+# This is used to open another terminal in the same working directory.
 
 set -euo pipefail
 

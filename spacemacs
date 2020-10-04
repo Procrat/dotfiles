@@ -56,16 +56,15 @@ This function should only modify configuration layer settings."
      syntax-checking
      ;;
      ;; Languages and frameworks
-     (clojure :variables clojure-enable-fancify-symbols t)
      docker
      emacs-lisp
-     (haskell :variables haskell-completion-backend 'intero)
+     haskell
      html
      (javascript :variables
                  javascript-disable-tern-port-files t
                  node-add-modules-path t)
      markdown
-     python
+     (python :variables python-pipenv-activate t)
      rust
      shell-scripts
      sql
@@ -83,10 +82,6 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(editorconfig
-                                      (js-align
-                                       :location (recipe
-                                                  :fetcher github
-                                                  :repo "johnhooks/js-align"))
                                       yasnippet-snippets)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -101,7 +96,7 @@ This function should only modify configuration layer settings."
    ;; installs only the used packages but won't delete unused ones. `all'
    ;; installs *all* packages supported by Spacemacs and never uninstalls them.
    ;; (default is `used-only')
-   dotspacemacs-install-packages 'used-but-keep-unused))
+   dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
   "Initialization:
@@ -127,7 +122,7 @@ It should only modify the values of Spacemacs settings."
    ;; To load it when starting Emacs add the parameter `--dump-file'
    ;; when invoking Emacs 27.1 executable on the command line, for instance:
    ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
-   ;; (default spacemacs-27.1.pdmp)
+   ;; (default (format "spacemacs-%s.pdmp" emacs-version))
    dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
 
    ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
@@ -157,7 +152,9 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil then Spacelpa repository is the primary source to install
    ;; a locked version of packages. If nil then Spacemacs will install the
-   ;; latest version of packages from MELPA. (default nil)
+   ;; latest version of packages from MELPA. Spacelpa is currently in
+   ;; experimental state please use only for testing purposes.
+   ;; (default nil)
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
@@ -474,14 +471,12 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-use-clean-aindent-mode t
 
-   ;; If non-nil activate `snoopy-mode' which shifts your number row
-   ;; to match the set of signs given in `dotspacemacs-snoopy-keyrow'
-   ;; in programming modes (insert-mode only). (default nil)
-   dotspacemacs-use-snoopy-mode nil
-
-   ;; Text of shifted values from your
-   ;; keyboard's number row. (default '!@#$%^&*()')
-   dotspacemacs-snoopy-keyrow "!@#$%^&*()"
+   ;; If non-nil shift your number row to match the entered keyboard layout
+   ;; (only in insert state). Currently supported keyboard layouts are:
+   ;; `qwerty-us', `qwertz-de' and `querty-ca-fr'.
+   ;; New layouts can be added in `spacemacs-editing' layer.
+   ;; (default nil)
+   dotspacemacs-swap-number-row nil
 
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
@@ -551,19 +546,6 @@ before packages are loaded."
 
   ;; Keep parentheses balanced in evilified lisp-y buffers
   (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
-
-  ;; Enable HLint in Haskell layer; they wrongly assume Intero enables it
-  (with-eval-after-load 'intero
-    (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
-
-  ;; Use better JS indentation (js-align) when possible
-  (dolist (mode-and-hook '((vue-mode js-mode-hook)
-                           (js-mode js-mode-hook)
-                           (js2-mode js2-mode-hook)))
-    (destructuring-bind (mode hook) mode-and-hook
-      (with-eval-after-load mode
-        (require 'js-align)
-        (add-hook hook 'js-align-mode))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

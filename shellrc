@@ -1,4 +1,5 @@
-# This file should be bash and zsh compatible
+# This file is sourced for interactive shells only
+# This file should be bash and zsh-compatible, but not POSIX-compliant
 
 # Aliases
 source "$HOME/.aliases"

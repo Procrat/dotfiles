@@ -25,11 +25,8 @@ URxvt.geometry: 90x24
 ! Scrollbar
 URxvt.scrollBar: false
 
-! Don`t remember history. (Tmux will fix this.)
+! Don`t remember history. (Tmux will save 50k lines.)
 URxvt.saveLines: 0
-
-! Padding
-! URxvt.internalBorder: 2
 
 ! Font
 URxvt*font: xft:Monaco For Powerline:size=11

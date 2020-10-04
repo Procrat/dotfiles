@@ -38,7 +38,7 @@ echo 'Ensuring Tmux Plugin Manager is installed...'
 ensure_repo_exists_and_has_latest_version "$TPM_REPO" "$TPM_DEST"
 
 echo 'Ensuring vim-plug is installed...'
-curl -fLo "$VIM_PLUG_DEST" --create-dirs "$VIM_PLUG_SCRIPT"
+curl -sSfLo "$VIM_PLUG_DEST" --create-dirs "$VIM_PLUG_SCRIPT"
 
 echo 'Linking dotfiles...'
 dotfiles=(
@@ -46,6 +46,7 @@ dotfiles=(
     bashrc
     colors
     config/base16-shell
+    config/bat
     config/ctags
     config/dunst
     config/dzen
@@ -76,13 +77,11 @@ dotfiles=(
     shellrc
     spacemacs
     ssh/config
+    ssh/config.d
     tern-config
-    vim
-    vimrc
     xinitrc
     xprofile
     Xresources
-    zfunc
     zpreztorc
     zprofile
     zshrc

@@ -284,6 +284,12 @@ let g:csv_nl = 1
 let g:csv_highlight_column = 'y'
 
 " }}}
+" cohama/lexima.vim {{{
+
+" Don't map <Esc>
+let g:lexima_map_escape = ''
+
+" }}}
 " dense-analysis/ale {{{
 
 " Adds about 30ms (depending on linter) to boot time if we do
@@ -938,7 +944,7 @@ let g:python3_host_prog = '/usr/bin/python3'
 " Disable netrw completely. It's not behaving.
 let loaded_netrwPlugin = 1
 
-augroup vimrc_misc
+augroup misc
     autocmd!
 
     " Recognise binary(-like) filetypes mainly to speed up boot time
@@ -992,8 +998,8 @@ augroup vimrc_misc
     " Remove trailing whitespace automatically on write when desired (non-binary)
     au BufWritePre * call s:StripTrailingWhitespace()
 
-    " Reload .vimrc on save
-    au BufWritePost .vimrc,*/nvim/init.vim source %
+    " Reload init.vim on save
+    au BufWritePost */nvim/init.vim source %
 
     " Compile TypeScript and show errors on save
     au BufWritePost *.ts call s:MakeAndCopen()

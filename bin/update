@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
 # Cleanly updates Arch packages, Neovim plugins, Tmux plugins, local Python
-# packages, Rust compiler, local Rust crates, the remote secrets repo and the
-# backup of /etc.
+# packages, Rust compiler, local Rust crates, local Haskell binaries, the
+# remote secrets repo and the backup of /etc.
 
 set -euo pipefail
 

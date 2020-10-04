@@ -82,5 +82,5 @@ Temp/
 # I have this habit of creating a personal todo file in a project
 todo
 
-# Not sure if this should be ignored
+# VS Code configuration files
 .vscode/
