@@ -79,7 +79,6 @@ Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-tag'
 Plug 'deoplete-plugins/deoplete-zsh'
-Plug 'racer-rust/vim-racer'
 Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
 
@@ -296,6 +295,8 @@ let g:lexima_map_escape = ''
 let g:ale_lint_on_enter = 0
 " Don't set signs in an extra column for warnings and errors
 let g:ale_set_signs = 0
+" Enable rust-analyzer (over RLS)
+let g:ale_linters = {'rust': ['cargo', 'analyzer']}
 
 " }}}
 " easymotion/vim-easymotion {{{
@@ -402,11 +403,6 @@ let g:tagbar_type_typescript = {
         \ 'e:enums'
     \ ]
 \ }
-
-" }}}
-" racer-rust/vim-racer {{{
-
-let g:racer_experimental_completer = 1
 
 " }}}
 " rhysd/clever-f.vim {{{
@@ -755,20 +751,6 @@ nnoremap <leader>T :NERDTreeToggle<CR>
 nnoremap <silent> <leader>m :TagbarToggle<CR>
 
 " }}}
-" racer-rust/vim-racer {{{
-
-"   gd         Go to definition
-"   K          Open docs for item under cursor
-augroup rust_racer_mappings
-    autocmd!
-    au FileType rust call s:RacerMappings()
-    function! s:RacerMappings()
-        nmap <buffer> gd <Plug>(rust-def)
-        nmap <buffer>  K <Plug>(rust-doc)
-    endfunction
-augroup END
-
-" }}}
 " shime/vim-livedown {{{
 
 "   <leader>v  Opens generated markdown in browser. See markdown_mappings.
@@ -958,6 +940,7 @@ augroup misc
     " FileType or BufRead events to configure nvim-lsp for some unknown
     " reason.
     au BufReadPre,BufNewFile *.py call s:ConfigureLsp('python')
+    au BufReadPre,BufNewFile *.rs call s:ConfigureLsp('rust')
     au BufReadPre,BufNewFile *.vue call s:ConfigureLsp('vue')
 
     " Recognize some file extensions
@@ -1039,6 +1022,8 @@ function! s:ConfigureLsp(language)
 
     if a:language ==# 'python'
         lua require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
+    elseif a:language ==# 'rust'
+        lua require'nvim_lsp'.rust_analyzer.setup{on_attach=require'diagnostic'.on_attach}
     elseif a:language ==# 'vue'
         lua require'nvim_lsp'.vuels.setup{on_attach=require'diagnostic'.on_attach}
     endif
@@ -1060,16 +1045,19 @@ function! s:ConfigureLsp(language)
         nnoremap <buffer> <silent> gR
             \ :echoerr 'Renaming is not supported.'<CR>
     endif
-    if a:language ==# 'python'
+    if a:language ==# 'python' || a:language ==# 'rust'
         nnoremap <buffer> <silent> <leader>es
             \ <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
     else
         nnoremap <buffer> <silent> <leader>es
             \ :echoerr 'Line diagnostics are not supported.'<CR>
     endif
+    if a:language ==# 'rust'
+        nnoremap <buffer> <silent> <leader>=
+            \ <cmd>lua vim.lsp.buf.formatting()<CR>
+    endif
     " Other useful functionality for future reference: implementation(),
-    " code_action(), formatting(), signature_help(), type_definition(),
-    " workspace_symbol().
+    " code_action(), signature_help(), type_definition(), workspace_symbol().
 endfunction
 
 func! s:MakeAndCopen()

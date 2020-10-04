@@ -49,7 +49,7 @@ This function should only modify configuration layer settings."
      git
      helm
      imenu-list ;; sidebar with quick links
-     lsp
+     (lsp :variables lsp-rust-server 'rust-analyzer)
      multiple-cursors
      spacemacs-evil
      (spell-checking :variables spell-checking-enable-by-default nil)
