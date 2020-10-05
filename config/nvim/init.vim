@@ -47,8 +47,7 @@ Plug 'wellle/context.vim'
 " -- Slightly slower plugins (3ms -- 50ms)
 Plug 'easymotion/vim-easymotion'  " ~3ms
 Plug 'junegunn/vim-journal'  " ~8ms for journal files
-" Loaded on demand for specific filetypes (Python, Vue)
-Plug 'neovim/nvim-lspconfig', { 'for': [] }  " ~10ms
+Plug 'neovim/nvim-lspconfig'  " ~20ms, doesn't work properly on demand
 Plug 'norcalli/nvim-base16.lua'  " ~6ms
 Plug 'rust-lang/rust.vim'  " ~15ms for Rust
 " I have better alternative plugins for the following languages
@@ -926,6 +925,14 @@ let g:python3_host_prog = '/usr/bin/python3'
 " Disable netrw completely. It's not behaving.
 let loaded_netrwPlugin = 1
 
+" Configure LSP
+lua << EOF
+    local nvim_lsp = require'nvim_lsp'
+    nvim_lsp.pyls.setup{on_attach=require'diagnostic'.on_attach}
+    nvim_lsp.rust_analyzer.setup{on_attach=require'diagnostic'.on_attach}
+    nvim_lsp.vuels.setup{on_attach=require'diagnostic'.on_attach}
+EOF
+
 augroup misc
     autocmd!
 
@@ -935,13 +942,6 @@ augroup misc
 
     " Unset some features when dealing with large files to speed up boot time
     au BufReadPre * call s:UnsetFeaturesForLargeFiles(10 * 1024 * 1024)
-
-    " Configure LSP for some filetypes. Unfortunately, we can't use the
-    " FileType or BufRead events to configure nvim-lsp for some unknown
-    " reason.
-    au BufReadPre,BufNewFile *.py call s:ConfigureLsp('python')
-    au BufReadPre,BufNewFile *.rs call s:ConfigureLsp('rust')
-    au BufReadPre,BufNewFile *.vue call s:ConfigureLsp('vue')
 
     " Recognize some file extensions
     "   Highlight todo files and other textfiles with vim-journal
@@ -977,6 +977,9 @@ augroup misc
 
     " Also quit help files with `q`
     au FileType help nnoremap <buffer> <silent> q :close<CR>
+
+    " Configure LSP bindings for some filetypes
+    au FileType python,rust,vue call s:ConfigureLspBindings()
 
     " Remove trailing whitespace automatically on write when desired (non-binary)
     au BufWritePre * call s:StripTrailingWhitespace()
@@ -1017,47 +1020,32 @@ func! s:AdjustWindowHeight(minheight, maxheight)
     exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
 
-function! s:ConfigureLsp(language)
-    call plug#load('nvim-lspconfig')
-
-    if a:language ==# 'python'
-        lua require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
-    elseif a:language ==# 'rust'
-        lua require'nvim_lsp'.rust_analyzer.setup{on_attach=require'diagnostic'.on_attach}
-    elseif a:language ==# 'vue'
-        lua require'nvim_lsp'.vuels.setup{on_attach=require'diagnostic'.on_attach}
-    endif
-
+function! s:ConfigureLspBindings()
     " Set up bindings
     nnoremap <buffer> <silent> <c-]>  <cmd>lua vim.lsp.buf.definition()<CR>
     nnoremap <buffer> <silent> gd     <cmd>lua vim.lsp.buf.definition()<CR>
-    if a:language ==# 'python'
-        nnoremap <buffer> <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-    else
-        nnoremap <buffer> <silent> gD
-            \ :echoerr 'Jumping to declaration is not supported.'<CR>
-    endif
     nnoremap <buffer> <silent> K      <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer> <silent> gr     <cmd>lua vim.lsp.buf.references()<CR>
-    if a:language ==# 'python'
+    if &filetype ==# 'python'
         nnoremap <buffer> <silent> gR <cmd>lua vim.lsp.buf.rename()<CR>
     else
         nnoremap <buffer> <silent> gR
             \ :echoerr 'Renaming is not supported.'<CR>
     endif
-    if a:language ==# 'python' || a:language ==# 'rust'
+    if &filetype ==# 'python' || &filetype ==# 'rust'
         nnoremap <buffer> <silent> <leader>es
             \ <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
     else
         nnoremap <buffer> <silent> <leader>es
             \ :echoerr 'Line diagnostics are not supported.'<CR>
     endif
-    if a:language ==# 'rust'
+    if &filetype ==# 'rust'
         nnoremap <buffer> <silent> <leader>=
             \ <cmd>lua vim.lsp.buf.formatting()<CR>
     endif
-    " Other useful functionality for future reference: implementation(),
-    " code_action(), signature_help(), type_definition(), workspace_symbol().
+    " Other useful functionality for future reference: declaration(),
+    " implementation(), code_action(), signature_help(), type_definition(),
+    " workspace_symbol().
 endfunction
 
 func! s:MakeAndCopen()
