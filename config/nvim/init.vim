@@ -663,6 +663,12 @@ nnoremap <leader>/ :BLines<CR>
 " Adding the bang puts fzf across the whole window.
 
 " }}}
+" junegunn/vim-journal {{{
+
+"   [[/]]         Jump to previous/next section (also in visual mode)
+"   <Esc><CR>     Create next list item underneath
+
+" }}}
 " lervag/vimtex {{{
 
 " Compilation bindings:
@@ -944,9 +950,9 @@ augroup misc
     au BufReadPre * call s:UnsetFeaturesForLargeFiles(10 * 1024 * 1024)
 
     " Recognize some file extensions
-    "   Highlight todo files and other textfiles with vim-journal
+    "   Highlight todo files and other text files with vim-journal
     "   (and override detection of Markdown and text filetypes)
-    au BufNewFile,BufRead *.txt,*todo*,*TODO* setlocal filetype=journal
+    au BufNewFile,BufRead *.txt,todo setlocal filetype=journal
 
     " Set GHC options when configuring XMonad
     let s:xmonad_lib = expand('~/.xmonad/lib')
