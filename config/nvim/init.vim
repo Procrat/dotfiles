@@ -512,7 +512,7 @@ nnoremap <leader>D :bd!<cr>
 nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
 vnoremap S "hy:grep! <C-R>h<CR>:cw<CR>
 " Error management
-nnoremap <leader>el :call ToggleLocationList()<CR>
+nnoremap <silent> <leader>el :call ToggleLocationList()<CR>
 nnoremap <leader>ev :ALEInfo<CR>
 nnoremap <leader>en :lnext<CR>
 nnoremap <leader>ep :lprevious<CR>
@@ -987,9 +987,6 @@ augroup misc
     " Reload init.vim on save
     au BufWritePost */nvim/init.vim source %
 
-    " Compile TypeScript and show errors on save
-    au BufWritePost *.ts call s:MakeAndCopen()
-
     " Run stylish-haskell when saving Haskell files
     au BufWritePost *.hs call s:StylishHaskell()
 
@@ -1047,15 +1044,6 @@ function! s:ConfigureLspBindings()
     " implementation(), code_action(), signature_help(), type_definition(),
     " workspace_symbol().
 endfunction
-
-func! s:MakeAndCopen()
-    silent make
-    if !empty(getqflist())
-        copen
-    else
-        cclose
-    endif
-endfunc
 
 func! s:StylishHaskell()
     let l:winview = winsaveview()
