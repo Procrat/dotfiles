@@ -666,7 +666,12 @@ nnoremap <leader>/ :BLines<CR>
 " junegunn/vim-journal {{{
 
 "   [[/]]         Jump to previous/next section (also in visual mode)
-"   <Esc><CR>     Create next list item underneath
+
+augroup journal_mappings
+    autocmd!
+    " Remove some annoying default mappings
+    au FileType journal unmap <buffer> <Esc><CR>
+augroup END
 
 " }}}
 " lervag/vimtex {{{
