@@ -432,6 +432,8 @@ let g:UltiSnipsEditSplit='context'
 let g:context_highlight_tag = '<hide>'
 " Stop screen flicker
 let g:context_nvim_no_redraw = 1
+" Turn off on Markdown because it makes scrolling a bit sluggish sometimes
+let g:context_filetype_blacklist = ['journal']
 
 " }}}
 " Completion settings {{{
