@@ -24,7 +24,6 @@ Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
-Plug 'nvim-lua/diagnostic-nvim'
 Plug 'plasticboy/vim-markdown'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'preservim/tagbar'
@@ -94,9 +93,9 @@ augroup END
 " Colorscheme settings {{{
 
 lua << EOF
-    nvim = require 'nvim'
-    local base16 = require 'base16'
-    base16(base16.themes[nvim.env.BASE16_THEME or "mocha"], true)
+    local nvim = require('nvim')
+    local base16 = require('base16')
+    base16(base16.themes[nvim.env.BASE16_THEME or 'mocha'], true)
 EOF
 let g:airline_theme = 'base16'
 
@@ -351,12 +350,6 @@ augroup au_neomake_rust_enabled_makers
         let g:neomake_enabled_makers = ['clippy']
     endfunction
 augroup END
-
-" }}}
-" nvim-lua/diagnostic-nvim {{{
-
-" Don't show stuff in the gutter; we still have underlining for errors.
-let g:diagnostic_show_sign = 0
 
 " }}}
 " plasticboy/vim-markdown {{{
@@ -940,11 +933,15 @@ let loaded_netrwPlugin = 1
 
 " Configure LSP
 lua << EOF
-    local nvim_lsp = require'nvim_lsp'
-    nvim_lsp.pyls.setup{on_attach=require'diagnostic'.on_attach}
-    nvim_lsp.rust_analyzer.setup{on_attach=require'diagnostic'.on_attach}
-    nvim_lsp.vuels.setup{on_attach=require'diagnostic'.on_attach}
+    local lspconfig = require('lspconfig')
+    lspconfig.pyls.setup({})
+    lspconfig.rust_analyzer.setup({})
+    lspconfig.vuels.setup({})
+
+    -- Disable diagnostics of built-in LSP; we use ALE for this
+    vim.lsp.callbacks['textDocument/publishDiagnostics'] = function() end
 EOF
+
 
 augroup misc
     autocmd!
@@ -1041,13 +1038,6 @@ function! s:ConfigureLspBindings()
     else
         nnoremap <buffer> <silent> gR
             \ :echoerr 'Renaming is not supported.'<CR>
-    endif
-    if &filetype ==# 'python' || &filetype ==# 'rust'
-        nnoremap <buffer> <silent> <leader>es
-            \ <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
-    else
-        nnoremap <buffer> <silent> <leader>es
-            \ :echoerr 'Line diagnostics are not supported.'<CR>
     endif
     if &filetype ==# 'rust'
         nnoremap <buffer> <silent> <leader>=
