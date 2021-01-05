@@ -87,3 +87,6 @@ todo
 
 # ripgrep ignore files
 .rgignore
+
+# Mac OS specific files
+.DS_Store

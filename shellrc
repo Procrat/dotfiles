@@ -20,5 +20,7 @@ export BASE16_THEME='mocha'
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-${BASE16_THEME}.sh"
 [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
 
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+
 
 # vim:filetype=sh

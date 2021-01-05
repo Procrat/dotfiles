@@ -32,6 +32,6 @@ shopt -s nocaseglob
 PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 # Add fzf keybindings (ctrl-t, ctrl-r and alt-c)
-source /usr/share/fzf/key-bindings.bash
+source /usr/local/opt/fzf/shell/key-bindings.bash
 # Add fzf '**' completion (files, directories, process ID's, SSH hostnames)
-source /usr/share/fzf/completion.bash
+source /usr/local/opt/fzf/shell/completion.bash

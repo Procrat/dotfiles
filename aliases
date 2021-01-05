@@ -26,7 +26,7 @@ alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias e='TERM=screen-256color emacsclient -t'
-alias rm='rm -Iv'
+alias rm='rm -v'
 alias ipy='exec ipython'
 alias hig='history 0 | grep -i'
 alias todo='rg -i "todo|fixme|xxx"'
@@ -35,7 +35,6 @@ alias g='git'
 # Who calls ghostscript from the command line anyway?
 alias gs='git status -sb #'
 alias gdfs='LESS="$LESS -S" g df'
-alias open='xdg-open'
 alias psh='prefix-shell'
 alias mosh='mosh --predict=experimental'
 alias highlight='pygmentize'
@@ -45,7 +44,7 @@ alias misort='isort -s .venv -sd THIRDPARTY -fss'
 alias ssh='TERM=screen ssh'
 ranger_cd() {
     local temp_file dir
-    temp_file="$(mktemp --tmpdir "ranger_cd.XXXX")"
+    temp_file="$(gmktemp --tmpdir "ranger_cd.XXXX")"
     ranger --choosedir="$temp_file" -- "$PWD"
     dir=$(cat "$temp_file")
     \rm "$temp_file"
@@ -64,7 +63,7 @@ c() {
         cd "$@"
         return $?
     fi
-    dir="$(cd ~ && fd --follow --type directory --exclude dropbox/archive --ignore-file ~/.config/git/ignore | fzf)"
+    dir="$(cd ~ && fd --follow --type directory --exclude /Library | fzf)"
     if [[ -n "$dir" ]]; then
         cd "$HOME/$dir" || return 1
     else
@@ -82,7 +81,7 @@ psg() {
     # The extra grep is just for highlighting.
     # We don't pipe here because then the extra grep would be part
     # of the output.
-    grep -i "$*" <<<"$(pgrep -fia "$*")"
+    grep -i "$*" <<<"$(pgrep -fil "$*")"
 }
 cl() {
     cd "$1" && ls -AFhlv

@@ -13,7 +13,7 @@ Plug 'cohama/lexima.vim'
 Plug 'dense-analysis/ale'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
-Plug '/usr/share/vim/vimfiles/plugin/fzf.vim'
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'leafgarland/typescript-vim'
@@ -938,7 +938,7 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 " }}}
 " Misc {{{
 
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 " Disable netrw completely. It's not behaving.
 let loaded_netrwPlugin = 1

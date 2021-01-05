@@ -1,76 +1,21 @@
 #!/usr/bin/env bash
 #
-# Cleanly updates Arch packages, Neovim plugins, Tmux plugins, local Python
-# packages, Rust compiler, local Rust crates, local Haskell binaries, the
-# remote secrets repo and the backup of /etc.
+# Cleanly updates Mac OS, App store software, Homebrew packages, Neovim
+# plugins, the Rust compiler and local Rust crates.
 
 set -euo pipefail
 
+# Install Mac OS and App Store updates
+softwareupdate --all --install
 
-# Assert that etckeeper's index is clean
-if ! (cd /etc && sudo git diff-index --quiet HEAD); then
-    echo '/etc is not clean; please commit your changes before updating.' >&2
-    cd /etc
-    sudo git status
-    exit 1
-fi
-
-# Show latest Arch Linux news
-yay -Pw
-
-# Ensure system packages are up to date
-yay
-# Keep last two versions of cached packages, remove older ones
-paccache -r -k2
-# Remove all cached packages of uninstalled packages
-paccache -r -u -k0
-# Remove all unused cached AUR packages
-echo 'n\nn\nY\nY\n' | yay -Sc
-# Resolve .pacnew files
-sudo pacdiff
+# Update Homebrew packages
+brew update
+brew upgrade
 
 # Ensure dotfiles are linked Neovim and Tmux plugins are up to date
 "$HOME/repos/dotfiles/setup.sh"
 
-# Ensure local Python packages are up to date
-pip-compile --upgrade \
-    --output-file "$HOME/.config/pip/requirements.txt" \
-    "$HOME/.config/pip/requirements.in"
-pip-sync --user "$HOME/.config/pip/requirements.txt"
-pip check || true
-
 # Ensure Rust and local crates are up to date
 rustup update
 # Update all local crates except wasm-bindgen-cli
-cargo install-update -l \
-    | tail +4 | cut -d' ' -f1 \
-    | grep -vw 'wasm-bindgen-cli' \
-    | xargs cargo install-update
-
-# Install Haskell tools
-stack install \
-    hlint \
-    hoogle \
-    ShellCheck \
-    stylish-haskell \
-    xmobar \
-    --flag xmobar:with_alsa \
-    --flag xmobar:with_iwlib \
-    --flag xmobar:with_nl80211 \
-    --flag xmobar:with_threaded \
-    --flag xmobar:-with_weather \
-    --flag xmobar:with_xft \
-    yeganesh
-
-# Ensure remote secrets store is up to date
-pass git pull
-pass git push
-
-# Ensure /etc backup is up to date
-if (cd /etc && sudo git diff-index --quiet HEAD); then
-    cd /etc
-    sudo git push
-else
-    echo 'The update changed your /etc folder. Please review and commit ' >&2
-    echo 'the new changes.' >&2
-fi
+cargo install-update --all
