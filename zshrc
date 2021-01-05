@@ -25,7 +25,8 @@ dir_info() {
         echo '%B%F{cyan}%~%f%b'
     fi
 }
-[[ -f /usr/share/git/git-prompt.sh ]] && source /usr/share/git/git-prompt.sh
+GIT_PROMPT_SCRIPT=/usr/local/etc/bash_completion.d/git-prompt.sh
+[[ -f "$GIT_PROMPT_SCRIPT" ]] && source "$GIT_PROMPT_SCRIPT"
 GIT_PS1_SHOWCOLORHINTS=1
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
@@ -47,14 +48,6 @@ terraform_info() {
         echo ' (%F{magenta}'$(terraform workspace show)'%f)'
     fi
 }
-battery_info() {
-    # Show when we're below 5% charge
-    local battery=/sys/class/power_supply/BAT0
-    local capacity="$(cat $battery/capacity)"
-    if [[ "$capacity" -le 5 && "$(cat $battery/status)" = 'Discharging' ]]; then
-        echo " %B%F{red}$capacity%%%f%b"
-    fi
-}
 job_info() {
     # Show amount of background jobs if any
     echo '%(1j.(%j job%(2j.s.)) .)'
@@ -66,7 +59,7 @@ prompt() {
 PROMPT='$prompt_newline$(login_info)$(dir_info)$(git_info)$(virtualenv_info)'\
 '$(terraform_info)$prompt_newline$(job_info)$(prompt)'
 # Optionally show error code in right hand side prompt
-RPROMPT='%(?..%F{red}%?%f)$(battery_info)'
+RPROMPT='%(?..%F{red}%?%f)'
 # Disable virtualenv prompt because we just included our own
 export VIRTUAL_ENV_DISABLE_PROMPT=plzdont
 
@@ -85,6 +78,3 @@ alias -g sprunge='| curl -F "sprunge=<-" http://sprunge.us'
 # Mappings
 bindkey '^R' history-incremental-search-backward
 bindkey -M viins jj vi-cmd-mode
-
-# Add command-not-found hook to search for missing package
-source /usr/share/doc/find-the-command/ftc.zsh quiet noprompt

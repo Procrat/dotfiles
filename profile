@@ -1,5 +1,5 @@
 # In less, parse colors, show longer prompt
-export LESS='-R -F -M -W -i'
+export LESS='-R -F -X -M -W -i'
 export PAGER='less'
 
 # Editor settings
@@ -11,9 +11,7 @@ fi
 
 export PACMAN=powerpill
 
-export SUDO_ASKPASS="$HOME/bin/zenity-ask-pass"
-
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:./node_modules/.bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/Library/Python/3.9/bin:./node_modules/.bin:$PATH"
 
 # If we don't have a display server running yet, and this is the first virtual
 # console, start a graphical environment here. This allows us to still have
