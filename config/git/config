@@ -1,6 +1,7 @@
 [user]
     name = Stijn Seghers
-    email = stijnseghers@gmail.com
+    email = stijn.seghers@narrative.so
+    signingkey = C3614FB2BDFCFBC1
 
 [core]
     pager = diff-so-fancy | less --tabs=4 -RFX
