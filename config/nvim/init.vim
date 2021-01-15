@@ -80,6 +80,9 @@ Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
 
+" -- Not profiled
+Plug 'tjdevries/lsp_extensions.nvim'
+
 call plug#end()
 
 " Defer loading of some plugins to insert mode
@@ -1040,11 +1043,25 @@ function! s:ConfigureLspBindings()
             \ :echoerr 'Renaming is not supported.'<CR>
     endif
     if &filetype ==# 'rust'
+        nnoremap <buffer> <silent> ga
+            \ <cmd>lua vim.lsp.buf.code_action()<CR>
+    else
+        nnoremap <buffer> <silent> ga
+            \ :echoerr 'Code actions are not supported.'<CR>
+    endif
+    if &filetype ==# 'rust'
         nnoremap <buffer> <silent> <leader>=
             \ <cmd>lua vim.lsp.buf.formatting()<CR>
     endif
+    if &filetype ==# 'rust'
+        nnoremap <buffer> gh
+            \ :lua require('lsp_extensions').inlay_hints({
+            \     aligned = true,
+            \     prefix = '› ',
+            \ })<CR>
+    endif
     " Other useful functionality for future reference: declaration(),
-    " implementation(), code_action(), signature_help(), type_definition(),
+    " implementation(), signature_help(), type_definition(),
     " workspace_symbol().
 endfunction
 
