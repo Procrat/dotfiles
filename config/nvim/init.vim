@@ -937,7 +937,7 @@ let loaded_netrwPlugin = 1
 " Configure LSP
 lua << EOF
     local lspconfig = require('lspconfig')
-    lspconfig.pyls.setup({})
+    lspconfig.pyright.setup({})
     lspconfig.rust_analyzer.setup({})
     lspconfig.vuels.setup({})
 
