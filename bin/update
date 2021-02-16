@@ -49,10 +49,8 @@ cargo install-update -l \
 
 # Install Haskell tools
 stack install \
-    hasktags \
     hlint \
     hoogle \
-    pandoc \
     ShellCheck \
     stylish-haskell \
     xmobar \
@@ -63,6 +61,7 @@ stack install \
     --flag xmobar:-with_weather \
     --flag xmobar:with_xft \
     yeganesh
+stack install --resolver lts-16.31 pandoc
 
 # Ensure remote secrets store is up to date
 (cd "$HOME/.password-store" && git pull && git push)
