@@ -2,6 +2,11 @@
     name = Stijn Seghers
     email = stijnseghers@gmail.com
 
+[core]
+    pager = diff-so-fancy | less --tabs=4 -RFX
+[diff-so-fancy]
+    markEmptyLines = false
+
 [push]
     default = current
 
