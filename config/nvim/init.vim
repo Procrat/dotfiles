@@ -81,6 +81,7 @@ Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
 
 " -- Not profiled
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'tjdevries/lsp_extensions.nvim'
 
 call plug#end()
@@ -504,8 +505,10 @@ noremap <silent> <leader>wm :call ToggleZoom()<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprev<CR>
 nnoremap <leader>n :enew<cr>
-nnoremap <leader>d :bd<cr>
-nnoremap <leader>D :bd!<cr>
+nnoremap <leader>d :Sayonara<CR>
+nnoremap <leader>D :Sayonara!<CR>
+nnoremap <leader>bd :bdelete<CR>
+nnoremap <leader>bD :bdelete!<CR>
 " Use S to grep (dependent on format of grepprg)
 nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
 vnoremap S "hy:grep! <C-R>h<CR>:cw<CR>
