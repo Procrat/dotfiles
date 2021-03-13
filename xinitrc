@@ -42,5 +42,5 @@ picom -b --experimental-backends &
 redshift &
 
 # exec gnome-shell \
-exec "$HOME/.local/bin/xmonad-x86_64-linux" \
+exec xmonad \
   &>>"$XDG_RUNTIME_DIR/xsession-errors"

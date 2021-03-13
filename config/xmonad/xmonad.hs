@@ -83,8 +83,8 @@ myKeyBindings conf =
 
     -- Quit xmonad
     , ("M-S-q", io exitSuccess)
-    -- Restart xmonad
-    , ("M-q", spawn "xmonad --recompile; xmonad --restart")
+    -- Recompile & restart xmonad
+    , ("M-q", spawn "xmonad --restart")
 
     -- Focus
     , ("M-<Tab>", windows W.focusDown)
