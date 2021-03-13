@@ -945,7 +945,7 @@ lua << EOF
     lspconfig.vuels.setup({})
 
     -- Disable diagnostics of built-in LSP; we use ALE for this
-    vim.lsp.callbacks['textDocument/publishDiagnostics'] = function() end
+    vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
 EOF
 
 
