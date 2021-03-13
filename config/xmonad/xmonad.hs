@@ -199,6 +199,7 @@ myManageHook = composeAll
         <||> appName =? "Navigator"  -- Firefox
         <||> appName =? "rambox"
         <||> className =? "jetbrains-idea-ce"
+        <||> appName =? "soffice"  -- LibreOffice
 
 
 myScratchpads :: [NS.NamedScratchpad]
