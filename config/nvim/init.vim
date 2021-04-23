@@ -175,6 +175,9 @@ if has('nvim')
     set inccommand=split
 endif
 
+" Syntax highlight Lua in Vim scripts
+let g:vimsyn_embed = 'l'
+
 " }}}
 " Folding {{{
 
@@ -943,6 +946,9 @@ lua << EOF
     lspconfig.pyright.setup({})
     lspconfig.rust_analyzer.setup({})
     lspconfig.vuels.setup({})
+    lspconfig.sumneko_lua.setup({
+      cmd = { 'lua-language-server' }
+    })
 
     -- Disable diagnostics of built-in LSP; we use ALE for this
     vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
