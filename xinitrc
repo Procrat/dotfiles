@@ -10,8 +10,8 @@ fi
 # Make Java GUIs work with non-reparenting window managers
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-# Use Adwaita Dark theme for Qt applications
-export QT_STYLE_OVERRIDE=adwaita-dark
+# Use our GTK 2 theme for Qt applications
+export QT_STYLE_OVERRIDE=gtk2
 
 # Set ask-pass utility (password dialog) for sudo
 export SUDO_ASKPASS="$HOME/bin/zenity-ask-pass"

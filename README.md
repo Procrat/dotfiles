@@ -24,7 +24,7 @@ Dependency tree
 - Git
   - Neovim (as merge tool)
 - GTK 2 & GTK 3
-  - Arc-Dark theme
+  - Arc theme
   - Adwaita icon theme
   - Font: Cantarell
 - htop
