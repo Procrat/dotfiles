@@ -547,6 +547,9 @@ before packages are loaded."
 
   ;; Keep parentheses balanced in evilified lisp-y buffers
   (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+
+  ;; Don't create lockfiles; they break certain file watchers
+  (setq create-lockfiles nil)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
