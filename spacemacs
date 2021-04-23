@@ -44,6 +44,7 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-sort-by-usage t)
+     dtrt-indent
      (evil-snipe :variables  ;; ~ vim-easymotion
                  evil-snipe-enable-alternate-f-and-t-behaviors t)
      git
