@@ -225,20 +225,23 @@ set preserveindent
 augroup indentation
     autocmd!
 
+    au FileType css,scss setlocal shiftwidth=2 softtabstop=2
+    au FileType haskell setlocal shiftwidth=4 softtabstop=4
+    au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120
+        \ colorcolumn=120
+    au FileType lua setlocal shiftwidth=2 softtabstop=2
+    au FileType prolog setlocal shiftwidth=4 softtabstop=4
+    au FileType python setlocal nocindent noshiftround shiftwidth=4
+        \ softtabstop=4 textwidth=79 colorcolumn=79
+    au FileType ruby setlocal shiftwidth=2 softtabstop=2
+    au FileType rust setlocal shiftwidth=4 softtabstop=4 textwidth=99
+        \ colorcolumn=99
+    au FileType tex setlocal shiftwidth=2 softtabstop=2
+    au FileType tex setlocal shiftwidth=2 softtabstop=2 textwidth=80
+    au FileType vim setlocal shiftwidth=4 softtabstop=4
     au FileType xml,html,xhtml,htmldjango,eruby,xslt
         \ setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
         \ colorcolumn=120
-    au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120
-        \ colorcolumn=120
-    au FileType css,scss setlocal shiftwidth=2 softtabstop=2
-    au FileType python setlocal nocindent noshiftround shiftwidth=4
-        \ softtabstop=4 textwidth=79 colorcolumn=79
-    au FileType haskell setlocal shiftwidth=4 softtabstop=4
-    au FileType rust setlocal shiftwidth=4 softtabstop=4 textwidth=99
-        \ colorcolumn=99
-    au FileType prolog setlocal shiftwidth=4 softtabstop=4
-    au FileType ruby setlocal shiftwidth=2 softtabstop=2
-    au FileType tex setlocal shiftwidth=2 softtabstop=2
 augroup END
 
 " }}}
