@@ -588,6 +588,9 @@ before packages are loaded."
 
   ;; Don't create lockfiles; they break certain file watchers
   (setq create-lockfiles nil)
+
+  ;; Set TypeScript default indent level to 2 spaces
+  ;; (setq-default typescript-indent-level 2)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
