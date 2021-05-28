@@ -37,7 +37,7 @@ urxvtd -q -o -f &
 unclutter &
 
 # Start lightweight composite manager
-picom -b --experimental-backends &
+picom -b &
 
 redshift &
 
