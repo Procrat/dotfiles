@@ -47,6 +47,7 @@ dotfiles=(
     colors
     config/base16-shell
     config/bat
+    'config/Code - OSS/User/settings.json'
     config/ctags
     config/dunst
     config/dzen

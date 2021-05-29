@@ -1,0 +1,63 @@
+{
+    // Editor
+    "editor.fontFamily": "Monaco",
+    "editor.fontSize": 16,
+    "editor.minimap.enabled": false,
+    "editor.renderControlCharacters": true,
+    "editor.renderIndentGuides": false,
+    "editor.renderFinalNewline": false,
+    "editor.rulers": [80],
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    // Workbench
+    "workbench.activityBar.visible": false,
+    "workbench.colorCustomizations": {
+        "[Base16 Dark Mocha]": {
+            "statusBar.background": "#534636",
+            "statusBar.foreground": "#D0C8C6"
+        }
+    },
+    "workbench.colorTheme": "Base16 Dark Mocha",
+    "workbench.statusBar.visible": true,
+    // Window
+    "window.menuBarVisibility": "toggle",
+    // Features: Explorer
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    // Extensions: C#
+    "csharp.suppressDotnetInstallWarning": true,
+    "csharp.suppressHiddenDiagnostics": false,
+    // Extensions: GitLens
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    // Extension: JSON
+    "json.format.enable": false,
+    // Extensions: Python
+    "python.envFile": "${workspaceFolder}/.venv",
+    "python.linting.flake8Enabled": true,
+    // Extensions: vim
+    "vim.easymotion": true,
+    "vim.enableNeovim": true,
+    "vim.insertModeKeyBindingsNonRecursive": [{
+        "before": ["f", "d"],
+        "after": ["<Esc>"]
+    }],
+    "vim.leader": "<space>",
+    "vim.neovimPath": "/usr/bin/nvim",
+    "vim.normalModeKeyBindingsNonRecursive": [{
+        "before": ["<leader>", "w"],
+        "commands": ["workbench.action.files.save"]
+    }, {
+        "before": ["<leader>", "d"],
+        "commands": ["workbench.action.closeActiveEditor"]
+    }, {
+        "before": ["<leader>", "o"],
+        "commands": ["workbench.action.quickOpen"]
+    }, {
+        "before": ["<leader>", "p", "f"],
+        "commands": ["workbench.action.quickOpen"]
+    }],
+    "vim.sneak": true,
+    "vim.sneakReplacesF": true,
+    "vim.useSystemClipboard": true,
+}
