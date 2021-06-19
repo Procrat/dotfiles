@@ -14,6 +14,9 @@ fi
 # Make Java GUIs work with non-reparenting window managers
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+# Use Adwaita Dark theme for Qt applications
+export QT_STYLE_OVERRIDE=adwaita-dark
+
 # Background
 ([ -s "$HOME/.fehbg" ] && bash "$HOME/.fehbg") &
 
