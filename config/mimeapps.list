@@ -118,6 +118,7 @@ x-scheme-handler/http=brave-bin.desktop
 x-scheme-handler/https=brave-bin.desktop
 x-scheme-handler/magnet=transmission-gtk.desktop
 x-scheme-handler/spotify=spotify.desktop
+x-scheme-handler/terminal=urxvtc.desktop
 
 [Added Associations]
 image/x-canon-cr2=nufraw.desktop
