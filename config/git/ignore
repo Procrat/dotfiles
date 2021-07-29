@@ -84,3 +84,6 @@ todo
 
 # VS Code configuration files
 .vscode/
+
+# ripgrep ignore files
+.rgignore
