@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Google Calendar ICS Import
+Exec=gcalcli --config-folder /home/procrat/.config/gcalcli import %U
+Type=Application
+MimeType=application/x-calendar;x-scheme-handler/ics;text/calendar
