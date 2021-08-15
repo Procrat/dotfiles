@@ -12,5 +12,8 @@ fi
 
 gcalcli \
     --config-folder "$HOME/.config/gcalcli/" \
+    --calendar 'stijn.seghers@gmail.com' \
+    --calendar 'Us' \
+    --calendar "Stijn Seghers's Facebook Events" \
     remind 15 \
     'notify-send -u critical -a Calendar -i appointment-soon-symbolic.symbolic %s'
