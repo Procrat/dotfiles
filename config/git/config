@@ -76,7 +76,7 @@
     lgp = log --stat -p -b -w -B --color-words
     lol = log --graph --pretty=oneline --abbrev-commit
     lola = log --graph --pretty=oneline --abbrev-commit --all
-    lolaf = log --graph --pretty=format:'%C(auto)%h%d %C(brightblack)%cr %C(magenta)%an %C(auto)%s' --all
+    lolaf = log --graph --pretty=format:'%C(auto)%h%d %C(brightblack)%ah %C(magenta)%an %C(auto)%s' --all
     unstage = reset HEAD --
     us = reset HEAD --
     usp = reset -p HEAD --
