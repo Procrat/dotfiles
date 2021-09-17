@@ -81,7 +81,10 @@ Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
 
 " -- Not profiled
+Plug 'kana/vim-submode'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'Procrat/nvim-tree-edit'
 Plug 'tjdevries/lsp_extensions.nvim'
 
 call plug#end()
@@ -324,6 +327,12 @@ augroup fzf
 augroup END
 
 " }}}
+" kana/vim-submode {{{
+
+let g:submode_always_show_submode = 1
+let g:submode_timeout = 0
+
+" }}}
 " lervag/vimtex {{{
 
 let g:tex_flavor = 'latex'
@@ -524,11 +533,33 @@ nnoremap <leader>ev :ALEInfo<CR>
 nnoremap <leader>en :lnext<CR>
 nnoremap <leader>ep :lprevious<CR>
 " See also <leader>es mapping in LSP mappings
+
+" Neovim already binds C-L to something useful, but we want to clear all
+" highlight namespaces as well
+lua <<EOF
+    function table.find(t, f)
+        for index, value in ipairs(t) do
+            if f(value) then
+                return value
+            end
+        end
+        return nil
+    end
+
+    local current_rhs = table.find(
+        vim.api.nvim_get_keymap('n'),
+        function (mapping) return mapping['lhs'] == '<C-L>' end
+    )['rhs']
+    local new_rhs = current_rhs .. '<Cmd>lua vim.api.nvim_buf_clear_namespace(0, -1, 0, -1)<CR>'
+    vim.api.nvim_set_keymap('n', '<C-L>', new_rhs, {})
+EOF
+
 " Send a blame mail from a git repo
 function! Blame()
     execute '!send_blame_mail ' . expand('%:p') . ' ' . line('.')
 endfunction
 nnoremap <leader>B :call Blame()<CR>
+
 " Markdown mappings for header decorations
 augroup markdown_mappings
     autocmd!
@@ -539,6 +570,7 @@ augroup markdown_mappings
         nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
     endfunction
 augroup END
+
 " Define Isort command and mapping for Python import sorting
 augroup python_isort_mappings
     autocmd!
@@ -766,6 +798,46 @@ nnoremap <leader>T :NERDTreeToggle<CR>
 
 "   <leader>m  View output file.
 nnoremap <silent> <leader>m :TagbarToggle<CR>
+
+" }}}
+" Procrat/nvim-tree-edit {{{
+
+"   <leader>ku    Go to parent in syntax tree
+nmap <leader>ku <Plug>(tree-edit-go-to-parent)
+"   <leader>ki    Go to first child in syntax tree
+nmap <leader>ki <Plug>(tree-edit-go-to-first-child)
+"   <leader>kI    Go to last child in syntax tree
+nmap <leader>kI <Plug>(tree-edit-go-to-last-child)
+"   <leader>kl/j  Go to next sibling (or sibling of ancestor) in syntax tree
+nmap <leader>kl <Plug>(tree-edit-go-to-next)
+nmap <leader>kj <Plug>(tree-edit-go-to-next)
+"   <leader>kh    Go to previous sibling (or sibling of ancestor) in syntax tree
+nmap <leader>kh <Plug>(tree-edit-go-to-previous)
+"   <leader>kd    Kill current node in syntax tree
+nmap <leader>kd <Plug>(tree-edit-kill)
+"   <leader>kc    Change current node in syntax tree (delete + insert)
+nmap <leader>kc <Plug>(tree-edit-change)
+"   <leader>kr    Replace parent node in syntax tree with current node
+nmap <leader>kr <Plug>(tree-edit-raise)
+"   <leader>kH    Highlight current node in syntax tree
+nmap <leader>kH <Plug>(tree-edit-highlight-current-node)
+
+" Define <leader>k submode for the above bindings
+"   <leader>kk    Enter tree-edit submode and start highlighting
+call submode#enter_with('tree-edit', 'n', 'sr', '<leader>kk', '<Plug>(tree-edit-highlight-current-node)')
+call submode#map('tree-edit', 'n', 'r', 'u', '<leader>ku')
+call submode#map('tree-edit', 'n', 'r', 'i', '<leader>ki')
+call submode#map('tree-edit', 'n', 'r', 'I', '<leader>kI')
+call submode#map('tree-edit', 'n', 'r', 'l', '<leader>kl')
+call submode#map('tree-edit', 'n', 'r', 'j', '<leader>kj')
+call submode#map('tree-edit', 'n', 'r', 'h', '<leader>kh')
+call submode#map('tree-edit', 'n', 'r', 'k', '<leader>kh')
+call submode#map('tree-edit', 'n', 'r', 'd', '<leader>kd')
+call submode#map('tree-edit', 'n', 'r', 'c', '<leader>kc')
+call submode#map('tree-edit', 'n', 'r', 'r', '<leader>kr')
+"   <leader>      Leave tree-edit submode and stop highlighting
+call submode#map('tree-edit', 'n', 'r', '<leader>', '<Plug>(tree-edit-clear-highlight)')
+call submode#leave_with('tree-edit', 'n', '', '<leader>')
 
 " }}}
 " shime/vim-livedown {{{
