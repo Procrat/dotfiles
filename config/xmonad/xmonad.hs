@@ -155,6 +155,12 @@ myKeyBindings conf =
     , ("<XF86AudioNext>", spawn "playerctl next")
     , ("<XF86MonBrightnessUp>", spawn "~/.config/dzen/dbrightness.sh +15")
     , ("<XF86MonBrightnessDown>", spawn "~/.config/dzen/dbrightness.sh -15")
+
+    -- Notification management
+    , ("C-<Space>", spawn "dunstctl close")
+    , ("C-S-<Space>", spawn "dunstctl close-all")
+    , ("C-`", spawn "dunstctl history-pop")
+    , ("C-<Return>", spawn "dunstctl action")
     ]
 
 myProgramLauncher :: String
