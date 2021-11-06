@@ -210,7 +210,7 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = ~/bin/mydmenu dunst -p dunst:
+    dmenu = sh -l -c 'mydmenu dunst -p dunst:'
 
     # Browser for opening urls in context menu.
     browser = /usr/bin/xdg-open
