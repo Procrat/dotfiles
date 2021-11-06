@@ -201,6 +201,7 @@ myManageHook = composeAll
         <||> appName =? "kdesktop"
     shouldPseudoTile = not <$>
         appName =? "emacs"
+        <||> appName =? "brave-browser"
         <||> appName =? "chromium"
         <||> appName =? "Navigator"  -- Firefox
         <||> appName =? "rambox"
