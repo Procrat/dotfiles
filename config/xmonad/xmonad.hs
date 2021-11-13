@@ -35,6 +35,7 @@ import           XMonad.Util.Run                (runProcessWithInput)
 import qualified XMonad.Actions.Contexts        as C
 import           XMonad.Layout.PseudoTiling     (doPseudoTile, pseudoTiling)
 import qualified XMonad.Layout.PseudoTiling     as PseudoTiling
+import           XMonad.Layout.SilenceModifier  (silenceLayoutModifier)
 import           XMonad.Layout.SingleSpacing    (spacing)
 
 
@@ -174,7 +175,7 @@ myLayout = modifiers layouts
     modifiers =
         avoidStruts
         . smartBorders
-        . layoutHintsWithPlacement (0.5, 0.5)
+        . silenceLayoutModifier (layoutHintsWithPlacement (0.5, 0.5))
         . pseudoTiling
         . spacing 15
         . windowNavigation
