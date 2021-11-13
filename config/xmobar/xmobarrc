@@ -1,7 +1,7 @@
 Config {
   template = "   <fc=#8AB3B5><icon=arch_10x10.xbm/></fc>\
               \<fc=#534636> <fn=1>│</fn> </fc>\
-              \%UnsafeStdinReader%\
+              \%UnsafeXMonadLog%\
               \}{ \
               \%alsa:default:Master%\
               \<fc=#534636> <fn=1>│</fn> </fc>\
@@ -13,7 +13,7 @@ Config {
               \<fc=#534636> <fn=1>│</fn> </fc>\
               \<action=`xdg-open http://calendar.google.com` button=1>%date%</action>  "
   , commands = [
-    Run UnsafeStdinReader
+    Run UnsafeXMonadLog
     , Run Alsa "default"
                "Master"
                ["-t", "<status>"

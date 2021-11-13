@@ -10,22 +10,19 @@ import qualified System.IO                      as IO
 import           Text.Printf                    (printf)
 
 import           XMonad                         hiding (title)
-import           XMonad.Actions.CycleWS         (Direction1D (..), WSType (..),
-                                                 moveTo, nextWS, prevWS,
-                                                 shiftToNext, shiftToPrev,
-                                                 toggleWS)
+import qualified XMonad.Actions.CycleWS         as WS
 import           XMonad.Actions.SpawnOn         (manageSpawn, spawnHere)
-import           XMonad.Config.Desktop          (desktopConfig,
-                                                 desktopLayoutModifiers)
-import qualified XMonad.Hooks.DynamicLog        as DL
-import           XMonad.Hooks.EwmhDesktops      (fullscreenEventHook)
+import           XMonad.Hooks.EwmhDesktops      (ewmh, ewmhFullscreen)
 import           XMonad.Hooks.FadeInactive      (fadeInactiveLogHook)
-import           XMonad.Hooks.ManageDocks       (docksEventHook)
+import           XMonad.Hooks.ManageDocks       (avoidStruts, docks)
 import qualified XMonad.Hooks.ManageHelpers     as MH
+import qualified XMonad.Hooks.StatusBar         as SB
+import qualified XMonad.Hooks.StatusBar.PP      as SB
 import           XMonad.Hooks.UrgencyHook       (NoUrgencyHook (..),
                                                  withUrgencyHook)
 import           XMonad.Layout.LayoutHints      (layoutHintsWithPlacement)
 import           XMonad.Layout.NoBorders        (smartBorders)
+import           XMonad.Layout.Renamed          (Rename (..), renamed)
 import           XMonad.Layout.WindowNavigation (Direction2D (..),
                                                  Navigate (..),
                                                  windowNavigation)
@@ -33,7 +30,7 @@ import qualified XMonad.StackSet                as W
 import           XMonad.Util.Dmenu              (menuArgs)
 import qualified XMonad.Util.EZConfig           as EZ
 import qualified XMonad.Util.NamedScratchpad    as NS
-import           XMonad.Util.Run                (runProcessWithInput, spawnPipe)
+import           XMonad.Util.Run                (runProcessWithInput)
 
 import qualified XMonad.Actions.Contexts        as C
 import           XMonad.Layout.PseudoTiling     (doPseudoTile, pseudoTiling)
@@ -43,19 +40,23 @@ import           XMonad.Layout.SingleSpacing    (spacing)
 
 main :: IO ()
 main = do
-    panelHandle <- spawnPipe "xmobar"
-
-    xmonad $ withUrgencyHook NoUrgencyHook $ baseConfig {
+    xmonad
+    $ SB.withSB myStatusBar
+    $ withUrgencyHook NoUrgencyHook
+    $ ewmhFullscreen
+    $ docks
+    $ ewmh
+    $ baseConfig {
         keys            = \conf -> EZ.mkKeymap conf (myKeyBindings conf),
         layoutHook      = myLayout,
         manageHook      = myManageHook <+> manageHook baseConfig,
         handleEventHook = myEventHook <+> handleEventHook baseConfig,
-        logHook         = myLogHook panelHandle <+> logHook baseConfig,
+        logHook         = myLogHook <+> logHook baseConfig,
         startupHook     = startupHook baseConfig <+> myStartupHook
     }
 
 
-baseConfig = desktopConfig {
+baseConfig = def {
     terminal           = plainTerminal,
     focusFollowsMouse  = False,
     clickJustFocuses   = False,
@@ -128,12 +129,12 @@ myKeyBindings conf =
     , ("M-S-v", C.showContextStorage)
 
     -- Workspace management
-    , ("M-d", prevWS)
-    , ("M-f", nextWS)
-    , ("M-`", toggleWS)
-    , ("M-S-d", shiftToPrev)
-    , ("M-S-f", shiftToNext)
-    , ("M-S-<Space>", moveTo Next EmptyWS)
+    , ("M-d", WS.prevWS)
+    , ("M-f", WS.nextWS)
+    , ("M-`", WS.toggleWS)
+    , ("M-S-d", WS.shiftToPrev)
+    , ("M-S-f", WS.shiftToNext)
+    , ("M-S-<Space>", WS.moveTo WS.Next WS.emptyWS)
     ] ++
 
     -- M-[1..9], Switch to workspace N
@@ -171,13 +172,15 @@ myProgramLauncher =
 myLayout = modifiers layouts
   where
     modifiers =
-        desktopLayoutModifiers
+        avoidStruts
         . smartBorders
         . layoutHintsWithPlacement (0.5, 0.5)
         . pseudoTiling
         . spacing 15
         . windowNavigation
-    layouts = Tall 1 (3 / 100) (54 / 100) ||| Full
+    layouts = normal ||| zoomed
+    normal = renamed [Replace "Normal"] $ Tall 1 (3 / 100) (54 / 100)
+    zoomed = renamed [Replace "Zoomed"] Full
 
 instance Read (Layout Window) where
     readsPrec _ = readsLayout (Layout myLayout)
@@ -189,7 +192,6 @@ myManageHook = composeAll
     , shouldFloat      --> doFloat
     , shouldIgnore     --> doIgnore
     , shouldPseudoTile --> doPseudoTile
-    , MH.isFullscreen  --> MH.doFullFloat
     , NS.namedScratchpadManageHook myScratchpads
     ]
   where
@@ -216,53 +218,49 @@ myScratchpads = [
 
 
 myEventHook :: Event -> X All
-myEventHook = fullscreenEventHook
-                <+> docksEventHook
-                <+> tallLayoutOnCloseEventHook
+myEventHook = normalLayoutOnCloseEventHook
 
-tallLayoutOnCloseEventHook :: Event -> X All
-tallLayoutOnCloseEventHook DestroyWindowEvent{ev_window = window, ev_event = event} = do
+normalLayoutOnCloseEventHook :: Event -> X All
+normalLayoutOnCloseEventHook DestroyWindowEvent{ev_window = window, ev_event = event} = do
     -- Not sure why, but DestroyWindowEvent is sometimes triggered when no
     -- window is being removed. It's always with the root window as the `event`
     -- though. Otherwise the event is set to the destroyed window. See
     -- https://tronche.com/gui/x/xlib/events/window-state-change/destroy.html.
-    when (window == event) $ sendMessage FirstLayout
+    when (window == event) $ sendMessage (JumpToLayout "Normal")
     return $ All True
-tallLayoutOnCloseEventHook _ = return $ All True
+normalLayoutOnCloseEventHook _ = return $ All True
 
 
-myLogHook :: IO.Handle -> X ()
-myLogHook panelHandle = fadeInactiveLogHook 0.9 <+> updatePanel panelHandle
+myLogHook :: X ()
+myLogHook = fadeInactiveLogHook 0.9
 
-updatePanel :: IO.Handle -> X ()
-updatePanel panelHandle = DL.dynamicLogWithPP
-    . NS.namedScratchpadFilterOutWorkspacePP
-    . withContextShown
-    $ xmobarPP { DL.ppOutput = IO.hPutStrLn panelHandle }
 
-xmobarPP :: DL.PP
-xmobarPP = def
-    { DL.ppCurrent         = styleWS "#8AB3B5"
-    , DL.ppHidden          = styleWS "#B8AFAD"
-    , DL.ppHiddenNoWindows = styleWS "#7E705A"
-    , DL.ppUrgent          = styleWS "#F4BC87"
-    , DL.ppSep             = DL.pad $ DL.xmobarColor "#534636" "" "<fn=1>│</fn>"
+myStatusBar :: SB.StatusBarConfig
+myStatusBar = SB.statusBarProp "xmobar" (pure xmobarPP)
 
-    , DL.ppWsSep           = ""
-    , DL.ppTitle           = DL.shorten 100
+xmobarPP :: SB.PP
+xmobarPP = withContextShown . SB.filterOutWsPP [NS.scratchpadWorkspaceTag] $ def
+    { SB.ppCurrent         = styleWS "#8AB3B5"
+    , SB.ppHidden          = styleWS "#B8AFAD"
+    , SB.ppHiddenNoWindows = styleWS "#7E705A"
+    , SB.ppUrgent          = styleWS "#F4BC87"
+    , SB.ppSep             = SB.pad $ SB.xmobarColor "#534636" "" "<fn=1>│</fn>"
+
+    , SB.ppWsSep           = ""
+    , SB.ppTitle           = SB.shorten 100
     }
   where
-    styleWS color ws = clickify ws $ DL.pad $ DL.xmobarColor color "" ws
+    styleWS color ws = clickify ws $ SB.pad $ SB.xmobarColor color "" ws
     clickify ws =
         case elemIndex ws (workspaces baseConfig) of
           Nothing      -> id
-          Just wsIndex -> DL.xmobarAction ("wmctrl -s " ++ show wsIndex) "1"
+          Just wsIndex -> SB.xmobarAction ("wmctrl -s " ++ show wsIndex) "1"
 
-withContextShown :: DL.PP -> DL.PP
+withContextShown :: SB.PP -> SB.PP
 withContextShown pp = pp
-    { DL.ppOrder  = putContextFirst . DL.ppOrder pp
+    { SB.ppOrder  = putContextFirst . SB.ppOrder pp
     -- If we're on a non-default context, show its name
-    , DL.ppExtras = DL.ppExtras pp ++ [fmap (fmap DL.pad) context]
+    , SB.ppExtras = SB.ppExtras pp ++ [fmap (fmap SB.pad) context]
     }
   where
     putContextFirst :: [String] -> [String]
@@ -279,12 +277,12 @@ withContextShown pp = pp
 myStartupHook :: X ()
 myStartupHook = do
     EZ.checkKeymap baseConfig (myKeyBindings baseConfig)
-    fixEWMH
+    setEwmhDesktopGeometry
 
--- Set full screen support and the desktop geometry.
+-- Set the desktop geometry.
 -- Might not work for multiple monitors.
-fixEWMH :: X ()
-fixEWMH = withDisplay $ \dpy -> do
+setEwmhDesktopGeometry :: X ()
+setEwmhDesktopGeometry = withDisplay $ \dpy -> do
     wm <- asks theRoot
 
     atomType <- getAtom "ATOM"
@@ -292,12 +290,10 @@ fixEWMH = withDisplay $ \dpy -> do
 
     supportProp <- getAtom "_NET_SUPPORTED"
     desktopGeometryProp <- getAtom "_NET_DESKTOP_GEOMETRY"
-    fullscreenSupport <- getAtom "_NET_WM_STATE_FULLSCREEN"
 
     io $ do
         changeProperty32 dpy wm supportProp atomType propModeAppend
-                         [fromIntegral fullscreenSupport,
-                          fromIntegral desktopGeometryProp]
+                         [fromIntegral desktopGeometryProp]
         windowAttributes <- getWindowAttributes dpy wm
         let width = fromIntegral $ wa_width windowAttributes
             height = fromIntegral $ wa_height windowAttributes
