@@ -26,6 +26,7 @@ import           XMonad.Layout.WindowNavigation (Direction2D (..),
                                                  Navigate (..),
                                                  windowNavigation)
 import qualified XMonad.StackSet                as W
+import           XMonad.Util.Cursor             (setDefaultCursor)
 import           XMonad.Util.Dmenu              (menuArgs)
 import qualified XMonad.Util.EZConfig           as EZ
 import qualified XMonad.Util.NamedScratchpad    as NS
@@ -278,6 +279,7 @@ myStartupHook :: X ()
 myStartupHook = do
     EZ.checkKeymap baseConfig (myKeyBindings baseConfig)
     setEwmhDesktopGeometry
+    setDefaultCursor xC_left_ptr
 
 -- Set the desktop geometry.
 -- Might not work for multiple monitors.
