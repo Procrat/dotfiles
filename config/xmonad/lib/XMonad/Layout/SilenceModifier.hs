@@ -7,7 +7,7 @@ module XMonad.Layout.SilenceModifier (
 ) where
 
 
-import           XMonad
+import           XMonad                       hiding (windows)
 import           XMonad.Layout.LayoutModifier (LayoutModifier (..),
                                                ModifiedLayout (..))
 

@@ -13,6 +13,7 @@ executable xmonad-x86_64-linux
   other-modules:
     XMonad.Actions.Contexts
     XMonad.Layout.PseudoTiling
+    XMonad.Layout.SilenceModifier
     XMonad.Layout.SingleSpacing
   build-depends:       base >= 4.7 && < 5
                      , containers >= 0.6 && < 0.7

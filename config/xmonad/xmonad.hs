@@ -6,7 +6,6 @@ import           Control.Monad                  (mfilter, when)
 import           Data.List                      (elemIndex)
 import           Data.Monoid                    (All (..))
 import           System.Exit                    (exitSuccess)
-import qualified System.IO                      as IO
 import           Text.Printf                    (printf)
 
 import           XMonad                         hiding (title)
