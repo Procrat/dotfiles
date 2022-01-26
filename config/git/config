@@ -21,7 +21,7 @@
     # Include summaries of merged commits in newly created merge commit messages
     log = true
     # Show base version in merge conflicts
-    conflictStyle = diff3
+    conflictStyle = zdiff3
 
 [mergetool]
     keepBackup = false
