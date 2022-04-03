@@ -63,7 +63,8 @@ stack install \
     yeganesh
 
 # Ensure remote secrets store is up to date
-(cd "$HOME/.password-store" && git pull && git push)
+pass git pull
+pass git push
 
 # Ensure /etc backup is up to date
 if (cd /etc && sudo git diff-index --quiet HEAD); then
