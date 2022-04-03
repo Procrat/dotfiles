@@ -1,8 +1,9 @@
 configuration {
   dpi: 110;
   scroll-method: 1;
-  theme: "base16-mocha";
 }
+
+@theme "base16-mocha"
 
 
 // vim:ft=css
