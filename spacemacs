@@ -55,6 +55,7 @@ This function should only modify configuration layer settings."
      spacemacs-evil
      (spell-checking :variables spell-checking-enable-by-default nil)
      syntax-checking
+     tree-sitter
      ;;
      ;; Languages and frameworks
      docker
