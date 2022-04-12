@@ -85,7 +85,8 @@ todo
 # VS Code configuration files
 .vscode/
 
-# ripgrep ignore files
+# ignore files
+.ignore
 .rgignore
 
 # Mac OS specific files

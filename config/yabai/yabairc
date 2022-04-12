@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# Doesn't work without passwordless sudo
+# sudo yabai --load-sa
+# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+yabai -m config mouse_follows_focus          on
+yabai -m config window_opacity               off
+yabai -m config normal_window_opacity        0.92
+# yabai -m config insert_feedback_color        0xffd75f5f
+yabai -m config auto_balance                 on
+# yabai -m config mouse_modifier               fn
+# yabai -m config mouse_action1                move
+# yabai -m config mouse_action2                resize
+# yabai -m config mouse_drop_action            swap
+yabai -m config layout                       bsp
+yabai -m config top_padding                  12
+yabai -m config bottom_padding               12
+yabai -m config left_padding                 12
+yabai -m config right_padding                12
+yabai -m config window_gap                   12
+
+echo "yabai configuration loaded.."

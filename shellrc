@@ -4,9 +4,6 @@
 # Aliases
 source "$HOME/.aliases"
 
-# Source NVM init files
-source /usr/share/nvm/init-nvm.sh
-
 # Disable Ctrl+S for scrolling so we can use it for the save shortcut in vim,
 # but only for interactive shells of course
 [[ $- == *i* ]] && stty -ixon

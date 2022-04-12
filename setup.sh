@@ -52,7 +52,9 @@ dotfiles=(
     config/pylintrc
     config/ranger/rc.conf
     config/rofi
+    config/skhd
     config/user-dirs.dirs
+    config/yabai
     emacs.d/private
     ipython/profile_default/ipython_config.py
     profile

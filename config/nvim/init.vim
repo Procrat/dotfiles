@@ -268,6 +268,7 @@ let g:airline_extensions = [
     \ 'csv',
     \ 'fugitiveline',
     \ 'gutentags',
+    \ 'nvimlsp',
     \ 'quickfix',
     \ 'tabline',
     \ 'tagbar',
@@ -279,6 +280,8 @@ let g:airline#extensions#ale#warning_symbol = '⚠'
 let g:airline#extensions#ale#show_line_numbers = 0
 " Show column name for CSVs instead of index
 let g:airline#extensions#csv#column_display = 'Name'
+let airline#extensions#nvimlsp#error_symbol = '✖'
+let airline#extensions#nvimlsp#warning_symbol = '⚠'
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
@@ -303,8 +306,8 @@ let g:lexima_map_escape = ''
 let g:ale_lint_on_enter = 0
 " Don't set signs in an extra column for warnings and errors
 let g:ale_set_signs = 0
-" Enable rust-analyzer (over RLS)
-let g:ale_linters = {'rust': ['cargo', 'analyzer']}
+" Disable Rust linters; we use nvim-lsp for that
+let g:ale_linters = {'rust': []}
 
 " }}}
 " easymotion/vim-easymotion {{{
@@ -353,13 +356,13 @@ let g:gist_open_browser_after_post = 1
 let g:neomake_open_list = 2
 let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
 let g:neomake_python_enabled_makers = []
-augroup au_neomake_rust_enabled_makers
-    autocmd!
-    au FileType rust call s:RustMakers()
-    function! s:RustMakers()
-        let g:neomake_enabled_makers = ['clippy']
-    endfunction
-augroup END
+" augroup au_neomake_rust_enabled_makers
+"     autocmd!
+"     au FileType rust call s:RustMakers()
+"     function! s:RustMakers()
+"         let g:neomake_enabled_makers = ['clippy']
+"     endfunction
+" augroup END
 
 " }}}
 " plasticboy/vim-markdown {{{
@@ -953,10 +956,26 @@ lua << EOF
       cmd = { 'lua-language-server' }
     })
 
-    -- Disable diagnostics of built-in LSP; we use ALE for this
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics, {
+        signs = false,
+      }
+    )
+
+    -- lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })
+    -- function update_diagnostics()
+    --   vim.lsp.diagnostic.set_loclist()
+    --   -- qf = vim.fn.getqflist({ size = true, title = true })
+    --   -- if qf.size == 0 or qf.title == "Language Server" then
+    --   --   vim.diagnostic.set_qflist({ open = false, workspace = true })
+    --   -- end
+    -- end
 EOF
 
+" augroup diagnostics
+"   autocmd!
+"   autocmd User LspDiagnosticsChanged lua update_diagnostics()
+" augroup END
 
 augroup misc
     autocmd!
@@ -1066,11 +1085,14 @@ function! s:ConfigureLspBindings()
             \ <cmd>lua vim.lsp.buf.formatting()<CR>
     endif
     if &filetype ==# 'rust'
-        nnoremap <buffer> gh
+        nnoremap <buffer> <silent> gh
             \ :lua require('lsp_extensions').inlay_hints({
             \     aligned = true,
             \     prefix = '› ',
+            \     enabled = {'TypeHint', 'ChainingHint', 'ParameterHint'}
             \ })<CR>
+        nnoremap <leader>en <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+        nnoremap <leader>ep <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
     endif
     " Other useful functionality for future reference: declaration(),
     " implementation(), signature_help(), type_definition(),

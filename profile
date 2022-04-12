@@ -13,6 +13,8 @@ export PACMAN=powerpill
 
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/Library/Python/3.9/bin:./node_modules/.bin:$PATH"
 
+export RUST_BACKTRACE=1
+
 # If we don't have a display server running yet, and this is the first virtual
 # console, start a graphical environment here. This allows us to still have
 # non-graphical virtual consoles next to TTY1 in case something goes wrong with
