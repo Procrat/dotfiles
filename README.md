@@ -134,8 +134,7 @@ Dependency tree
   - dzen2-xft-xpm
   - URxvt
 - Yay
-  - Powerpill
-    - pacman
+  - pacman
 - Zsh
   - base16-shell (git submodule)
   - find-the-command

@@ -1,5 +1,4 @@
 {
-    "pacmanbin": "/usr/bin/powerpill",
     "sudoloop": true,
     "combinedupgrade": true,
     "cleanmenu": false,
