@@ -9,8 +9,6 @@ if [[ -n "$has_nvim" ]]; then
     export VISUAL=nvim
 fi
 
-export SUDO_ASKPASS="$HOME/bin/zenity-ask-pass"
-
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:./node_modules/.bin:$PATH"
 
 # If we don't have a display server running yet, and this is the first virtual

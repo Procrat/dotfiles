@@ -1,5 +1,4 @@
-#!/bin/sh
-#
-# Executed by gdm
+# Like .profile but only for X sessions.
+# Some display managers like gdm source this file instead of .xinitrc.
 
-. $HOME/.xinitrc
+source "$HOME/.xinitrc"

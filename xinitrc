@@ -1,8 +1,4 @@
-#!/bin/sh
-#
-# Executed by
-#  - startx
-#  - gdm (through .xprofile)
+# Sourced by startx and some display managers
 
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do
@@ -16,6 +12,9 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Use Adwaita Dark theme for Qt applications
 export QT_STYLE_OVERRIDE=adwaita-dark
+
+# Set ask-pass utility (password dialog) for sudo
+export SUDO_ASKPASS="$HOME/bin/zenity-ask-pass"
 
 # Background
 ([ -s "$HOME/.fehbg" ] && bash "$HOME/.fehbg") &
@@ -42,6 +41,7 @@ unclutter &
 # Start lightweight composite manager
 picom -b &
 
+# Start daemon to automatically change colour temperature of screen
 redshift &
 
 # Start multitouch gesture daemon
