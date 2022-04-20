@@ -66,6 +66,7 @@ dotfiles=(
     config/rofi
     config/systemd
     config/tmux
+    config/touchegg/touchegg.conf
     config/user-dirs.dirs
     config/xmobar
     config/xmonad

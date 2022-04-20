@@ -44,6 +44,9 @@ picom -b &
 
 redshift &
 
+# Start multitouch gesture daemon
+touchegg &
+
 # Start window manager
 # (Use direct path to XMonad build to ensure we don't recompile on boot.)
 exec "$HOME/.cache/xmonad/xmonad-x86_64-linux" \
