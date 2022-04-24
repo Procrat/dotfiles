@@ -57,6 +57,7 @@ dotfiles=(
     config/gtk-3.0/settings.ini
     config/htop
     config/icons
+    config/ipython/profile_default/ipython_config.py
     config/mimeapps.list
     config/nvim/init.vim
     config/pip/requirements.in
@@ -73,7 +74,6 @@ dotfiles=(
     config/yay
     emacs.d/private
     gtkrc-2.0
-    ipython/profile_default/ipython_config.py
     local/share/applications
     profile
     shellrc
