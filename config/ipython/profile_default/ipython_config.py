@@ -1,3 +1,4 @@
+c.TerminalInteractiveShell.auto_match = True
 c.TerminalInteractiveShell.confirm_exit = False
 c.TerminalIPythonApp.display_banner = False
 c.TerminalIPythonApp.quick = True
