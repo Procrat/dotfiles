@@ -76,7 +76,7 @@ myKeyBindings conf =
     , ("M-S-<Return>", spawnHere plainTerminal)
     , ("M-C-<Return>", spawnHere "xterm")
     , ("M-o", spawnHere myProgramLauncher)
-    , ("M-r", spawnHere "urxvtc -e ranger")
+    , ("M-r", spawnHere "urxvtc -e zsh -i -c ranger")
     , ("M-i", spawnHere "rofi-pass")
     , ("M-S-e", spawnHere "rofimoji --skin-tone neutral")
     , ("M-S-c", spawnHere "rofi -show calc -modi calc -no-show-match")
