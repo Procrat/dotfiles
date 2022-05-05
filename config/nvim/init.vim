@@ -109,8 +109,6 @@ let g:airline_theme = 'base16'
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\<Space>"
 
-" Hides buffers instead of closing
-set hidden
 " Persistent undo (slow for large files, so turned off with autocommand)
 set undofile
 " Line numbering
@@ -147,14 +145,10 @@ set grepformat=%f:%l:%c:%m
 set noshowmode
 " Wait less than a second for mapped seauence to complete
 set timeoutlen=500
-" Keep the cursor on the same column
-set nostartofline
 " Skip intro, skip autocompletion output and use more abbreviations
 set shortmess+=Ica
 " Allow non-existing blocks in Visual block mode
 set virtualedit=block
-" French spacing all the way
-set nojoinspaces
 " Show normally invisible characters (trailing whitespace, tabs, nbsp)
 set list
 " Ignore whitespace in diff mode
@@ -460,8 +454,6 @@ inoremap jj <Esc>:w<CR>
 inoremap fd <Esc>
 " Use backspace to delete character
 noremap <BS> X
-" Make Y behave like other capitals
-nnoremap Y y$
 " Center search matches to center of screen
 nnoremap n nzz
 nnoremap N Nzz
