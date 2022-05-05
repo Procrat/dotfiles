@@ -452,6 +452,11 @@ let g:SuperTabContextDefaultCompletionType = '<C-n>'
 " jj/fd in insert mode to go to normal mode
 inoremap jj <Esc>:w<CR>
 inoremap fd <Esc>
+" Quick navigation in insert mode
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
 " Use backspace to delete character
 noremap <BS> X
 " Center search matches to center of screen
