@@ -75,7 +75,7 @@ c() {
 f() {
     c || return
     file_="$(fzf)"
-    [[ -n "$file_" ]] && $EDITOR "$file_"
+    [[ -n "$file_" ]] && open "$file_"
 }
 
 psg() {
