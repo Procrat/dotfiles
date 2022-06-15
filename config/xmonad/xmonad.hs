@@ -202,13 +202,10 @@ myManageHook = composeAll
     shouldIgnore =
         appName =? "desktop_window"
         <||> appName =? "kdesktop"
-    shouldPseudoTile = not <$>
+    shouldPseudoTile = fmap not $
         appName =? "emacs"
-        <||> appName =? "brave-browser"
-        <||> appName =? "chromium"
-        <||> appName =? "Navigator"  -- Firefox
-        <||> appName =? "rambox"
-        <||> className =? "jetbrains-idea-ce"
+        <||> stringProperty "WM_WINDOW_ROLE" =? "browser"
+        <||> stringProperty "WM_WINDOW_ROLE" =? "browser-window"
         <||> appName =? "soffice"  -- LibreOffice
 
 
