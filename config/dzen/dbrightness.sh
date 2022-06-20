@@ -13,15 +13,15 @@ height=$(($(cat "$dzen_dir/panel_height") - 1))
 usage() {
     echo "Usage: dbrightness.sh [options]"
     echo
-    echo "Options are the same for xbacklight"
+    echo "Options are the same as for the light command"
     exit 1
 }
 
 # Actual brightness changing
-xbacklight "$@"
+light "$@"
 
 # Find rounded brightness and select (matching) icon
-BRIGHTNESS=$(xbacklight | sed 's/\..*//')
+BRIGHTNESS=$(light | sed 's/\..*//')
 ICON="$ICON_FOLDER/brightness.xbm"
 
 # Using named pipe to determine whether previous call still exists

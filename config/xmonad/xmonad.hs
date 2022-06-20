@@ -155,8 +155,8 @@ myKeyBindings conf =
     , ("<XF86AudioPrev>", spawn "playerctl previous")
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")
     , ("<XF86AudioNext>", spawn "playerctl next")
-    , ("<XF86MonBrightnessUp>", spawn "~/.config/dzen/dbrightness.sh +15")
-    , ("<XF86MonBrightnessDown>", spawn "~/.config/dzen/dbrightness.sh -15")
+    , ("<XF86MonBrightnessUp>", spawn "~/.config/dzen/dbrightness.sh -A 15")
+    , ("<XF86MonBrightnessDown>", spawn "~/.config/dzen/dbrightness.sh -U 15")
 
     -- Notification management
     , ("C-<Space>", spawn "dunstctl close")

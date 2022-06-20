@@ -123,7 +123,7 @@ Dependency tree
     - URxvt
     - xterm as fallback terminal
   - Media keys
-    - For brightness: Xbacklight, dzen2-xft-xpm
+    - For brightness control: light, dzen2-xft-xpm
     - For music control: Playerctl
     - For volume: alsa-utils, dzen2-xft-xpm
   - stack (for building)
