@@ -39,7 +39,7 @@ urxvtd -q -o -f &
 unclutter &
 
 # Start lightweight composite manager
-picom -b &
+picom --experimental-backends -b &
 
 # Start daemon to automatically change colour temperature of screen
 redshift &
