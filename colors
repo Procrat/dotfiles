@@ -5,22 +5,22 @@
 
 
 # Base16 theme
-export B_BASE00='#3B3228'
-export B_BASE01='#534636'
-export B_BASE02='#645240'
-export B_BASE03='#7E705A'
-export B_BASE04='#B8AFAD'
-export B_BASE05='#D0C8C6'
+export B_BASE00='#3B3228'  # Background, "black"
+export B_BASE01='#534636'  # Highlighted background
+export B_BASE02='#645240'  # Inversion foreground
+export B_BASE03='#7E705A'  # "bright black"
+export B_BASE04='#B8AFAD'  # Secondary foreground, inversion background
+export B_BASE05='#D0C8C6'  # Normal foreground, "white"
 export B_BASE06='#E9E1DD'
-export B_BASE07='#F5EEEB'
-export B_BASE08='#CB6077'
-export B_BASE09='#D28B71'
-export B_BASE0A='#F4BC87'
-export B_BASE0B='#BEB55B'
-export B_BASE0C='#7BBDA4'
-export B_BASE0D='#8AB3B5'
-export B_BASE0E='#A89BB9'
-export B_BASE0F='#BB9584'
+export B_BASE07='#F5EEEB'  # Slight emphasis, "bright white"
+export B_BASE08='#CB6077'  # Red, error, urgent warning
+export B_BASE09='#D28B71'  # Orange/rust
+export B_BASE0A='#F4BC87'  # Yellow, emphasis, warning
+export B_BASE0B='#BEB55B'  # Green, ok/success
+export B_BASE0C='#7BBDA4'  # Cyan
+export B_BASE0D='#8AB3B5'  # Blue, accent colour
+export B_BASE0E='#A89BB9'  # Purple/magenta
+export B_BASE0F='#BB9584'  # Light brown
 
 export PRIMARY_CONTENT_COLOR=$B_BASE05
 export BACKGROUND_COLOR=$B_BASE00
