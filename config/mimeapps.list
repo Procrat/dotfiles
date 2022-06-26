@@ -121,7 +121,7 @@ x-scheme-handler/https=brave-bin.desktop
 x-scheme-handler/ics=google-calendar-import.desktop
 x-scheme-handler/magnet=transmission-gtk.desktop
 x-scheme-handler/spotify=spotify.desktop
-x-scheme-handler/terminal=urxvtc.desktop
+x-scheme-handler/terminal=Alacritty.desktop
 
 [Added Associations]
 image/x-canon-cr2=nufraw.desktop

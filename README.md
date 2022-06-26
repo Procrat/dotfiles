@@ -8,7 +8,6 @@ Dependency tree
 ---------------
 
 - Bash
-  - base16-shell (git submodule)
   - See _Shell aliases_
 - bat
 - Custom dmenu (`bin/mydmenu`)
@@ -94,7 +93,6 @@ Dependency tree
   - picom
   - Redshift
   - unclutter
-  - URxvt
   - Xautolock
   - XMonad
   - xrdb
@@ -111,16 +109,16 @@ Dependency tree
   - [Procrat/XMonad.Layout.Pseudotiling](https://github.com/Procrat/xmonad-pseudotiling) (git submodule)
   - [Procrat/XMonad.Layout.SingleSpacing](https://github.com/Procrat/xmonad-singlespacing) (git submodule)
   - Launchers
+    - Alacritty
     - handlr
     - j4-dmenu-desktop
+      - Alacritty
       - Custom dmenu
-      - URxvt
     - pavucontrol
     - ranger
     - rofi-calc
     - rofimoji
     - rofi-pass
-    - URxvt
     - xterm as fallback terminal
   - Media keys
     - For brightness control: light, dzen2-xft-xpm
@@ -132,11 +130,9 @@ Dependency tree
 - Xresources/xrdb
   - dmenu2
   - dzen2-xft-xpm
-  - URxvt
 - Yay
   - pacman
 - Zsh
-  - base16-shell (git submodule)
   - find-the-command
   - prezto
   - For Git prompt: Git
@@ -146,7 +142,6 @@ Dependency tree
 - The scripts in the `bin/` folder depend on (possibly Arch Linux-specific)
   programs like
   - alsa-utils
-  - base16-shell
   - bc
   - BlueZ
   - curl
@@ -175,7 +170,6 @@ Dependency tree
   - stack
   - systemd
   - tmux
-  - URxvt
   - valgrind
   - VLC
   - wmctrl
@@ -192,11 +186,10 @@ Color scheme
 ------------
 The color scheme ([base16](https://github.com/chriskempson/base16)-mocha,
 [preview](https://emacsthemes.com/themes/base16-mocha-theme.html)) is explicitly
-defined in `colors`, `Xresources`, `config/dunst/dunstrc`,
-`config/rofi/base16-mocha.rasi`, `config/xmobar/xmobarrc` and
-`config/xmonad/xmonad.hs`. The same color scheme is set in `shellrc` through
-[`base16-shell`](https://github.com/chriskempson/base16-shell), in
+defined in `colors`, `Xresources`, `config/alacritty/alacritty.yml`,
+`config/dunst/dunstrc`, `config/rofi/base16-mocha.rasi`,
+`config/xmobar/xmobarrc` and `config/xmonad/xmonad.hs`. It's also set in
 `config/nvim/init.vim` through [a Neovim
 plugin](https://github.com/norcalli/nvim-base16.lua) and in `spacemacs` as a
-built-in theme. URxvt, dzen and dmenu use the colors defined in `Xresources`.
-i3lock and special content in dzen use `colors` to get the appropriate colors.
+built-in theme. Dzen and dmenu use the colors defined in `Xresources`. i3lock
+and special content in dzen use `colors` to get the appropriate colors.

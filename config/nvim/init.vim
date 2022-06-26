@@ -99,6 +99,10 @@ augroup END
 lua << EOF
     local nvim = require('nvim')
     local base16 = require('base16')
+
+    if nvim.env.TERM == 'alacritty' then
+        nvim.o.termguicolors = true
+    end
     base16(base16.themes[nvim.env.BASE16_THEME or 'mocha'], true)
 EOF
 let g:airline_theme = 'base16'

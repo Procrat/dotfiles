@@ -45,7 +45,7 @@ dotfiles=(
     aliases
     bashrc
     colors
-    config/base16-shell
+    config/alacritty
     config/bat
     'config/Code - OSS/User/settings.json'
     config/ctags

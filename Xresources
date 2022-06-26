@@ -12,45 +12,6 @@ Xft.dpi: 110
 
 
 !-----------------------------------------------------------------------------
-! URxvt settings
-!
-! More info at:
-!   http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
-!   https://wiki.archlinux.org/index.php/rxvt-unicode
-!-----------------------------------------------------------------------------
-
-! Window size
-URxvt.geometry: 90x24
-
-! Scrollbar
-URxvt.scrollBar: false
-
-! Don`t remember history. (Tmux will save 50k lines.)
-URxvt.saveLines: 0
-
-! Font
-URxvt*font: xft:Monaco For Powerline:size=11
-
-! Perl extensions
-URxvt.perl-ext-common: matcher,font-size
-!   Clickable URLs
-URxvt.url-launcher: /usr/bin/xdg-open
-URxvt.matcher.button: 1
-!   On the fly font size changing
-URxvt.keysym.C-Up: perl:font-size:increase
-URxvt.keysym.C-Down: perl:font-size:decrease
-
-! Flash terminal instead of making an annoying sound
-URxvt.visualBell: true
-! Set urgency hints on bell
-URxvt.urgentOnBell: true
-
-! Disable keycap picture insert mode
-URxvt.iso14755: false
-URxvt.iso14755_52: false
-
-
-!-----------------------------------------------------------------------------
 ! Colorscheme: Base16 (https://github.com/chriskempson/base16)
 !-----------------------------------------------------------------------------
 

@@ -76,7 +76,7 @@ myKeyBindings conf =
     , ("M-S-<Return>", spawnHere plainTerminal)
     , ("M-C-<Return>", spawnHere "xterm")
     , ("M-o", spawnHere myProgramLauncher)
-    , ("M-r", spawnHere "urxvtc -e zsh -i -c ranger")
+    , ("M-r", spawnHere "alacritty -e zsh -i -c ranger")
     , ("M-i", spawnHere "rofi-pass")
     , ("M-S-e", spawnHere "rofimoji --skin-tone neutral")
     , ("M-S-c", spawnHere "rofi -show calc -modi calc -no-show-match")
@@ -167,7 +167,7 @@ myKeyBindings conf =
 
 myProgramLauncher :: String
 myProgramLauncher =
-    "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu apps -q\" --term=urxvtc"
+    "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu apps -q\" --term=alacritty"
 
 
 myLayout = modifiers layouts
@@ -320,7 +320,7 @@ mirrorTerminal = withWindowSet $ \ws ->
                 dir -> terminalWithWorkingDir $ init dir
 
 terminalWithWorkingDir :: String -> String
-terminalWithWorkingDir dir = "urxvtc -e tmux new-session -c '" ++ dir ++ "'"
+terminalWithWorkingDir dir = "alacritty -e tmux new-session -c '" ++ dir ++ "'"
 
 plainTerminal :: String
-plainTerminal = "urxvtc -e tmux"
+plainTerminal = "alacritty -e tmux"

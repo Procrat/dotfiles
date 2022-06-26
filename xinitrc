@@ -32,9 +32,6 @@ xautolock -locker "$HOME/bin/i3lock" -corners 0+0- &
 eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
 export SSH_AUTH_SOCK
 
-# Start urxvt daemon (This is preferred above systemd)
-urxvtd -q -o -f &
-
 # Start unclutter daemon
 unclutter &
 
