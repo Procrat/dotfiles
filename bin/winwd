@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 #
-# Finds the working directory of the focused tmux pane of the given window.
-# This is used to open another terminal in the same working directory.
+# Finds the working directory of the window with the given ID.
+#
+# This is used by the window manager to open another terminal in the same
+# working directory.
 
 set -euo pipefail
 
@@ -9,24 +11,34 @@ set -euo pipefail
 if [[ $# -ne 1 ]]; then
     echo "Usage: $(basename "$0") window-id" >&2
     echo >&2
-    echo "Finds the working directory of the focused tmux pane of the given window" >&2
+    echo "Finds the working directory of the window with the given ID." >&2
     echo >&2
-    echo "window-id must be of the form '0x00000000'" >&2
+    echo "window-id must be of the form '0x00000000'." >&2
     exit 1
 fi
 
 window_id="$1"
 
-session_id=$( \
-    wmctrl -l -p | \
-    grep "^${window_id}\s" | \
-    sed -n 's/.*\[\([^]]*\)\].*/\1/p')
 
-if [[ -z "$session_id" ]]; then
-    # The focused window is not a tmux terminal
-    exit 1
+window_pid=$(xprop -id "$window_id" _NET_WM_PID | \
+             sed -n 's/^_NET_WM_PID(CARDINAL) = \([0-9]\+\)$/\1/p')
+if [[ -z "$window_pid" ]]; then
+    echo "Window $window_id not found or _NET_WM_PID not set on window." >&2
+    exit 2
 fi
 
-tmux list-clients -F "#{session_name}	#{pane_current_path}" | \
-    grep -m1 "^${session_id}	" | \
-    awk '{ print $2 }'
+shell_pid=$(ps c --ppid "$window_pid" -o comm,pid --no-headers | \
+            awk '$1 = "zsh" { print $2 }')
+if [[ -z "$shell_pid" ]]; then
+    echo "Window process $window_pid does not have a zsh child process." >&2
+    exit 3
+fi
+
+cwd=$(pwdx "$shell_pid" | \
+      sed -n 's/^[0-9]\+: \(.\+\)/\1/p')
+if [[ -z "$cwd" ]]; then
+    echo "Could not find working directory shell process $shell_pid." >&2
+    exit 4
+fi
+
+echo "$cwd"

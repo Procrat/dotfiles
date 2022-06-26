@@ -6,9 +6,6 @@ set -euo pipefail
 REPO='https://github.com/Procrat/dotfiles'
 DEST="$HOME/repos/dotfiles"
 
-TPM_REPO='https://github.com/tmux-plugins/tpm'
-TPM_DEST="$HOME/.tmux/plugins/tpm"
-
 VIM_PLUG_SCRIPT='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 VIM_PLUG_DEST="$HOME/.config/nvim/autoload/plug.vim"
 
@@ -33,9 +30,6 @@ mkdir -p "$HOME/.config"
 
 echo 'Ensuring repo exist locally...'
 ensure_repo_exists_and_has_latest_version "$REPO" "$DEST"
-
-echo 'Ensuring Tmux Plugin Manager is installed...'
-ensure_repo_exists_and_has_latest_version "$TPM_REPO" "$TPM_DEST"
 
 echo 'Ensuring vim-plug is installed...'
 curl -sSfLo "$VIM_PLUG_DEST" --create-dirs "$VIM_PLUG_SCRIPT"
@@ -66,7 +60,6 @@ dotfiles=(
     config/redshift
     config/rofi
     config/systemd
-    config/tmux
     config/touchegg/touchegg.conf
     config/user-dirs.dirs
     config/xmobar

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# Cleanly updates Arch packages, Neovim plugins, Tmux plugins, local Python
-# packages, Rust compiler, local Rust crates, local Haskell binaries, the
-# remote secrets repo and the backup of /etc.
+# Cleanly updates Arch packages, Neovim plugins, local Python packages, Rust
+# compiler, local Rust crates, local Haskell binaries, the remote secrets repo
+# and the backup of /etc.
 
 set -euo pipefail
 
@@ -29,7 +29,7 @@ echo 'n\nn\nY\nY\n' | yay -Sc
 # Resolve .pacnew files
 sudo pacdiff
 
-# Ensure dotfiles are linked Neovim and Tmux plugins are up to date
+# Ensure dotfiles are linked and Neovim plugins are up to date
 "$HOME/repos/dotfiles/setup.sh"
 
 # Ensure local Python packages are up to date

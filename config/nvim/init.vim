@@ -8,7 +8,6 @@ call plug#begin()
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'chrisbra/csv.vim'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'cohama/lexima.vim'
 Plug 'dense-analysis/ale'
 Plug 'godlygeek/tabular'
@@ -32,7 +31,6 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
 Plug 'shime/vim-livedown'
 Plug 'Shougo/echodoc.vim'
-Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -57,7 +55,6 @@ let g:polyglot_disabled = [
     \ 'python',
     \ 'python-compiler',
     \ 'rust',
-    \ 'tmux',
     \ 'typescript',
     \ ]
 Plug 'sheerun/vim-polyglot'  " 20-50ms, depending on filetype
@@ -609,17 +606,6 @@ augroup END
 "   :DeleteColumn, :Sort, :Column (to copy), :MoveColumn, :NewDelimiter
 
 " }}}
-" christoomey/vim-tmux-navigator {{{
-
-"   M-[hjkl]  Move around between vim and tmux panes
-"             (This requires additional settings in .tmux.conf)
-let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
-nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
-nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
-nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
-
-" }}}
 " easy-motion/vim-easymotion {{{
 
 let g:EasyMotion_do_mapping = 0
@@ -791,14 +777,6 @@ let g:UltiSnipsExpandTrigger='ß'
 
 " Commands:
 "   :UltiSnipsEdit[!]   Open (global) snippets file
-
-" }}}
-" tmux-plugins/vim-tmux {{{
-
-"   K           Jump to relevant manpage section
-"   :make       Invoke tmux config and place errors in quicklist
-"   g!<motion>  Excecute lines as tmux commands
-"   g!!         Excecute current line as tmux commands
 
 " }}}
 " tpope/vim-commentary {{{

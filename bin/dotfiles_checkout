@@ -13,7 +13,5 @@ git stash pop
 
 xrdb "$HOME/.Xresources"
 
-tmux source-file "$HOME/.tmux.conf"
-
 xmonad --recompile
 xmonad --restart

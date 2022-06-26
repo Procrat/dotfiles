@@ -30,8 +30,6 @@ Dependency tree
 - htop
 - IPython
 - Neovim 0.5+
-  - Neovim and tmux interact through the M-[hjkl] bindings (see
-    `config/nvim/init.vim` and `tmux.conf`)
   - vim-plug
   - For all plugins, see `config/nvim/init.vim`
   - fzf
@@ -81,11 +79,6 @@ Dependency tree
   - For Vue: VLS (Vue Language Server)
 - systemd
 - Tern
-- tmux
-  - Neovim and tmux interact through the M-[hjkl] bindings (see
-    `config/nvim/init.vim` and `tmux.conf`)
-  - TPM (Tmux Plugin Manager)
-  - xclip
 - Universal Ctags
 - X11/xinitrc
   - feh
@@ -125,7 +118,7 @@ Dependency tree
     - For music control: Playerctl
     - For volume: alsa-utils, dzen2-xft-xpm
   - stack (for building)
-  - tmux + wmctrl (for opening a terminal in the same working directory)
+  - xprop
   - xmobar
 - Xresources/xrdb
   - dmenu2
@@ -169,12 +162,12 @@ Dependency tree
   - SoX
   - stack
   - systemd
-  - tmux
   - valgrind
   - VLC
   - wmctrl
   - xclip
   - XMonad
+  - xprop
   - xrandr
   - xrdb
   - Yay

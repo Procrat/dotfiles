@@ -320,7 +320,7 @@ mirrorTerminal = withWindowSet $ \ws ->
                 dir -> terminalWithWorkingDir $ init dir
 
 terminalWithWorkingDir :: String -> String
-terminalWithWorkingDir dir = "alacritty -e tmux new-session -c '" ++ dir ++ "'"
+terminalWithWorkingDir dir = "alacritty --working-directory '" ++ dir ++ "'"
 
 plainTerminal :: String
-plainTerminal = "alacritty -e tmux"
+plainTerminal = "alacritty"
