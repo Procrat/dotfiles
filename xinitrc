@@ -33,7 +33,12 @@ eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
 export SSH_AUTH_SOCK
 
 # Start unclutter daemon
-unclutter &
+unclutter --fork \
+  --timeout 2 \
+  --jitter 1 \
+  --exclude-root \
+  --ignore-scrolling \
+  --start-hidden &
 
 # Start lightweight composite manager
 picom --experimental-backends -b &
