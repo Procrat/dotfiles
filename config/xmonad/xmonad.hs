@@ -40,8 +40,7 @@ import           XMonad.Layout.SingleSpacing    (spacing)
 
 
 main :: IO ()
-main = do
-    xmonad
+main = xmonad
     $ SB.withSB myStatusBar
     $ withUrgencyHook NoUrgencyHook
     $ ewmhFullscreen
@@ -55,7 +54,6 @@ main = do
         logHook         = myLogHook <+> logHook baseConfig,
         startupHook     = startupHook baseConfig <+> myStartupHook
     }
-
 
 baseConfig = def {
     terminal           = plainTerminal,
@@ -122,7 +120,7 @@ myKeyBindings conf =
     , ("M-.", sendMessage (IncMasterN (-1)))
 
     -- Pseudotile
-    , ("M-S-p", sendMessage PseudoTiling.ToggleFocusedWindow)
+    , ("M-S-p", withFocused $ sendMessage . PseudoTiling.ToggleWindow)
 
     -- Context management
     , ("M-s", C.listContextNames >>= safeMenu "Switch:" >>= C.createAndSwitchContext)
@@ -217,9 +215,10 @@ myScratchpads = [
 
 myEventHook :: Event -> X All
 myEventHook = normalLayoutOnCloseEventHook
+    <> PseudoTiling.eventHook
 
 normalLayoutOnCloseEventHook :: Event -> X All
-normalLayoutOnCloseEventHook DestroyWindowEvent{ev_window = window, ev_event = event} = do
+normalLayoutOnCloseEventHook DestroyWindowEvent { ev_window = window, ev_event = event } = do
     -- Not sure why, but DestroyWindowEvent is sometimes triggered when no
     -- window is being removed. It's always with the root window as the `event`
     -- though. Otherwise the event is set to the destroyed window. See
@@ -284,19 +283,16 @@ setEwmhDesktopGeometry :: X ()
 setEwmhDesktopGeometry = withDisplay $ \dpy -> do
     wm <- asks theRoot
 
-    atomType <- getAtom "ATOM"
-    cardinalType <- getAtom "CARDINAL"
-
     supportProp <- getAtom "_NET_SUPPORTED"
     desktopGeometryProp <- getAtom "_NET_DESKTOP_GEOMETRY"
 
     io $ do
-        changeProperty32 dpy wm supportProp atomType propModeAppend
+        changeProperty32 dpy wm supportProp aTOM propModeAppend
                          [fromIntegral desktopGeometryProp]
         windowAttributes <- getWindowAttributes dpy wm
         let width = fromIntegral $ wa_width windowAttributes
             height = fromIntegral $ wa_height windowAttributes
-        changeProperty32 dpy wm desktopGeometryProp cardinalType propModeReplace
+        changeProperty32 dpy wm desktopGeometryProp cARDINAL propModeReplace
                          [width, height]
 
 
