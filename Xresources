@@ -2,13 +2,10 @@
 ! Xft settings
 !-----------------------------------------------------------------------------
 
-Xft.dpi: 110
-! Commented since Infinality seems to fix all this
-! Xft.antialias: true
-! Xft.rgba: rgb
-! Xft.hinting: true
-! Xft.autohint: false
-! Xft.hintstyle: hintslight
+! Even though our real DPI 166 and the closest multiple is 1.75 * 96 = 168, we
+! set it to 1.5 * 96 = 144 to still have some visual space.
+! Unlike the name suggests, this does not only scale fonts, but also most UIs.
+Xft.dpi: 144
 
 
 !-----------------------------------------------------------------------------
@@ -66,13 +63,13 @@ Xft.dpi: 110
 ! Dzen settings
 !-----------------------------------------------------------------------------
 
-dzen2.font: Ubuntu:size=11
+dzen2.font: Ubuntu:size=10
 
 
 !-----------------------------------------------------------------------------
 ! Dmenu settings
 !-----------------------------------------------------------------------------
 
-dmenu.font: Ubuntu:size=11
+dmenu.font: Ubuntu:size=10
 dmenu.selforeground: base0A
 dmenu.selbackground: base00

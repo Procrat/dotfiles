@@ -1,5 +1,5 @@
 configuration {
-  dpi: 110;
+  dpi: 0;  /* Auto-detect DPI */
   scroll-method: 1;
 }
 

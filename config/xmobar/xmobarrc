@@ -47,9 +47,9 @@ Config {
     ]
 
   -- appearance
-  , font = "xft:Ubuntu:size=11"
-  , additionalFonts = ["xft:DejaVu Sans:size=16"]
-  , textOffsets = [22]
+  , font = "xft:Ubuntu:size=10"
+  , additionalFonts = ["xft:DejaVu Sans:size=14"]
+  , textOffsets = [25]
   , bgColor = "#3B3228"
   , fgColor = "#B8AFAD"
 
@@ -57,7 +57,7 @@ Config {
   , persistent = True
 
   -- integration
-  , position = TopSize C 98 28
+  , position = TopSize C 98 32
   , iconRoot = "/home/procrat/.config/icons/xbm/"
   }
 

@@ -1,7 +1,7 @@
 {
     // Editor
     "editor.fontFamily": "Monaco",
-    "editor.fontSize": 16,
+    "editor.fontSize": 14,
     "editor.minimap.enabled": false,
     "editor.renderControlCharacters": true,
     "editor.renderIndentGuides": false,
