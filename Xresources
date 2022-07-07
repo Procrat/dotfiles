@@ -73,3 +73,18 @@ dzen2.font: Ubuntu:size=10
 dmenu.font: Ubuntu:size=10
 dmenu.selforeground: base0A
 dmenu.selbackground: base00
+
+
+!-----------------------------------------------------------------------------
+! XTerm settings
+!-----------------------------------------------------------------------------
+
+XTerm.vt100.saveLines: 5000
+XTerm.vt100.visualBell: true
+XTerm.vt100.bellIsUrgent: true
+XTerm.vt100.faceName: Monaco for Powerline:style=Regular:size=10:antialias=false
+XTerm.vt100.selectToClipboard: true
+XTerm.vt100.translations: #override \n\
+  Shift <Btn1Up>: \
+    exec-formatted("xdg-open '%t'", CLIPBOARD) select-start() select-end()\n\
+  <Key>F11: fullscreen()
