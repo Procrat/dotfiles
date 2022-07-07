@@ -25,8 +25,14 @@ xset r rate 300 55 &
 # Xresources otherwise gets loaded async, which might fuck up some stuff
 xrdb "$HOME/.Xresources"
 
-# Screenlocker
-xautolock -locker "$HOME/bin/i3lock" -corners 0+0- &
+# Set the minimum brightness of the screen to 1 instead of 0
+light -N 1
+
+# Lock screen on suspend and after 3 minutes of inactivity, dimming the screen
+# after 2 minutes.
+xset s 120 180
+xss-lock --notifier=dim-screen --transfer-sleep-lock -- \
+  lock-screen --nofork &
 
 # Enable keyring
 eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"

@@ -83,13 +83,14 @@ Dependency tree
 - X11/xinitrc
   - feh
   - gnome-keyring-daemon
+  - Custom i3lock fork
   - picom
   - Redshift
   - unclutter
-  - Xautolock
   - XMonad
   - xrdb
   - xset
+  - xss-lock
 - xmobar
   - Fonts: Ubuntu & DejaVu Sans
   - alsa-utils
@@ -138,13 +139,13 @@ Dependency tree
   - bc
   - BlueZ
   - curl
+  - Custom i3lock fork
   - dmenu2
   - feh
   - gcalcli
   - Ghostscript
   - Git
   - handlr
-  - i3lock
   - ImageMagick
   - jq
   - libcanberra
@@ -170,6 +171,7 @@ Dependency tree
   - xprop
   - xrandr
   - xrdb
+  - xss-lock
   - Yay
   - yeganesh
   - zenity

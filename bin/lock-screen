@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Customized i3lock with https://github.com/Lixxia/i3lock
+# Screen locker based on an i3lock fork (https://github.com/Lixxia/i3lock).
 
 set -euo pipefail
 
@@ -15,4 +15,5 @@ wallpaper="$HOME/.local/share/wallpaper.png"
     --ignore-empty-password \
     --idle-color "$B_BASE06" \
     --verify-color "$EMPHASIZED_CONTENT_COLOR" \
-    --wrong-color "$ERROR_COLOR"
+    --wrong-color "$ERROR_COLOR" \
+    "$@"
