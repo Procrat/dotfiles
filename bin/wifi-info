@@ -9,7 +9,19 @@ WIFI_DEVICE="$(basename /sys/class/net/wl*)" || {
     exit 1
 }
 
-# Shows SSID
-iw dev "$WIFI_DEVICE" link | sed -rn 's/^\s*SSID: (.*)/\1/p'
-# Shows IP address
-ip addr show dev "$WIFI_DEVICE" | sed -rn 's/^\s*inet\s+([^/]*).*/\1/p'
+info="$(iw dev "$WIFI_DEVICE" link)"
+
+if [[ "$info" = "Not connected." ]]; then
+    # Open a connection chooser
+    alacritty -e nmtui-connect
+else
+    # Output general info about the connection
+    ssid="$(echo "$info" | sed -rn 's/^\s*SSID: (.*)/\1/p')"
+    rx="$(echo "$info" | sed -rn 's/^\s*rx bitrate: (.*)/\1/p')"
+    tx="$(echo "$info" | sed -rn 's/^\s*tx bitrate: (.*)/\1/p')"
+
+    ip_addr="$(ip addr show dev "$WIFI_DEVICE" | \
+        sed -rn 's/^\s*inet\s+([^/]*).*/\1/p')"
+
+    echo -e "$ssid\n$ip_addr\n🔽 $rx\n🔼 $tx"
+fi
