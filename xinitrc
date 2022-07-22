@@ -56,6 +56,4 @@ redshift &
 touchegg &
 
 # Start window manager
-# (Use direct path to XMonad build to ensure we don't recompile on boot.)
-exec "$HOME/.cache/xmonad/xmonad-x86_64-linux" \
-  &>>"$XDG_RUNTIME_DIR/xsession-errors"
+exec xmonad &>>"$XDG_RUNTIME_DIR/xsession-errors"
