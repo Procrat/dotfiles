@@ -70,15 +70,15 @@ baseConfig = def {
 myKeyBindings :: XConfig l -> [(String, X ())]
 myKeyBindings conf =
     -- Launchers
-    [ ("M-<Return>", mirrorTerminal >>= spawnHere)
-    , ("M-S-<Return>", spawnHere plainTerminal)
+    [ ("M-<Return>", mirrorTerminal >>= spawnApp)
+    , ("M-S-<Return>", spawnApp plainTerminal)
     , ("M-C-<Return>", spawnHere "xterm")
-    , ("M-o", spawnHere myProgramLauncher)
-    , ("M-r", spawnHere "alacritty -e zsh -i -c ranger")
-    , ("M-i", spawnHere "rofi-pass")
-    , ("M-S-e", spawnHere "rofimoji --skin-tone neutral")
-    , ("M-S-c", spawnHere "rofi -show calc -modi calc -no-show-match")
-    , ("M-b", spawnHere "handlr launch x-scheme-handler/https")
+    , ("M-o", spawnApp myProgramLauncher)
+    , ("M-r", spawnApp "alacritty -e zsh -i -c ranger")
+    , ("M-i", spawnApp "rofi-pass")
+    , ("M-S-e", spawnApp "rofimoji --skin-tone neutral")
+    , ("M-S-c", spawnApp "rofi -show calc -modi calc -no-show-match")
+    , ("M-b", spawnApp "handlr launch x-scheme-handler/https")
     , ("M-p", NS.namedScratchpadAction myScratchpads "sound control")
 
     -- Quit xmonad
@@ -162,6 +162,11 @@ myKeyBindings conf =
     , ("C-`", spawn "dunstctl history-pop")
     , ("C-<Return>", spawn "dunstctl action")
     ]
+
+-- Spawn in new systemd scope (cgroup)
+spawnApp :: String -> X ()
+spawnApp command = spawnHere $
+    "systemd-run --user --scope --no-block --slice=app --collect " ++ command
 
 myProgramLauncher :: String
 myProgramLauncher =
