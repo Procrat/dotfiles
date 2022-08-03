@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+shopt -s lastpipe
+
 SECS=1
 ICON_FOLDER=~/.config/icons/xbm
 PIPE="/tmp/dvolumepipe"
@@ -31,15 +33,15 @@ case "$1" in
     '-i'|'--increase')
         [ -z "$2" ] && err "No argument specified for increase."
         [ -n "$(tr -d '0-9' <<<"$2")" ] && err "The argument needs to be an integer."
-        AMIXARG="${2}%+ unmute"
+        amixer_args=("${2}%+" unmute)
         ;;
     '-d'|'--decrease')
         [ -z "$2" ] && err "No argument specified for decrease."
         [ -n "$(tr -d '0-9' <<<"$2")" ] && err "The argument needs to be an integer."
-        AMIXARG="${2}%- unmute"
+        amixer_args=("${2}%-" unmute)
         ;;
     '-t'|'--toggle')
-        AMIXARG="toggle"
+        amixer_args=(toggle)
         ;;
     ''|'-h'|'--help')
         usage
@@ -49,18 +51,21 @@ case "$1" in
         ;;
 esac
 
-# Actual volume changing (readability low)
-AMIXOUT="$(amixer set Master $AMIXARG | tail -n 1)"
+amixer set Master -M "${amixer_args[@]}" | \
+    tail -n 1 | \
+    sed -n 's/[^[]\+ \[\([^]]*\)%\] \[[^]]*\] \[\(on\|off\)\]/\1\n\2/p' | \
+    {
+        read -r volume
+        read -r on_off_state
+    }
 
-# Parse output to see volume
-MUTE="$(cut -d '[' -f 3 <<<"$AMIXOUT")"
-if [ "$MUTE" = "off]" ]; then
-    VOLUME=0
+if [ "$on_off_state" = "on" ]; then
+    rounded_volume=$(echo "($volume + 24) / 25 * 25" | bc)
+    icon="${ICON_FOLDER}/volume${rounded_volume}.xbm"
 else
-    VOLUME="$(cut -d '[' -f 2 <<<"$AMIXOUT" | sed 's/%.*//g')"
+    icon="${ICON_FOLDER}/volume-muted.xbm"
+    volume=0
 fi
-ROUNDED_VOLUME=$(echo "($VOLUME + 24) / 25 * 25" | bc)
-ICON="$ICON_FOLDER/volume${ROUNDED_VOLUME}.xbm"
 
 # Using named pipe to determine whether previous call still exists
 # Also prevents multiple volume bar instances
@@ -74,4 +79,4 @@ if [ ! -e "$PIPE" ]; then
 fi
 
 # Feed the pipe!
-(echo "$VOLUME" | gdbar -l "^i($ICON) " ; sleep "$SECS") > "$PIPE"
+(echo "$volume" | gdbar -l "^i($icon) " ; sleep "$SECS") > "$PIPE"
