@@ -179,10 +179,9 @@ myLayout = modifiers layouts
         avoidStruts
         . smartBorders
         . silenceLayoutModifier (layoutHintsWithPlacement (0.5, 0.5))
-        . pseudoTiling
         . spacing 15
         . windowNavigation
-    layouts = normal ||| zoomed
+    layouts = pseudoTiling normal ||| zoomed
     normal = renamed [Replace "Normal"] $ Tall 1 (3 / 100) (54 / 100)
     zoomed = renamed [Replace "Zoomed"] Full
 
