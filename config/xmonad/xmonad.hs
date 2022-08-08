@@ -40,31 +40,33 @@ import           XMonad.Layout.SingleSpacing    (spacing)
 
 
 main :: IO ()
-main = xmonad
-    $ SB.withSB myStatusBar
-    $ withUrgencyHook NoUrgencyHook
-    $ ewmhFullscreen
-    $ docks
-    $ ewmh
-    $ baseConfig {
-        keys            = \conf -> EZ.mkKeymap conf (myKeyBindings conf),
-        layoutHook      = myLayout,
-        manageHook      = myManageHook <+> manageHook baseConfig,
-        handleEventHook = myEventHook <+> handleEventHook baseConfig,
-        logHook         = myLogHook <+> logHook baseConfig,
-        startupHook     = startupHook baseConfig <+> myStartupHook
-    }
+main = xmonad myConfig
 
-baseConfig = def {
-    terminal           = plainTerminal,
-    focusFollowsMouse  = False,
-    clickJustFocuses   = False,
-    borderWidth        = 3,
-    modMask            = mod4Mask,
-    workspaces         = ["im", "todo", "music"] ++ map show ([4..9] :: [Int]),
-    normalBorderColor  = "#3B3228",
-    focusedBorderColor = "#7E705A"
-}
+
+myConfig =
+    (\c -> c {
+        manageHook      = myManageHook <+> manageHook c,
+        handleEventHook = myEventHook <+> handleEventHook c,
+        logHook         = myLogHook <+> logHook c,
+        startupHook     = startupHook c <+> myStartupHook
+    })
+    $ SB.withSB myStatusBar  -- appends startup & log hook
+    $ withUrgencyHook NoUrgencyHook  -- prepends startup, event & log hooks
+    $ ewmhFullscreen  -- appends startup & event hook
+    $ docks  -- prepends startup, event & manage hook
+    $ ewmh  -- prepends startup, event & log hook
+    def {
+        keys               = \conf -> EZ.mkKeymap conf (myKeyBindings conf),
+        layoutHook         = myLayout,
+        terminal           = plainTerminal,
+        focusFollowsMouse  = False,
+        clickJustFocuses   = False,
+        borderWidth        = 3,
+        modMask            = mod4Mask,
+        workspaces         = ["im", "todo", "music"] ++ map show ([4..9] :: [Int]),
+        normalBorderColor  = "#3B3228",
+        focusedBorderColor = "#7E705A"
+    }
 
 
 myKeyBindings :: XConfig l -> [(String, X ())]
@@ -193,7 +195,6 @@ myManageHook :: ManageHook
 myManageHook = composeAll
     [ manageSpawn
     , shouldFloat      --> doFloat
-    , shouldIgnore     --> doIgnore
     , shouldPseudoTile --> doPseudoTile
     , NS.namedScratchpadManageHook myScratchpads
     ]
@@ -201,9 +202,6 @@ myManageHook = composeAll
     shouldFloat =
         MH.isDialog
         <||> appName =? "xmessage"
-    shouldIgnore =
-        appName =? "desktop_window"
-        <||> appName =? "kdesktop"
     shouldPseudoTile = fmap not $
         appName =? "emacs"
         <||> stringProperty "WM_WINDOW_ROLE" =? "browser"
@@ -253,7 +251,7 @@ xmobarPP = withContextShown . SB.filterOutWsPP [NS.scratchpadWorkspaceTag] $ def
   where
     styleWS color ws = clickify ws $ SB.pad $ SB.xmobarColor color "" ws
     clickify ws =
-        case elemIndex ws (workspaces baseConfig) of
+        case elemIndex ws (workspaces myConfig) of
           Nothing      -> id
           Just wsIndex -> SB.xmobarAction ("wmctrl -s " ++ show wsIndex) "1"
 
@@ -277,7 +275,7 @@ withContextShown pp = pp
 
 myStartupHook :: X ()
 myStartupHook = do
-    EZ.checkKeymap baseConfig (myKeyBindings baseConfig)
+    EZ.checkKeymap myConfig (myKeyBindings myConfig)
     setEwmhDesktopGeometry
     setDefaultCursor xC_left_ptr
 
