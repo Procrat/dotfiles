@@ -201,6 +201,7 @@ myManageHook = composeAll
   where
     shouldFloat =
         MH.isDialog
+        <||> MH.isInProperty "_NET_WM_STATE" "_NET_WM_STATE_ABOVE"
         <||> appName =? "xmessage"
     shouldPseudoTile = fmap not $
         appName =? "emacs"
