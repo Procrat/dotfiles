@@ -1,8 +1,9 @@
 [Unit]
-Description=Back up package list to Dropbox
+Description=Back up package list
 
 [Service]
 Type=oneshot
+WorkingDirectory=%h/docs/backup
 ExecStart=/bin/sh -c '\
-          pacman -Qen > "$HOME/dropbox/backup/arch_official_packages" \
-          && pacman -Qem > "$HOME/dropbox/backup/arch_aur_packages"'
+          pacman -Qen > arch-official-packages \
+          && pacman -Qem > arch-aur-packages'
