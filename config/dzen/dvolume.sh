@@ -33,15 +33,18 @@ case "$1" in
     '-i'|'--increase')
         [ -z "$2" ] && err "No argument specified for increase."
         [ -n "$(tr -d '0-9' <<<"$2")" ] && err "The argument needs to be an integer."
-        amixer_args=("${2}%+" unmute)
+        volume_arg="+${2}%"
+        mute_arg='0'
         ;;
     '-d'|'--decrease')
         [ -z "$2" ] && err "No argument specified for decrease."
         [ -n "$(tr -d '0-9' <<<"$2")" ] && err "The argument needs to be an integer."
-        amixer_args=("${2}%-" unmute)
+        volume_arg="-${2}%"
+        mute_arg=
         ;;
     '-t'|'--toggle')
-        amixer_args=(toggle)
+        volume_arg=
+        mute_arg='toggle'
         ;;
     ''|'-h'|'--help')
         usage
@@ -51,20 +54,26 @@ case "$1" in
         ;;
 esac
 
-amixer set Master -M "${amixer_args[@]}" | \
-    tail -n 1 | \
-    sed -n 's/[^[]\+ \[\([^]]*\)%\] \[[^]]*\] \[\(on\|off\)\]/\1\n\2/p' | \
-    {
-        read -r volume
-        read -r on_off_state
-    }
+sink=$(pactl get-default-sink)
 
-if [ "$on_off_state" = "on" ]; then
+if [[ -n "$volume_arg" ]]; then
+    pactl set-sink-volume "$sink" "$volume_arg"
+fi
+if [[ -n "$mute_arg" ]]; then
+    pactl set-sink-mute "$sink" "$mute_arg"
+fi
+
+volume=$(pactl get-sink-volume "$sink" | sed -En 's_^Volume: front-left: [^/]+ / +([0-9]+)% /.*_\1_p')
+muted=$(pactl get-sink-mute "$sink" | sed -En 's/^Mute: (.*)$/\1/p')
+
+if [[ "$muted" = 'no' ]]; then
     rounded_volume=$(echo "($volume + 24) / 25 * 25" | bc)
     icon="${ICON_FOLDER}/volume${rounded_volume}.xbm"
-else
+elif [[ "$muted" = 'yes' ]]; then
     icon="${ICON_FOLDER}/volume-muted.xbm"
     volume=0
+else
+    err 'Failed to parse pactl output.'
 fi
 
 # Using named pipe to determine whether previous call still exists
