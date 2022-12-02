@@ -127,7 +127,6 @@ Dependency tree
 - Yay
   - pacman
 - Zsh
-  - find-the-command
   - prezto
   - For Git prompt: Git
   - For Terraform prompt: Terraform
