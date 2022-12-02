@@ -4,10 +4,6 @@
 # Aliases
 source "$HOME/.aliases"
 
-# Disable Ctrl+S for scrolling so we can use it for the save shortcut in vim,
-# but only for interactive shells of course
-[[ $- == *i* ]] && stty -ixon
-
 # Add `cd` hook to enable a project's Node version
 eval "$(fnm env --use-on-cd)"
 
