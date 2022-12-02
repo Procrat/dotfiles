@@ -1,16 +1,10 @@
-# Colorized output ^_^
+# Colorized output
 alias grep='grep --color=auto'
-alias gr='grep --color=always'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 
 # ls shortcuts
-#alias ll='ls -AlFv --si --color=auto'
-#alias l='ls -Fv --color=auto'
 alias ls='exa'
 alias l='exa'
-alias sl='exa'
 alias ll='exa -al --git'
 alias tree='exa -Tl'
 
@@ -21,11 +15,16 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias cd..='cd ..'
 
+# Systemctl shortcuts
+alias start='systemctl start'
+alias stop='systemctl stop'
+alias restart='systemctl restart'
+alias status='systemctl status'
+
 # Frequently used commands
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
-alias e='TERM=screen-256color emacsclient -t'
 alias rm='rm -Iv'
 alias ipy='exec ipython'
 alias hig='history 0 | grep -i'
@@ -41,7 +40,6 @@ alias mosh='mosh --predict=experimental'
 alias highlight='pygmentize'
 alias mywatch='watch -c -d -e -t -n 1'
 alias servewd='python -m http.server'
-alias misort='isort -s .venv -sd THIRDPARTY -fss'
 alias ssh='TERM=screen ssh'
 ranger_cd() {
     local temp_file dir
@@ -70,12 +68,6 @@ c() {
     else
         return 2
     fi
-}
-
-f() {
-    c || return
-    file_="$(fzf)"
-    [[ -n "$file_" ]] && open "$file_"
 }
 
 psg() {
@@ -156,21 +148,6 @@ function cd() {
         source "$venv/bin/activate"
     fi
 }
-
-# Systemctl shortcuts
-alias start='systemctl start'
-alias stop='systemctl stop'
-alias restart='systemctl restart'
-alias status='systemctl status'
-
-# Teehee
-alias hack_production_server='cat /dev/urandom'
-emergency_shutdown() {
-    (sleep 10 && systemctl poweroff) &
-    hack_production_server
-}
-alias fix_wifi='echo "Fixing Wifi..." && sleep 10 && echo "Wifi fixed!"'
-alias murder='kill -9'
 
 
 # vim:filetype=sh
