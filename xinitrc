@@ -47,7 +47,7 @@ unclutter --fork \
   --start-hidden &
 
 # Start lightweight composite manager
-picom --experimental-backends -b &
+picom -b &
 
 # Start daemon to automatically change colour temperature of screen
 redshift &
