@@ -927,7 +927,13 @@ lua << EOF
     local lspconfig = require('lspconfig')
     lspconfig.pyright.setup({})
     lspconfig.rust_analyzer.setup({})
-    lspconfig.vuels.setup({})
+    lspconfig.volar.setup({
+      init_options = {
+        typescript = {
+          tsdk = '/usr/lib/node_modules/typescript/lib/',
+        },
+      },
+    })
     lspconfig.sumneko_lua.setup({
       cmd = { 'lua-language-server' }
     })
