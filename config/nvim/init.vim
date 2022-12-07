@@ -38,7 +38,6 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/JavaDecompiler.vim'
-Plug 'wellle/context.vim'
 
 " -- Slightly slower plugins (3ms -- 50ms)
 Plug 'easymotion/vim-easymotion'  " ~3ms
@@ -78,6 +77,8 @@ Plug 'Shougo/neco-vim'
 
 " -- Not profiled
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'tjdevries/lsp_extensions.nvim'
 
 call plug#end()
@@ -426,16 +427,6 @@ let g:echodoc_enable_at_startup = 1
 
 " Let :UltiSnipsEdit split horizontally or vertically
 let g:UltiSnipsEditSplit='context'
-
-" }}}
-" wellle/context.vim {{{
-
-" Don't show the "<context.vim>" tag
-let g:context_highlight_tag = '<hide>'
-" Stop screen flicker
-let g:context_nvim_no_redraw = 1
-" Turn off on Markdown because it makes scrolling a bit sluggish sometimes
-let g:context_filetype_blacklist = ['journal']
 
 " }}}
 " Completion settings {{{
