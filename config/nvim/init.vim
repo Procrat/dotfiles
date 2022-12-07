@@ -513,8 +513,8 @@ noremap <silent> <leader>wm :call ToggleZoom()<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprev<CR>
 nnoremap <leader>n :enew<cr>
-nnoremap <leader>d :Sayonara<CR>
-nnoremap <leader>D :Sayonara!<CR>
+nnoremap <leader>d :Sayonara!<CR>
+nnoremap <leader>D :Sayonara<CR>
 nnoremap <leader>bd :bdelete<CR>
 nnoremap <leader>bD :bdelete!<CR>
 " Use S to grep (dependent on format of grepprg)
