@@ -406,6 +406,11 @@ let g:tagbar_type_typescript = {
 let g:clever_f_smart_case = 1
 
 " }}}
+" rust-lang/rust.vim {{{
+
+let g:rustfmt_autosave = 1
+
+" }}}
 " sheerun/vim-polyglot {{{
 
 " Stop vim-vue from slowing down (See https://github.com/posva/vim-vue)
