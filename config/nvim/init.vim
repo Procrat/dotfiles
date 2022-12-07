@@ -22,6 +22,9 @@ Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'plasticboy/vim-markdown'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'preservim/tagbar'
@@ -30,6 +33,7 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
 Plug 'shime/vim-livedown'
 Plug 'Shougo/echodoc.vim'
+Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -40,11 +44,11 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/JavaDecompiler.vim'
 
 " -- Slightly slower plugins (3ms -- 50ms)
-Plug 'easymotion/vim-easymotion'  " ~3ms
-Plug 'junegunn/vim-journal'  " ~8ms for journal files
+Plug 'easymotion/vim-easymotion'  " ~5ms
+Plug 'junegunn/vim-journal'  " ~10ms for journal files
 Plug 'neovim/nvim-lspconfig'  " ~20ms, doesn't work properly on demand
 Plug 'norcalli/nvim-base16.lua'  " ~6ms
-Plug 'rust-lang/rust.vim'  " ~15ms for Rust
+Plug 'rust-lang/rust.vim'  " ~20ms for Rust
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = [
     \ 'csv',
@@ -55,8 +59,8 @@ let g:polyglot_disabled = [
     \ 'rust',
     \ 'typescript',
     \ ]
-Plug 'sheerun/vim-polyglot'  " 20-50ms, depending on filetype
-Plug 'vim-airline/vim-airline'  " ~40ms
+Plug 'sheerun/vim-polyglot'  " 35-50ms, depending on filetype
+Plug 'vim-airline/vim-airline'  " ~12ms
 Plug 'vim-airline/vim-airline-themes'
 
 " -- Slow plugins (> 50ms)
@@ -74,12 +78,6 @@ Plug 'deoplete-plugins/deoplete-tag'
 Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
-
-" -- Not profiled
-Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/nvim-treesitter-context'
-Plug 'tjdevries/lsp_extensions.nvim'
 
 call plug#end()
 
