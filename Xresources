@@ -82,7 +82,7 @@ dmenu.selbackground: base00
 XTerm.vt100.saveLines: 5000
 XTerm.vt100.visualBell: true
 XTerm.vt100.bellIsUrgent: true
-XTerm.vt100.faceName: Monaco for Powerline:style=Regular:size=10:antialias=false
+XTerm.vt100.faceName: monospace:size=10
 XTerm.vt100.selectToClipboard: true
 XTerm.vt100.translations: #override \n\
   Shift <Btn1Up>: \

@@ -32,6 +32,7 @@ Dependency tree
 - Neovim 0.5+
   - vim-plug
   - For all plugins, see `config/nvim/init.vim`
+  - Some [Nerd Font](https://www.nerdfonts.com) for fancy icons
   - fzf
   - Git
   - isort

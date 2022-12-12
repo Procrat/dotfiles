@@ -9,15 +9,12 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
-Plug 'dense-analysis/ale'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'maksimr/vim-jsbeautify', { 'for': [
-    \ 'javascript', 'javascript.jsx', 'json', 'html', 'css'] }
 Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
@@ -78,6 +75,13 @@ Plug 'deoplete-plugins/deoplete-tag'
 Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
+
+" -- Not profiled
+Plug 'j-hui/fidget.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'kyazdani42/nvim-web-devicons'  " For trouble.nvim
+Plug 'nvim-lua/plenary.nvim'  " For null-ls.nvim
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 call plug#end()
 
@@ -256,20 +260,20 @@ let g:airline_exclude_preview = 1
 let g:airline_highlighting_cache = 1
 " Optimization: don't search for all possible extensions
 let g:airline_extensions = [
-    \ 'ale',
     \ 'branch',
     \ 'csv',
     \ 'fugitiveline',
     \ 'gutentags',
     \ 'quickfix',
+    \ 'nvimlsp',
     \ 'tabline',
     \ 'tagbar',
     \ 'term',
     \ 'vimtex'
     \ ]
-let g:airline#extensions#ale#error_symbol = '✖'
-let g:airline#extensions#ale#warning_symbol = '⚠'
-let g:airline#extensions#ale#show_line_numbers = 0
+let g:airline#extensions#nvimlsp#error_symbol = '✖'
+let g:airline#extensions#nvimlsp#warning_symbol = '⚠'
+let g:airline#extensions#nvimlsp#show_line_numbers = 0
 " Show column name for CSVs instead of index
 let g:airline#extensions#csv#column_display = 'Name'
 let g:airline#extensions#tabline#buffer_min_count = 2
@@ -290,21 +294,72 @@ let g:csv_highlight_column = 'y'
 let g:lexima_map_escape = ''
 
 " }}}
-" dense-analysis/ale {{{
-
-" Adds about 30ms (depending on linter) to boot time if we do
-let g:ale_lint_on_enter = 0
-" Don't set signs in an extra column for warnings and errors
-let g:ale_set_signs = 0
-" Enable rust-analyzer (over RLS)
-let g:ale_linters = {'rust': ['cargo', 'analyzer']}
-
-" }}}
 " easymotion/vim-easymotion {{{
 
 let g:EasyMotion_smartcase = 1
 " Turn of messages like 'Jumping to [l,c]' and 'EasyMotion: Cancelled'
 let g:EasyMotion_verbose = 0
+
+" }}}
+" jose-elias-alvarez/null-ls.nvim {{{
+
+lua << EOF
+    local null_ls = require('null-ls')
+
+    local function has_stylelint_config(utils)
+      return utils.root_has_file({
+        ".stylelintrc",
+        ".stylelintrc.js",
+        ".stylelintrc.json",
+        ".stylelintrc.yml",
+        ".stylelintrc.yaml",
+        "stylelint.config.js",
+        "stylelint.config.cjs",
+      })
+    end
+
+    null_ls.setup({
+      sources = {
+        -- See https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+        --
+        -- CSS/Sass/SCSS/Less
+        null_ls.builtins.diagnostics.stylelint.with({
+          condition = has_stylelint_config,
+        }),
+        null_ls.builtins.formatting.stylelint.with({
+          condition = has_stylelint_config,
+        }),
+        -- Haskell
+        null_ls.builtins.formatting.stylish_haskell,
+        -- JS/TS/JSX/TSX/Vue
+        null_ls.builtins.code_actions.eslint_d,
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.formatting.prettier.with({
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'typescript',
+            'typescriptreact',
+            'vue'
+          },
+        }),
+        -- JSON
+        null_ls.builtins.formatting.jq,
+        -- Lua
+        null_ls.builtins.diagnostics.luacheck,
+        -- Python
+        null_ls.builtins.diagnostics.flake8,
+        null_ls.builtins.formatting.isort,
+        -- Shell
+        null_ls.builtins.code_actions.shellcheck,
+        null_ls.builtins.diagnostics.shellcheck,
+        -- Terraform
+        null_ls.builtins.formatting.terraform_fmt,
+        -- Vim
+        null_ls.builtins.diagnostics.vint,
+      },
+    })
+EOF
 
 " }}}
 " junegunn/fzf {{{
@@ -446,13 +501,16 @@ let g:SuperTabContextDefaultCompletionType = '<C-n>'
 " jj/fd in insert mode to go to normal mode
 inoremap jj <Esc>:w<CR>
 inoremap fd <Esc>
+
 " Quick navigation in insert mode
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
+
 " Use backspace to delete character
 noremap <BS> X
+
 " Center search matches to center of screen
 nnoremap n nzz
 nnoremap N Nzz
@@ -460,44 +518,56 @@ nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
+
 " Space to (un)fold
 nnoremap <leader><leader> za
 vnoremap <leader><leader> za
+
 " Ex-ex
 nnoremap Q <nop>
+
 " Funny story: before this keybind, I realised I was actually typing the Z
 " with my thumb, because typing both Z and Q with my pinky takes up too much
 " time.
 nnoremap QQ ZQ
+
 " Select all
 nnoremap vA ggVG
+
 " Create newlines like o and O, but stay in normal mode
 nnoremap zj o<Esc>k
 nnoremap zk O<Esc>j
-" Autoformat whole file
-nnoremap <leader>= mzggVG='z
+
 " Sort lines
 vnoremap <leader>s :!sort<CR>
+
 " Sudo write
 cnoremap w!! w !sudo tee % >/dev/null
+
 " Save current file
 nnoremap <leader>s :w<CR>
+
 " Save all files and exit (useful when using vim as git mergetool)
 nnoremap ZA :wqa<CR>
+
 " Use C-O and C-P to shift between edited parts
 nnoremap <C-p> <C-i>
+
 " Make < and > behave like they should
 vnoremap < <gv
 vnoremap > >gv
+
 " Jump to the end after pasting
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
+
 " Window management
 noremap <leader>w <C-w>
 noremap + <C-w>+
 noremap - <C-w>-
 noremap <silent> <leader>wm :call ToggleZoom()<CR>
+
 " Buffer management
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprev<CR>
@@ -506,20 +576,36 @@ nnoremap <leader>d :Sayonara!<CR>
 nnoremap <leader>D :Sayonara<CR>
 nnoremap <leader>bd :bdelete<CR>
 nnoremap <leader>bD :bdelete!<CR>
+
 " Use S to grep (dependent on format of grepprg)
 nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
 vnoremap S "hy:grep! <C-R>h<CR>:cw<CR>
-" Error management
-nnoremap <silent> <leader>el :call ToggleLocationList()<CR>
-nnoremap <leader>ev :ALEInfo<CR>
-nnoremap <leader>en :lnext<CR>
-nnoremap <leader>ep :lprevious<CR>
-" See also <leader>es mapping in LSP mappings
+
+" LSP bindings
+nnoremap gd         <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap K          <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap gr         <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap gR         <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap ga         <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>=  <cmd>lua vim.lsp.buf.format({ async = true })<CR>
+vnoremap <leader>=  <cmd>lua vim.lsp.buf.format({ async = true })<CR>
+" Other useful functionality for future reference: declaration(),
+" implementation(), signature_help(), type_definition(),
+" workspace_symbol(), vim.lsp.codelens.
+
+" Diagnostic management
+nnoremap <leader>en <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <leader>ep <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <leader>ev <cmd>lua =vim.lsp.get_active_clients()<CR>
+nnoremap <leader>el <cmd>TroubleToggle document_diagnostics<CR>
+nnoremap <leader>eL <cmd>TroubleToggle workspace_diagnostics<CR>
+
 " Send a blame mail from a git repo
 function! Blame()
     execute '!send_blame_mail ' . expand('%:p') . ' ' . line('.')
 endfunction
 nnoremap <leader>B :call Blame()<CR>
+
 " Markdown mappings for header decorations
 augroup markdown_mappings
     autocmd!
@@ -530,6 +616,7 @@ augroup markdown_mappings
         nnoremap <buffer> <leader>3 mzI###<Space><Esc>`zllll<CR>
     endfunction
 augroup END
+
 " Define Isort command and mapping for Python import sorting
 augroup python_isort_mappings
     autocmd!
@@ -917,6 +1004,9 @@ let loaded_netrwPlugin = 1
 
 " Configure LSP
 lua << EOF
+    -- Show initialisation progress
+    require('fidget').setup({})
+
     local lspconfig = require('lspconfig')
     lspconfig.pyright.setup({})
     lspconfig.rust_analyzer.setup({})
@@ -931,8 +1021,16 @@ lua << EOF
       cmd = { 'lua-language-server' }
     })
 
-    -- Disable diagnostics of built-in LSP; we use ALE for this
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
+    require('trouble').setup({
+      padding = false,
+      indent_lines = false,
+      auto_close = true,
+    })
+    -- Reduce LSP diagnostic noise from virtual text and signs
+    vim.diagnostic.config({
+        virtual_text = false,
+        signs = false,
+    })
 EOF
 
 
@@ -981,17 +1079,14 @@ augroup misc
     " Also quit help files with `q`
     au FileType help nnoremap <buffer> <silent> q :close<CR>
 
-    " Configure LSP bindings for some filetypes
-    au FileType python,rust,vue call s:ConfigureLspBindings()
+    " Run LSP formatter on save for a few file types
+    au BufWritePre *.hs,*.rs,*.tf lua vim.lsp.buf.format()
 
     " Remove trailing whitespace automatically on write when desired (non-binary)
     au BufWritePre * call s:StripTrailingWhitespace()
 
     " Reload init.vim on save
     au BufWritePost */nvim/init.vim source %
-
-    " Run stylish-haskell when saving Haskell files
-    au BufWritePost *.hs call s:StylishHaskell()
 
     " Close loclist when last buffer is closed
     autocmd QuitPre * if empty(&buftype) | lclose | endif
@@ -1020,48 +1115,6 @@ func! s:AdjustWindowHeight(minheight, maxheight)
     exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
 
-function! s:ConfigureLspBindings()
-    " Set up bindings
-    nnoremap <buffer> <silent> <c-]>  <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <buffer> <silent> gd     <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <buffer> <silent> K      <cmd>lua vim.lsp.buf.hover()<CR>
-    nnoremap <buffer> <silent> gr     <cmd>lua vim.lsp.buf.references()<CR>
-    if &filetype ==# 'python'
-        nnoremap <buffer> <silent> gR <cmd>lua vim.lsp.buf.rename()<CR>
-    else
-        nnoremap <buffer> <silent> gR
-            \ :echoerr 'Renaming is not supported.'<CR>
-    endif
-    if &filetype ==# 'rust'
-        nnoremap <buffer> <silent> ga
-            \ <cmd>lua vim.lsp.buf.code_action()<CR>
-    else
-        nnoremap <buffer> <silent> ga
-            \ :echoerr 'Code actions are not supported.'<CR>
-    endif
-    if &filetype ==# 'rust'
-        nnoremap <buffer> <silent> <leader>=
-            \ <cmd>lua vim.lsp.buf.formatting()<CR>
-    endif
-    if &filetype ==# 'rust'
-        nnoremap <buffer> gh
-            \ :lua require('lsp_extensions').inlay_hints({
-            \     aligned = true,
-            \     prefix = '› ',
-            \ })<CR>
-    endif
-    " Other useful functionality for future reference: declaration(),
-    " implementation(), signature_help(), type_definition(),
-    " workspace_symbol().
-endfunction
-
-func! s:StylishHaskell()
-    let l:winview = winsaveview()
-    silent! exe 'undojoin'
-    silent! exe 'keepjumps %!stylish-haskell'
-    call winrestview(l:winview)
-endfunc
-
 func! s:StripTrailingWhitespace()
     if &l:fileencoding ==? 'utf-8'
         let l:winview = winsaveview()
@@ -1083,16 +1136,6 @@ function! ToggleZoom() abort
         vertical resize
         let t:zoomed = 1
     endif
-endfunction
-
-function! ToggleLocationList()
-    for i in range(1, winnr('$'))
-        if getbufvar(winbufnr(i), '&buftype') ==# 'quickfix'
-            lclose
-            return
-        endif
-    endfor
-    lopen
 endfunction
 
 " }}}
