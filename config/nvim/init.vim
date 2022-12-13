@@ -78,8 +78,10 @@ Plug 'Shougo/neco-vim'
 Plug 'j-hui/fidget.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'kyazdani42/nvim-web-devicons'  " For trouble.nvim
-Plug 'nvim-lua/plenary.nvim'  " For null-ls.nvim
 Plug 'simrat39/rust-tools.nvim'
+Plug 'nvim-lua/plenary.nvim'  " For telescope.nvim & null-ls.nvim
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
 call plug#end()
@@ -407,6 +409,12 @@ augroup au_neomake_rust_enabled_makers
         let g:neomake_enabled_makers = ['clippy']
     endfunction
 augroup END
+
+" }}}
+" nvim-telescope/telescope-ui-select.nvim {{{
+
+" Use telescope UI for vim.ui.select, such as code action prompt
+lua require('telescope').load_extension('ui-select')
 
 " }}}
 " plasticboy/vim-markdown {{{
