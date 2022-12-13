@@ -30,7 +30,6 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
 Plug 'shime/vim-livedown'
 Plug 'Shougo/echodoc.vim'
-Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -45,7 +44,6 @@ Plug 'easymotion/vim-easymotion'  " ~5ms
 Plug 'junegunn/vim-journal'  " ~10ms for journal files
 Plug 'neovim/nvim-lspconfig'  " ~20ms, doesn't work properly on demand
 Plug 'norcalli/nvim-base16.lua'  " ~6ms
-Plug 'rust-lang/rust.vim'  " ~20ms for Rust
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = [
     \ 'csv',
@@ -81,6 +79,7 @@ Plug 'j-hui/fidget.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'kyazdani42/nvim-web-devicons'  " For trouble.nvim
 Plug 'nvim-lua/plenary.nvim'  " For null-ls.nvim
+Plug 'simrat39/rust-tools.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
 call plug#end()
@@ -460,11 +459,6 @@ let g:tagbar_type_typescript = {
 let g:clever_f_smart_case = 1
 
 " }}}
-" rust-lang/rust.vim {{{
-
-let g:rustfmt_autosave = 1
-
-" }}}
 " sheerun/vim-polyglot {{{
 
 " Stop vim-vue from slowing down (See https://github.com/posva/vim-vue)
@@ -474,6 +468,30 @@ let g:vue_disable_pre_processors = 1
 " Shougo/echodoc.vim {{{
 
 let g:echodoc_enable_at_startup = 1
+
+" }}}
+" simrat39/rust-tools.nvim {{{
+
+lua << EOF
+    require('rust-tools').setup({
+      tools = {
+        inlay_hints = {
+          only_current_line = true,
+        },
+      },
+      server = {
+        settings = {
+          ["rust-analyzer"] = {
+            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+            checkOnSave = {
+              -- default: `cargo check`
+              command = "clippy"
+            },
+          },
+        }
+      },
+    })
+EOF
 
 " }}}
 " SirVer/ultisnips {{{
@@ -1008,8 +1026,8 @@ lua << EOF
     require('fidget').setup({})
 
     local lspconfig = require('lspconfig')
+    -- rust-analyzer is configured as part of the rust-tools plugin
     lspconfig.pyright.setup({})
-    lspconfig.rust_analyzer.setup({})
     lspconfig.volar.setup({
       init_options = {
         typescript = {
