@@ -12,7 +12,6 @@ Plug 'cohama/lexima.vim'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-peekaboo'
 Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim'
@@ -20,7 +19,7 @@ Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'plasticboy/vim-markdown'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -83,6 +82,7 @@ Plug 'nvim-lua/plenary.nvim'  " For telescope.nvim & null-ls.nvim
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'folke/which-key.nvim'
 
 call plug#end()
 
@@ -300,6 +300,11 @@ let g:lexima_map_escape = ''
 let g:EasyMotion_smartcase = 1
 " Turn of messages like 'Jumping to [l,c]' and 'EasyMotion: Cancelled'
 let g:EasyMotion_verbose = 0
+
+" }}}
+" folke/which-key.nvim {{{
+
+lua require('which-key').setup({})
 
 " }}}
 " jose-elias-alvarez/null-ls.nvim {{{
