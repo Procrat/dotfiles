@@ -42,7 +42,6 @@ Plug 'vim-scripts/JavaDecompiler.vim'
 Plug 'easymotion/vim-easymotion'  " ~5ms
 Plug 'junegunn/vim-journal'  " ~10ms for journal files
 Plug 'neovim/nvim-lspconfig'  " ~20ms, doesn't work properly on demand
-Plug 'norcalli/nvim-base16.lua'  " ~6ms
 " I have better alternative plugins for the following languages
 let g:polyglot_disabled = [
     \ 'csv',
@@ -54,8 +53,6 @@ let g:polyglot_disabled = [
     \ 'typescript',
     \ ]
 Plug 'sheerun/vim-polyglot'  " 35-50ms, depending on filetype
-Plug 'vim-airline/vim-airline'  " ~12ms
-Plug 'vim-airline/vim-airline-themes'
 
 " -- Slow plugins (> 50ms)
 " I don't write enough tex to optimise this
@@ -76,13 +73,16 @@ Plug 'Shougo/neco-vim'
 " -- Not profiled
 Plug 'j-hui/fidget.nvim'
 Plug 'folke/trouble.nvim'
-Plug 'kyazdani42/nvim-web-devicons'  " For trouble.nvim
+Plug 'kyazdani42/nvim-web-devicons'  " For trouble.nvim & bufferline.nvim
 Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/plenary.nvim'  " For telescope.nvim & null-ls.nvim
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/which-key.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'RRethy/nvim-base16'  " For lualine theme
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 
 call plug#end()
 
@@ -96,16 +96,12 @@ augroup END
 " }}}
 " Colorscheme settings {{{
 
+colorscheme base16-mocha
 lua << EOF
-    local nvim = require('nvim')
-    local base16 = require('base16')
-
-    if nvim.env.TERM == 'alacritty' then
-        nvim.o.termguicolors = true
-    end
-    base16(base16.themes[nvim.env.BASE16_THEME or 'mocha'], true)
+    local base16 = require('base16-colorscheme')
+    -- Highlight line number to make them visually distinct from code
+    base16.highlight.LineNr = { guibg = base16.colors.base01 }
 EOF
-let g:airline_theme = 'base16'
 
 " }}}
 " General settings {{{
@@ -145,7 +141,7 @@ set modelines=2
 " Use ripgrep to grep and always print file name in Quickfix list
 set grepprg=rg\ --vimgrep\ --word-regexp\ --fixed-strings\ \"$*\"
 set grepformat=%f:%l:%c:%m
-" Disable showing the current mode because powerline/airline already shows it
+" Disable showing the current mode because lualine already shows it
 set noshowmode
 " Wait less than a second for mapped seauence to complete
 set timeoutlen=500
@@ -245,40 +241,25 @@ augroup END
 " }}}
 " Plugin settings {{{
 
+" akinsho/bufferline.nvim {{{
+
+lua << EOF
+    require('bufferline').setup({
+      options = {
+        show_close_icon = false,
+        show_buffer_close_icons = false,
+        always_show_bufferline = false,
+        separator_style = 'slant',
+        diagnostics = "nvim_lsp",
+      },
+    })
+EOF
+
+" }}}
 " AndrewRadev/splitjoin.vim {{{
 
 " Put closing angle bracket in HTML on a new line
 let g:splitjoin_html_attributes_bracket_on_new_line = 1
-
-" }}}
-" bling/vim-airline {{{
-
-let g:airline_powerline_fonts = 1
-let g:airline_exclude_preview = 1
-" Don't draw separators for empty sections. (Adds ~35ms to startup time!)
-" let g:airline_skip_empty_sections = 1
-" Make airline a tiny bit faster (~5ms)
-let g:airline_highlighting_cache = 1
-" Optimization: don't search for all possible extensions
-let g:airline_extensions = [
-    \ 'branch',
-    \ 'csv',
-    \ 'fugitiveline',
-    \ 'gutentags',
-    \ 'quickfix',
-    \ 'nvimlsp',
-    \ 'tabline',
-    \ 'tagbar',
-    \ 'term',
-    \ 'vimtex'
-    \ ]
-let g:airline#extensions#nvimlsp#error_symbol = '✖'
-let g:airline#extensions#nvimlsp#warning_symbol = '⚠'
-let g:airline#extensions#nvimlsp#show_line_numbers = 0
-" Show column name for CSVs instead of index
-let g:airline#extensions#csv#column_display = 'Name'
-let g:airline#extensions#tabline#buffer_min_count = 2
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " }}}
 " chrisbra/csv.vim {{{
@@ -414,6 +395,59 @@ augroup au_neomake_rust_enabled_makers
         let g:neomake_enabled_makers = ['clippy']
     endfunction
 augroup END
+
+" }}}
+" nvim-lualine/lualine.nvim {{{
+
+lua << EOF
+    require('lualine').setup({
+      options = {
+        theme = 'base16',
+        section_separators = { left = '🭀', right = '🭅' },
+        component_separators = '│',
+      },
+      extensions = {
+        'quickfix',
+        'man',
+        'fugitive',
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = {
+          {
+            'branch',
+            icon = '',
+            on_click = function() vim.cmd('Git') end,
+          },
+        },
+        lualine_c = {
+          { 'filename', path = 1 },
+        },
+        lualine_x = {
+          {
+            'diagnostics',
+            on_click = function() vim.cmd('Trouble') end,
+          },
+        },
+        lualine_y = {
+          'filetype',
+          {
+            'fileformat',
+            fmt = function(format)
+              return format == '' and '' or format
+            end,
+          },
+          {
+            'encoding',
+            fmt = function(encoding)
+              return encoding == 'utf-8' and '' or encoding
+            end,
+          },
+        },
+        lualine_z = { 'location', 'progress' },
+      },
+    })
+EOF
 
 " }}}
 " nvim-telescope/telescope-ui-select.nvim {{{
@@ -1006,7 +1040,7 @@ vmap gS  <Plug>VgSurround
 "   f            prompts for wrapping in a function call
 
 " }}}
-" Comletion mappings {{{
+" Completion mappings {{{
 
 "   <Tab>/<S-Tab>  Trigger completion (shows popup menu)
 "   <C-Tab>        Insert real tab
