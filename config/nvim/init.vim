@@ -1070,7 +1070,14 @@ let loaded_netrwPlugin = 1
 " Configure LSP
 lua << EOF
     -- Show initialisation progress
-    require('fidget').setup({})
+    require('fidget').setup({
+      text = {
+        spinner = 'dots',
+      },
+      window = {
+        border = 'rounded',
+      },
+    })
 
     local lspconfig = require('lspconfig')
     -- rust-analyzer is configured as part of the rust-tools plugin
