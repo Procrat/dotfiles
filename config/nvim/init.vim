@@ -349,16 +349,6 @@ lua << EOF
 EOF
 
 " }}}
-" junegunn/fzf {{{
-
-" Remove statusline from FZF popup
-augroup fzf
-    autocmd!
-    au FileType fzf set laststatus=0 noruler
-        \| au BufLeave <buffer> set laststatus=2 ruler
-augroup END
-
-" }}}
 " lervag/vimtex {{{
 
 let g:tex_flavor = 'latex'
