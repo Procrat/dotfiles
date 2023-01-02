@@ -373,20 +373,6 @@ let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 
 " }}}
-" neomake/neomake {{{
-
-let g:neomake_open_list = 2
-let g:neomake_haskell_enabled_makers = ['hdevtools', 'hlint']
-let g:neomake_python_enabled_makers = []
-augroup au_neomake_rust_enabled_makers
-    autocmd!
-    au FileType rust call s:RustMakers()
-    function! s:RustMakers()
-        let g:neomake_enabled_makers = ['clippy']
-    endfunction
-augroup END
-
-" }}}
 " nvim-lualine/lualine.nvim {{{
 
 lua << EOF
@@ -1110,14 +1096,6 @@ augroup misc
     "   Highlight todo files and other text files with vim-journal
     "   (and override detection of Markdown and text filetypes)
     au BufNewFile,BufRead *.txt,todo setlocal filetype=journal
-
-    " Set GHC options when configuring XMonad
-    let s:xmonad_lib = expand('~/.xmonad/lib')
-    au BufNewFile,BufRead ~/.xmonad/*
-        \ let g:hdevtools_options = '-g-i' . s:xmonad_lib |
-        \ let b:neomake_haskell_hdevtools_args =
-            \ ['--verbosity', 'silent', 'exec', '--',
-            \  'hdevtools', 'check', '-g-Wall', '-g-i' . s:xmonad_lib]
 
     " Help for Matlab/Octave (with shortcut K)
     au FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
