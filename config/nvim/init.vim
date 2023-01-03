@@ -113,8 +113,8 @@ let g:maplocalleader = "\<Space>"
 set undofile
 " Line numbering
 set number
-" Show vertical column at 80
-set colorcolumn=80
+" Show vertical column at whatever textwidth is set to
+set colorcolumn=+0
 " Highlight current line
 set cursorline
 " Ignore case when searching except if search has uppercase letters
@@ -155,22 +155,20 @@ set list
 set diffopt+=iwhite
 " Set window title
 set title
-" Pipe cursor in insert & command mode, underline in replace mode
-set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 " Use conceal (and don't waste space like level 1)
 set conceallevel=2
 " Let wrapped lines keep indentation, but show a ">>" to mark them
 set breakindent
 set showbreak=>>
-
-" Nvim settings
-if has('nvim')
-    " Show substitution feedback <3
-    set inccommand=split
-endif
-
+" Show substitution feedback <3
+set inccommand=split
 " Syntax highlight Lua in Vim scripts
 let g:vimsyn_embed = 'l'
+" Supposedly makes startup faster
+let g:python3_host_prog = '/usr/bin/python3'
+" Disable netrw completely. It's not behaving.
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
 
 " }}}
 " Folding {{{
@@ -215,27 +213,26 @@ set smartindent
 set copyindent
 set preserveindent
 
+
 " Indentation per filetype
+
+let g:python_recommended_style = 1
+let g:ruby_recommended_style = 1
+let g:rust_recommended_style = 1
+
 augroup indentation
     autocmd!
 
     au FileType css,scss setlocal shiftwidth=2 softtabstop=2
     au FileType haskell setlocal shiftwidth=4 softtabstop=4
-    au FileType js setlocal shiftwidth=2 softtabstop=2 textwidth=120
-        \ colorcolumn=120
+    au FileType javascript setlocal shiftwidth=2 softtabstop=2 textwidth=120
     au FileType lua setlocal shiftwidth=2 softtabstop=2
     au FileType prolog setlocal shiftwidth=4 softtabstop=4
-    au FileType python setlocal nocindent noshiftround shiftwidth=4
-        \ softtabstop=4 textwidth=79 colorcolumn=79
-    au FileType ruby setlocal shiftwidth=2 softtabstop=2
-    au FileType rust setlocal shiftwidth=4 softtabstop=4 textwidth=99
-        \ colorcolumn=99
-    au FileType tex setlocal shiftwidth=2 softtabstop=2
+    au FileType python setlocal nocindent noshiftround textwidth=79
     au FileType tex setlocal shiftwidth=2 softtabstop=2 textwidth=80
     au FileType vim setlocal shiftwidth=4 softtabstop=4
     au FileType xml,html,xhtml,htmldjango,eruby,xslt
         \ setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
-        \ colorcolumn=120
 augroup END
 
 " }}}
@@ -1037,11 +1034,6 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " }}}
 " Misc {{{
-
-let g:python3_host_prog = '/usr/bin/python3'
-
-" Disable netrw completely. It's not behaving.
-let loaded_netrwPlugin = 1
 
 " Configure LSP
 lua << EOF
