@@ -638,12 +638,6 @@ nnoremap <leader>ev <cmd>lua =vim.lsp.get_active_clients()<CR>
 nnoremap <leader>el <cmd>TroubleToggle document_diagnostics<CR>
 nnoremap <leader>eL <cmd>TroubleToggle workspace_diagnostics<CR>
 
-" Send a blame mail from a git repo
-function! Blame()
-    execute '!send_blame_mail ' . expand('%:p') . ' ' . line('.')
-endfunction
-nnoremap <leader>B :call Blame()<CR>
-
 " Markdown mappings for header decorations
 augroup markdown_mappings
     autocmd!
