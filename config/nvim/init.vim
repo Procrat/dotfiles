@@ -10,7 +10,6 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
 Plug 'godlygeek/tabular'
-Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
@@ -57,18 +56,8 @@ Plug 'sheerun/vim-polyglot'  " 35-50ms, depending on filetype
 " -- Slow plugins (> 50ms)
 " I don't write enough tex to optimise this
 Plug 'lervag/vimtex'  " ~80ms for (La)TeX
-" Completely defer to insert mode
-Plug 'SirVer/ultisnips', { 'on': [] }  " ~105ms for Ruby, <3ms for others 🤷
 " I'll fix this when I write some RoR again
 Plug 'tpope/vim-rails'  " ~60ms for Rails
-
-" -- Completion plugins (all < 3ms)
-Plug 'ervandew/supertab'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-tag'
-Plug 'deoplete-plugins/deoplete-zsh'
-Plug 'Shougo/deoplete-lsp'
-Plug 'Shougo/neco-vim'
 
 " -- Not profiled
 Plug 'j-hui/fidget.nvim'
@@ -84,14 +73,20 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'RRethy/nvim-base16'  " For lualine theme
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 
-call plug#end()
+" -- Completion and snippets (also not profiled yet)
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'onsails/lspkind.nvim'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'tamago324/cmp-zsh'
 
-" Defer loading of some plugins to insert mode
-augroup load_insert_plugins
-    autocmd!
-    autocmd InsertEnter * call plug#load('ultisnips')
-        \| autocmd! load_insert_plugins
-augroup END
+
+call plug#end()
 
 " }}}
 " Colorscheme settings {{{
@@ -119,8 +114,11 @@ set colorcolumn=+0
 set cursorline
 " Ignore case when searching except if search has uppercase letters
 set ignorecase smartcase
-" Always use a menu for autocompletion, insert longest match, no preview pane
-set completeopt=menuone,longest
+" Turn off built-in completion; we use nvim-cmp for that.
+set complete=
+" Always use a menu for autocompletion and don't insert text or select a match
+" without user interaction. The preview window configured by nvim-cmp.
+set completeopt=menuone,noinsert,noselect
 " Ignore files in autocompletion
 set wildignore=*.o,*.obj,*.pyc,*.class,*.orig,*/.git/*
 " Maximum height of the autocompletion popup menu (pum)
@@ -490,48 +488,6 @@ let g:vue_disable_pre_processors = 1
 let g:echodoc_enable_at_startup = 1
 
 " }}}
-" simrat39/rust-tools.nvim {{{
-
-lua << EOF
-    require('rust-tools').setup({
-      tools = {
-        inlay_hints = {
-          only_current_line = true,
-        },
-      },
-      server = {
-        settings = {
-          ["rust-analyzer"] = {
-            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-            checkOnSave = {
-              -- default: `cargo check`
-              command = "clippy"
-            },
-          },
-        }
-      },
-    })
-EOF
-
-" }}}
-" SirVer/ultisnips {{{
-
-" Let :UltiSnipsEdit split horizontally or vertically
-let g:UltiSnipsEditSplit='context'
-
-" }}}
-" Completion settings {{{
-
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#var('omni', 'input_patterns', {
-    \ 'tex': g:vimtex#re#deoplete
-    \})
-" Enable context-dependent completion
-let g:SuperTabDefaultCompletionType = 'context'
-" And fall back to normal <c-n>
-let g:SuperTabContextDefaultCompletionType = '<C-n>'
-
-" }}}
 
 " }}}
 " General mappings {{{
@@ -880,17 +836,6 @@ augroup END
 
 
 " }}}
-" SirVer/ultisnips {{{
-
-"   ß                   Expand snippet
-let g:UltiSnipsExpandTrigger='ß'
-"   <C-j>               Move to next editable part in the snippet
-"   <C-k>               Move the previous editable part in the snippet
-
-" Commands:
-"   :UltiSnipsEdit[!]   Open (global) snippets file
-
-" }}}
 " tpope/vim-commentary {{{
 
 "   <leader>c<motion> Toggle comments over <motion>
@@ -1007,29 +952,10 @@ vmap gS  <Plug>VgSurround
 "   f            prompts for wrapping in a function call
 
 " }}}
-" Completion mappings {{{
-
-"   <Tab>/<S-Tab>  Trigger completion (shows popup menu)
-"   <C-Tab>        Insert real tab
-
-" With the popup menu open:
-"   <C-n>/<Tab>/<Down>    Select next match
-"   <C-p>/<S-Tab>/<Up>    Select previous match
-"   <C-e>/<Esc>           Exit completion and return to initial text
-"   <PageUp>/<PageDown>   Scroll half a page up/down in the menu
-" Make other popup menu keybindings like in IDEs
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " }}}
+" LSP setup {{{
 
-" }}}
-" Misc {{{
-
-" Configure LSP
 lua << EOF
     -- Show initialisation progress
     require('fidget').setup({
@@ -1042,8 +968,34 @@ lua << EOF
     })
 
     local lspconfig = require('lspconfig')
-    -- rust-analyzer is configured as part of the rust-tools plugin
+
+    -- Tell all LSP servers that we can handle snippets
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    lspconfig.util.default_config = vim.tbl_extend(
+      "force",
+      lspconfig.util.default_config,
+      { capabilities = capabilities }
+    )
+
     lspconfig.pyright.setup({})
+    require('rust-tools').setup({
+      tools = {
+        inlay_hints = {
+          only_current_line = true,
+        },
+      },
+      server = {
+        settings = {
+          ["rust-analyzer"] = {
+            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+            checkOnSave = {
+              -- default: `cargo check`
+              command = "clippy"
+            },
+          },
+        }
+      },
+    })
     lspconfig.volar.setup({
       init_options = {
         typescript = {
@@ -1067,6 +1019,91 @@ lua << EOF
     })
 EOF
 
+" }}}
+" Completion setup {{{
+
+lua << EOF
+  local has_words_before = function()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    if col == 0 then
+      return false
+    end
+    local last_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1]
+    return last_char:match('%s') == nil
+  end
+
+  local feedkey = function(key_string)
+    local key = vim.api.nvim_replace_termcodes(key_string, true, true, true)
+    vim.api.nvim_feedkeys(key, '', false)
+  end
+
+  local cmp = require('cmp')
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    window = {
+      documentation = cmp.config.window.bordered(),
+    },
+    mapping = {
+       -- Emulate something like ye ole SuperTab
+       ['<Tab>'] = cmp.mapping(function(fallback)
+         if cmp.visible() then
+           cmp.select_next_item()
+         elseif vim.fn['vsnip#available'](1) == 1 then
+           feedkey('<Plug>(vsnip-expand-or-jump)')
+         elseif has_words_before() then
+           cmp.complete()
+         else
+           fallback()
+         end
+       end, { 'i', 's', 'c' }),
+       ['<S-Tab>'] = cmp.mapping(function(fallback)
+         if cmp.visible() then
+           cmp.select_prev_item()
+         elseif vim.fn['vsnip#jumpable'](-1) == 1 then
+           feedkey('<Plug>(vsnip-jump-prev)')
+         else
+           fallback()
+         end
+       end, { 'i', 's', 'c' }),
+       ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+       ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+       ['<CR>'] = cmp.mapping.confirm({ select = false }),
+       ['<C-c>'] = cmp.mapping(cmp.mapping.abort(), { 'i', 'c' }),
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+      { name = 'path' },
+      { name = 'zsh' },
+    }),
+    formatting = {
+      format = require('lspkind').cmp_format({
+        mode = 'symbol',
+      }),
+    },
+  })
+
+  cmp.setup.cmdline({ '/', '?' }, {
+    sources = {
+      { name = 'buffer' },
+    },
+  })
+
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' },
+    }, {
+      { name = 'cmdline' },
+    })
+  })
+EOF
+
+" }}}
+" Misc autocommands {{{
 
 augroup misc
     autocmd!
