@@ -39,13 +39,8 @@ pip-compile --upgrade \
 pip-sync --user "$HOME/.config/pip/requirements.txt"
 pip check || true
 
-# Ensure Rust and local crates are up to date
+# Ensure Rust is up to date
 rustup update
-# Update all local crates except wasm-bindgen-cli
-cargo install-update -l \
-    | tail +4 | cut -d' ' -f1 \
-    | grep -vw 'wasm-bindgen-cli' \
-    | xargs cargo install-update
 
 # Install Haskell tools
 stack install \
