@@ -1,9 +1,9 @@
 [submodule "xmonad/singlespacing"]
 	path = xmonad-libs/singlespacing
-	url = git@github.com:Procrat/xmonad-singlespacing
+	url = ../xmonad-singlespacing
 [submodule "xmonad/contexts"]
 	path = xmonad-libs/contexts
-	url = git@github.com:Procrat/xmonad-contexts
+	url = ../xmonad-contexts
 [submodule "xmonad/pseudotiling"]
 	path = xmonad-libs/pseudotiling
-	url = git@github.com:Procrat/xmonad-pseudotiling
+	url = ../xmonad-pseudotiling
