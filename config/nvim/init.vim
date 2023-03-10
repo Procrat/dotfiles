@@ -1030,9 +1030,20 @@ lua << EOF
     })
     -- Reduce LSP diagnostic noise from virtual text and signs
     vim.diagnostic.config({
-        virtual_text = false,
-        signs = false,
+      virtual_text = false,
+      signs = false,
+      float = {
+        border = 'rounded',
+        focusable = false,
+        header = '',
+      },
     })
+
+    -- Add borders to hover window
+    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+      vim.lsp.handlers.hover,
+      { border = 'rounded' }
+    )
 EOF
 
 " }}}
