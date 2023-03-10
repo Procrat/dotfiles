@@ -84,7 +84,7 @@ Dependency tree
 - X11/xinitrc
   - feh
   - gnome-keyring-daemon
-  - Custom i3lock fork
+  - i3lock (Lixxia's fork)
   - picom
   - Redshift
   - unclutter
@@ -139,7 +139,7 @@ Dependency tree
   - bc
   - BlueZ
   - curl
-  - Custom i3lock fork
+  - i3lock (Lixxia's fork)
   - dmenu2
   - feh
   - gcalcli
