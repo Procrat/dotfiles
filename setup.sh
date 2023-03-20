@@ -60,6 +60,7 @@ dotfiles=(
     config/redshift
     config/rofi
     config/systemd
+    config/procps/toprc
     config/touchegg/touchegg.conf
     config/user-dirs.dirs
     config/xmobar
