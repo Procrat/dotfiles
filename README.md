@@ -59,7 +59,6 @@ Dependency tree
   - Mosh
   - Neovim
   - pass
-  - Pygments
   - ranger
   - ripgrep
   - systemd
@@ -157,7 +156,6 @@ Dependency tree
   - pass
   - pip
   - pip-tools
-  - Pygments
   - Python 3
   - rustup
   - SoX
