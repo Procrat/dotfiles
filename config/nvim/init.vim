@@ -699,7 +699,7 @@ nnoremap <leader>o :Files<CR>
 "   <leader>O         Fzf recently opened file
 nnoremap <leader>O :History<CR>
 "   <leader>gr        Fzf text (with selection in visual mode)
-nnoremap <leader>gr :Rg<space>
+nnoremap <leader>gr :Rg<CR>
 vnoremap <leader>gr "hy:Rg <C-R>h<CR>
 "   <leader>t         Fzf tag
 nnoremap <leader>t :Tags<CR>
