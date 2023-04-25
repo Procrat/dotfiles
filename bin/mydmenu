@@ -18,4 +18,4 @@ screen_geometry="$(wmctrl -d | awk '/^...\*/ { print $4 }')"
 width="$((${screen_geometry%x*} - 450))"
 
 exec yeganesh -f -p "$yeganesh_profile" -- \
-    -i -f -h "$HEIGHT" -x 60 -w "$width" "$@"
+    -i -f -h "$HEIGHT" -x 90 -w "$width" "$@"

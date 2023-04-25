@@ -57,7 +57,7 @@ Config {
   , persistent = True
 
   -- integration
-  , position = TopSize C 98 32
+  , position = TopSize C 98 48
   , iconRoot = "/home/procrat/.config/icons/xbm/"
   }
 

@@ -236,7 +236,7 @@ myLogHook = fadeInactiveLogHook 0.9
 
 
 myStatusBar :: SB.StatusBarConfig
-myStatusBar = SB.statusBarProp "xmobar" (pure xmobarPP)
+myStatusBar = SB.statusBarProp "xmobar --dpi=240" (pure xmobarPP)
 
 xmobarPP :: SB.PP
 xmobarPP = withContextShown . SB.filterOutWsPP [NS.scratchpadWorkspaceTag] $ def
