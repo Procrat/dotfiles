@@ -47,9 +47,8 @@ Config {
     ]
 
   -- appearance
-  , font = "xft:Ubuntu:size=10"
-  , additionalFonts = ["xft:DejaVu Sans:size=14"]
-  , textOffsets = [25]
+  , font = "Ubuntu Light 9"
+  , additionalFonts = ["DejaVu Sans 13"]
   , bgColor = "#3B3228"
   , fgColor = "#B8AFAD"
 
