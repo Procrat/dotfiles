@@ -16,14 +16,19 @@ export QT_STYLE_OVERRIDE=adwaita-dark
 # Set ask-pass utility (password dialog) for sudo
 export SUDO_ASKPASS="$HOME/bin/zenity-ask-pass"
 
+# Load Xresources
+xrdb "$HOME/.Xresources"
+
+# Set Xft.dpi to roughly the same as the screen's DPI which is assumed to be
+# set correctly by either the X config or xrandr.
+dpi="$(xdpyinfo | sed -n 's/\s*resolution:\s*\([0-9]\+\)x\1 dots per inch$/\1/p')"
+echo "Xft.dpi: ${dpi}" | xrdb -merge
+
 # Background
 ([ -s "$HOME/.fehbg" ] && bash "$HOME/.fehbg") &
 
 # Start autorepeat after .3s and repeat 55/s
 xset r rate 300 55 &
-
-# Xresources otherwise gets loaded async, which might fuck up some stuff
-xrdb "$HOME/.Xresources"
 
 # Set the minimum brightness of the screen to 1 instead of 0
 light -N 1

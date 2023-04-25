@@ -1,14 +1,4 @@
 !-----------------------------------------------------------------------------
-! Xft settings
-!-----------------------------------------------------------------------------
-
-! Even though our real DPI 166 and the closest multiple is 1.75 * 96 = 168, we
-! set it to 1.5 * 96 = 144 to still have some visual space.
-! Unlike the name suggests, this does not only scale fonts, but also most UIs.
-Xft.dpi: 144
-
-
-!-----------------------------------------------------------------------------
 ! Colorscheme: Base16 (https://github.com/chriskempson/base16)
 !-----------------------------------------------------------------------------
 
