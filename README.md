@@ -151,6 +151,7 @@ Dependency tree
   - libnotify
   - lostfiles
   - mailx
+  - mpv
   - NetworkManager
   - pacman
   - pass
@@ -162,7 +163,6 @@ Dependency tree
   - stack
   - systemd
   - valgrind
-  - VLC
   - wmctrl
   - xclip
   - XMonad

@@ -55,7 +55,7 @@ fi
 
 (sleep $seconds && {
     if [[ -n "$song" ]]; then
-        vlc -q "$song"
+        mpv --really-quiet "$song"
     else
         canberra-gtk-play -i alarm-clock-elapsed -V 15 &
         [[ -z "$message" ]] && message='AAAARGH! SNEL, HAAL DINGEN VAN HET VUUR OF UIT DE OVEN OF ZO!!1!'
