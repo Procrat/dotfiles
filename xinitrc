@@ -27,9 +27,6 @@ echo "Xft.dpi: ${dpi}" | xrdb -merge
 # Background
 ([ -s "$HOME/.fehbg" ] && bash "$HOME/.fehbg") &
 
-# Start autorepeat after .3s and repeat 55/s
-xset r rate 300 55 &
-
 # Set the minimum brightness of the screen to 1 instead of 0
 light -N 1
 
