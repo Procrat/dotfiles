@@ -80,16 +80,17 @@ Dependency tree
 - systemd
 - Tern
 - Universal Ctags
-- X11/xinitrc
+- X11/xinit
   - feh
-  - gnome-keyring-daemon
   - i3lock (Lixxia's fork)
+  - keychain
+  - light
   - picom
   - Redshift
+  - Touchegg
   - unclutter
   - XMonad
-  - xrdb
-  - xset
+  - xorg-xset
   - xss-lock
 - xmobar
   - Fonts: Ubuntu & DejaVu Sans

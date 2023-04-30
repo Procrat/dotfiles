@@ -36,10 +36,6 @@ xset s 120 180
 xss-lock --notifier=dim-screen --transfer-sleep-lock -- \
   lock-screen --nofork &
 
-# Enable keyring
-eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
-export SSH_AUTH_SOCK
-
 # Start unclutter daemon
 unclutter --fork \
   --timeout 2 \
@@ -56,6 +52,10 @@ redshift &
 
 # Start multitouch gesture daemon
 touchegg &
+
+# Start keychain, a SSH agent & GPG agent combined
+export SSH_ASKPASS=/usr/lib/ssh/gnome-ssh-askpass3
+eval "$(keychain --eval --noask --agents ssh,gpg id_ed25519 stijnseghers@gmail.com)"
 
 # Start window manager
 exec xmonad &>>"$XDG_RUNTIME_DIR/xsession-errors"
