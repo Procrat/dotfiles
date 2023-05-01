@@ -56,7 +56,6 @@ Dependency tree
   - Git
   - IPython
   - isort
-  - Mosh
   - Neovim
   - pass
   - ranger
