@@ -49,9 +49,6 @@ ranger_cd() {
     fi
 }
 alias r='ranger_cd'
-alias tne='trans nl:en'
-alias ten='trans en:nl'
-alias haz_internetz='ping 8.8.8.8'
 alias tf='terraform'
 
 c() {
