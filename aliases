@@ -38,7 +38,6 @@ alias open='xdg-open'
 alias psh='prefix-shell'
 alias mywatch='watch -c -d -e -t -n 1'
 alias servewd='python -m http.server'
-alias ssh='TERM=screen ssh'
 ranger_cd() {
     local temp_file dir
     temp_file="$(mktemp --tmpdir "ranger_cd.XXXX")"
