@@ -13,9 +13,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Use Adwaita Dark theme for Qt applications
 export QT_STYLE_OVERRIDE=adwaita-dark
 
-# Set ask-pass utility (password dialog) for sudo
-export SUDO_ASKPASS="$HOME/bin/zenity-ask-pass"
-
 # Load Xresources
 xrdb "$HOME/.Xresources"
 

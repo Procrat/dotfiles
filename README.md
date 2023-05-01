@@ -173,7 +173,6 @@ Dependency tree
   - xss-lock
   - Yay
   - yeganesh
-  - zenity
 
 
 Color scheme
