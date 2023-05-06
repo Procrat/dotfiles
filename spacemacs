@@ -64,7 +64,6 @@ This function should only modify configuration layer settings."
      haskell
      html
      (javascript :variables
-                 javascript-disable-tern-port-files t
                  node-add-modules-path t)
      markdown
      (python :variables python-pipenv-activate t)

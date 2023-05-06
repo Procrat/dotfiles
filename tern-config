@@ -1,8 +1,0 @@
-{
-    "libs": [
-        "jquery"
-    ],
-    "plugins": {
-        "complete_strings": {}
-    }
-}

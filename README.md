@@ -74,7 +74,6 @@ Dependency tree
   - For TypeScript: TypeScript language server
   - For Vue: VLS (Vue Language Server)
 - systemd
-- Tern
 - Universal Ctags
 - X11/xinit
   - feh

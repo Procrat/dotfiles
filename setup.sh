@@ -74,7 +74,6 @@ dotfiles=(
     spacemacs
     ssh/config
     ssh/config.d
-    tern-config
     xinitrc
     xprofile
     Xresources

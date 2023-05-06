@@ -70,7 +70,6 @@ target/
 
 # JavaScript stuff
 node_modules/
-.tern-port
 
 # Unity stuff
 Library/
