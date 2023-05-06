@@ -42,7 +42,6 @@ dotfiles=(
     config/alacritty
     config/bat
     'config/Code - OSS/User/settings.json'
-    config/ctags
     config/dunst
     config/dzen
     config/environment.d

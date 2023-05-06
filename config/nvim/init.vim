@@ -12,7 +12,6 @@ Plug 'cohama/lexima.vim'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
@@ -22,7 +21,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'plasticboy/vim-markdown'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'preservim/tagbar'
 Plug 'psliwka/vim-smoothie'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
@@ -350,18 +348,6 @@ let g:tex_flavor = 'latex'
 let g:vimtex_fold_enabled = 1
 
 " }}}
-" ludovicchabant/vim-gutentags {{{
-
-let g:gutentags_cache_dir = '~/.cache/gutentag'
-let g:gutentags_exclude_filetypes = [
-    \ 'gitcommit',
-    \ 'gitconfig',
-    \ 'gitrebase',
-    \ 'gitsendemail',
-    \ 'git',
-    \ ]
-
-" }}}
 " mattn/gist-vim {{{
 
 let g:gist_detect_filetype = 1
@@ -442,34 +428,6 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeChDirMode = 2
 let g:NERDTreeMapActivateNode = 'l'
 let g:NERDTreeMapJumpParent = 'h'
-
-" }}}
-" preservim/tagbar {{{
-
-let g:tagbar_autofocus = 1
-let g:tagbar_sort = 0
-let g:tagbar_compact = 1
-let g:tagbar_iconchars=['▸', '▾']
-let g:tagbar_type_ansible = {
-    \ 'ctagstype': 'ansible',
-    \ 'kinds': [
-        \ 't:tasks'
-    \ ],
-    \ 'sort': 0
-\ }
-let g:tagbar_type_typescript = {
-    \ 'ctagstype': 'typescript',
-    \ 'kinds': [
-        \ 'c:classes',
-        \ 'n:modules',
-        \ 'f:functions',
-        \ 'v:variables',
-        \ 'v:varlambdas',
-        \ 'm:members',
-        \ 'i:interfaces',
-        \ 'e:enums'
-    \ ]
-\ }
 
 " }}}
 " rhysd/clever-f.vim {{{
@@ -701,8 +659,6 @@ nnoremap <leader>O :History<CR>
 "   <leader>gr        Fzf text (with selection in visual mode)
 nnoremap <leader>gr :Rg<CR>
 vnoremap <leader>gr "hy:Rg <C-R>h<CR>
-"   <leader>t         Fzf tag
-nnoremap <leader>t :Tags<CR>
 "   <leader>/         Fzf line in current buffer
 nnoremap <leader>/ :BLines<CR>
 
@@ -716,8 +672,6 @@ nnoremap <leader>/ :BLines<CR>
 "   :Maps[!]             Fzf normal mode mapping
 "   :Rg[!]               Fzf text recursively
 "   :Rg[!] <query>       Same but with static filter
-"   :Tags[!]             Fzf tag
-"   :Tags[!] <query>     Same but with static filter
 
 " For :Files and :History, use enter key, CTRL-T, CTRL-X or CTRL-V to open
 " selected files in the current window, in new tabs, in horizontal splits, or
@@ -815,12 +769,6 @@ augroup END
 
 "   <leader>T  Open NERD Tree
 nnoremap <leader>T :NERDTreeToggle<CR>
-
-" }}}
-" preservim/tagbar {{{
-
-"   <leader>m  View output file.
-nnoremap <silent> <leader>m :TagbarToggle<CR>
 
 " }}}
 " shime/vim-livedown {{{

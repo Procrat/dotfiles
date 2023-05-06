@@ -41,7 +41,6 @@ Dependency tree
   - racer
   - ripgrep
   - stylish-haskell
-  - Universal Ctags
   - VLS (Vue Language Server)
   - xclip or XSel for synchronisation with X11 clipboard
   - A bunch of optional linting tools (ChkTeX, ESLint, HLint, Flake8, Pylint,
@@ -74,7 +73,6 @@ Dependency tree
   - For TypeScript: TypeScript language server
   - For Vue: VLS (Vue Language Server)
 - systemd
-- Universal Ctags
 - X11/xinit
   - feh
   - i3lock (Lixxia's fork)
