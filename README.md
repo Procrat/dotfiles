@@ -43,10 +43,8 @@ Dependency tree
   - stylish-haskell
   - VLS (Vue Language Server)
   - xclip or XSel for synchronisation with X11 clipboard
-  - A bunch of optional linting tools (ChkTeX, ESLint, HLint, Flake8, Pylint,
+  - A bunch of optional linting tools (ChkTeX, ESLint, HLint, Flake8,
     RLS, ShellCheck, stylelint, TFLint, Vint, ...)
-- Pylint
-  - For dealing with virtual environments: pylint-venv
 - ranger
 - Rofi
 - Shell aliases:

@@ -54,7 +54,6 @@ dotfiles=(
     config/mimeapps.list
     config/nvim/init.vim
     config/pip/requirements.in
-    config/pylintrc
     config/ranger/rc.conf
     config/redshift
     config/rofi
