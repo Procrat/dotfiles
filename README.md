@@ -147,8 +147,6 @@ Dependency tree
   - NetworkManager
   - pacman
   - pass
-  - pip
-  - pip-tools
   - Python 3
   - rustup
   - SoX

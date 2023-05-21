@@ -32,13 +32,6 @@ sudo pacdiff
 # Ensure dotfiles are linked and Neovim plugins are up to date
 "$HOME/repos/dotfiles/setup.sh"
 
-# Ensure local Python packages are up to date
-pip-compile --upgrade \
-    --output-file "$HOME/.config/pip/requirements.txt" \
-    "$HOME/.config/pip/requirements.in"
-pip-sync --user "$HOME/.config/pip/requirements.txt"
-pip check || true
-
 # Ensure Rust is up to date
 rustup update
 
