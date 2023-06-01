@@ -925,32 +925,7 @@ lua << EOF
       { capabilities = capabilities }
     )
 
-    lspconfig.pyright.setup({})
-    require('rust-tools').setup({
-      tools = {
-        inlay_hints = {
-          only_current_line = true,
-        },
-      },
-      server = {
-        settings = {
-          ["rust-analyzer"] = {
-            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-            checkOnSave = {
-              -- default: `cargo check`
-              command = "clippy"
-            },
-          },
-        }
-      },
-    })
-    lspconfig.volar.setup({
-      init_options = {
-        typescript = {
-          tsdk = '/usr/lib/node_modules/typescript/lib/',
-        },
-      },
-    })
+    -- Lua language server
     lspconfig.lua_ls.setup({
       settings = {
         Lua = {
@@ -967,6 +942,38 @@ lua << EOF
             -- Make the server aware of Neovim runtime files
             library = vim.api.nvim_get_runtime_file("", true),
           },
+        },
+      },
+    })
+    -- Python language server
+    lspconfig.pyright.setup({})
+    -- Rust language server and extra tools
+    require('rust-tools').setup({
+      tools = {
+        inlay_hints = {
+          only_current_line = true,
+        },
+      },
+      server = {
+        settings = {
+          ["rust-analyzer"] = {
+            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+            checkOnSave = {
+              -- default: `cargo check`
+              command = "clippy",
+            },
+            procMacro = {
+              enable = true,
+            },
+          },
+        },
+      },
+    })
+    -- Vue language server
+    lspconfig.volar.setup({
+      init_options = {
+        typescript = {
+          tsdk = '/usr/lib/node_modules/typescript/lib/',
         },
       },
     })
