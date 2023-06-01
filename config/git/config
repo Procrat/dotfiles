@@ -80,6 +80,7 @@
     unstage = reset HEAD --
     us = reset HEAD --
     usp = reset -p HEAD --
+    stash-rename = "!_() { rev=$(git rev-parse \"$1\") && git stash drop \"$1\" || exit 1; git stash store -m \"$2\" \"$rev\" }; _"
     stash-unapply = !git stash show -p | git apply -R
     pop = stash pop
     sshow = stash show -p
