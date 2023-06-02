@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# Sends a notification if a systemd service has failed.
+
+set -euo pipefail
+
+
+for environment in '--system' '--user'; do
+    if systemctl "$environment" -q is-system-running; then
+        continue
+    fi
+    failed_services=$(
+        systemctl "$environment" list-units --state=failed | \
+            sed '1d; /^$/,$d' | \
+            cut -d' ' -f1-2
+    )
+    notify-send -u critical -a 'systemd watchdog' \
+        "Some systemd $environment units failed:" \
+        "$failed_services"
+done
