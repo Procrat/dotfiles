@@ -90,3 +90,6 @@ bindkey -M viins jj vi-cmd-mode
 source /usr/share/fzf/key-bindings.zsh
 # Add fzf '**' completion (files, directories, process ID's, SSH hostnames)
 source /usr/share/fzf/completion.zsh
+
+# Add git-extras completion
+source /usr/share/doc/git-extras/git-extras-completion.zsh
