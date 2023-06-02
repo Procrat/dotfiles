@@ -414,6 +414,17 @@ EOF
 lua require('telescope').load_extension('ui-select')
 
 " }}}
+" nvim-treesitter/nvim-treesitter {{{
+
+lua << EOF
+    require('nvim-treesitter.configs').setup({
+      -- Automatically installs the relevant parser when entering a buffer.
+      -- Requires the tree-sitter CLI.
+      auto_install = true,
+    })
+EOF
+
+" }}}
 " plasticboy/vim-markdown {{{
 
 " Use my own, better foldtext (uses spaces instead of dots for visual ease)
