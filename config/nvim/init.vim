@@ -30,7 +30,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/JavaDecompiler.vim'
@@ -129,6 +128,7 @@ set clipboard=unnamedplus
 set pastetoggle=<leader>p
 " Start scrolling earlier
 set scrolloff=6
+set sidescrolloff=6
 " Make the new window below or right of the current one
 set splitbelow
 set splitright
@@ -158,6 +158,8 @@ set breakindent
 set showbreak=>>
 " Show substitution feedback <3
 set inccommand=split
+" Indicate that the line extends beyond the view in nowrap mode
+set listchars+=extends:>,precedes:<
 " Syntax highlight Lua in Vim scripts
 let g:vimsyn_embed = 'l'
 " Supposedly makes startup faster
