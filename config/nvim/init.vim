@@ -32,7 +32,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/JavaDecompiler.vim'
 
 " -- Slightly slower plugins (3ms -- 50ms)
 Plug 'easymotion/vim-easymotion'  " ~5ms
