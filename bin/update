@@ -25,9 +25,9 @@ paccache -r -k2
 # Remove all cached packages of uninstalled packages
 paccache -r -u -k0
 # Remove all unused cached AUR packages
-echo 'n\nn\nY\nY\n' | yay -Sc
+printf 'n\nn\nY\nY\n' | yay -Sc
 # Resolve .pacnew files
-sudo pacdiff
+DIFFPROG='/usr/bin/nvim -d' pacdiff --sudo --threeway
 
 # Ensure dotfiles are linked and Neovim plugins are up to date
 "$HOME/repos/dotfiles/setup.sh"
