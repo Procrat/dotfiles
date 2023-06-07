@@ -70,7 +70,6 @@ dotfiles=(
     shellrc
     spacemacs
     ssh/config
-    ssh/config.d
     xinitrc
     xprofile
     Xresources
