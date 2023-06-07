@@ -575,17 +575,6 @@ augroup markdown_mappings
     endfunction
 augroup END
 
-" Define Isort command and mapping for Python import sorting
-augroup python_isort_mappings
-    autocmd!
-    au FileType python call s:PythonIsortMappings()
-    function! s:PythonIsortMappings()
-        command! -range=% -nargs=* Isort :<line1>,<line2>! isort <args> -
-        nnoremap <buffer> <leader>i :Isort<CR>
-        vnoremap <buffer> <leader>i :Isort<CR>
-    endfunction
-augroup END
-
 " }}}
 " Plugin mappings {{{
 
