@@ -45,6 +45,7 @@ dotfiles=(
     config/dunst
     config/dzen
     config/environment.d
+    config/fontconfig
     config/gcalcli/gcalclirc
     config/git
     config/gtk-3.0/settings.ini
