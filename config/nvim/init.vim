@@ -67,7 +67,7 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'RRethy/nvim-base16'  " For lualine theme
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.*' }
 
 " -- Completion and snippets (also not profiled yet)
 Plug 'hrsh7th/cmp-buffer'
