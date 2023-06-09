@@ -361,7 +361,6 @@ lua << EOF
     require('lualine').setup({
       options = {
         theme = 'base16',
-        section_separators = { left = '🭀', right = '🭅' },
         component_separators = '│',
       },
       extensions = {
