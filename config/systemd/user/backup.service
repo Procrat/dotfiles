@@ -5,7 +5,8 @@ Description=Back up documents with Restic to an S3 bucket
 Type=oneshot
 Environment=AWS_PROFILE=restic
 Environment=RESTIC_PASSWORD_COMMAND='pass show restic'
-ExecStart=/usr/bin/restic -r s3:s3.amazonaws.com/procrat-backup --verbose backup %h/docs
+ExecStart=/usr/bin/aws-vault --backend=pass --pass-prefix=aws-cli exec restic \
+    -- restic -r s3:s3.amazonaws.com/procrat-backup --verbose backup %h/docs
 
 [Install]
 WantedBy=default.target

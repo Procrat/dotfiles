@@ -37,6 +37,7 @@ curl -sSfLo "$VIM_PLUG_DEST" --create-dirs "$VIM_PLUG_SCRIPT"
 echo 'Linking dotfiles...'
 dotfiles=(
     aliases
+    aws
     bashrc
     colors
     config/alacritty
