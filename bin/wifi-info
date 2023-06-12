@@ -17,8 +17,8 @@ if [[ "$info" = "Not connected." ]]; then
 else
     # Output general info about the connection
     ssid="$(echo "$info" | sed -rn 's/^\s*SSID: (.*)/\1/p')"
-    rx="$(echo "$info" | sed -rn 's/^\s*rx bitrate: (.*)/\1/p')"
-    tx="$(echo "$info" | sed -rn 's/^\s*tx bitrate: (.*)/\1/p')"
+    rx="$(echo "$info" | sed -rn 's_^\s*rx bitrate: (.*/s).*_\1_p')"
+    tx="$(echo "$info" | sed -rn 's_^\s*tx bitrate: (.*/s).*_\1_p')"
 
     ip_addr="$(ip addr show dev "$WIFI_DEVICE" | \
         sed -rn 's/^\s*inet\s+([^/]*).*/\1/p')"

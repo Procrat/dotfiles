@@ -7,7 +7,7 @@ Config {
               \<fc=#534636> <fn=1>│</fn> </fc>\
               \%disku%\
               \<fc=#534636> <fn=1>│</fn> </fc>\
-              \<action=`wifi-info | sed -z 's/\n$//' | xargs -0 notify-send -a wifi` button=1>%wlp58s0wi%</action>\
+              \<action=`wifi-info | sed -z 's/\n$//' | xargs -0 notify-send -a wifi` button=1>%wi%</action>\
               \<fc=#534636> <fn=1>│</fn> </fc>\
               \%battery%\
               \<fc=#534636> <fn=1>│</fn> </fc>\
@@ -28,7 +28,7 @@ Config {
                 ["-L", "2"
                 , "-l", "#CB6077"
                 ] 36000
-    , Run Wireless "wlp58s0"
+    , Run Wireless ""
                    ["-t", "<qualityipat>"
                    , "--"
                    , "--quality-icon-pattern", "<icon=wireless8-%%.xbm/>"
