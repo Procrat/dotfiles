@@ -10,6 +10,8 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
 Plug 'godlygeek/tabular'
+" Requires fzf and optinally rg for :Rg and bat for syntax highlighting in
+" previews
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
@@ -17,6 +19,7 @@ Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+" Requires the tree-sitter CLI for automatically installing new parsers
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'plasticboy/vim-markdown'
@@ -24,11 +27,11 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'psliwka/vim-smoothie'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
-Plug 'shime/vim-livedown'
+Plug 'shime/vim-livedown'  " Requires livedown
 Plug 'Shougo/echodoc.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'  " Requires git
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
@@ -50,15 +53,17 @@ let g:polyglot_disabled = [
 Plug 'sheerun/vim-polyglot'  " 35-50ms, depending on filetype
 
 " -- Slow plugins (> 50ms)
-" I don't write enough tex to optimise this
+" I don't write enough LaTeX to optimise this. Requires a LaTeX compilation
+" backend.
 Plug 'lervag/vimtex'  " ~80ms for (La)TeX
 " I'll fix this when I write some RoR again
 Plug 'tpope/vim-rails'  " ~60ms for Rails
 
 " -- Not profiled
 Plug 'j-hui/fidget.nvim'
-Plug 'folke/trouble.nvim'
-Plug 'kyazdani42/nvim-web-devicons'  " For trouble.nvim & bufferline.nvim
+Plug 'folke/trouble.nvim'  " Optionally requires nvim-web-devicons
+" For trouble.nvim & bufferline.nvim. Requires a Nerd Font.
+Plug 'nvim-tree/nvim-web-devicons'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/plenary.nvim'  " For telescope.nvim & null-ls.nvim
 Plug 'nvim-telescope/telescope.nvim'

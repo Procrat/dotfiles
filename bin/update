@@ -29,26 +29,12 @@ printf 'n\nn\nY\nY\n' | yay -Sc
 # Resolve .pacnew files
 DIFFPROG='/usr/bin/nvim -d' pacdiff --sudo --threeway
 
-# Ensure dotfiles are linked and Neovim plugins are up to date
-"$HOME/repos/dotfiles/setup.sh"
+# Ensure vim-plug and NeoVim plugins are up to date
+nvim +PlugUpgrade +qall
+nvim +PlugUpdate +qall
 
 # Ensure Rust is up to date
 rustup update
-
-# Install Haskell tools
-stack install \
-    hlint \
-    hoogle \
-    ShellCheck \
-    stylish-haskell \
-    xmobar-0.44.2 \
-    --flag xmobar:with_alsa \
-    --flag xmobar:with_iwlib \
-    --flag xmobar:with_nl80211 \
-    --flag xmobar:with_threaded \
-    --flag xmobar:-with_weather \
-    --flag xmobar:with_xft \
-    yeganesh
 
 # Ensure remote secrets store is up to date
 pass git pull
