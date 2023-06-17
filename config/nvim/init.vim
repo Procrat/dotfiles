@@ -284,7 +284,13 @@ let g:EasyMotion_verbose = 0
 " }}}
 " folke/which-key.nvim {{{
 
-lua require('which-key').setup({})
+lua << EOF
+    require('which-key').setup({
+      triggers_blacklist = {
+        i = {"f", "d"},
+      },
+    })
+EOF
 
 " }}}
 " jose-elias-alvarez/null-ls.nvim {{{
