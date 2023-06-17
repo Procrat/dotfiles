@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Sets the timezone based on the current IP address
+
+case "$2" in
+    up)
+        timedatectl set-timezone "$(curl --fail https://ipapi.co/timezone)"
+    ;;
+esac

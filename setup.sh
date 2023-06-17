@@ -78,12 +78,39 @@ setup_system() {
 
     setup_keymap
 
+    # Set up pacman & reflector
+    link_etc_dotfile 'pacman.conf'
+    ensure_packages_exist reflector
+    link_etc_dotfile 'xdg/reflector/reflector.conf'
+    # Periodically run reflector so we always have good mirrors
+    ensure_systemd_unit_enabled reflector.timer
+    # Periodically remove packages from the pacman cache
+    ensure_systemd_unit_enabled paccache.timer
+
     # Run ufw firewall
     ensure_packages_exist ufw
     if [[ "$(sudo ufw status)" != "Status: active" ]]; then
         sudo ufw default deny
         sudo ufw enable
     fi
+
+    # Automatically set the timezone based on our IP address
+    link_etc_dotfile 'NetworkManager/dispatcher.d/no-wait.d/09-timezone'
+
+    # Be a bit more lenient about locking out after failed login attempts
+    link_etc_dotfile 'security/faillock.conf'
+
+    # Slightly increase some limits to cope with modern system load
+    link_etc_dotfile 'security/limits.conf'
+
+    # Tune down swappiness so we still have an SSD at the end of the day
+    link_etc_dotfile 'sysctl.d/99-swappiness.conf'
+
+    # Make the power button suspend instead of shut down
+    link_etc_dotfile 'systemd/logind.conf'
+
+    # Send a notification when the battery level is critical
+    link_etc_dotfile 'udev/rules.d/98-low-battery.rules'
 
     # Update systemd-boot loader on updates
     ensure_systemd_unit_enabled systemd-boot-update.service
@@ -94,32 +121,28 @@ setup_system() {
     # Periodically run TRIM on SSDs
     ensure_systemd_unit_enabled fstrim.timer
 
-    # Periodically remove packages from the pacman cache
-    ensure_systemd_unit_enabled paccache.timer
-
-    # Periodically run reflector so we always have good mirrors
-    ensure_packages_exist reflector
-    ensure_systemd_unit_enabled reflector.timer
-
     # Other system utitilities
     ensure_packages_exist fwupd pkgstats
     ensure_aur_packages_exist downgrade
 
     # Lostfiles
     ensure_packages_exist lostfiles
-    local link="/etc/lostfiles.conf"
-    local target="${DOTFILES_DIR}/etc/lostfiles.conf"
-    if [[ "$(readlink "$link")" != "$target" ]]; then
-        note "Linking dotfile $link to $target"
-        sudo ln -sfnT "$target" "$link"
-    fi
+    link_etc_dotfile 'lostfiles.conf'
 
     # Etckeeper
     ensure_packages_exist etckeeper
+    link_etc_dotfile 'etckeeper/etckeeper.conf'
     if [[ ! -d /etc/.git ]]; then
         warn 'Etckeeper needs some initial set-up:'
         warn '  sudo etckeeper init'
-        warn 'Then, connect it to a remote repo.'
+        warn 'Then, connect it to a remote repo:'
+        warn '  sudo etckeeper vcs remote add origin git@somerepo.git'
+        warn "Make sure the root user's SSH config points to our SSH key:"
+        warn "  echo 'Host <remote>\n    IdentityFile <your-private-key>' |" \
+            'sudo tee /root/.ssh/config'
+        warn 'And finally sync with the remote repo:'
+        warn '  sudo etckeeper vcs fetch'
+        warn '  sudo etckeeper vcs push --set-upstream origin master'
     fi
 }
 
@@ -253,6 +276,10 @@ setup_zsh() {
 
     # Set up prezto
     ensure_aur_packages_exist prezto-git
+    # Don't initialise default prezto stuff; we'd end up overriding everything
+    # anyway. (I don't think the prezto package should be placing a
+    # /etc/zsh/zshrc file in the first place.)
+    link_etc_dotfile 'zsh/zshrc'
     link_dotfile 'zpreztorc'
 
     # Prompt
@@ -548,10 +575,16 @@ setup_desktop_environment() {
     setup_bar
     setup_launchers
     setup_notifications
+    setup_external_mouse
     setup_user_dirs
     context_note 'Ensuring fonts are set up'
     setup_fonts
     setup_gtk_and_qt
+}
+
+setup_external_mouse() {
+    # Make external mouse move a bit faster
+    link_etc_dotfile 'X11/xorg.conf.d/99-libinput-custom-config.conf'
 }
 
 setup_xinit() {
@@ -913,6 +946,17 @@ link_dotfile() {
         note "$note"
         mkdir -p "$(dirname "$link")"
         ln -sfnT "$target" "$link"
+    fi
+}
+
+link_etc_dotfile() {
+    local dotfile="$1"
+    local link="/etc/${dotfile}"
+    local target="${DOTFILES_DIR}/etc/${dotfile}"
+    if [[ "$(readlink "$link")" != "$target" ]]; then
+        note "Linking dotfile /etc/$dotfile"
+        sudo mkdir -p "$(dirname "$link")"
+        sudo ln -sfnT "$target" "$link"
     fi
 }
 
