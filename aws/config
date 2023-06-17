@@ -1,5 +1,7 @@
 [profile personal]
+region = eu-west-2
 credential_process = aws-vault --backend=pass --pass-prefix=aws-cli export --format=json personal
 
 [profile restic]
+region = eu-west-2
 credential_process = aws-vault --backend=pass --pass-prefix=aws-cli export --format=json restic
