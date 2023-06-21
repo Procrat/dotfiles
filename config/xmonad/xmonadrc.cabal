@@ -12,6 +12,7 @@ executable xmonad-x86_64-linux
   hs-source-dirs:      ., lib
   other-modules:
     XMonad.Actions.Contexts
+    XMonad.Layout.IconTabs
     XMonad.Layout.PseudoTiling
     XMonad.Layout.SilenceModifier
     XMonad.Layout.SingleSpacing

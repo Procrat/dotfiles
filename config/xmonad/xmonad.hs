@@ -21,6 +21,7 @@ import           XMonad.Hooks.UrgencyHook       (NoUrgencyHook (..),
                                                  withUrgencyHook)
 import           XMonad.Layout.LayoutHints      (layoutHintsWithPlacement)
 import           XMonad.Layout.NoBorders        (smartBorders)
+import           XMonad.Layout.PerWorkspace     (onWorkspace)
 import           XMonad.Layout.Renamed          (Rename (..), renamed)
 import           XMonad.Layout.WindowNavigation (Direction2D (..),
                                                  Navigate (..),
@@ -33,6 +34,7 @@ import qualified XMonad.Util.NamedScratchpad    as NS
 import           XMonad.Util.Run                (runProcessWithInput)
 
 import qualified XMonad.Actions.Contexts        as C
+-- import           XMonad.Layout.IconTabs         (iconTabbed)
 import           XMonad.Layout.PseudoTiling     (doPseudoTile, pseudoTiling)
 import qualified XMonad.Layout.PseudoTiling     as PseudoTiling
 import           XMonad.Layout.SilenceModifier  (silenceLayoutModifier)
@@ -183,7 +185,9 @@ myLayout = modifiers layouts
         . silenceLayoutModifier (layoutHintsWithPlacement (0.5, 0.5))
         . spacing 15
         . windowNavigation
-    layouts = pseudoTiling normal ||| zoomed
+    -- layouts = onWorkspace "im" (iconTabbed zoomed) $
+    layouts = onWorkspace "im" zoomed $
+        pseudoTiling normal ||| zoomed
     normal = renamed [Replace "Normal"] $ Tall 1 (3 / 100) (54 / 100)
     zoomed = renamed [Replace "Zoomed"] Full
 
