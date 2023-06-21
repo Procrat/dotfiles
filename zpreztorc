@@ -4,11 +4,11 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'editor' \
   'history' \
-  'autosuggestions' \
   'directory' \
   'completion' \
   'syntax-highlighting' \
-  'prompt'
+  'autosuggestions'
+  # 'prompt'
 
 # Yaay, colors everywhere!
 zstyle ':prezto:*:*' color 'yes'
@@ -21,8 +21,7 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 # Have editor tab completion ignore binary/media files.
 zstyle ':prezto:module:completion' editor-ignores 'yes'
 
-# Don't do cursor highlighting
-zstyle ':prezto:module:syntax-highlighting' highlighters 'main'
-
+# zstyle ':prezto:module:prompt' theme 'sorin'
+# https://github.com/sorin-ionescu/prezto/blob/master/modules/prompt/functions/prompt_sorin_setup
 
 # vim:filetype=zsh

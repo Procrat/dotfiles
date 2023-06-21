@@ -11,6 +11,8 @@ setopt chase_links
 setopt interactive_comments
 
 # Prompt
+# TODO make prompt async and use the recommended setup/hooks functions
+autoload -Uz promptinit && promptinit
 setopt PROMPT_SUBST
 login_info() {
     if [[ -n "$SSH_CONNECTION" ]]; then
@@ -25,16 +27,16 @@ dir_info() {
         echo '%B%F{cyan}%~%f%b'
     fi
 }
-[[ -f /usr/share/git/git-prompt.sh ]] && source /usr/share/git/git-prompt.sh
-GIT_PS1_SHOWCOLORHINTS=1
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWSTASHSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM=(verbose)
-GIT_PS1_STATESEPARATOR=''
+# [[ -f /usr/share/git/git-prompt.sh ]] && source /usr/share/git/git-prompt.sh
+# GIT_PS1_SHOWCOLORHINTS=1
+# GIT_PS1_SHOWDIRTYSTATE=1
+# GIT_PS1_SHOWSTASHSTATE=1
+# GIT_PS1_SHOWUNTRACKEDFILES=1
+# GIT_PS1_SHOWUPSTREAM=(verbose)
+# GIT_PS1_STATESEPARATOR=''
 git_info() {
-    # Call the prompt function form /usr/share/git/git-prompt.sh
-    type __git_ps1 2>&1 >/dev/null && __git_ps1 " (%s)"
+#     # Call the prompt function form /usr/share/git/git-prompt.sh
+#     type __git_ps1 2>&1 >/dev/null && __git_ps1 " (%s)"
 }
 virtualenv_info() {
     # Show wether we're in a virtualenv by adding a "v" to the dir
@@ -86,7 +88,7 @@ alias -g sprunge='| curl -F "sprunge=<-" http://sprunge.us'
 bindkey '^R' history-incremental-search-backward
 bindkey -M viins jj vi-cmd-mode
 
-# Add fzf keybindings (ctrl-t, ctrl-r and alt-c)
-source /usr/share/fzf/key-bindings.zsh
-# Add fzf '**' completion (files, directories, process ID's, SSH hostnames)
-source /usr/share/fzf/completion.zsh
+# # Add fzf keybindings (ctrl-t, ctrl-r and alt-c)
+# source /usr/share/fzf/key-bindings.zsh
+# # Add fzf '**' completion (files, directories, process ID's, SSH hostnames)
+# source /usr/share/fzf/completion.zsh
