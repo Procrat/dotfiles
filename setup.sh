@@ -776,7 +776,6 @@ setup_applications() {
         gnome-disk-utility \
         imv \
         libreoffice-still \
-        mpv \
         nautilus \
         obsidian \
         pavucontrol \
@@ -796,6 +795,7 @@ setup_applications() {
         mycrypto-bin \
         nsxiv
     setup_alacritty
+    setup_mpv
     setup_pass
     setup_rofi
     setup_steam
@@ -868,6 +868,12 @@ setup_light() {
     # Light is a brightness controller
     ensure_packages_exist light
     ensure_user_in_group video
+}
+
+setup_mpv() {
+    # mpv is a media player
+    ensure_packages_exist mpv
+    link_dotfile 'config/mpv'
 }
 
 setup_pass() {
