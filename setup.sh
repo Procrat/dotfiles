@@ -848,6 +848,7 @@ setup_handlr() {
     # Handlr is much more sane than FreeDesktop's xdg-open
     ensure_packages_exist handlr
     ensure_aur_packages_exist xdg-utils-handlr
+    link_dotfile 'config/handlr'
 }
 
 setup_keychain() {
