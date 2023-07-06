@@ -796,6 +796,7 @@ setup_applications() {
         nsxiv
     setup_alacritty
     setup_mpv
+    setup_nsxiv
     setup_pass
     setup_rofi
     setup_steam
@@ -875,6 +876,12 @@ setup_mpv() {
     # mpv is a media player
     ensure_packages_exist mpv
     link_dotfile 'config/mpv'
+}
+
+setup_nsxiv() {
+    # nsxiv is an image viewer
+    ensure_packages_exist nsxiv
+    link_dotfile 'config/nsxiv'
 }
 
 setup_pass() {
