@@ -967,10 +967,11 @@ link_etc_dotfile() {
     local dotfile="$1"
     local link="/etc/${dotfile}"
     local target="${DOTFILES_DIR}/etc/${dotfile}"
-    if [[ "$(readlink "$link")" != "$target" ]]; then
+    if ! diff -q "$target" "$link" 2>/dev/null; then
         note "Linking dotfile /etc/$dotfile"
         sudo mkdir -p "$(dirname "$link")"
-        sudo ln -sfnT "$target" "$link"
+        sudo ln -fnT "$target" "$link"
+        sudo chown -R root:root "$link"
     fi
 }
 
