@@ -1,5 +1,5 @@
 Config {
-  template = "   <fc=#8AB3B5><icon=arch_10x10.xbm/></fc>\
+  template = "   <fc=#8AB3B5>󰣇</fc>\
               \<fc=#534636> <fn=1>│</fn> </fc>\
               \%UnsafeXMonadLog%\
               \}{ \
