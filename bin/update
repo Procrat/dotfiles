@@ -8,10 +8,9 @@ set -euo pipefail
 
 
 # Assert that etckeeper's index is clean
-if ! (cd /etc && sudo git diff-index --quiet HEAD); then
+if ! sudo etckeeper vcs diff-index --quiet HEAD; then
     echo '/etc is not clean; please commit your changes before updating.' >&2
-    cd /etc
-    sudo git status
+    sudo etckeeper vcs status
     exit 1
 fi
 
@@ -41,9 +40,8 @@ pass git pull
 pass git push
 
 # Ensure /etc backup is up to date
-if (cd /etc && sudo git diff-index --quiet HEAD); then
-    cd /etc
-    sudo git push
+if sudo etckeeper vcs diff-index --quiet HEAD; then
+    sudo etckeeper vcs push
 else
     echo 'The update changed your /etc folder. Please review and commit ' >&2
     echo 'the new changes.' >&2
