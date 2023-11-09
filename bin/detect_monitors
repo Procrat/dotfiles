@@ -4,22 +4,25 @@
 
 set -euo pipefail
 
-LAPTOP_SCREEN='eDP1'
-OTHER_SCREENS=('DP1')
-
 
 ask_orientation() {
-    echo -e 'left\nright' | rofi -dmenu -p "Where is the external monitor?"
+    echo -e 'left\nright' | \
+        rofi -dmenu -p "Where is the external monitor?"
 }
+
+
+primary_screen=$(xrandr |
+    awk '$3 == "primary" && $2 == "connected" { print $1 }')
+mapfile -t other_screens < <(xrandr |
+    awk '$2 == "connected" && $1 != "'"$primary_screen"'" { print $1 }')
 
 # Removes disconnected monitors
 xrandr --auto
 
-for screen in "${OTHER_SCREENS[@]}" ; do
-    if grep -q "^$screen connected" <(xrandr); then
-        orientation=$(ask_orientation)
-        xrandr --output "$screen" --auto "--${orientation:-right}-of" $LAPTOP_SCREEN
-    fi
+for screen in "${other_screens[@]}" ; do
+    orientation=$(ask_orientation)
+    xrandr --output "$screen" --auto \
+        "--${orientation:-right}-of" "$primary_screen"
 done
 
 if grep -q 'xmonad' <(wmctrl -m); then
