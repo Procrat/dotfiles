@@ -60,7 +60,7 @@ Plug 'lervag/vimtex'  " ~80ms for (La)TeX
 Plug 'tpope/vim-rails'  " ~60ms for Rails
 
 " -- Not profiled
-Plug 'j-hui/fidget.nvim'
+Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
 Plug 'folke/trouble.nvim'  " Optionally requires nvim-web-devicons
 " For trouble.nvim & bufferline.nvim. Requires a Nerd Font.
 Plug 'nvim-tree/nvim-web-devicons'
