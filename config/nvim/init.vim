@@ -339,9 +339,6 @@ lua << EOF
         null_ls.builtins.formatting.jq,
         -- Lua
         null_ls.builtins.diagnostics.luacheck,
-        -- Python
-        null_ls.builtins.diagnostics.flake8,
-        null_ls.builtins.formatting.isort,
         -- Shell
         null_ls.builtins.code_actions.shellcheck,
         null_ls.builtins.diagnostics.shellcheck,
@@ -958,6 +955,8 @@ lua << EOF
     })
     -- Python language server
     lspconfig.pyright.setup({})
+    -- Python linter & formatter
+    lspconfig.ruff_lsp.setup({})
     -- Rust language server and extra tools
     require('rust-tools').setup({
       tools = {
