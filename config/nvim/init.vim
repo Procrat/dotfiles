@@ -65,10 +65,10 @@ Plug 'folke/trouble.nvim'  " Optionally requires nvim-web-devicons
 " For trouble.nvim & bufferline.nvim. Requires a Nerd Font.
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'simrat39/rust-tools.nvim'
-Plug 'nvim-lua/plenary.nvim'  " For telescope.nvim & null-ls.nvim
+Plug 'nvim-lua/plenary.nvim'  " For telescope.nvim & none-ls.nvim
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
-Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'nvimtools/none-ls.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'RRethy/nvim-base16'  " For lualine theme
@@ -293,7 +293,7 @@ lua << EOF
 EOF
 
 " }}}
-" jose-elias-alvarez/null-ls.nvim {{{
+" nvimtools/none-ls.nvim {{{
 
 lua << EOF
     local null_ls = require('null-ls')
@@ -312,7 +312,7 @@ lua << EOF
 
     null_ls.setup({
       sources = {
-        -- See https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+        -- See https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
         --
         -- CSS/Sass/SCSS/Less
         null_ls.builtins.diagnostics.stylelint.with({
