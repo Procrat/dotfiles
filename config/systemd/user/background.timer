@@ -1,9 +1,0 @@
-[Unit]
-Description=Change Unsplash wallpaper twice a day
-
-[Timer]
-OnStartupSec=1h
-OnUnitActiveSec=12h
-
-[Install]
-WantedBy=timers.target

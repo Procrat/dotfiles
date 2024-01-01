@@ -1,9 +1,0 @@
-[Unit]
-Description=Back up package list
-
-[Service]
-Type=oneshot
-WorkingDirectory=%h/docs/backup
-ExecStart=/bin/sh -c '\
-          pacman -Qen > arch-official-packages \
-          && pacman -Qem > arch-aur-packages'

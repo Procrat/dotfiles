@@ -1,9 +1,0 @@
-[Unit]
-Description=Back up package list every 12h
-
-[Timer]
-OnBootSec=5min
-OnUnitActiveSec=12h
-
-[Install]
-WantedBy=timers.target

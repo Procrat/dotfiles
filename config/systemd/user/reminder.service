@@ -1,6 +1,0 @@
-[Unit]
-Description=Reminder of calendar events
-
-[Service]
-Type=oneshot
-ExecStart=%h/bin/calendar-remind

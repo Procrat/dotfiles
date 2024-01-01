@@ -1,1 +1,0 @@
-../../../../../xmonad-libs/singlespacing/XMonad/Layout/SingleSpacing.hs

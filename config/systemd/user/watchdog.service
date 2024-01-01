@@ -1,6 +1,0 @@
-[Unit]
-Description=Watchdog for system failures
-
-[Service]
-Type=oneshot
-ExecStart=%h/bin/systemd-watchdog

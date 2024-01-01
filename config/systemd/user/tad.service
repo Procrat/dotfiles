@@ -1,9 +1,0 @@
-[Unit]
-Description=Time Awareness Daemon
-
-[Service]
-Type=simple
-ExecStart=%h/bin/tad
-
-[Install]
-WantedBy=default.target

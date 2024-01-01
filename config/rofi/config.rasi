@@ -1,9 +1,0 @@
-configuration {
-  dpi: 0;  /* Auto-detect DPI */
-  scroll-method: 1;
-}
-
-@theme "base16-mocha"
-
-
-// vim:ft=css

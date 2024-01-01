@@ -1,4 +1,0 @@
-SUBSYSTEM=="power_supply", \
-ATTR{capacity_level}=="Critical", \
-ENV{DBUS_SESSION_BUS_ADDRESS}="unix:path=/run/user/1000/bus", \
-RUN+="/usr/bin/su procrat -c \"notify-send -u critical -a 'Your battery' -i 'battery-level-10-symbolic.symbolic' 'Battery level critical'\""

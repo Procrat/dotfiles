@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-#
-# Fake replacement for xdg-mime, just for the `xdg-mime query default` case.
-
-if [[ ! ( $# -eq 3 && "$1" = 'query' && "$2" = 'default' ) ]]; then
-    exit 1
-fi
-exec handlr get "$3"

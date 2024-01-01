@@ -1,9 +1,0 @@
-[submodule "xmonad/singlespacing"]
-	path = xmonad-libs/singlespacing
-	url = ../xmonad-singlespacing
-[submodule "xmonad/contexts"]
-	path = xmonad-libs/contexts
-	url = ../xmonad-contexts
-[submodule "xmonad/pseudotiling"]
-	path = xmonad-libs/pseudotiling
-	url = ../xmonad-pseudotiling

@@ -1,4 +1,0 @@
-# Like .profile but only for X sessions.
-# Some display managers like gdm source this file instead of .xinitrc.
-
-source "$HOME/.xinitrc"
