@@ -52,50 +52,50 @@
 
 [alias]
     a = add -A
-    au = add -u
     ap = add -p
-    s = status -sb
-    st = status -sb
-    ci = commit
-    ca = commit --amend -C HEAD
-    fix = commit --fixup
-    wip = commit -am "WIP"
+    au = add -u
     br = branch
-    co = checkout
+    ca = commit --amend -C HEAD
+    ci = commit
     cob = checkout -b
+    co = checkout
     cop = checkout -p --
-    df = diff -b -w -B
-    dff = diff -b -w -B -W
-    dfw = diff -b -w -B --color-words
-    dffw = diff -b -w -B -W --color-words
     dfc = diff --cached -b -w -B
+    df = diff -b -w -B
     dffc = diff --cached -b -w -B -W
-    vdf = difftool
-    vdfc = difftool --cached
+    dff = diff -b -w -B -W
+    dffw = diff -b -w -B -W --color-words
+    dfw = diff -b -w -B --color-words
+    fix = commit --fixup
     lg = log --stat
     lgp = log --stat -p -b -w -B --color-words
-    lol = log --graph --pretty=oneline --abbrev-commit
-    lola = log --graph --pretty=oneline --abbrev-commit --all
     lolaf = log --graph --pretty=format:'%C(auto)%h%d %C(brightblack)%ah %C(magenta)%an %C(auto)%s' --all
-    unstage = reset HEAD --
-    us = reset HEAD --
-    usp = reset -p HEAD --
-    stash-rename = "!_() { rev=$(git rev-parse \"$1\") && git stash drop \"$1\" || exit 1; git stash store -m \"$2\" \"$rev\" }; _"
-    stash-unapply = !git stash show -p | git apply -R
-    pop = stash pop
-    sshow = stash show -p
-    undo = reset --soft HEAD^
-    ignore = update-index --assume-unchanged
-    unignore = update-index --no-assume-unchanged
-    contributors = shortlog --summary --numbered
+    lola = log --graph --pretty=oneline --abbrev-commit --all
+    lol = log --graph --pretty=oneline --abbrev-commit
     mergeff = merge --ff-only
-    rb = rebase
-    rebasi = rebase -i
-    rbi = rebase -i
+    pop = stash pop
+    pushf = push --force-with-lease
     rba = rebase --abort
     rbc = rebase --continue
+    rbi = rebase -i
     rbp = rebase --show-current-patch
-    pushf = push --force-with-lease
+    rb = rebase
+    sshow = stash show -p
+    s = status -sb
+    st = status -sb
+    undo = reset --soft HEAD^
+    unstage = reset HEAD --
+    usp = reset -p HEAD --
+    us = reset HEAD --
+    vdfc = difftool --cached
+    vdf = difftool
+    wip = commit -am "WIP"
+    # Infrequently used but hard to remember aliases
+    contributors = shortlog --summary --numbered
+    ignore = update-index --assume-unchanged
+    stash-rename = "!_() { rev=$(git rev-parse \"$1\") && git stash drop \"$1\" || exit 1; git stash store -m \"$2\" \"$rev\" }; _"
+    stash-unapply = !git stash show -p | git apply -R
+    unignore = update-index --no-assume-unchanged
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
