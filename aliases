@@ -56,7 +56,7 @@ c() {
         cd "$@"
         return $?
     fi
-    dir="$(cd ~ && fd --follow --type directory --exclude dropbox/archive --ignore-file ~/.config/git/ignore | fzf)"
+    dir="$(cd ~ && fd --follow --type directory | fzf)"
     if [[ -n "$dir" ]]; then
         cd "$HOME/$dir" || return 1
     else
