@@ -92,6 +92,7 @@ call plug#end()
 " }}}
 " Colorscheme settings {{{
 
+set termguicolors
 colorscheme base16-mocha
 lua << EOF
     local base16 = require('base16-colorscheme')
@@ -128,8 +129,6 @@ set pumheight=8
 set mouse=a
 " Copy/paste with X11 clipboard
 set clipboard=unnamedplus
-" Paste mode shortcut
-set pastetoggle=<leader>p
 " Start scrolling earlier
 set scrolloff=6
 set sidescrolloff=6
