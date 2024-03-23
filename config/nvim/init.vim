@@ -925,11 +925,11 @@ lua << EOF
     local lspconfig = require('lspconfig')
 
     -- Tell all LSP servers that we can handle snippets
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
-    lspconfig.util.default_config = vim.tbl_extend(
-      "force",
+    local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+    lspconfig.util.default_config = vim.tbl_deep_extend(
+      'force',
       lspconfig.util.default_config,
-      { capabilities = capabilities }
+      { capabilities = cmp_capabilities }
     )
 
     -- Lua language server
