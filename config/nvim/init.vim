@@ -323,8 +323,6 @@ lua << EOF
         -- Haskell
         null_ls.builtins.formatting.stylish_haskell,
         -- JS/TS/JSX/TSX/Vue
-        null_ls.builtins.code_actions.eslint_d,
-        null_ls.builtins.diagnostics.eslint_d,
         null_ls.builtins.formatting.prettier.with({
           filetypes = {
             'javascript',
@@ -932,6 +930,8 @@ lua << EOF
       { capabilities = cmp_capabilities }
     )
 
+    -- ESLint language server for linting JS/TS
+    lspconfig.eslint.setup({})
     -- Lua language server
     lspconfig.lua_ls.setup({
       settings = {
