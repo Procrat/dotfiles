@@ -463,6 +463,8 @@ setup_neovim() {
         pyright \
         typescript-language-server
     setup_vue
+    # DAP adapters
+    ensure_packages_exist python-debugpy
 
     # Install vim-plug and all plugins
     local vim_plug_path="$HOME/.local/share/nvim/site/autoload/plug.vim"

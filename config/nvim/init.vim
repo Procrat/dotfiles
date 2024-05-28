@@ -75,6 +75,15 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'RRethy/nvim-base16'  " For lualine theme
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.*' }
 
+" -- Debugging / DAP (also not profiled yet)
+Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-neotest/nvim-nio'  " For nvim-dap-ui
+Plug 'rcarriga/nvim-dap-ui'  " Requires nvim-nio & nvim-dap
+Plug 'mfussenegger/nvim-dap-python' " Requires nvim-dap and debugpy (external)
+Plug 'LiadOz/nvim-dap-repl-highlights'
+Plug 'rcarriga/cmp-dap'
+Plug 'theHamsta/nvim-dap-virtual-text'
+
 " -- Completion and snippets (also not profiled yet)
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-cmdline'
@@ -370,9 +379,11 @@ lua << EOF
         component_separators = '│',
       },
       extensions = {
-        'quickfix',
-        'man',
         'fugitive',
+        'man',
+        'nerdtree',
+        'nvim-dap-ui',
+        'quickfix',
       },
       sections = {
         lualine_a = { 'mode' },
@@ -543,8 +554,6 @@ nnoremap <S-Tab> :bprev<CR>
 nnoremap <leader>n :enew<cr>
 nnoremap <leader>d :Sayonara!<CR>
 nnoremap <leader>D :Sayonara<CR>
-nnoremap <leader>bd :bdelete<CR>
-nnoremap <leader>bD :bdelete!<CR>
 
 " Use S to grep (dependent on format of grepprg)
 nnoremap S :grep! <C-R><C-W><CR>:cw<CR>
@@ -1036,7 +1045,21 @@ lua << EOF
   end
 
   local cmp = require('cmp')
+  local cmp_dap = require('cmp_dap')
+
   cmp.setup({
+    -- Overridden so we _do_ get completion for the DAP REPL
+    enabled = function()
+      return not (  -- always, except:
+        -- when we're recording/executing a macro
+        vim.fn.reg_recording() ~= '' or vim.fn.reg_executing() ~= ''
+        -- when we're in a prompt buffer (but a DAP prompt buffer is fine!)
+        or (
+          vim.api.nvim_get_option_value('buftype', { buf = 0 }) == 'prompt'
+          and not cmp_dap.is_dap_buffer()
+        )
+      )
+    end,
     snippet = {
       expand = function(args)
         vim.fn["vsnip#anonymous"](args.body)
@@ -1097,6 +1120,121 @@ lua << EOF
     }, {
       { name = 'cmdline' },
     })
+  })
+
+  cmp.setup.filetype({ 'dap-repl', 'dapui_watches' }, {
+    sources = {
+      { name = 'dap' },
+    },
+  })
+EOF
+
+" }}}
+" Debugging / DAP setup {{{
+
+" Commands include:
+"     :DapToggleBreakpoint
+"     :DapToggleRepl
+"     :DapContinue
+"     :DapStep{Into,Out,Over}
+"     :DapTerminate
+"     :DapShowLog
+"     :DapLoadLaunchJSON
+"     :DapVirtualText{Enable,Disable,Toggle}
+
+lua << EOF
+  local dap = require('dap')
+  local dapui = require('dapui')
+
+  dapui.setup({
+    layouts = {
+      {
+        position = 'right',
+        size = 0.33,
+        elements = {
+          { id = 'breakpoints', size = 0.15 },
+          { id = 'stacks', size = 0.30 },
+          { id = 'scopes', size = 0.45 },
+          { id = 'watches', size = 0.1 },
+        },
+      },
+      {
+        position = 'bottom',
+        size = 0.25,
+        elements = {
+          'repl',
+          'console',
+        },
+      },
+    },
+  })
+  require('dap-python').setup()
+  require('nvim-dap-repl-highlights').setup()
+  require('nvim-dap-virtual-text').setup()
+
+  -- Breakpoint sign styling
+  vim.fn.sign_define("DapBreakpoint", {
+    text = "",
+  })
+  vim.fn.sign_define("DapBreakpointCondition", {
+    text = "",
+  })
+  vim.fn.sign_define("DapLogPoint", {
+    text = "󰛿",
+  })
+  vim.fn.sign_define("DapBreakpointRejected", {
+    text = "",
+    texthl = "DiagnosticSignError",
+  })
+  vim.fn.sign_define("DapStopped", {
+    text = "",
+    texthl = "DiagnosticSignInfo",
+    linehl = "Visual",
+    numhl = "Visual",
+  })
+
+  -- Global mapping: breakpoint management
+  vim.keymap.set('n', '<leader>bb', dap.toggle_breakpoint)
+  vim.keymap.set('n', '<leader>bc', dap.clear_breakpoints)
+  vim.keymap.set('n', '<leader>bL', dap.run_to_cursor)
+  vim.keymap.set('n', '<leader>bC', function()
+    vim.ui.input({ prompt = 'Condition: ' }, function(condition)
+      if condition then dap.set_breakpoint(condition) end
+    end)
+  end)
+  vim.keymap.set('n', '<leader>bl', function()
+    vim.ui.input({ prompt = 'Log message: ' }, function(message)
+      if message then dap.set_breakpoint(nil, nil, message) end
+    end)
+  end)
+  -- Global mapping: starting/stopping debugging mode
+  vim.keymap.set('n', '<leader>b<CR>', dap.continue)
+  vim.keymap.set('n', '<leader>bq', dap.terminate)
+
+  -- Toggle DAP UI based on execution
+  dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+  dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+  -- Local mapping in debug mode
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = {
+      'dap-repl',
+      'dapui_breakpoints',
+      'dapui_console',
+      'dapui_scopes',
+      'dapui_stacks',
+      'dapui_watches',
+    },
+    callback = function(args)
+      vim.keymap.set('n', 'c', dap.continue, { buffer = args.buf })
+      vim.keymap.set('n', 'n', dap.step_over, { buffer = args.buf })
+      vim.keymap.set('n', 's', dap.step_into, { buffer = args.buf })
+      vim.keymap.set('n', 'r', dap.step_out, { buffer = args.buf })
+      vim.keymap.set('n', 'q', dap.terminate, { buffer = args.buf })
+      vim.keymap.set('n', 'u', dap.up, { buffer = args.buf })
+      vim.keymap.set('n', 'd', dap.down, { buffer = args.buf })
+      vim.keymap.set('n', 'b', dap.step_back, { buffer = args.buf })
+    end
   })
 EOF
 
