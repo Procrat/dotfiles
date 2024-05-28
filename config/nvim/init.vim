@@ -931,6 +931,10 @@ lua << EOF
       { capabilities = cmp_capabilities }
     )
 
+    -- Biome language server for linting/formatting JS/TS
+    lspconfig.biome.setup({
+      single_file_support = true,
+    })
     -- ESLint language server for linting JS/TS
     lspconfig.eslint.setup({})
     -- Lua language server
