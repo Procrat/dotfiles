@@ -1,88 +1,42 @@
-# Compiled source
-*.class
-*.dll
-*.exe
-*.o
-*.so
+# This ignore file consists of:
+#   (1) user-specific files
+#   (2) files that are likely to be temporary
+# Project-specific and language-specific ignores should go in the repo itself.
 
-# Packages
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
+
+## User-specific
+
+# dotenv & direnv
+.env
+.envrc
+
+# Python virtualenv
+.venv/
+
+# VS Code configuration files
+.vscode/
+*.code-workspace
+
+# I have this habit of creating a personal todo file in a project
+todo
+
+# ripgrep ignore files
+.rgignore
+
+
+## Temporary files
+
+# Packages & archives
 *.7z
 *.dmg
 *.gz
-*.iso
 *.jar
 *.rar
 *.tar
 *.zip
 
-# Logs and databases
+# Logs
 *.log
+
+# Databases
 *.sqlite
-
-# Eclipse/Eclim configuration files
-workbench.xmi
-.project
-.classpath
-# Maven settings
-.settings/
-
-# LaTeX/TeX working files
-*.fls
-*.fdb_latexmk
-*.aux
-*.log
-*.out
-*.bbl
-*.blg
-*.run.xml
-*-blx.bib
-
-# IntelliJ IDEA configuration files
-.idea/
-*.iml
-# IntelliJ IDEA output files
-out/
-
-# Virtual env
-.venv/
-
-# Rails stuff
-config/secrets.yml_bak
-
-# Redis stuff
-*.rdb
-
-# Python cache
-*.pyc
-__pycache__
-
-# Python coverage package output
-.coverage
-
-# Haskell shit
-*.hi
-.cabal-sandbox
-
-# Rust stuff
-target/
-
-# JavaScript stuff
-node_modules/
-
-# Unity stuff
-Library/
-Temp/
-
-# Dot-env
-.env
-
-# I have this habit of creating a personal todo file in a project
-todo
-
-# VS Code configuration files
-.vscode/
-
-# ripgrep ignore files
-.rgignore
