@@ -922,6 +922,7 @@ setup_ssh() {
     fi
 
     link_dotfile 'ssh/config'
+    mkdir -p "$HOME/.ssh/config.d"
 }
 
 setup_steam() {
