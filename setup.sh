@@ -462,6 +462,7 @@ setup_neovim() {
         lua-language-server \
         pyright \
         typescript-language-server
+    ensure_aur_packages_exist biome-bin
     setup_vue
     # DAP adapters
     ensure_packages_exist python-debugpy
