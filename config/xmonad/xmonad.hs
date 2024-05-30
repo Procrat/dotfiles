@@ -56,21 +56,25 @@ myConfig =
     $ docks  -- prepends startup, event & manage hook
     $ ewmh  -- prepends startup, event & log hook
     def {
-        keys               = \conf -> EZ.mkKeymap conf (myKeyBindings conf),
+        keys               = \conf -> EZ.mkKeymap conf myKeyBindings,
         layoutHook         = myLayout,
         terminal           = plainTerminal,
         focusFollowsMouse  = False,
         clickJustFocuses   = False,
         borderWidth        = 3,
         modMask            = mod4Mask,
-        workspaces         = ["im", "todo", "music"] ++ map show ([4..9] :: [Int]),
+        workspaces         = myWorkspaces,
         normalBorderColor  = "#3B3228",
         focusedBorderColor = "#7E705A"
     }
 
 
-myKeyBindings :: XConfig l -> [(String, X ())]
-myKeyBindings conf =
+myWorkspaces :: [String]
+myWorkspaces = ["im", "todo", "music"] ++ map show ([4..9] :: [Int])
+
+
+myKeyBindings :: [(String, X ())]
+myKeyBindings =
     -- Launchers
     [ ("M-<Return>", mirrorTerminal >>= spawnApp)
     , ("M-S-<Return>", spawnApp plainTerminal)
@@ -141,7 +145,7 @@ myKeyBindings conf =
     -- M-[1..9], Switch to workspace N
     -- M-S-[1..9], Move client to workspace N
     [("M-" ++ mask ++ show wsid, windows $ action workspace)
-        | (workspace, wsid) <- zip (workspaces conf) ([1..9] :: [Int])
+        | (workspace, wsid) <- zip myWorkspaces ([1..9] :: [Int])
         , (action, mask) <- [(W.greedyView, ""), (W.shift, "S-")]] ++
 
     -- M-{w,e}, Switch to physical/Xinerama screens 1 or 2
@@ -276,7 +280,6 @@ withContextShown pp = pp
 
 myStartupHook :: X ()
 myStartupHook = do
-    EZ.checkKeymap myConfig (myKeyBindings myConfig)
     setEwmhDesktopGeometry
     setDefaultCursor xC_left_ptr
 

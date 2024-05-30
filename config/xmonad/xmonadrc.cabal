@@ -2,7 +2,7 @@ name:                xmonadrc
 version:             0.1.0.0
 author:              Stijn Seghers
 maintainer:          stijnseghers@gmail.com
-copyright:           2017-2021 Stijn Seghers
+copyright:           2017-2024 Stijn Seghers
 build-type:          Simple
 cabal-version:       >=1.10
 
@@ -18,7 +18,7 @@ executable xmonad-x86_64-linux
   build-depends:       base >= 4.7 && < 5
                      , containers >= 0.6 && < 0.7
                      , X11 >= 1.8 && < 2
-                     , xmonad == 0.17.*
-                     , xmonad-contrib == 0.17.*
+                     , xmonad >= 0.17
+                     , xmonad-contrib >= 0.17
   default-language:    Haskell2010
   ghc-options:         -Wall -Werror -threaded
