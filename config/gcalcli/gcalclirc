@@ -1,10 +1,8 @@
 --default-calendar=stijn.seghers@gmail.com
---calendar=Us
---calendar=Squashcalender
---calendar=stijn.seghers@gmail.com
---calendar=Birthdays
---calendar=Holidays in Belgium
---calendar=Stijn Segherss Facebook events
---calendar=Holidays in New Zealand
---calendar=myrjamvdv@gmail.com
---calendar=Family
+--default-calendar=myrjamvdv@gmail.com
+--default-calendar=Us
+--default-calendar=Squashcalender
+--default-calendar=Birthdays
+--default-calendar=Holidays in Belgium
+--default-calendar=Holidays in New Zealand
+--default-calendar=Family

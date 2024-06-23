@@ -15,6 +15,5 @@ gcalcli \
     --calendar 'stijn.seghers@gmail.com' \
     --calendar 'Us' \
     --calendar 'Squashcalender' \
-    --calendar "Stijn Seghers's Facebook Events" \
     remind 15 \
     'notify-send -u critical -a Calendar -i appointment-soon-symbolic.symbolic %s'

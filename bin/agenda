@@ -7,10 +7,5 @@ set -euo pipefail
 
 exec gcalcli \
     --config-folder ~/.config/gcalcli \
-    --calendar 'stijn.seghers@gmail.com' \
-    --calendar 'Us' \
-    --calendar 'Contacts' \
-    --calendar "Stijn Seghers's Facebook Events" \
-    --calendar 'Holidays in New Zealand' \
     agenda \
     today '8 days from now'
