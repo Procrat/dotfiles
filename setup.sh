@@ -668,7 +668,6 @@ setup_launchers() {
         ranger \
         rofi-calc \
         rofi-pass \
-        rofimoji \
         wmctrl \
         xorg-xprop \
         xterm \
@@ -911,6 +910,13 @@ setup_rofi() {
     # Rofi is a menu, like dmenu
     ensure_packages_exist rofi ttf-ubuntu-font-family
     link_dotfile 'config/rofi'
+}
+
+setup_rofimoji() {
+    # Rofimoji is a menu to select emojis
+    setup_rofi
+    ensure_packages_exist rofimoji
+    link_dotfile 'config/rofimoji.rc'
 }
 
 setup_ssh() {
