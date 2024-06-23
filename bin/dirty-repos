@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+
+print_dirty_repos() {
+    local dir=$1
+    for repo in "$dir"/*; do
+        echo "$repo"
+        if [[ -d "$repo/.git" ]]; then
+            (
+                cd "$repo"
+                git status -sb
+            )
+        else
+            print_dirty_repos "$repo"
+        fi
+        echo
+    done
+}
+
+print_dirty_repos "$HOME/repos"
