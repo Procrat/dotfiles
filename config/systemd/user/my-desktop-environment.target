@@ -1,0 +1,7 @@
+[Unit]
+Description=My Desktop Environment
+Requires=graphical-session.target
+Wants=xdg-desktop-autostart.target
+BindsTo=graphical-session.target
+Before=graphical-session.target xdg-desktop-autostart.target
+StopWhenUnneeded=true

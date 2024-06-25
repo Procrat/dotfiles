@@ -16,7 +16,6 @@ export QT_STYLE_OVERRIDE=adwaita-dark
 
 # Load Xresources
 xrdb "$HOME/.Xresources"
-
 # Set Xft.dpi to roughly the same as the screen's DPI which is assumed to be
 # set correctly by either the X config or xrandr.
 dpi="$(xdpyinfo | sed -n 's/\s*resolution:\s*\([0-9]\+\)x\1 dots per inch$/\1/p')"
@@ -42,14 +41,8 @@ unclutter --fork \
   --ignore-scrolling \
   --start-hidden &
 
-# Start lightweight composite manager
-picom -b &
-
 # Start daemon to automatically change colour temperature of screen
 redshift &
-
-# Start multitouch gesture daemon
-touchegg &
 
 # Start keychain, a SSH agent & GPG agent combined
 export SSH_ASKPASS=/usr/lib/ssh/gnome-ssh-askpass3
@@ -57,6 +50,10 @@ eval "$(keychain --eval --noask --agents ssh,gpg id_ed25519 stijnseghers@gmail.c
 
 # Inject some environment variables into systemd and D-Bus sessions
 dbus-update-activation-environment --systemd PATH SSH_AGENT_PID SSH_ASKPASS SSH_AUTH_SOCK
+
+# Start graphical-session.target (dependency) so we run
+# XDG Autostart services like picom, touchegg, ...
+systemctl --user start my-desktop-environment.target
 
 # Start window manager
 exec xmonad &>>"$XDG_RUNTIME_DIR/xsession-errors"
