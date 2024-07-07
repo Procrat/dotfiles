@@ -7,7 +7,8 @@ set -euo pipefail
 
 ask_orientation() {
     echo -e 'left\nright' | \
-        rofi -dmenu -p "Where is the external monitor?"
+        menu --frecency-profile monitors \
+            --prompt "Where is the external monitor?"
 }
 
 

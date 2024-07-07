@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+#
+# Open a menu, similar to dmenu or rofi in dmenu mode, but with frecency sorting.
+
+set -euo pipefail
+
+
+FRECE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/frece"
+
+
+usage() {
+    echo "Usage: $(basename "$0")" \
+        "[--frecency-profile profile]" \
+        "[--prompt prompt]" \
+        "-- [rofi-dmenu-arguments]" >&2
+}
+
+
+parse_options() {
+    local options
+    if ! options=$(getopt --options='' --longoptions='frecency-profile:,prompt:' --name "$0" -- "$@"); then
+        usage
+        exit 1
+    fi
+    eval set -- "$options"
+
+    frecency_profile=
+    prompt=
+
+    while true; do
+        case "$1" in
+            '--frecency-profile')
+                frecency_profile="$2"
+                shift 2
+                continue
+                ;;
+            '--prompt')
+                prompt="$2"
+                shift 2
+                continue
+                ;;
+            '--')
+                shift
+                break
+                ;;
+        esac
+    done
+
+    extra_rofi_dmenu_args=("$@")
+}
+
+
+run() {
+    args=(-i)
+    if [[ -n "$prompt" ]]; then
+        args+=('-p' "$prompt")
+    fi
+    args+=("${extra_rofi_dmenu_args[@]}")
+
+    if [[ -n "$frecency_profile" ]]; then
+        mkdir -p "$FRECE_DIR"
+        local frece_db="${FRECE_DIR}/${frecency_profile}.db"
+        if [[ ! -f "$frece_db" ]]; then
+            frece init "$frece_db" <(cat)
+        else
+            frece update "$frece_db" <(cat) --purge-old
+        fi
+        item=$(frece print "$frece_db" | rofi -dmenu "${args[@]}")
+        frece increment "$frece_db" "$item"
+    else
+        rofi -dmenu "${args[@]}"
+    fi
+}
+
+
+parse_options "$@"
+run

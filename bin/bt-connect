@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Connects with some known bluetooth devices, chosen with dmenu.
+# Connect with a known bluetooth device, chosen through a menu.
 
 set -euo pipefail
 
@@ -35,7 +35,8 @@ enable_bluetooth
 populate_mac_addresses
 
 declare -a DEVICES=("${!MAC_ADDRESSES[@]}")
-device=$(printf '%s\n' "${DEVICES[@]}" | mydmenu bluetooth-devices -p device:)
+device=$(printf '%s\n' "${DEVICES[@]}" | \
+    menu --frecency-profile bluetooth-devices --prompt 'Bluetooth device')
 mac_address="${MAC_ADDRESSES[$device]}"
 
 bluetoothctl <<<"connect $mac_address"

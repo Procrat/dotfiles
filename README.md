@@ -15,5 +15,5 @@ defined in `colors`, `Xresources`, `config/alacritty/alacritty.yml`,
 `config/xmobar/xmobarrc` and `config/xmonad/xmonad.hs`. It's also set in
 `config/nvim/init.vim` through [a Neovim
 plugin](https://github.com/norcalli/nvim-base16.lua) and in `spacemacs` as a
-built-in theme. Dzen and dmenu use the colors defined in `Xresources`. i3lock
-uses `colors`.
+built-in theme. Dzen uses the colors defined in `Xresources`. i3lock uses
+`colors`.

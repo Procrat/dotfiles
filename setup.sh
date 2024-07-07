@@ -172,7 +172,7 @@ setup_bin_dir() {
     ensure_packages_exist libcanberra libnotify mpv
     # bt-connect
     ensure_packages_exist bluez-utils
-    setup_mydmenu
+    setup_menu
     # calc
     ensure_packages_exist bc
     # calendar-remind
@@ -190,8 +190,8 @@ setup_bin_dir() {
     ensure_aur_packages_exist i3lock-lixxia-git
     # memory-usage
     ensure_packages_exist valgrind
-    # mydmenu
-    setup_mydmenu
+    # menu
+    setup_menu
     # pyprofile
     ensure_packages_exist python
     # serve-wasm
@@ -228,15 +228,9 @@ setup_bin_dir() {
     fi
 }
 
-setup_mydmenu() {
-    # Note that this assumes the `bin` directory will get linked.
-    ensure_packages_exist wmctrl
-    ensure_aur_packages_exist dmenu2 yeganesh-bin
-    setup_dzen  # FIXME: Only needed to know the bar height
-
-    # dmenu settings & color scheme
-    ensure_packages_exist ttf-ubuntu-font-family
-    link_dotfile 'Xresources'
+setup_menu() {
+    setup_rofi
+    ensure_aur_packages_exist frece
 }
 
 
@@ -663,7 +657,6 @@ setup_bar() {
 setup_launchers() {
     context_note 'Ensuring all applications for launchers are installed'
     ensure_packages_exist \
-        j4-dmenu-desktop \
         pavucontrol \
         ranger \
         rofi-calc \
@@ -675,7 +668,7 @@ setup_launchers() {
     ensure_aur_packages_exist brave-bin
     setup_alacritty
     setup_handlr
-    setup_mydmenu
+    setup_menu
     setup_pass
     setup_rofi
     link_dotfile 'Xresources'  # For xterm settings
@@ -684,7 +677,7 @@ setup_launchers() {
 setup_notifications() {
     context_note 'Ensuring notification system is set up'
     ensure_packages_exist adwaita-icon-theme libnotify ttf-ubuntu-font-family
-    setup_mydmenu
+    setup_menu
     setup_handlr
     ensure_packages_exist dunst
     link_dotfile 'config/dunst'

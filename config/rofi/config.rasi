@@ -1,6 +1,10 @@
 configuration {
   dpi: 0;  /* Auto-detect DPI */
-  scroll-method: 1;
+  scroll-method: 1;  /* Continous scrolling; not per page */
+  show-icons: true;
+  terminal: "alacritty";
+  display-drun: "🔎";
+  drun-display-format: "{name}";
 }
 
 @theme "base16-mocha"

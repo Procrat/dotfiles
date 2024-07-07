@@ -3,6 +3,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 
 import           Control.Monad                  (mfilter, when)
+import           Data.Functor                   ((<&>))
 import           Data.List                      (elemIndex)
 import           Data.Monoid                    (All (..))
 import           System.Exit                    (exitSuccess)
@@ -27,7 +28,6 @@ import           XMonad.Layout.WindowNavigation (Direction2D (..),
                                                  windowNavigation)
 import qualified XMonad.StackSet                as W
 import           XMonad.Util.Cursor             (setDefaultCursor)
-import           XMonad.Util.Dmenu              (menuArgs)
 import qualified XMonad.Util.EZConfig           as EZ
 import qualified XMonad.Util.NamedScratchpad    as NS
 import           XMonad.Util.Run                (runProcessWithInput)
@@ -129,8 +129,8 @@ myKeyBindings =
     , ("M-S-p", withFocused $ sendMessage . PseudoTiling.ToggleWindow)
 
     -- Context management
-    , ("M-s", C.listContextNames >>= safeMenu "Switch:" >>= C.createAndSwitchContext)
-    , ("M-S-s", C.listContextNames >>= safeMenu "Remove:" >>= C.deleteContext >> return ())
+    , ("M-s", C.listContextNames >>= safeMenu "Switch" >>= C.createAndSwitchContext)
+    , ("M-S-s", C.listContextNames >>= safeMenu "Remove" >>= C.deleteContext >> return ())
     , ("M-S-v", C.showContextStorage)
 
     -- Workspace management
@@ -175,8 +175,7 @@ spawnApp command = spawnHere $
     "systemd-run --user --scope --no-block --slice=app --collect " ++ command
 
 myProgramLauncher :: String
-myProgramLauncher =
-    "j4-dmenu-desktop --dmenu=\"$HOME/bin/mydmenu apps -q\" --term=alacritty"
+myProgramLauncher = "rofi -show drun"
 
 
 myLayout = modifiers layouts
@@ -305,7 +304,8 @@ setEwmhDesktopGeometry = withDisplay $ \dpy -> do
 safeMenu :: String -> [String] -> X String
 safeMenu prompt options = do
     uninstallSignalHandlers
-    choice <- menuArgs "/home/procrat/bin/mydmenu" ["default", "-p", prompt] options
+    choice <- runProcessWithInput "menu" ["--prompt", prompt] (unlines options)
+        <&> filter (/='\n')
     installSignalHandlers
     return choice
 
@@ -316,7 +316,7 @@ mirrorTerminal = withWindowSet $ \ws ->
         Nothing -> return plainTerminal
         Just window -> do
             let hexWindowId = printf "0x%08x" window
-            workingDir <- runProcessWithInput "/home/procrat/bin/winwd" [hexWindowId] ""
+            workingDir <- runProcessWithInput "winwd" [hexWindowId] ""
             return $ case workingDir of
                 ""  -> plainTerminal
                 dir -> terminalWithWorkingDir $ init dir
