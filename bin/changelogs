@@ -1,0 +1,289 @@
+#!/usr/bin/env python
+
+import re
+import subprocess
+import sys
+from dataclasses import dataclass
+from enum import IntEnum
+from typing import Iterator, Optional, Self, Iterable
+
+
+class VersionBump(IntEnum):
+    IGNORE = 4
+    MAJOR = 3
+    MINOR = 2
+    PATCH = 1
+
+
+@dataclass
+class Version:
+    full: str
+    major: int
+    minor: Optional[int] = None
+    patch: Optional[int] = None
+
+    def __init__(self, full: str):
+        self.full = full
+        match = re.fullmatch(r'(?:[12]:)?(\d+)(?:\.(\d+))?(?:\.(\d+))?[-+\.].*', full)
+        assert match is not None, f'Failed to parse {full}'
+        self.major = int(match.group(1))
+        minor = match.group(2)
+        self.minor = int(minor) if minor is not None else None
+        patch = match.group(3)
+        self.patch = int(patch) if patch is not None else None
+
+    def bump(self, other: Self) -> VersionBump:
+        if (
+            self.major != other.major
+            or (self.major == 0 and self.minor != other.minor)
+        ):
+            return VersionBump.MAJOR
+        elif (
+            self.minor != other.minor
+            or (self.major == 0 and self.patch != other.patch)
+        ):
+            return VersionBump.MINOR
+        else:
+            return VersionBump.PATCH
+
+    def __str__(self) -> str:
+        suffix = ' (failed to parse)' if self.major is None else ''
+        return f'{self.full}{suffix}'
+
+
+@dataclass
+class Update:
+    package: str
+    old_version: Version
+    new_version: Version
+
+    def __init__(self, package: str, old_version: str, new_version: str):
+        self.package = package
+        self.old_version = Version(old_version)
+        self.new_version = Version(new_version)
+
+    def version_bump(self) -> VersionBump:
+        return self.new_version.bump(self.old_version)
+
+    def __str__(self) -> str:
+        return f'{self.package}: {self.old_version} -> {self.new_version}'
+
+
+BUMP_IMPORTANCE_OF_EXPLICIT_PACKAGES = {
+    'android-tools': VersionBump.MAJOR,
+    'aws-vault': VersionBump.MINOR,
+    'bc': VersionBump.MAJOR,
+    'binaryen': VersionBump.MAJOR,
+    'bind': VersionBump.MAJOR,
+    'bluez-utils': VersionBump.MAJOR,
+    'brave-bin': VersionBump.IGNORE,
+    'calibre': VersionBump.MAJOR,
+    'chromium': VersionBump.IGNORE,
+    'dart-sass': VersionBump.MAJOR,
+    'dmidecode': VersionBump.MAJOR,
+    'docker-buildx': VersionBump.MAJOR,
+    'docker-compose': VersionBump.MINOR,
+    'dust': VersionBump.MINOR,
+    'dzen2': VersionBump.MINOR,
+    'eog': VersionBump.MAJOR,
+    'evince': VersionBump.MAJOR,
+    'eza': VersionBump.MINOR,
+    'faketty': VersionBump.MINOR,
+    'ferdium-bin': VersionBump.MAJOR,
+    'firefox': VersionBump.IGNORE,
+    'flake8': VersionBump.MINOR,
+    'fuse2': VersionBump.MAJOR,
+    'fuseiso': VersionBump.IGNORE,
+    'fwupd': VersionBump.MINOR,
+    'fzf': VersionBump.MAJOR,
+    'git': VersionBump.MINOR,
+    'google-cloud-cli-gke-gcloud-auth-plugin': VersionBump.IGNORE,
+    'google-cloud-cli': VersionBump.IGNORE,
+    'handlr-regex': VersionBump.MINOR,
+    'iftop': VersionBump.MINOR,
+    'imagemagick': VersionBump.MAJOR,
+    'libvdpau-va-gl': VersionBump.MAJOR,
+    'linux-firmware': VersionBump.IGNORE,
+    'linux': VersionBump.MINOR,
+    'lua-language-server': VersionBump.MAJOR,
+    'macchanger': VersionBump.MAJOR,
+    'mpv': VersionBump.MAJOR,
+    'mtr': VersionBump.IGNORE,
+    'ncdu': VersionBump.MINOR,
+    'neovim': VersionBump.MINOR,
+    'nethogs': VersionBump.MAJOR,
+    'networkmanager': VersionBump.MAJOR,
+    'ngrok': VersionBump.MAJOR,
+    'noto-fonts': VersionBump.MAJOR,
+    'obsidian': VersionBump.MAJOR,
+    'obs-studio': VersionBump.MAJOR,
+    'pavucontrol': VersionBump.MAJOR,
+    'perl-image-exiftool': VersionBump.MAJOR,
+    'pipdeptree': VersionBump.MINOR,
+    'prettier': VersionBump.MINOR,
+    'pv': VersionBump.MINOR,
+    'pyenv': VersionBump.MAJOR,
+    'pyright': VersionBump.MINOR,
+    'python-debugpy': VersionBump.MINOR,
+    'restic': VersionBump.MINOR,
+    'rofi-pass': VersionBump.MINOR,
+    'ruff': VersionBump.MINOR,
+    'signal-desktop': VersionBump.MAJOR,
+    'sox': VersionBump.MAJOR,
+    'stack-static': VersionBump.MAJOR,
+    'stylelint': VersionBump.MAJOR,
+    'subdl': VersionBump.MINOR,
+    'sudo': VersionBump.MINOR,
+    'syncthing': VersionBump.MINOR,
+    'terraform': VersionBump.MINOR,
+    'tree-sitter-javascript': VersionBump.MAJOR,
+    'ttf-liberation': VersionBump.MAJOR,
+    'unclutter': VersionBump.MINOR,
+    'uv': VersionBump.MINOR,
+    'valgrind': VersionBump.MAJOR,
+    'vdpauinfo': VersionBump.MAJOR,
+    'visual-studio-code-bin': VersionBump.MAJOR,
+    'vue-language-server': VersionBump.MAJOR,
+    'wabt': VersionBump.MAJOR,
+    'wine-gecko': VersionBump.MAJOR,
+    'xdg-user-dirs': VersionBump.MAJOR,
+    'xorg-xdpyinfo': VersionBump.MINOR,
+    'xorg-xinit': VersionBump.MINOR,
+    'xorg-xkill': VersionBump.MINOR,
+    'xorg-xrandr': VersionBump.MINOR,
+    'xorg-xset': VersionBump.MINOR,
+    'xorg-xwininfo': VersionBump.MAJOR,
+    'xterm': VersionBump.IGNORE,
+    'yarn': VersionBump.MINOR,
+    'zsh-completions': VersionBump.MINOR,
+}
+
+BUMP_IMPORTANCE_OF_DEPENDENCIES = {
+    'bash': VersionBump.MINOR,
+    'bluez': VersionBump.MAJOR,
+    'coreutils': VersionBump.MINOR,
+    'curl': VersionBump.MAJOR,
+    'diffutils': VersionBump.MINOR,
+    'docker': VersionBump.MAJOR,
+    'filesystem': VersionBump.MINOR,
+    'findutils': VersionBump.MINOR,
+    'gnome-desktop': VersionBump.MINOR,
+    'gnupg': VersionBump.MAJOR,
+    'grep': VersionBump.MINOR,
+    'kubectl': VersionBump.MAJOR,
+    'mkinitcpio': VersionBump.MINOR,
+    'nodejs': VersionBump.MAJOR,
+    'pacman': VersionBump.MINOR,
+    'pass': VersionBump.MINOR,
+    'powertop': VersionBump.MAJOR,
+    'procps-ng': VersionBump.MINOR,
+    'python-pip': VersionBump.MAJOR,
+    'rofi': VersionBump.MINOR,
+    'sed': VersionBump.MINOR,
+    'sqlite': VersionBump.MINOR,
+    'systemd': VersionBump.MAJOR,
+    'tree-sitter': VersionBump.MINOR,
+    'typescript': VersionBump.MINOR,
+    'wine': VersionBump.MINOR,
+    'zenity': VersionBump.MINOR,
+}
+
+CHANGELOGS = {
+    'binaryen': 'https://github.com/WebAssembly/binaryen/blob/main/CHANGELOG.md',
+    'docker-buildx': 'https://github.com/docker/buildx/releases',
+    'docker-compose': 'https://docs.docker.com/compose/release-notes/',
+    'docker': 'https://docs.docker.com/engine/release-notes/',
+    'dust': 'https://github.com/bootandy/dust/releases',
+    'eza': 'https://github.com/eza-community/eza/blob/main/CHANGELOG.md',
+    'flake8': 'https://flake8.pycqa.org/en/latest/release-notes/index.html',
+    'fzf': 'https://github.com/junegunn/fzf/blob/master/CHANGELOG.md',
+    'git': 'https://github.blog/open-source/git/',
+    'handlr-regex': 'There is no changelog. See https://github.com/Anomalocaridid/handlr-regex',
+    'linux': 'https://kernelnewbies.org/LinuxVersions',
+    'ncdu': 'https://dev.yorhel.nl/ncdu',
+    'neovim': 'https://github.com/neovim/neovim/releases and https://neovim.io/news/',
+    'restic': 'https://github.com/restic/restic/blob/master/CHANGELOG.md',
+    'ruff': 'https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md',
+    'stack-static': 'https://github.com/commercialhaskell/stack/blob/master/ChangeLog.md',
+    'uv': 'https://github.com/astral-sh/uv/blob/main/CHANGELOG.md',
+}
+
+
+def main():
+    # subprocess.check_call(['yay', '--sync', '--refresh', '--quiet'])
+    updates_of_explicitly_installed_packages_ = \
+        updates_of_explicitly_installed_packages()
+    updates_of_dependencies_ = updates_of_dependencies()
+    important_updates_ = sorted(
+        important_updates(
+            updates_of_explicitly_installed_packages_,
+            updates_of_dependencies_
+        ),
+        key=lambda update: update.package,
+    )
+    for update in important_updates_:
+        print(update)
+        print(' ', changelog(update))
+
+
+def updates_of_explicitly_installed_packages() -> Iterator[Update]:
+    updates_output = subprocess.check_output(
+        ['yay', '--query', '--upgrades', '--explicit']
+    ).decode()
+    return parse(updates_output)
+
+
+def updates_of_dependencies() -> Iterator[Update]:
+    updates_output = subprocess.check_output(
+        ['yay', '--query', '--upgrades', '--deps']
+    ).decode()
+    return parse(updates_output)
+
+
+def important_updates(
+    updates_of_explicitly_installed: Iterable[Update],
+    updates_of_deps: Iterable[Update]
+) -> Iterator[Update]:
+    for update in updates_of_explicitly_installed:
+        try:
+            important_bump = BUMP_IMPORTANCE_OF_EXPLICIT_PACKAGES[update.package]
+        except KeyError:
+            print(f'Missing importance of {update}', file=sys.stderr)
+            continue
+        if update.version_bump() >= important_bump:
+            yield update
+
+    for update in updates_of_deps:
+        try:
+            important_bump = BUMP_IMPORTANCE_OF_DEPENDENCIES[update.package]
+        except KeyError:
+            continue
+        if update.version_bump() >= important_bump:
+            yield update
+
+
+def changelog(update: Update) -> str:
+    try:
+        return CHANGELOGS[update.package]
+    except KeyError:
+        pass
+    main_url = subprocess.check_output(
+        (f'yay --sync --info "{update.package}"'
+         ' | awk \'$1 == "URL" { print $3 }\''),
+        shell=True
+    ).decode().strip()
+    return f'Missing changelog. See {main_url}'
+
+
+def parse(yay_output: str) -> Iterator[Update]:
+    lines = yay_output.split('\n')[:-1]
+    for line in lines:
+        match = re.match(r'(\S+) (\S+) -> (\S+)', line)
+        assert match is not None
+        [package, old_version, new_version] = match.groups()
+        update = Update(package, old_version, new_version)
+        yield update
+
+
+if __name__ == '__main__':
+    main()
