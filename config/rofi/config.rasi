@@ -1,13 +1,21 @@
 configuration {
   dpi: 0;  /* Auto-detect DPI */
   scroll-method: 1;  /* Continous scrolling; not per page */
-  show-icons: true;
   terminal: "alacritty";
+  font: "Ubuntu 12";
   display-drun: "🔎";
   drun-display-format: "{name}";
+  drun, run {
+    fallback-icon: "application-x-executable";
+  }
+  ssh {
+    fallback-icon: "network-server";
+  }
 }
 
 @theme "base16-mocha"
+
+@import "layout"
 
 
 // vim:ft=css

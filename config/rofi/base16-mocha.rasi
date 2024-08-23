@@ -1,5 +1,5 @@
 * {
-  /* Color theme definitions */
+  /* Color theme definitions: base16 */
   base00: #3b3228;
   base00-transparent: #3b322890;
   base01: #534636;
@@ -19,89 +19,59 @@
   base0F: #bb9584;
 
   /* Custom variables */
-  background-transparent: @base00-transparent;
-  background-solid: @base00;
-  background-highlight: @base01;
-  foreground: @base05;
-  separator-color: @base01;
-  selection-background: @base02;
-  selection-foreground: @base0D;
-  active-foreground: @base0C;
-  urgent-foreground: @base0A;
+  background-transparent: var(base00-transparent);
+  background-solid: var(base00);
+  background-highlight: var(base01);
+  foreground: var(base05);
+  foreground-highlight: var(base07);
+  separator-color: var(base01);
+  selection-background: var(base02);
+  selection-foreground: var(base0D);
+  active-foreground: var(base0D);
+  urgent-foreground: var(base0A);
 
   /* Global properties */
   background-color: transparent;
-  text-color: @foreground;
-  border-color: @separator-color;
+  text-color: var(foreground);
+  border-color: var(separator-color);
 }
 
+
 window {
-  fullscreen: true;
-  background-color: @background-transparent;
-  font: "Ubuntu 12";
+  background-color: var(background-transparent);
 }
 
 mainbox, error-message {
-  background-color: @background-solid;
-  margin: 30%;
-  border: 1px solid;
+  background-color: var(background-solid);
 }
 
-inputbar {
-  children: [prompt, entry];
-  border: 0px 0px 1px solid;
-}
-
-prompt {
-  background-color: @background-highlight;
-}
-
-prompt, entry, message {
-  padding: 5px;
-}
-
-listview {
-  border: 1px solid 0px 0px;
-  spacing: 2px;
-  scrollbar: true;
-}
-
-element {
-  border: 0px 0px 0px 2px solid;
-  padding: 2px 5px;
-  border-color: @background-solid;
-}
-element normal.urgent, element alternate.urgent, element selected.urgent {
-  text-color: @urgent-foreground;
-}
-element normal.active, element alternate.active, element selected.active {
-  text-color: @active-foreground;
-}
-element selected {
-  background-color: @selection-background;
-  border-color: @selection-foreground;
-}
-element selected.normal {
-  text-color: @selection-foreground;
+inputbar, message {
+  background-color: var(background-highlight);
+  text-color: var(foreground-highlight);
 }
 
 scrollbar {
-  handle-color: @background-highlight;
+  handle-color: var(background-highlight);
 }
 
-sidebar {
-  border: 1px solid 0px 0px;
+element normal.urgent, element alternate.urgent, element selected.urgent {
+  text-color: var(urgent-foreground);
 }
-button {
-  padding: 5px;
+element normal.active, element alternate.active, element selected.active {
+  text-color: var(active-foreground);
 }
+element-text {
+  text-color: inherit;
+}
+
+element selected {
+  border-color: var(selection-background);
+  background-color: var(background-highlight);
+}
+
 button selected {
-  background-color: @selection-background;
-  text-color: @selection-foreground;
-}
-
-error-message {
-  padding: 15px;
+  background-color: var(background-highlight);
+  text-color: var(selection-foreground);
 }
 
 

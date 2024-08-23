@@ -1,0 +1,82 @@
+* {
+  border-size-m: 0.06em;
+  border-size-l: 0.12em;
+  border-size-l-left-right: 0.03em 0.12em;
+  size-s: 0.12em;
+  size-m: 0.24em;
+  size-l: 0.48em;
+  size-xl: 0.96em;
+  size-xxl: 1.92em;
+  // Rofi only allows full right-hand side substitutions
+}
+
+window {
+  fullscreen: true;
+}
+
+mainbox, error-message {
+  margin: calc(50% - 13em) calc(50% - 10em);
+  border: var(border-size-l);
+  border-radius: var(size-xl);
+}
+
+error-message {
+  padding: var(size-xl);
+}
+
+inputbar {
+  children: [prompt, entry];
+  padding: var(size-xl);
+  spacing: var(size-xl);
+}
+
+message {
+  padding: var(size-l);
+}
+
+entry {
+  cursor: text;
+}
+
+listview {
+  scrollbar: true;
+}
+
+scrollbar {
+  handle-width: var(size-m);
+  border-radius: var(size-s);
+}
+
+element {
+  margin: var(size-l);
+  padding: var(size-l);
+  spacing: var(size-l);
+}
+
+element-icon {
+  size: var(size-xxl);
+}
+
+element-text {
+  vertical-align: 0.5;
+}
+
+element selected {
+  border: var(border-size-l-left-right);
+  border-radius: var(size-l);
+}
+
+mode-switcher {
+  padding: var(size-xl);
+  spacing: var(size-l);
+}
+
+button {
+  border: var(border-size-m);
+  border-radius: var(size-m);
+  padding: var(size-m);
+  cursor: pointer;
+}
+
+
+// vim:ft=css

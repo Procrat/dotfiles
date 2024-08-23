@@ -82,7 +82,7 @@ myKeyBindings =
     , ("M-o", spawnApp myProgramLauncher)
     , ("M-r", spawnApp "alacritty -e zsh -i -c ranger")
     , ("M-i", spawnApp "rofi-pass")
-    , ("M-S-e", spawnApp "rofimoji --skin-tone neutral")
+    , ("M-S-e", spawnApp "rofimoji")
     , ("M-S-c", spawnApp "rofi -show calc -modi calc -no-show-match")
     , ("M-b", spawnApp "handlr launch x-scheme-handler/https")
     , ("M-p", NS.namedScratchpadAction myScratchpads "sound control")
@@ -175,7 +175,7 @@ spawnApp command = spawnHere $
     "systemd-run --user --scope --no-block --slice=app --collect " ++ command
 
 myProgramLauncher :: String
-myProgramLauncher = "rofi -show drun"
+myProgramLauncher = "rofi -show drun -show-icons"
 
 
 myLayout = modifiers layouts
