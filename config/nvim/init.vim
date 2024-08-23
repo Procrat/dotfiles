@@ -74,6 +74,7 @@ Plug 'folke/which-key.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'RRethy/nvim-base16'  " For lualine theme
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.*' }
+Plug 'ActivityWatch/aw-watcher-vim'
 
 " -- Debugging / DAP (also not profiled yet)
 Plug 'mfussenegger/nvim-dap'
