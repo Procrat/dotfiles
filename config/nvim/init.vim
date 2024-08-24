@@ -136,8 +136,16 @@ set completeopt=menuone,noinsert,noselect
 set wildignore=*.o,*.obj,*.pyc,*.class,*.orig,*/.git/*
 " Maximum height of the autocompletion popup menu (pum)
 set pumheight=8
-" Mouse interactivity
+" Mouse interactivity, but no context menu on right click
 set mouse=a
+noremap  <RightMouse>   <Nop>
+noremap  <2-RightMouse> <Nop>
+noremap  <3-RightMouse> <Nop>
+noremap  <4-RightMouse> <Nop>
+inoremap <RightMouse>   <Nop>
+inoremap <2-RightMouse> <Nop>
+inoremap <3-RightMouse> <Nop>
+inoremap <4-RightMouse> <Nop>
 " Copy/paste with X11 clipboard
 set clipboard=unnamedplus
 " Start scrolling earlier
