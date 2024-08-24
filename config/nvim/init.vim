@@ -84,6 +84,7 @@ Plug 'mfussenegger/nvim-dap-python' " Requires nvim-dap and debugpy (external)
 Plug 'LiadOz/nvim-dap-repl-highlights'
 Plug 'rcarriga/cmp-dap'
 Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'jbyuki/one-small-step-for-vimkind'  " Lua DAP adapter; requires nvim-dap
 
 " -- Completion and snippets (also not profiled yet)
 Plug 'hrsh7th/cmp-buffer'
@@ -1180,6 +1181,22 @@ lua << EOF
   require('dap-python').setup()
   require('nvim-dap-repl-highlights').setup()
   require('nvim-dap-virtual-text').setup()
+
+  -- Neovim Lua debugging
+  dap.configurations.lua = {
+    {
+      type = 'nlua',
+      request = 'attach',
+      name = 'Attach to running Neovim instance',
+    }
+  }
+  dap.adapters.nlua = function(callback, config)
+    callback({
+      type = 'server',
+      host = config.host or '127.0.0.1',
+      port = config.port or 8086,
+    })
+  end
 
   -- Breakpoint sign styling
   vim.fn.sign_define("DapBreakpoint", {
