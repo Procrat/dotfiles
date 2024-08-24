@@ -1,0 +1,28 @@
+# Color theme
+import = ["~/.config/alacritty/base16-mocha-256.toml"]
+
+[window]
+dimensions = { columns = 90, lines = 24 }
+padding = { x = 1, y = 1 }
+decorations = "None"
+
+[font]
+size = 10.0
+offset = { x = -1, y = -4 }
+glyph_offset = { x = 0, y = -2 }
+
+[bell]
+animation = "EaseOutSine"
+duration = 250
+color = "#cb6077"
+
+[keyboard]
+bindings = [
+  { mods = "Alt",   key = "C",      action = "ToggleViMode" },
+  { mods = "Alt",   key = "P",      action = "Paste" },
+  {                 key = "F11",    action = "ToggleFullScreen" },
+  # Shortcut for opening a terminal in the current working directory is
+  # currently handled by the XMonad setup so it works beyond just terminal
+  # windows, so this is just a fallback.
+  { mods = "Super", key = "Return", action = "CreateNewWindow" },
+]
