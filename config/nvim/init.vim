@@ -1235,11 +1235,11 @@ lua << EOF
   end)
   -- Global mapping: starting/stopping debugging mode
   vim.keymap.set('n', '<leader>b<CR>', dap.continue)
-  vim.keymap.set('n', '<leader>bq', dap.terminate)
+  vim.keymap.set('n', '<leader>bq', dap.disconnect)
 
   -- Toggle DAP UI based on execution
   dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-  dap.listeners.before.event_exited['dapui_config'] = dapui.close
+  dap.listeners.before.event_terminated['dapui_config'] = dapui.close
 
   -- Local mapping in debug mode
   vim.api.nvim_create_autocmd('FileType', {
