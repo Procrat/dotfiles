@@ -170,8 +170,8 @@ set shortmess+=Ica
 set virtualedit=block
 " Show normally invisible characters (trailing whitespace, tabs, nbsp)
 set list
-" Ignore whitespace in diff mode
-set diffopt+=iwhite
+" Ignore whitespace in diff mode & try to align lines within a chunk
+set diffopt+=iwhite,linematch:60
 " Set window title
 set title
 " Use conceal (and don't waste space like level 1)
