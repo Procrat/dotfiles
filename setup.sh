@@ -160,6 +160,9 @@ setup_keymap() {
         note 'Setting keymap'
         sudo localectl set-x11-keymap "$layout" "$model" "$variant" "$options"
     fi
+
+    # Set a fast key auto-repeat
+    link_etc_dotfile 'X11/xorg.conf.d/01-keyboard-autorepeat.conf'
 }
 
 
@@ -567,12 +570,13 @@ setup_vue() {
 setup_desktop_environment() {
     context_note 'Ensuring desktop environment is set up'
     ensure_packages_exist xorg-server
+    setup_keymap
+    setup_external_mouse
     setup_xinit
     setup_window_manager
     setup_bar
     setup_launchers
     setup_notifications
-    setup_external_mouse
     setup_user_dirs
     context_note 'Ensuring fonts are set up'
     setup_fonts
