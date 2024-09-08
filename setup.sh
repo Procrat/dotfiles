@@ -1051,11 +1051,28 @@ ensure_repo_exists_and_has_latest_version() {
         note "Installing dotfiles repo at $dest"
         git clone --recursive "$repo" "$dest"
     else
-        note 'Pulling down latest version of dotfiles repo'
+        context_note 'Checking for latest version of dotfiles repo'
         (
             cd "$dest"
-            git pull origin
-            git submodule update --init --recursive
+            git remote update
+            local local_commit
+            local_commit=$(git rev-parse '@')
+            local remote_commit
+            remote_commit=$(git rev-parse '@{u}')
+            local common_ancestor
+            common_ancestor=$(git merge-base '@' '@{u}')
+            if [[ "$remote_commit" == "$common_ancestor" ]]; then
+                # Up to date or ahead of remote => nothing to do
+                true
+            elif [[ "$local_commit" == "$common_ancestor" ]]; then
+                # Behind remote => pull
+                note 'Pulling down latest version of dotfiles repo'
+                git pull origin
+                git submodule update --init --recursive
+            else
+                warn 'Dotfiles repo has diverged from remote; please fix'
+                exit 1
+            fi
         )
     fi
 }
