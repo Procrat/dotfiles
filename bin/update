@@ -17,6 +17,10 @@ fi
 # Show latest Arch Linux news
 yay -Pw
 
+# Sync package databases
+yay -Sy
+# Show changelog links for interesting updates
+changelogs
 # Ensure system packages are up to date
 yay
 # Keep last two versions of cached packages, remove older ones

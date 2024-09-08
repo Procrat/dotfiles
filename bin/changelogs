@@ -71,13 +71,17 @@ class Update:
 
 BUMP_IMPORTANCE_OF_EXPLICIT_PACKAGES = {
     'android-tools': VersionBump.MAJOR,
+    'aws-cli': VersionBump.MAJOR,
     'aws-vault': VersionBump.MINOR,
+    'base-devel': VersionBump.MINOR,
     'bc': VersionBump.MAJOR,
-    'binaryen': VersionBump.MAJOR,
+    'binaryen': VersionBump.IGNORE,
     'bind': VersionBump.MAJOR,
+    'biome-bin': VersionBump.MINOR,
     'bluez-utils': VersionBump.MAJOR,
     'brave-bin': VersionBump.IGNORE,
     'calibre': VersionBump.MAJOR,
+    'cargo-cache': VersionBump.MINOR,
     'chromium': VersionBump.IGNORE,
     'dart-sass': VersionBump.MAJOR,
     'dmidecode': VersionBump.MAJOR,
@@ -89,6 +93,7 @@ BUMP_IMPORTANCE_OF_EXPLICIT_PACKAGES = {
     'evince': VersionBump.MAJOR,
     'eza': VersionBump.MINOR,
     'faketty': VersionBump.MINOR,
+    'fd': VersionBump.MINOR,
     'ferdium-bin': VersionBump.MAJOR,
     'firefox': VersionBump.IGNORE,
     'flake8': VersionBump.MINOR,
@@ -96,17 +101,24 @@ BUMP_IMPORTANCE_OF_EXPLICIT_PACKAGES = {
     'fuseiso': VersionBump.IGNORE,
     'fwupd': VersionBump.MINOR,
     'fzf': VersionBump.MAJOR,
+    'gcalcli': VersionBump.MINOR,
     'git': VersionBump.MINOR,
+    'gnome-disk-utility': VersionBump.MAJOR,
     'google-cloud-cli-gke-gcloud-auth-plugin': VersionBump.IGNORE,
     'google-cloud-cli': VersionBump.IGNORE,
     'handlr-regex': VersionBump.MINOR,
     'iftop': VersionBump.MINOR,
     'imagemagick': VersionBump.MAJOR,
+    'intel-media-driver': VersionBump.MAJOR,
+    'intel-ucode': VersionBump.IGNORE,
+    'ipython': VersionBump.MINOR,
+    'libreoffice-still': VersionBump.MAJOR,
     'libvdpau-va-gl': VersionBump.MAJOR,
     'linux-firmware': VersionBump.IGNORE,
     'linux': VersionBump.MINOR,
     'lua-language-server': VersionBump.MAJOR,
     'macchanger': VersionBump.MAJOR,
+    'man-db': VersionBump.MINOR,
     'mpv': VersionBump.MAJOR,
     'mtr': VersionBump.IGNORE,
     'ncdu': VersionBump.MINOR,
@@ -120,6 +132,7 @@ BUMP_IMPORTANCE_OF_EXPLICIT_PACKAGES = {
     'pavucontrol': VersionBump.MAJOR,
     'perl-image-exiftool': VersionBump.MAJOR,
     'pipdeptree': VersionBump.MINOR,
+    'playerctl': VersionBump.MINOR,
     'prettier': VersionBump.MINOR,
     'pv': VersionBump.MINOR,
     'pyenv': VersionBump.MAJOR,
@@ -127,10 +140,13 @@ BUMP_IMPORTANCE_OF_EXPLICIT_PACKAGES = {
     'python-debugpy': VersionBump.MINOR,
     'restic': VersionBump.MINOR,
     'rofi-pass': VersionBump.MINOR,
+    'rofimoji': VersionBump.MINOR,
     'ruff': VersionBump.MINOR,
     'signal-desktop': VersionBump.MAJOR,
     'sox': VersionBump.MAJOR,
     'stack-static': VersionBump.MAJOR,
+    'steam': VersionBump.MINOR,
+    'strace': VersionBump.MINOR,
     'stylelint': VersionBump.MAJOR,
     'subdl': VersionBump.MINOR,
     'sudo': VersionBump.MINOR,
@@ -167,7 +183,7 @@ BUMP_IMPORTANCE_OF_DEPENDENCIES = {
     'docker': VersionBump.MAJOR,
     'filesystem': VersionBump.MINOR,
     'findutils': VersionBump.MINOR,
-    'gnome-desktop': VersionBump.MINOR,
+    'gnome-desktop': VersionBump.MAJOR,
     'gnupg': VersionBump.MAJOR,
     'grep': VersionBump.MINOR,
     'kubectl': VersionBump.MAJOR,
@@ -189,28 +205,39 @@ BUMP_IMPORTANCE_OF_DEPENDENCIES = {
 }
 
 CHANGELOGS = {
+    'aws-cli': 'https://github.com/aws/aws-cli/blob/develop/CHANGELOG.rst',
     'binaryen': 'https://github.com/WebAssembly/binaryen/blob/main/CHANGELOG.md',
     'docker-buildx': 'https://github.com/docker/buildx/releases',
     'docker-compose': 'https://docs.docker.com/compose/release-notes/',
     'docker': 'https://docs.docker.com/engine/release-notes/',
     'dust': 'https://github.com/bootandy/dust/releases',
     'eza': 'https://github.com/eza-community/eza/blob/main/CHANGELOG.md',
+    'fd': 'https://github.com/sharkdp/fd/blob/master/CHANGELOG.md',
     'flake8': 'https://flake8.pycqa.org/en/latest/release-notes/index.html',
-    'fzf': 'https://github.com/junegunn/fzf/blob/master/CHANGELOG.md',
+    'fzf': 'https://junegunn.github.io/fzf',
+    'gcalcli': 'https://github.com/insanum/gcalcli/releases',
     'git': 'https://github.blog/open-source/git/',
+    'gnome-desktop': 'https://gitlab.gnome.org/GNOME/gnome-desktop/-/blob/master/NEWS',
     'handlr-regex': 'There is no changelog. See https://github.com/Anomalocaridid/handlr-regex',
+    'ipython': 'https://ipython.readthedocs.io/en/stable/whatsnew/index.html',
+    'libreoffice-still': 'https://blog.documentfoundation.org/',
     'linux': 'https://kernelnewbies.org/LinuxVersions',
+    'man-db': 'https://gitlab.com/man-db/man-db/-/blob/main/NEWS.md',
     'ncdu': 'https://dev.yorhel.nl/ncdu',
     'neovim': 'https://github.com/neovim/neovim/releases and https://neovim.io/news/',
     'restic': 'https://github.com/restic/restic/blob/master/CHANGELOG.md',
+    'rofimoji': 'https://github.com/fdw/rofimoji/releases',
     'ruff': 'https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md',
     'stack-static': 'https://github.com/commercialhaskell/stack/blob/master/ChangeLog.md',
+    'steam': 'https://store.steampowered.com/oldnews/?feed=steam_client',
+    'strace': 'https://github.com/strace/strace/blob/master/NEWS',
+    'tree-sitter': 'https://github.com/tree-sitter/tree-sitter/blob/master/CHANGELOG.md',
     'uv': 'https://github.com/astral-sh/uv/blob/main/CHANGELOG.md',
+    'wine': 'https://www.winehq.org/news/',
 }
 
 
 def main():
-    # subprocess.check_call(['yay', '--sync', '--refresh', '--quiet'])
     updates_of_explicitly_installed_packages_ = \
         updates_of_explicitly_installed_packages()
     updates_of_dependencies_ = updates_of_dependencies()
@@ -227,17 +254,28 @@ def main():
 
 
 def updates_of_explicitly_installed_packages() -> Iterator[Update]:
-    updates_output = subprocess.check_output(
-        ['yay', '--query', '--upgrades', '--explicit']
-    ).decode()
+    updates_output = query_yay(['--upgrades', '--explicit'])
     return parse(updates_output)
 
 
 def updates_of_dependencies() -> Iterator[Update]:
-    updates_output = subprocess.check_output(
-        ['yay', '--query', '--upgrades', '--deps']
-    ).decode()
+    updates_output = query_yay(['--upgrades', '--deps'])
     return parse(updates_output)
+
+
+def query_yay(yay_arguments: Iterable[str]) -> str:
+    try:
+        result = subprocess.run(
+            ['yay', '--query', *yay_arguments],
+            capture_output=True,
+            timeout=10,
+            check=True,
+        )
+    except subprocess.CalledProcessError as error:
+        if error.returncode == 1 and error.stdout == b'':
+            return ''
+        raise
+    return result.stdout.decode()
 
 
 def important_updates(
