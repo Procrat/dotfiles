@@ -67,6 +67,7 @@ run() {
         fi
         item=$(frece print "$frece_db" | rofi -dmenu "${args[@]}")
         frece increment "$frece_db" "$item"
+        echo "$item"
     else
         rofi -dmenu "${args[@]}"
     fi
