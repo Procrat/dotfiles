@@ -750,7 +750,6 @@ setup_background_services() {
     # For watchdog.service
     ensure_packages_exist libnotify
 
-    link_dotfile 'config/environment.d'
     link_dotfile 'config/systemd'
 
     systemctl --user daemon-reload
