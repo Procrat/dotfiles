@@ -460,7 +460,6 @@ setup_neovim() {
         pyright \
         typescript-language-server
     ensure_aur_packages_exist biome-bin
-    setup_vue
     # DAP adapters
     ensure_packages_exist python-debugpy
 
@@ -495,7 +494,6 @@ setup_spacemacs() {
         typescript-language-server
     ensure_aur_packages_exist hlint-bin shellcheck-bin stylish-haskell-bin
     setup_rust
-    setup_vue
 
     link_dotfile 'emacs.d/private'
     link_dotfile 'spacemacs'
@@ -555,13 +553,6 @@ setup_rust() {
     ensure_packages_exist rustup
     rustup component add clippy rust-analyzer rustfmt 2>&1 | \
         grep -v ' is up to date' || true
-}
-
-setup_vue() {
-    # For Vue 2
-    ensure_aur_packages_exist nodejs-vls
-    # For Vue 3
-    ensure_aur_packages_exist volar-server-bin
 }
 
 

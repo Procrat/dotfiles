@@ -1004,14 +1004,6 @@ lua << EOF
     })
     -- TypeScript language server
     lspconfig.ts_ls.setup({})
-    -- Vue language server
-    lspconfig.volar.setup({
-      init_options = {
-        typescript = {
-          tsdk = '/usr/lib/node_modules/typescript/lib/',
-        },
-      },
-    })
 
     require('trouble').setup({
       padding = false,
