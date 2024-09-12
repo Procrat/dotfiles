@@ -1003,7 +1003,7 @@ lua << EOF
       },
     })
     -- TypeScript language server
-    lspconfig.tsserver.setup({})
+    lspconfig.ts_ls.setup({})
     -- Vue language server
     lspconfig.volar.setup({
       init_options = {
