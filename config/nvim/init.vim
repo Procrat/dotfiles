@@ -352,8 +352,6 @@ lua << EOF
             'vue'
           },
         }),
-        -- JSON
-        null_ls.builtins.formatting.jq,
         -- Lua
         null_ls.builtins.diagnostics.luacheck,
         -- Shell
@@ -956,6 +954,8 @@ lua << EOF
     })
     -- ESLint language server for linting JS/TS
     lspconfig.eslint.setup({})
+    -- JSON language server
+    lspconfig.jsonls.setup({})
     -- Lua language server
     lspconfig.lua_ls.setup({
       settings = {

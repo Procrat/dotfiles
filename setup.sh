@@ -438,7 +438,6 @@ setup_neovim() {
     setup_rust
     # jose-elias-alvarez/null-ls.nvim
     ensure_packages_exist \
-        eslint_d \
         flake8 \
         jq \
         luacheck \
@@ -458,7 +457,8 @@ setup_neovim() {
     ensure_packages_exist \
         lua-language-server \
         pyright \
-        typescript-language-server
+        typescript-language-server \
+        vscode-json-languageserver
     ensure_aur_packages_exist biome-bin
     # DAP adapters
     ensure_packages_exist python-debugpy
