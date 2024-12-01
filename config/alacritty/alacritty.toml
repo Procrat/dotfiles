@@ -1,5 +1,6 @@
+[general]
 # Color theme
-import = ["~/.config/alacritty/base16-mocha-256.toml"]
+import = ["base16-mocha-256.toml"]
 
 [window]
 dimensions = { columns = 90, lines = 24 }
