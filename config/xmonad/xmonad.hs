@@ -83,7 +83,7 @@ myKeyBindings =
     , ("M-r", spawnApp "alacritty -e zsh -i -c ranger")
     , ("M-i", spawnApp "rofi-pass")
     , ("M-S-e", spawnApp "rofimoji")
-    , ("M-S-c", spawnApp "rofi -show calc -modi calc -no-show-match")
+    , ("M-S-c", spawnApp rofiCalc)
     , ("M-b", spawnApp "handlr launch x-scheme-handler/https")
     , ("M-p", NS.namedScratchpadAction myScratchpads "sound control")
 
@@ -177,6 +177,10 @@ spawnApp command = spawnHere $
 myProgramLauncher :: String
 myProgramLauncher = "rofi -show drun -show-icons"
 
+rofiCalc :: String
+rofiCalc = "rofi -show calc -modi calc \
+    \-no-show-match \
+    \-theme-str 'mainbox { margin: calc(50% - 6em) calc(50% - 22em); }'"
 
 myLayout = modifiers layouts
   where
