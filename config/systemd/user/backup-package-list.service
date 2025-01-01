@@ -4,6 +4,7 @@ Description=Back up package list
 [Service]
 Type=oneshot
 WorkingDirectory=%h/docs/backup
+ExecCondition=nm-online --quiet --timeout 1 --exit
 ExecStart=/bin/sh -c '\
           pacman -Qen > arch-official-packages \
           && pacman -Qem > arch-aur-packages'

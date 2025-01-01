@@ -3,4 +3,5 @@ Description=Reminder of calendar events
 
 [Service]
 Type=oneshot
+ExecCondition=nm-online --quiet --timeout 1 --exit
 ExecStart=%h/bin/calendar-remind

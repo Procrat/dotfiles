@@ -3,4 +3,5 @@ Description=Download and set a picture from Unsplash as the wallpaper
 
 [Service]
 Type=oneshot
+ExecCondition=nm-online --quiet --timeout 1 --exit
 ExecStart=%h/bin/unsplash-background
