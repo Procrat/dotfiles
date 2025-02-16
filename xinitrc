@@ -53,7 +53,7 @@ dbus-update-activation-environment --systemd PATH SSH_AGENT_PID SSH_ASKPASS SSH_
 
 # Start graphical-session.target (dependency) so we run
 # XDG Autostart services like picom, touchegg, ...
-systemctl --user start my-desktop-environment.target
+systemctl --user start --no-block my-desktop-environment.target
 
 # Start window manager
 exec xmonad &>>"$XDG_RUNTIME_DIR/xsession-errors"
