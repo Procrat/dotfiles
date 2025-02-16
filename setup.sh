@@ -512,7 +512,6 @@ setup_development_tools() {
     # Python
     ensure_packages_exist \
         ipython \
-        python-ipdb \
         python-pipenv \
         python-poetry
     ensure_aur_packages_exist pipdeptree
