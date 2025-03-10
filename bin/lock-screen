@@ -13,7 +13,7 @@ i3lock \
     --24 \
     --ignore-empty-password \
     --show-failed-attempts \
-    --idle-color "$B_BASE06" \
-    --verify-color "$EMPHASIZED_CONTENT_COLOR" \
+    --idle-color "$BACKGROUND_HIGHLIGHT_COLOR" \
+    --verify-color "$WARNING_COLOR" \
     --wrong-color "$ERROR_COLOR" \
     "$@"

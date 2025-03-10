@@ -4,34 +4,44 @@
 # Use in other scripts as 'source ~/.colors'
 
 
-# Base16 theme
-export B_BASE00='#3B3228'  # Background, "black"
-export B_BASE01='#534636'  # Highlighted background
-export B_BASE02='#645240'  # Inversion foreground
-export B_BASE03='#7E705A'  # "bright black"
-export B_BASE04='#B8AFAD'  # Secondary foreground, inversion background
-export B_BASE05='#D0C8C6'  # Normal foreground, "white"
-export B_BASE06='#E9E1DD'
-export B_BASE07='#F5EEEB'  # Slight emphasis, "bright white"
-export B_BASE08='#CB6077'  # Red, error, urgent warning
-export B_BASE09='#D28B71'  # Orange/rust
-export B_BASE0A='#F4BC87'  # Yellow, emphasis, warning
-export B_BASE0B='#BEB55B'  # Green, ok/success
-export B_BASE0C='#7BBDA4'  # Cyan
-export B_BASE0D='#8AB3B5'  # Blue, accent colour
-export B_BASE0E='#A89BB9'  # Purple/magenta
-export B_BASE0F='#BB9584'  # Light brown
+BG_DIM='#efebd4'  # Dimmed Background
+BG0='#fdf6e3'  # Default background, line numbers background, signs background, status line background (inactive), tab line label (active)
+BG1='#f4f0d9'  # Cursor line background, color columns, closed folds background, status line background (active), tab line background
+BG2='#efebd4'  # Popup menu background, floating window background, window toolbar background
+BG3='#e6e2cc'  # List chars, special keys, tab line label background (inactive)
+BG4='#e0dcc7'  # Window splits separators, whitespaces, breaks
+BG5='#bdc3af'  # Not currently used
+BG_VISUAL='#eaedc8'  # Visual selection
+BG_RED='#fbe3da'  # Diff deleted line background, error highlights
+BG_GREEN='#f0f1d2'  # Diff added line background, hint highlights
+BG_BLUE='#e9f0e9'  # Diff changed line background, info highlights
+BG_YELLOW='#faedcd'  # Warning highlights
+FG='#5c6a72'  # Default foreground, signs, [treesitter: constants, variables, function parameters, properties, symbol identifiers]
+RED='#f85552'  # Conditional keywords, loop keywords, exception keywords, inclusion keywords, uncategorised keywords, diff deleted signs, error messages, error signs
+ORANGE='#f57d26'  # Operator keywords, operators, labels, storage classes, composite types, enumerated types, tags, title, debugging statements
+YELLOW='#dfa000'  # Types, special characters, warning messages, warning signs, [treesitter: modules, namespaces]
+GREEN='#8da101'  # Function names, method names, strings, characters, hint messages, hint signs, search highlights, [treesitter: constructors, function calls, built-in functions, macro functions, string escapes, regex literals, tag delimiters, non-structured text]
+AQUA='#35a77c'  # Constants, macros, [treesitter: strings, characters]
+BLUE='#3a94c5'  # Identifiers, uncategorised special symbols, diff changed text background, info messages, info signs, [treesitter: fields, special punctuation, math environments]
+PURPLE='#df69ba'  # Booleans, numbers, preprocessors, [treesitter: built-in constants, built-in variables, macro-defined constants, attributes/annotations]
+GREY0='#a6b0a0'  # Line numbers, fold columns, concealed text, foreground ui elements
+GREY1='#939f91'  # Comments, punctuation delimiters, closed folds, ignored/disabled, ui borders, status line text
+GREY2='#829181'  # Cursor line number, tab line label (inactive)
+STATUSLINE1='#93b259'  # Menu selection background, tab line label background (active), status line mode indicator
+STATUSLINE2='#708089'  # Status line mode indicator
+STATUSLINE3='#e66868'  # Status line mode indicator
 
-export PRIMARY_CONTENT_COLOR=$B_BASE05
-export BACKGROUND_COLOR=$B_BASE00
-export SECONDARY_CONTENT_COLOR=$B_BASE04
-export SLIGHTLY_EMPHASIZED_CONTENT_COLOR=$B_BASE07
-export EMPHASIZED_CONTENT_COLOR=$B_BASE0A
-export INVERSE_CONTENT_COLOR=$B_BASE02
-export INVERSE_BACKGROUND_COLOR=$B_BASE04
-export BACKGROUND_HIGHLIGHT_COLOR=$B_BASE01
-export ACCENT_COLOR=$B_BASE0D
-export OK_COLOR=$B_BASE0B
-export WARNING_COLOR=$B_BASE0A
-export URGENT_WARNING_COLOR=$B_BASE08
+
+export PRIMARY_CONTENT_COLOR=$FG
+export BACKGROUND_COLOR=$BG0
+export SECONDARY_CONTENT_COLOR=$GREY1
+export SLIGHTLY_EMPHASIZED_CONTENT_COLOR=$FG
+export EMPHASIZED_CONTENT_COLOR=$YELLOW
+export INVERSE_CONTENT_COLOR=$FG
+export INVERSE_BACKGROUND_COLOR=$STATUSLINE1
+export BACKGROUND_HIGHLIGHT_COLOR=$BG2
+export ACCENT_COLOR=$AQUA
+export OK_COLOR=$GREEN
+export WARNING_COLOR=$YELLOW
+export URGENT_WARNING_COLOR=$RED
 export ERROR_COLOR=$URGENT_WARNING_COLOR

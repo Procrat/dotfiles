@@ -62,9 +62,9 @@ Plug 'nvimtools/none-ls.nvim'
 Plug 'gbprod/none-ls-shellcheck.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'RRethy/nvim-base16'  " For lualine theme
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.*' }
 Plug 'ActivityWatch/aw-watcher-vim'
+Plug 'neanias/everforest-nvim', { 'branch': 'main' }
 
 " -- Debugging / DAP (also not profiled yet)
 Plug 'mfussenegger/nvim-dap'
@@ -99,12 +99,7 @@ call plug#end()
 " }}}
 " Colorscheme settings {{{
 
-colorscheme base16-mocha
-lua << EOF
-    local base16 = require('base16-colorscheme')
-    -- Highlight line number to make them visually distinct from code
-    base16.highlight.LineNr = { guibg = base16.colors.base01 }
-EOF
+colorscheme everforest
 
 " }}}
 " General settings {{{
@@ -356,7 +351,7 @@ let g:vimtex_fold_enabled = 1
 lua << EOF
     require('lualine').setup({
       options = {
-        theme = 'base16',
+        theme = 'everforest',
         component_separators = '│',
       },
       extensions = {

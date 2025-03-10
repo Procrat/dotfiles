@@ -11,8 +11,13 @@ fi
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Set GUI themes
-export GTK_THEME=Arc-Dark
-export QT_STYLE_OVERRIDE=adwaita-dark
+export GTK_THEME=Everforest-Light
+export QT_STYLE_OVERRIDE=adwaita
+dconf load / <<EOF
+[org/gnome/desktop/interface]
+color-scheme='prefer-light'
+gtk-theme='Everforest-light'
+EOF
 
 # Load Xresources
 xrdb "$HOME/.Xresources"

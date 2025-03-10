@@ -1,6 +1,6 @@
 [general]
 # Color theme
-import = ["base16-mocha-256.toml"]
+import = ["everforest-light-medium.toml"]
 
 [window]
 dimensions = { columns = 90, lines = 24 }
@@ -15,7 +15,7 @@ glyph_offset = { x = 0, y = -2 }
 [bell]
 animation = "EaseOutSine"
 duration = 250
-color = "#cb6077"
+color = "#fbe3da"
 
 [keyboard]
 bindings = [

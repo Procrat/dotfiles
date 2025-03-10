@@ -11,13 +11,7 @@
     "files.trimTrailingWhitespace": true,
     // Workbench
     "workbench.activityBar.visible": false,
-    "workbench.colorCustomizations": {
-        "[Base16 Dark Mocha]": {
-            "statusBar.background": "#534636",
-            "statusBar.foreground": "#D0C8C6"
-        }
-    },
-    "workbench.colorTheme": "Base16 Dark Mocha",
+    "workbench.colorTheme": "Everforest Light",
     "workbench.statusBar.visible": true,
     // Window
     "window.menuBarVisibility": "toggle",
