@@ -979,7 +979,7 @@ lua << EOF
     -- Python language server
     lspconfig.pyright.setup({})
     -- Python linter & formatter
-    lspconfig.ruff_lsp.setup({})
+    lspconfig.ruff.setup({})
     -- Rust language server and extra tools
     require('rust-tools').setup({
       tools = {
