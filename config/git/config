@@ -110,7 +110,7 @@
     ui = true
 
 [help]
-    autocorrect = 1
+    autocorrect = prompt
 
 [github]
     user = Procrat
