@@ -175,7 +175,7 @@ spawnApp command = spawnHere $
     "systemd-run --user --scope --no-block --slice=app --collect " ++ command
 
 myProgramLauncher :: String
-myProgramLauncher = "rofi -show drun -show-icons"
+myProgramLauncher = "rofi -show drun -show-icons -drun-show-actions"
 
 rofiCalc :: String
 rofiCalc = "rofi -show calc -modi calc \
