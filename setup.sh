@@ -89,7 +89,7 @@ setup_system() {
 
     # Run ufw firewall
     ensure_packages_exist ufw
-    if [[ "$(sudo ufw status)" != "Status: active" ]]; then
+    if [[ "$(sudo ufw status | head -1)" != "Status: active" ]]; then
         sudo ufw default deny
         sudo ufw enable
     fi
@@ -367,7 +367,7 @@ setup_shell_tools() {
 
     # Network debugging tools
     ensure_packages_exist \
-        bind \
+        ldns \
         mtr \
         nmap \
         whois
@@ -455,11 +455,11 @@ setup_neovim() {
     ensure_packages_exist zsh
     # LSP servers
     ensure_packages_exist \
+        biome \
         lua-language-server \
         pyright \
         typescript-language-server \
         vscode-json-languageserver
-    ensure_aur_packages_exist biome-bin
     # DAP adapters
     ensure_packages_exist python-debugpy
 
