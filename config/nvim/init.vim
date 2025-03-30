@@ -6,17 +6,12 @@ call plug#begin()
 
 " -- Fast plugins (< 5ms on boot)
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'AndrewRadev/switch.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
 Plug 'godlygeek/tabular'
 " Requires fzf and optinally rg for :Rg and bat for syntax highlighting in
 " previews
 Plug 'junegunn/fzf.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'mattn/emmet-vim'
-Plug 'mattn/gist-vim', { 'on': 'Gist' }
-Plug 'mattn/webapi-vim', { 'on': 'Gist' }  " Dependency for gist-vim
 Plug 'mg979/vim-visual-multi'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 " Requires the tree-sitter CLI for automatically installing new parsers
@@ -28,7 +23,6 @@ Plug 'psliwka/vim-smoothie'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
 Plug 'shime/vim-livedown'  " Requires livedown
-Plug 'Shougo/echodoc.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'  " Requires git
@@ -37,7 +31,6 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 
 " -- Slightly slower plugins (3ms -- 50ms)
-Plug 'easymotion/vim-easymotion'  " ~5ms
 Plug 'junegunn/vim-journal'  " ~10ms for journal files
 Plug 'neovim/nvim-lspconfig'  " ~20ms, doesn't work properly on demand
 " I have better alternative plugins for the following languages
@@ -56,8 +49,6 @@ Plug 'sheerun/vim-polyglot'  " 35-50ms, depending on filetype
 " I don't write enough LaTeX to optimise this. Requires a LaTeX compilation
 " backend.
 Plug 'lervag/vimtex'  " ~80ms for (La)TeX
-" I'll fix this when I write some RoR again
-Plug 'tpope/vim-rails'  " ~60ms for Rails
 
 " -- Not profiled
 Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
@@ -292,13 +283,6 @@ let g:csv_highlight_column = 'y'
 let g:lexima_map_escape = ''
 
 " }}}
-" easymotion/vim-easymotion {{{
-
-let g:EasyMotion_smartcase = 1
-" Turn of messages like 'Jumping to [l,c]' and 'EasyMotion: Cancelled'
-let g:EasyMotion_verbose = 0
-
-" }}}
 " folke/which-key.nvim {{{
 
 lua << EOF
@@ -368,12 +352,6 @@ EOF
 
 let g:vimtex_compiler_method = 'tectonic'
 let g:vimtex_fold_enabled = 1
-
-" }}}
-" mattn/gist-vim {{{
-
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
 
 " }}}
 " nvim-lualine/lualine.nvim {{{
@@ -473,11 +451,6 @@ let g:clever_f_smart_case = 1
 
 " Stop vim-vue from slowing down (See https://github.com/posva/vim-vue)
 let g:vue_disable_pre_processors = 1
-
-" }}}
-" Shougo/echodoc.vim {{{
-
-let g:echodoc_enable_at_startup = 1
 
 " }}}
 
@@ -604,25 +577,6 @@ augroup END
 "       single-line statement.
 
 " }}}
-" AndrewRadev/switch.vim {{{
-
-"   gs  Switch a language construct to another form
-
-" }}}
-" bitc/vim-hdevtools {{{
-
-augroup haskell_mappings
-    autocmd!
-    au FileType haskell call s:HaskellMappings()
-    function! s:HaskellMappings()
-"   <leader>ht  Show type information. Multiple presses for expansion
-        nnoremap <buffer> <leader>ht :HdevtoolsType<CR>
-"   <leader>hc  Clear the type information
-        nnoremap <buffer> <silent> <leader>hc :HdevtoolsClear<CR>
-    endfunction
-augroup END
-
-" }}}
 " chrisbra/csv.vim {{{
 
 " ⚠ Can be slow for large CSVs
@@ -650,24 +604,6 @@ augroup END
 "   :[V]HeaderToggle                  Freeze/unfreeze (vertical) header
 "   :CSVTabularize                    Draw a fancy table in a new buffer
 "   :DeleteColumn, :Sort, :Column (to copy), :MoveColumn, :NewDelimiter
-
-" }}}
-" easy-motion/vim-easymotion {{{
-
-let g:EasyMotion_do_mapping = 0
-"   s<char><char><label>   Bi-directional find. Jump to the right place with
-"                          the label that shows up. Works across windows in
-"                          normal mode, within window in visual mode.
-nmap s <Plug>(easymotion-overwin-f2)
-vmap s <Plug>(easymotion-bd-f2)
-"   s<char><char><Space>   Bi-directional find. Jump to first match with
-"                          <Space>.
-let g:EasyMotion_space_jump_first = 1
-
-" Mappings in EasyMotion's pending mode:
-"   <CR>                   Execute now
-"   <C-c>/<Esc>            Cancel
-"   <C-h>/<BS>             Delete a character
 
 " }}}
 " junegunn/fzf {{{
@@ -757,11 +693,6 @@ augroup END
 "   ts[fcedD]
 "   <F7>
 "   ]/, ]* [/, [*
-
-" }}}
-" mattn/emmet-vim {{{
-
-"   <C-y>,            Interpret text before cursor with emmet.
 
 " }}}
 " mg979/vim-visual-multi {{{
