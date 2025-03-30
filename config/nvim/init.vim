@@ -104,7 +104,6 @@ call plug#end()
 " }}}
 " Colorscheme settings {{{
 
-set termguicolors
 colorscheme base16-mocha
 lua << EOF
     local base16 = require('base16-colorscheme')
@@ -132,7 +131,7 @@ set ignorecase smartcase
 set complete=
 " Always use a menu for autocompletion and don't insert text or select a match
 " without user interaction. The preview window configured by nvim-cmp.
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noinsert,noselect,fuzzy
 " Ignore files in autocompletion
 set wildignore=*.o,*.obj,*.pyc,*.class,*.orig,*/.git/*
 " Maximum height of the autocompletion popup menu (pum)
@@ -157,9 +156,6 @@ set splitbelow
 set splitright
 " Check modelines (like the one at the bottom of this file)
 set modelines=2
-" Use ripgrep to grep and always print file name in Quickfix list
-set grepprg=rg\ --vimgrep\ --word-regexp\ --fixed-strings\ \"$*\"
-set grepformat=%f:%l:%c:%m
 " Disable showing the current mode because lualine already shows it
 set noshowmode
 " Wait less than a second for mapped seauence to complete
@@ -171,7 +167,7 @@ set virtualedit=block
 " Show normally invisible characters (trailing whitespace, tabs, nbsp)
 set list
 " Ignore whitespace in diff mode & try to align lines within a chunk
-set diffopt+=iwhite,linematch:60
+set diffopt+=iwhite
 " Set window title
 set title
 " Use conceal (and don't waste space like level 1)
@@ -183,6 +179,8 @@ set showbreak=>>
 set inccommand=split
 " Indicate that the line extends beyond the view in nowrap mode
 set listchars+=extends:>,precedes:<
+" Use rounded borders for pop-ups
+set winborder=rounded
 " Syntax highlight Lua in Vim scripts
 let g:vimsyn_embed = 'l'
 " Supposedly makes startup faster
@@ -569,14 +567,13 @@ vnoremap S "hy:grep! <C-R>h<CR>:cw<CR>
 
 " LSP bindings
 nnoremap gd         <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap K          <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap gr         <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap gR         <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap ga         <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>=  <cmd>lua vim.lsp.buf.format({ async = true })<CR>
 vnoremap <leader>=  <cmd>lua vim.lsp.buf.format({ async = true })<CR>
 " Other useful functionality for future reference: declaration(),
-" implementation(), signature_help(), type_definition(),
+" implementation(), type_definition(),
 " workspace_symbol(), vim.lsp.codelens.
 
 " Diagnostic management
@@ -1012,20 +1009,12 @@ lua << EOF
     })
     -- Reduce LSP diagnostic noise from virtual text and signs
     vim.diagnostic.config({
-      virtual_text = false,
       signs = false,
       float = {
-        border = 'rounded',
         focusable = false,
         header = '',
       },
     })
-
-    -- Add borders to hover window
-    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-      vim.lsp.handlers.hover,
-      { border = 'rounded' }
-    )
 EOF
 
 " }}}
@@ -1273,9 +1262,6 @@ augroup misc
     "   Highlight todo files and other text files with vim-journal
     "   (and override detection of Markdown and text filetypes)
     au BufNewFile,BufRead *.txt,todo setlocal filetype=journal
-
-    " Help for Matlab/Octave (with shortcut K)
-    au FileType matlab,octave setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
 
     " Turn on spelling for some filetypes
     au FileType tex,mail,markdown,gitcommit setlocal spell
