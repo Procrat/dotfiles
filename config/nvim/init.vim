@@ -172,6 +172,12 @@ set inccommand=split
 set listchars+=extends:>,precedes:<
 " Use rounded borders for pop-ups
 set winborder=rounded
+" Ask for confirmation instead of failing when e.g. exiting
+set confirm
+" Wrap long lines at word boundaries
+set linebreak
+" More undo-ability
+set undolevels=10000
 " Syntax highlight Lua in Vim scripts
 let g:vimsyn_embed = 'l'
 " Supposedly makes startup faster
@@ -222,13 +228,6 @@ set smartindent
 " Try to maintain existing indentation
 set copyindent
 set preserveindent
-
-
-" Indentation per filetype
-
-let g:python_recommended_style = 1
-let g:ruby_recommended_style = 1
-let g:rust_recommended_style = 1
 
 augroup indentation
     autocmd!
@@ -1243,6 +1242,7 @@ function! s:UnsetFeaturesForLargeFiles(max_file_size)
     setlocal noundofile
     setlocal undolevels=-1
     setlocal nowritebackup
+    setlocal nolinebreak
 endfunction
 
 func! s:AdjustWindowHeight(minheight, maxheight)
