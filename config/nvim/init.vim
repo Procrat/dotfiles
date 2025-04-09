@@ -18,7 +18,6 @@ Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'plasticboy/vim-markdown'
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'psliwka/vim-smoothie'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/committia.vim'
@@ -89,6 +88,11 @@ Plug 'onsails/lspkind.nvim'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'tamago324/cmp-zsh'
 
+" -- File tree
+Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'v3.x' }  " requires plenary, nvim-web-devicons and nui
+Plug 'MunifTanjim/nui.nvim'
+" Update LSP servers after file tree modification
+Plug 'antosha417/nvim-lsp-file-operations'  " requires plenary
 
 call plug#end()
 
@@ -364,7 +368,7 @@ lua << EOF
       extensions = {
         'fugitive',
         'man',
-        'nerdtree',
+        'neo-tree',
         'nvim-dap-ui',
         'quickfix',
       },
@@ -407,6 +411,52 @@ lua << EOF
 EOF
 
 " }}}
+" nvim-neo-tree/neo-tree.nvim {{{
+
+lua << EOF
+  require('neo-tree').setup({
+    close_if_last_window = true,
+    -- Keep cursor on first letter of the filename
+    enable_cursor_hijack = false,
+    source_selector = {
+      show_scrolled_off_parent_node = true,
+      winbar = true,
+    },
+    filesystem = {
+      follow_current_file = {
+        enabled = true,
+      },
+    },
+    event_handlers = {
+      {
+        event = 'neo_tree_window_after_open',
+        handler = function(args)
+          if args.position == 'left' or args.position == 'right' then
+            vim.cmd('wincmd =')
+          end
+        end
+      },
+    },
+    commands = {
+      close_parent = function(state)
+        local node = state.tree:get_node()
+        local parent = state.tree:get_node(node:get_parent_id())
+        parent:collapse()
+        require('neo-tree.ui.renderer').redraw(state)
+        require('neo-tree.ui.renderer').focus_node(state, parent:get_id())
+      end
+    },
+    window = {
+      mappings = {
+        ['l'] = 'open',
+        ['h'] = 'close_parent',
+      },
+    },
+  })
+  require('lsp-file-operations').setup()
+EOF
+
+" }}}
 " nvim-telescope/telescope-ui-select.nvim {{{
 
 " Use telescope UI for vim.ui.select, such as code action prompt
@@ -430,15 +480,6 @@ EOF
 let g:vim_markdown_override_foldtext = 0
 " Show strikethroughs
 let g:vim_markdown_strikethrough = 1
-
-" }}}
-" preservim/nerdtree {{{
-
-let g:NERDTreeIgnore = ['\~$', '\.pyc$', '\.class$', '\.pid$', '\.o$', '\.pdf$']
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeChDirMode = 2
-let g:NERDTreeMapActivateNode = 'l'
-let g:NERDTreeMapJumpParent = 'h'
 
 " }}}
 " rhysd/clever-f.vim {{{
@@ -715,10 +756,10 @@ augroup END
 " See :h visual-multi for more mappings.
 
 " }}}
-" preservim/nerdtree {{{
+" nvim-neo-tree/neo-tree.nvim {{{
 
-"   <leader>T  Open NERD Tree
-nnoremap <leader>T :NERDTreeToggle<CR>
+"   <leader>T  Open file tree
+nnoremap <silent> <leader>T :Neotree toggle<CR>
 
 " }}}
 " shime/vim-livedown {{{
