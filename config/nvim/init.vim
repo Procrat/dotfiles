@@ -288,13 +288,7 @@ let g:lexima_map_escape = ''
 " }}}
 " folke/which-key.nvim {{{
 
-lua << EOF
-    require('which-key').setup({
-      triggers_blacklist = {
-        i = {"f", "d"},
-      },
-    })
-EOF
+lua require('which-key').setup({})
 
 " }}}
 " nvimtools/none-ls.nvim {{{
