@@ -900,49 +900,13 @@ lua << EOF
       },
     })
 
-    local lspconfig = require('lspconfig')
-
     -- Tell all LSP servers that we can handle snippets
     local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-    lspconfig.util.default_config = vim.tbl_deep_extend(
-      'force',
-      lspconfig.util.default_config,
-      { capabilities = cmp_capabilities }
-    )
+    vim.lsp.config('*', {
+      capabilities = cmp_capabilities
+    })
 
-    -- Biome language server for linting/formatting JS/TS
-    lspconfig.biome.setup({
-      single_file_support = true,
-    })
-    -- ESLint language server for linting JS/TS
-    lspconfig.eslint.setup({})
-    -- JSON language server
-    lspconfig.jsonls.setup({})
-    -- Lua language server
-    lspconfig.lua_ls.setup({
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using
-            -- (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'},
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-          },
-        },
-      },
-    })
-    -- Python language server
-    lspconfig.pyright.setup({})
-    -- Python linter & formatter
-    lspconfig.ruff.setup({})
-    -- Rust language server and extra tools
+    -- Configure Rust language server and extra tools
     require('rust-tools').setup({
       tools = {
         inlay_hints = {
@@ -964,9 +928,19 @@ lua << EOF
         },
       },
     })
-    -- TypeScript language server
-    lspconfig.ts_ls.setup({})
 
+    -- Enable langue servers
+    vim.lsp.enable({
+      'biome',   -- Biome language server for linting/formatting JS/TS
+      'eslint',  -- ESLint language server for linting JS/TS
+      'jsonls',  -- JSON language server
+      'lua_ls',  -- Lua language server
+      'pyright', -- Python language server
+      'ruff',    -- Python linter & formatter
+      'ts_ls',   -- TypeScript language server
+    })
+
+    -- Configure diagnostics
     require('trouble').setup({
       padding = false,
       indent_lines = false,
