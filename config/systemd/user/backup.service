@@ -7,7 +7,24 @@ Environment=AWS_PROFILE=restic
 Environment=RESTIC_PASSWORD_COMMAND='pass show restic'
 ExecCondition=nm-online --quiet --timeout 1 --exit
 ExecStart=/usr/bin/aws-vault --backend=pass --pass-prefix=aws-cli exec restic \
-    -- restic -r s3:s3.amazonaws.com/procrat-backup --verbose backup %h/docs
+    -- restic \
+    --verbose \
+    --repo s3:s3.amazonaws.com/procrat-backup \
+    --option s3.storage-class=REDUCED_REDUNDANCY \
+    backup \
+    %h/archive \
+    %h/docs \
+    %h/music/old \
+    %h/music/still-good \
+    %h/pictures \
+    %h/vectera/safe
+ExecStart=/usr/bin/aws-vault --backend=pass --pass-prefix=aws-cli exec restic \
+    -- restic \
+    --verbose \
+    --repo s3:s3.amazonaws.com/procrat-backup \
+    forget --keep-daily 14 --keep-weekly 13 --keep-monthly 12 --keep-yearly unlimited \
+    --group-by paths \
+    --prune
 
 [Install]
 WantedBy=default.target
