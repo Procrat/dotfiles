@@ -438,10 +438,10 @@ setup_neovim() {
     setup_rust
     # jose-elias-alvarez/null-ls.nvim
     ensure_packages_exist \
-        flake8 \
         jq \
         luacheck \
         prettier \
+        python-flake8 \
         python-isort \
         stylelint \
         terraform \
