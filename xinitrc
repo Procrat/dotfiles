@@ -46,7 +46,7 @@ redshift &
 
 # Start keychain, a SSH agent & GPG agent combined
 export SSH_ASKPASS=/usr/lib/ssh/gnome-ssh-askpass3
-eval "$(keychain --eval --noask --agents ssh,gpg id_ed25519 stijnseghers@gmail.com)"
+eval "$(keychain --eval --noask id_ed25519 stijnseghers@gmail.com)"
 
 # Inject some environment variables into systemd and D-Bus sessions
 dbus-update-activation-environment --systemd PATH SSH_AGENT_PID SSH_ASKPASS SSH_AUTH_SOCK
