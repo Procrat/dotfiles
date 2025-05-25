@@ -91,7 +91,8 @@ alias -g sprunge='| curl -F "sprunge=<-" http://sprunge.us'
 
 # Mappings
 bindkey '^R' history-incremental-search-backward
-bindkey -M viins jj vi-cmd-mode
+bindkey -M viins fd vi-cmd-mode
+bindkey '^A' beginning-of-line
 
 # Add fzf keybindings (ctrl-t, ctrl-r and alt-c)
 source /usr/share/fzf/key-bindings.zsh
