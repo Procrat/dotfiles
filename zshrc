@@ -60,8 +60,15 @@ job_info() {
     echo '%(1j.(%j job%(2j.s.)) .)'
 }
 prompt() {
+    local prompt_color=$(
+        if [[ "$KEYMAP" == 'vicmd' ]]; then
+            echo 'blue'
+        else
+            echo 'yellow'
+        fi
+    )
     # Show smiley face when all went well or suprised face on non-zero exit code
-    echo '%B%(!,#,%(?;%F{yellow}^.^;%F{red}o.0)%f)%b '
+    echo '%B%(!,#,%(?;%F{'"$prompt_color"'}^.^;%F{red}o.0)%f)%b '
 }
 PROMPT='$prompt_newline$(login_info)$(dir_info)$(git_info)$(virtualenv_info)'\
 '$(terraform_info)$prompt_newline$(job_info)$(prompt)'
