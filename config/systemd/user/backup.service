@@ -10,7 +10,7 @@ ExecStart=/usr/bin/aws-vault --backend=pass --pass-prefix=aws-cli exec restic \
     -- restic \
     --verbose \
     --repo s3:s3.amazonaws.com/procrat-backup \
-    --option s3.storage-class=REDUCED_REDUNDANCY \
+    --option s3.storage-class=INTELLIGENT_TIERING \
     backup \
     %h/archive \
     %h/docs \
