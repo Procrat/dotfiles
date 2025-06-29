@@ -30,7 +30,7 @@ paccache -r -u -k0
 # Remove all unused cached AUR packages
 printf 'n\nn\nY\nY\n' | yay -Sc
 # Resolve .pacnew files
-DIFFPROG='/usr/bin/nvim -d' pacdiff --sudo --threeway
+pacdiff --sudo --threeway
 
 # Ensure vim-plug and NeoVim plugins are up to date
 nvim +PlugUpgrade +qall
