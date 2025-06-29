@@ -11,6 +11,9 @@ configuration {
   ssh {
     fallback-icon: "network-server";
   }
+  calc {
+    hint-welcome: "";
+  }
 }
 
 @theme "base16-mocha"
