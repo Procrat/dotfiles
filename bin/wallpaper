@@ -16,7 +16,7 @@ geometry="$(xrandr | grep '\*' | awk '{ print $1 }')"
 
 # Resize it such that the smallest dimension fits exactly, and
 # cut of the extra bits of the other dimension, assuming a centered image
-convert "$wallpaper" \
+magick "$wallpaper" \
     -resize "${geometry}^" \
     -gravity Center -extent "${geometry}" \
     "$FIXED_WALLPAPER_PATH"
