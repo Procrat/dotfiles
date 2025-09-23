@@ -458,8 +458,10 @@ setup_neovim() {
         biome \
         lua-language-server \
         pyright \
+        tflint \
         typescript-language-server \
         vscode-json-languageserver
+    ensure_aur_packages_exist terraform-ls
     # DAP adapters
     ensure_packages_exist python-debugpy
 

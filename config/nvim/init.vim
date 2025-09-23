@@ -338,6 +338,7 @@ lua << EOF
         require('none-ls-shellcheck.diagnostics'),
         -- Terraform
         null_ls.builtins.formatting.terraform_fmt,
+        null_ls.builtins.diagnostics.terraform_validate,
         -- Vim
         null_ls.builtins.diagnostics.vint,
       },
@@ -917,13 +918,15 @@ lua << EOF
 
     -- Enable language servers
     vim.lsp.enable({
-      'biome',   -- Biome language server for linting/formatting JS/TS
-      'eslint',  -- ESLint language server for linting JS/TS
-      'jsonls',  -- JSON language server
-      'lua_ls',  -- Lua language server
-      'pyright', -- Python language server
-      'ruff',    -- Python linter & formatter
-      'ts_ls',   -- TypeScript language server
+      'biome',       -- Biome language server for linting/formatting JS/TS
+      'eslint',      -- ESLint language server for linting JS/TS
+      'jsonls',      -- JSON language server
+      'lua_ls',      -- Lua language server
+      'pyright',     -- Python language server
+      'ruff',        -- Python linter & formatter
+      'terraformls', -- Terraform language server
+      'tflint',      -- Terraform linter
+      'ts_ls',       -- TypeScript language server
       -- NB: rust_analyzer is enabled by rustaceanvim directly
     })
 
