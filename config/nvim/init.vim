@@ -54,7 +54,6 @@ Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
 Plug 'folke/trouble.nvim'  " Optionally requires nvim-web-devicons
 " For trouble.nvim & bufferline.nvim. Requires a Nerd Font.
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/plenary.nvim'  " For telescope.nvim & none-ls.nvim
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
@@ -65,6 +64,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'RRethy/nvim-base16'  " For lualine theme
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.*' }
 Plug 'ActivityWatch/aw-watcher-vim'
+Plug 'mrcjkb/rustaceanvim'
 
 " -- Debugging / DAP (also not profiled yet)
 Plug 'mfussenegger/nvim-dap'
@@ -579,6 +579,15 @@ nnoremap gR         <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap ga         <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>=  <cmd>lua vim.lsp.buf.format({ async = true })<CR>
 vnoremap <leader>=  <cmd>lua vim.lsp.buf.format({ async = true })<CR>
+lua << EOF
+    vim.keymap.set('n', '<leader>uh',
+      function()
+        local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
+        vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = 0 })
+      end,
+      { desc = 'Toggle inlay hints' }
+    )
+EOF
 " Other useful functionality for future reference: declaration(),
 " implementation(), type_definition(),
 " workspace_symbol(), vim.lsp.codelens.
@@ -906,30 +915,7 @@ lua << EOF
       capabilities = cmp_capabilities
     })
 
-    -- Configure Rust language server and extra tools
-    require('rust-tools').setup({
-      tools = {
-        inlay_hints = {
-          only_current_line = true,
-        },
-      },
-      server = {
-        settings = {
-          ["rust-analyzer"] = {
-            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-            checkOnSave = {
-              -- default: `cargo check`
-              command = "clippy",
-            },
-            procMacro = {
-              enable = true,
-            },
-          },
-        },
-      },
-    })
-
-    -- Enable langue servers
+    -- Enable language servers
     vim.lsp.enable({
       'biome',   -- Biome language server for linting/formatting JS/TS
       'eslint',  -- ESLint language server for linting JS/TS
@@ -938,6 +924,7 @@ lua << EOF
       'pyright', -- Python language server
       'ruff',    -- Python linter & formatter
       'ts_ls',   -- TypeScript language server
+      -- NB: rust_analyzer is enabled by rustaceanvim directly
     })
 
     -- Configure diagnostics
