@@ -16,7 +16,7 @@ executable xmonad-x86_64-linux
     XMonad.Layout.SilenceModifier
     XMonad.Layout.SingleSpacing
   build-depends:       base >= 4.7 && < 5
-                     , containers >= 0.6 && < 0.7
+                     , containers >= 0.6 && < 0.8
                      , X11 >= 1.8 && < 2
                      , xmonad >= 0.17
                      , xmonad-contrib >= 0.17
