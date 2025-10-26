@@ -446,7 +446,7 @@ setup_neovim() {
         stylelint \
         terraform \
         vint
-    ensure_aur_packages_exist shellcheck-bin stylish-haskell-bin
+    ensure_aur_packages_exist stylish-haskell-bin
     # akinsho/bufferline.nvim requires a Nerd Font
     setup_fonts
     # onsails/lspkind.nvim requires a Nerd Font
@@ -455,13 +455,14 @@ setup_neovim() {
     ensure_packages_exist zsh
     # LSP servers
     ensure_packages_exist \
+        bash-language-server \
         biome \
         lua-language-server \
         pyright \
         tflint \
         typescript-language-server \
         vscode-json-languageserver
-    ensure_aur_packages_exist terraform-ls
+    ensure_aur_packages_exist shellcheck-bin terraform-ls
     # DAP adapters
     ensure_packages_exist python-debugpy
 

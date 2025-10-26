@@ -58,7 +58,6 @@ Plug 'nvim-lua/plenary.nvim'  " For telescope.nvim & none-ls.nvim
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'nvimtools/none-ls.nvim'
-Plug 'gbprod/none-ls-shellcheck.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'RRethy/nvim-base16'  " For lualine theme
@@ -333,9 +332,6 @@ lua << EOF
         }),
         -- Lua
         null_ls.builtins.diagnostics.luacheck,
-        -- Shell
-        require('none-ls-shellcheck.code_actions'),
-        require('none-ls-shellcheck.diagnostics'),
         -- Terraform
         null_ls.builtins.formatting.terraform_fmt,
         null_ls.builtins.diagnostics.terraform_validate,
@@ -918,6 +914,7 @@ lua << EOF
 
     -- Enable language servers
     vim.lsp.enable({
+      'bashls',      -- Bash language server
       'biome',       -- Biome language server for linting/formatting JS/TS
       'eslint',      -- ESLint language server for linting JS/TS
       'jsonls',      -- JSON language server
