@@ -15,7 +15,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 " Requires the tree-sitter CLI for automatically installing new parsers
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'master', 'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'plasticboy/vim-markdown'
 Plug 'psliwka/vim-smoothie'
