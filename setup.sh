@@ -222,7 +222,7 @@ setup_bin_dir() {
     setup_alacritty
     # winwd
     ensure_packages_exist xorg-xprop
-    # xdg-mime
+    # xdg-mime & xdg-open
     setup_handlr
 
     if [[ "$(readlink "$HOME/bin")" != "${DOTFILES_DIR}/bin" ]]; then
@@ -659,6 +659,7 @@ setup_launchers() {
         rofi-calc \
         rofi-pass \
         wmctrl \
+        xdg-utils \
         xorg-xprop \
         xterm \
         zsh
@@ -837,9 +838,9 @@ setup_gcalcli() {
 }
 
 setup_handlr() {
-    # Handlr is much more sane than FreeDesktop's xdg-open
+    # Handlr is much more sane than FreeDesktop's xdg-open. Note that we
+    # provide our own wrapper script for xdg-open & xdg-mime.
     ensure_packages_exist handlr
-    ensure_aur_packages_exist xdg-utils-handlr
     link_dotfile 'config/handlr'
 }
 
