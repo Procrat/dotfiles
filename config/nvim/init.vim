@@ -219,9 +219,9 @@ augroup END
 " Number of spaces that a tab respresents
 set tabstop=8
 " Number of spaces for an (auto-)indent
-set shiftwidth=4
+set shiftwidth=2
 " Number of spaces that a Tab feels like while editing
-set softtabstop=4
+set softtabstop=2
 " Turn tabs into spaces
 set expandtab
 " Round off indentation to multiple of shiftwidth
@@ -240,7 +240,7 @@ augroup indentation
     au FileType javascript setlocal shiftwidth=2 softtabstop=2 textwidth=120
     au FileType lua setlocal shiftwidth=2 softtabstop=2
     au FileType prolog setlocal shiftwidth=4 softtabstop=4
-    au FileType python setlocal nocindent noshiftround textwidth=79
+    au FileType python setlocal shiftwidth=4 softtabstop=4 nocindent noshiftround textwidth=79
     au FileType tex setlocal shiftwidth=2 softtabstop=2 textwidth=80
     au FileType vim setlocal shiftwidth=4 softtabstop=4
     au FileType xml,html,xhtml,htmldjango,eruby,xslt
