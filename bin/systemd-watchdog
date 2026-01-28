@@ -5,16 +5,41 @@
 set -euo pipefail
 
 
-for environment in '--system' '--user'; do
-    if systemctl "$environment" -q is-system-running; then
+declare -A NON_CRITICAL_SERVICES=(
+    ['system']='
+● pkgstats.service
+● reflector.service
+● stevenblack.service'
+    ['user']='
+● background.service
+● background.service
+● backup-package-list.service
+● backup-passwords.service
+● backup.service
+● git-maintenance@daily.service
+● git-maintenance@hourly.service
+● git-maintenance@weekly.service
+● reminder.service'
+)
+
+
+for environment in 'system' 'user'; do
+    if systemctl "--${environment}" -q is-system-running; then
         continue
     fi
     failed_services=$(
-        systemctl "$environment" list-units --state=failed | \
+        systemctl "--${environment}" list-units --state=failed | \
             sed '1d; /^$/,$d' | \
             cut -d' ' -f1-2
     )
+    critical_failed_services=$(comm -23 \
+        <(echo "$failed_services" | sort) \
+        <(echo "${NON_CRITICAL_SERVICES[$environment]}")
+    )
+    if [[ -z "$critical_failed_services" ]]; then
+        continue
+    fi
     notify-send -u critical -a 'systemd watchdog' \
         "Some systemd $environment units failed:" \
-        "$failed_services"
+        "$critical_failed_services"
 done
