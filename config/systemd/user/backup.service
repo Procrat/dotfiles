@@ -16,8 +16,7 @@ ExecStart=/usr/bin/aws-vault --backend=pass --pass-prefix=aws-cli exec restic \
     %h/docs \
     %h/music/old \
     %h/music/still-good \
-    %h/pictures \
-    %h/vectera/safe
+    %h/pictures
 ExecStart=/usr/bin/aws-vault --backend=pass --pass-prefix=aws-cli exec restic \
     -- restic \
     --verbose \
